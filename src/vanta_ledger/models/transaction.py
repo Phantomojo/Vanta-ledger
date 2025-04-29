@@ -1,9 +1,12 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, Float, String, DateTime
 from datetime import datetime
+from vanta_ledger.db.base_class import Base  # Corrected import
 
-class Transaction(BaseModel):
-    id: int
-    amount: float
-    type: str  # 'sale' or 'expense'
-    description: str
-    date: datetime
+class Expenditure(Base):
+    __tablename__ = "expenditures"
+
+    id = Column(Integer, primary_key=True, index=True)
+    amount = Column(Float, nullable=False)
+    type = Column(String, nullable=False)  # 'sale' or 'expense'
+    description = Column(String)
+    date = Column(DateTime, default=datetime.utcnow)
