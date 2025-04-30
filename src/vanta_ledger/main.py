@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from vanta_ledger.api.endpoints import router as api_router
+import os
 
 app = FastAPI()
 
@@ -13,3 +16,12 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix="/api")
+
+# Serve frontend static files
+frontend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'Vanta-ledger', 'frontend')
+app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+
+@app.get("/")
+def read_index():
+    index_path = os.path.join(frontend_path, "index.html")
+    return FileResponse(index_path)
