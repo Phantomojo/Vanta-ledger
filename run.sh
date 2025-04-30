@@ -33,7 +33,7 @@ fi
 
 echo "VantaLedger is running."
 echo "Backend: http://localhost:8000/docs"
-echo "Frontend: http://localhost:8000"
+echo "Frontend: http://localhost:8001"
 
 echo "Press Ctrl+C to stop."
 

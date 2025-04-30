@@ -1,19 +1,25 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float
-from sqlalchemy.ext.declarative import declarative_base
+from pydantic import BaseModel
+from enum import Enum
+from datetime import date
 
-Base = declarative_base()
+class TransactionType(str, Enum):
+    sale = "sale"
+    expenditure = "expenditure"
 
-class Expenditure(Base):
-    __tablename__ = "expenditures"
-    
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    amount = Column(Float)
-    description = Column(String)
+class TransactionBase(BaseModel):
+    description: str
+    type: TransactionType
+    amount: float
+    date: date
 
-# Create the engine (use SQLite for simplicity)
-DATABASE_URL = "sqlite:///./test.db"
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+class TransactionCreate(TransactionBase):
+    pass
 
-# Create all tables in the database
-Base.metadata.create_all(bind=engine)
+class TransactionUpdate(TransactionBase):
+    pass
+
+class Transaction(TransactionBase):
+    id: int
+
+    class Config:
+        orm_mode = True

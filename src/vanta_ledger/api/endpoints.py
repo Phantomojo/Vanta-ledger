@@ -1,13 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends, Security
 from fastapi.security.api_key import APIKeyHeader, APIKey
-from pydantic import BaseModel
 from typing import List
-from enum import Enum
-from datetime import date
 from sqlalchemy.orm import Session
 from vanta_ledger.db.session import get_db
 from vanta_ledger.crud.transaction import create_expenditure, get_expenditure, get_expenditures
-from vanta_ledger.models.transaction import Expenditure
+from vanta_ledger.schemas.transaction import Transaction, TransactionCreate, TransactionUpdate
 
 API_KEY_NAME = "access_token"
 API_KEY = "supersecretadmintoken"  # This should be stored securely in env variables
@@ -19,29 +16,6 @@ async def get_api_key(api_key_header: str = Security(api_key_header)):
         return api_key_header
     else:
         raise HTTPException(status_code=403, detail="Could not validate credentials")
-
-# Define the data models
-class TransactionType(str, Enum):
-    sale = "sale"
-    expenditure = "expenditure"
-
-class TransactionBase(BaseModel):
-    description: str
-    type: TransactionType
-    amount: float
-    date: date
-
-class TransactionCreate(TransactionBase):
-    pass
-
-class TransactionUpdate(TransactionBase):
-    pass
-
-class Transaction(TransactionBase):
-    id: int
-
-    class Config:
-        orm_mode = True
 
 # Initialize the router
 router = APIRouter()
