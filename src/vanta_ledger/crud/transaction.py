@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
-from .models.transaction import Expenditure
-from sqlalchemy.future import select
+from vanta_ledger.models.transaction import Expenditure
 
 # Function to create a new expenditure
 def create_expenditure(db: Session, name: str, amount: float, description: str):
