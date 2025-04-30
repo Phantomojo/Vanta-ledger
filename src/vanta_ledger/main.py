@@ -48,7 +48,7 @@ async def create_expenditure(expenditure: ExpenditureCreate, db: Session = Depen
     response_model=models.Expenditure,
     summary="Retrieve an expenditure by ID",
     description="Fetch a specific expenditure from the database using its unique ID."
-@app.get("/expenditures/{expenditure_id}", response_model=models.Expenditure)
+)
 async def read_expenditure(expenditure_id: int, db: Session = Depends(get_db)):
     db_expenditure = crud.get_expenditure(db=db, expenditure_id=expenditure_id)
     if db_expenditure is None:
@@ -64,11 +64,9 @@ from fastapi import Query
     description="This endpoint retrieves a list of expenditures with optional pagination using skip and limit parameters."
 )
 async def read_expenditures(skip: int = Query(0, ge=0), limit: int = Query(100, ge=1), db: Session = Depends(get_db)):
-    return db_expenditure
+    expenditures = crud.get_expenditures(db=db, skip=skip, limit=limit)
+    return expenditures
 
 from fastapi import Query
 
-async def read_expenditures(skip: int = Query(0, ge=0), limit: int = Query(100, ge=1), db: Session = Depends(get_db)):
-async def read_expenditures(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    expenditures = crud.get_expenditures(db=db, skip=skip, limit=limit)
-    return expenditures
+# (Removed duplicate and incomplete function definitions)
