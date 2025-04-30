@@ -1,6 +1,6 @@
 #!/bin/bash
 # Simple script to run the backend and frontend for VantaLedger and check for errors
-
+export PYTHONPATH=$PYTHONPATH:$(pwd)/src
 echo "Starting VantaLedger backend..."
 uvicorn src.vanta_ledger.main:app --reload &
 BACKEND_PID=$!
@@ -17,7 +17,7 @@ fi
 
 echo "Starting frontend server on port 8000..."
 cd frontend
-python3 -m http.server 8000 &
+python3 -m http.server 8001 &
 FRONTEND_PID=$!
 
 sleep 3

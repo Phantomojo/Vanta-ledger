@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch transactions from API
   async function loadTransactions() {
     try {
-      const res = await fetch(\`\${API_BASE_URL}/transactions?skip=0&limit=100\`, {
+      const res = await fetch(`${API_BASE_URL}/transactions?skip=0&limit=100`, {
         headers: {
           [API_KEY_NAME]: API_KEY
         }
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delete transaction by id
   async function deleteTransaction(id) {
     try {
-      const res = await fetch(\`\${API_BASE_URL}/transactions/\${id}\`, {
+      const res = await fetch(`${API_BASE_URL}/transactions/${id}`, {
         method: 'DELETE',
         headers: {
           [API_KEY_NAME]: API_KEY
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       if (id) {
         // Edit existing
-        const res = await fetch(\`\${API_BASE_URL}/transactions/\${id}\`, {
+        const res = await fetch(`${API_BASE_URL}/transactions/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (index !== -1) transactions[index] = updated;
       } else {
         // Add new
-        const res = await fetch(\`\${API_BASE_URL}/transactions\`, {
+        const res = await fetch(`${API_BASE_URL}/transactions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
