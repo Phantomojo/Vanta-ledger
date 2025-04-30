@@ -2,8 +2,10 @@ from sqlalchemy.orm import Session
 from vanta_ledger.models.transaction import Expenditure
 
 # Function to create a new expenditure
-def create_expenditure(db: Session, name: str, amount: float, description: str):
-    db_expenditure = Expenditure(name=name, amount=amount, description=description)
+def create_expenditure(db: Session, amount: float, type: str, description: str, date=None):
+    db_expenditure = Expenditure(amount=amount, type=type, description=description)
+    if date:
+        db_expenditure.date = date
     db.add(db_expenditure)
     db.commit()
     db.refresh(db_expenditure)
