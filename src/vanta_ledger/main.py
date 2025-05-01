@@ -40,19 +40,22 @@ for path in possible_frontend_dirs:
 if frontend_path:
     app.mount("/static", StaticFiles(directory=frontend_path), name="static")
     logger.info(f"Mounted static files from {frontend_path}")
-else:
-    logger.warning("Frontend directory not found. Static files will not be served.")
 
-@app.get("/")
-def read_index():
-    if frontend_path:
+    @app.get("/")
+    def read_index():
         index_path = os.path.join(frontend_path, "index.html")
         if os.path.isfile(index_path):
             logger.info(f"Serving index.html from {index_path}")
             return FileResponse(index_path)
         else:
             logger.warning("index.html not found in frontend directory.")
-    return JSONResponse(content={"message": "Frontend not available"}, status_code=404)
+            return JSONResponse(content={"message": "Frontend index.html not found"}, status_code=404)
+else:
+    logger.warning("Frontend directory not found. Static files will not be served.")
+
+    @app.get("/")
+    def root():
+        return JSONResponse(content={"message": "Backend API is running. Frontend not available."})
 
 @app.get("/health")
 def health_check():
