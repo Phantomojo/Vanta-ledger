@@ -1,4 +1,16 @@
 #!/bin/bash
+
+# Function to kill child processes on exit
+cleanup() {
+  echo "Stopping VantaLedger backend and frontend..."
+  kill $BACKEND_PID $FRONTEND_PID 2>/dev/null
+  wait $BACKEND_PID $FRONTEND_PID 2>/dev/null
+  echo "Stopped."
+  exit 0
+}
+
+trap cleanup SIGINT SIGTERM
+
 echo "Starting VantaLedger backend..."
 PYTHONPATH=./src uvicorn vanta_ledger.main:app --reload --port 8000 &
 BACKEND_PID=$!
