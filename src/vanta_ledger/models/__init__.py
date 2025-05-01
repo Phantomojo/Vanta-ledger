@@ -1,1 +1,1 @@
-from .transaction import Expenditure
+from .transaction import Transaction
