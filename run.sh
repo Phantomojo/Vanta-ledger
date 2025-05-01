@@ -1,8 +1,18 @@
 #!/bin/bash
-# Simple script to run the backend and frontend for VantaLedger and check for errors
-export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+
+# Function to kill child processes on exit
+cleanup() {
+  echo "Stopping VantaLedger backend and frontend..."
+  kill $BACKEND_PID $FRONTEND_PID 2>/dev/null
+  wait $BACKEND_PID $FRONTEND_PID 2>/dev/null
+  echo "Stopped."
+  exit 0
+}
+
+trap cleanup SIGINT SIGTERM
+
 echo "Starting VantaLedger backend..."
-uvicorn src.vanta_ledger.main:app --reload &
+PYTHONPATH=./src uvicorn src.vanta_ledger.main:app --reload --port 8000 &
 BACKEND_PID=$!
 
 sleep 3
@@ -15,9 +25,8 @@ else
   exit 1
 fi
 
-echo "Starting frontend server on port 8000..."
-cd frontend
-python3 -m http.server 8001 &
+echo "Starting frontend server on port 8001..."
+python3 -m http.server 8001 --directory Vanta-ledger/frontend &
 FRONTEND_PID=$!
 
 sleep 3
@@ -33,8 +42,9 @@ fi
 
 echo "VantaLedger is running."
 echo "Backend: http://localhost:8000/docs"
-echo "Frontend: http://localhost:8000"
+echo "Frontend: http://localhost:8001"
 
 echo "Press Ctrl+C to stop."
 
 wait $BACKEND_PID $FRONTEND_PID
+
