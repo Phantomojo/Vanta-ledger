@@ -23,15 +23,36 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api")
 
-# Serve frontend static files
-frontend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "Vanta-ledger", "frontend")
-app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+# Determine frontend path dynamically and mount if exists
+base_dir = os.path.dirname(os.path.abspath(__file__))
+possible_frontend_dirs = [
+    os.path.join(base_dir, "..", "..", "vanta-ledger", "frontend"),
+    os.path.join(base_dir, "..", "..", "Vanta-ledger", "frontend"),
+    os.path.join(base_dir, "..", "..", "frontend"),
+]
+
+frontend_path = None
+for path in possible_frontend_dirs:
+    if os.path.isdir(path):
+        frontend_path = path
+        break
+
+if frontend_path:
+    app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+    logger.info(f"Mounted static files from {frontend_path}")
+else:
+    logger.warning("Frontend directory not found. Static files will not be served.")
 
 @app.get("/")
 def read_index():
-    index_path = os.path.join(frontend_path, "index.html")
-    logger.info(f"Serving index.html from {index_path}")
-    return FileResponse(index_path)
+    if frontend_path:
+        index_path = os.path.join(frontend_path, "index.html")
+        if os.path.isfile(index_path):
+            logger.info(f"Serving index.html from {index_path}")
+            return FileResponse(index_path)
+        else:
+            logger.warning("index.html not found in frontend directory.")
+    return JSONResponse(content={"message": "Frontend not available"}, status_code=404)
 
 @app.get("/health")
 def health_check():
