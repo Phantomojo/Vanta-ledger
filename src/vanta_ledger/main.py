@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from pydantic import conint
 from sqlalchemy.orm import Session
 from vanta_ledger import crud, models, db
+from vanta_ledger.models.transaction import Expenditure as ExpenditureResponse
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
@@ -45,7 +46,7 @@ async def create_expenditure(expenditure: ExpenditureCreate, db: Session = Depen
     return crud.create_expenditure(db=db, name=expenditure.name, amount=expenditure.amount, description=expenditure.description)
 @app.get(
     "/expenditures/{expenditure_id}",
-    response_model=models.Expenditure,
+    response_model=models.ExpenditureResponse,
     summary="Retrieve an expenditure by ID",
     description="Fetch a specific expenditure from the database using its unique ID."
 )
@@ -59,7 +60,7 @@ from fastapi import Query
 
 @app.get(
     "/expenditures/",
-    response_model=list[models.Expenditure],
+    response_model=list[models.ExpenditureResponse],
     summary="Retrieve a list of expenditures",
     description="This endpoint retrieves a list of expenditures with optional pagination using skip and limit parameters."
 )
