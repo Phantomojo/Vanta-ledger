@@ -1,37 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('login-form');
-  const tokenInput = document.getElementById('token-input');
+const API_BASE_URL = "http://localhost:8500/api";
 
-  if (!form || !tokenInput) {
-    console.error("Login form or token input not found");
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("loginForm");
+  if (!form) {
+    console.error("Login form not found");
     return;
   }
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const token = tokenInput.value.trim();
 
+    const token = document.getElementById("tokenInput").value.trim();
     if (!token) {
-      alert("Please enter a token.");
+      alert("Please enter an access token");
       return;
     }
 
     try {
-      const response = await fetch('/api/transactions', {
-        method: 'GET',
+      const res = await fetch(API_BASE_URL + "/verify", {
+        method: "POST",
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
       });
 
-      if (response.ok) {
-        localStorage.setItem('token', token);
-        window.location.href = '/dashboard.html'; // Adjust if your dashboard is elsewhere
+      if (res.ok) {
+        localStorage.setItem("token", token);
+        window.location.href = "/dashboard.html";
       } else {
-        alert("Invalid token.");
+        alert("Invalid token");
       }
-    } catch (err) {
-      console.error("Login error:", err);
+    } catch (error) {
+      console.error("Login error:", error);
       alert("Server error or connection issue.");
     }
   });
