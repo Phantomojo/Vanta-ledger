@@ -12,7 +12,7 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 echo "Starting VantaLedger backend..."
-PYTHONPATH=./src uvicorn src.vanta_ledger.main:app --reload --port 8000 &
+PYTHONPATH=./Vanta-ledger/src uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8000 --reload &
 BACKEND_PID=$!
 
 sleep 3
@@ -41,10 +41,9 @@ else
 fi
 
 echo "VantaLedger is running."
-echo "Backend: http://localhost:8000/docs"
-echo "Frontend: http://localhost:8001"
+echo "Backend: http://localhost:8000/"
+echo "Frontend: http://localhost:8001/"
 
 echo "Press Ctrl+C to stop."
 
 wait $BACKEND_PID $FRONTEND_PID
-
