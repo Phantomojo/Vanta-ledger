@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, HTTPException, Depends, Security
 from fastapi.security.api_key import APIKeyHeader, APIKey
 from typing import List
@@ -7,7 +8,7 @@ from vanta_ledger.crud.transaction import create_expenditure, get_expenditure, g
 from vanta_ledger.schemas.transaction import Transaction, TransactionCreate, TransactionUpdate
 
 API_KEY_NAME = "access_token"
-API_KEY = "supersecretadmintoken"  # This should be stored securely in env variables
+API_KEY = os.getenv("API_KEY", "supersecretadmintoken")  # Load from env or default
 
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
