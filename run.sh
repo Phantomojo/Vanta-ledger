@@ -19,7 +19,7 @@ fi
 cd src
 
 echo "Starting VantaLedger backend..."
-PYTHONPATH=. uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8000 --reload &
+PYTHONPATH=. uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8500 --reload &
 BACKEND_PID=$!
 
 sleep 3
@@ -48,7 +48,7 @@ else
 fi
 
 echo "VantaLedger is running."
-echo "Backend: http://localhost:8000/"
+echo "Backend: http://localhost:8500/"
 echo "Frontend: http://localhost:8001/"
 
 echo "Press Ctrl+C to stop."

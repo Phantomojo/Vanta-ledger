@@ -72,5 +72,5 @@ async def log_requests(request: Request, call_next):
 if __name__ == "__main__":
     import uvicorn
     logger.info("Starting VantaLedger backend server")
-    uvicorn.run("src.vanta_ledger.main:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run("src.vanta_ledger.main:app", host="0.0.0.0", port=8500, reload=True)
 
