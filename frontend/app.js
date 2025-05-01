@@ -1,17 +1,94 @@
 // Base URL for backend API (same origin)
 const API_BASE_URL = "/api";
 
-// Function to get access token from input
-function getAccessToken() {
-  return document.getElementById("accessTokenInput").value.trim();
+// On page load, check for token in localStorage
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    // Verify token by fetching transactions
+    verifyToken(token);
+  } else {
+    showLogin();
+  }
+});
+
+function showLogin() {
+  document.getElementById("loginSection").style.display = "block";
+  document.getElementById("appSection").style.display = "none";
+  document.getElementById("loginError").style.display = "none";
 }
 
-// Function to set Authorization header with API key
+function showApp() {
+  document.getElementById("loginSection").style.display = "none";
+  document.getElementById("appSection").style.display = "block";
+  document.getElementById("loginError").style.display = "none";
+  fetchTransactions();
+}
+
+function showLoading(show) {
+  const loading = document.getElementById("loadingSpinner");
+  if (loading) {
+    loading.style.display = show ? "block" : "none";
+  }
+}
+
+function showError(message) {
+  const errorElem = document.getElementById("loginError");
+  if (errorElem) {
+    errorElem.textContent = message;
+    errorElem.style.display = "block";
+  }
+}
+
+// Verify token by calling protected endpoint
+async function verifyToken(token) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/transactions`, {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+      }
+    });
+    if (response.ok) {
+      localStorage.setItem("token", token);
+      showApp();
+    } else {
+      localStorage.removeItem("token");
+      showLogin();
+      showError("Invalid access token");
+    }
+  } catch (error) {
+    console.error(error);
+    showLogin();
+    showError("Error verifying token");
+  }
+}
+
+// Handle login form submit
+document.getElementById("loginButton").addEventListener("click", () => {
+  const tokenInput = document.getElementById("accessTokenInput");
+  const token = tokenInput.value.trim();
+  if (!token) {
+    showError("Please enter access token");
+    return;
+  }
+  showLoading(true);
+  verifyToken(token).finally(() => showLoading(false));
+});
+
+// Logout button handler
+document.getElementById("logoutButton")?.addEventListener("click", () => {
+  localStorage.removeItem("token");
+  showLogin();
+});
+
+// Get auth headers with token from localStorage
 function getAuthHeaders() {
-  const token = getAccessToken();
+  const token = localStorage.getItem("token");
   return {
-    "Content-Type": "application/json",
-    "access_token": token
+    "Authorization": "Bearer " + token,
+    "Content-Type": "application/json"
   };
 }
 
@@ -36,21 +113,6 @@ function renderTransactions(transactions) {
     `;
     tbody.appendChild(tr);
   });
-}
-
-// Add transaction to table (refresh list)
-function addTransactionToTable(transaction) {
-  fetchTransactions();
-}
-
-// Update transaction in table (refresh list)
-function updateTransactionInTable(transaction) {
-  fetchTransactions();
-}
-
-// Remove transaction from table (refresh list)
-function removeTransactionFromTable(transactionId) {
-  fetchTransactions();
 }
 
 // Fetch transactions from backend
@@ -82,8 +144,8 @@ async function createTransaction(transaction) {
     if (!response.ok) {
       throw new Error(`Error saving transaction: ${response.statusText}`);
     }
-    const newTransaction = await response.json();
-    addTransactionToTable(newTransaction);
+    fetchTransactions();
+    resetForm();
   } catch (error) {
     console.error(error);
     alert(error.message);
@@ -101,8 +163,8 @@ async function updateTransaction(transactionId, transaction) {
     if (!response.ok) {
       throw new Error(`Error updating transaction: ${response.statusText}`);
     }
-    const updatedTransaction = await response.json();
-    updateTransactionInTable(updatedTransaction);
+    fetchTransactions();
+    resetForm();
   } catch (error) {
     console.error(error);
     alert(error.message);
@@ -120,7 +182,7 @@ async function deleteTransaction(transactionId) {
     if (!response.ok) {
       throw new Error(`Error deleting transaction: ${response.statusText}`);
     }
-    removeTransactionFromTable(transactionId);
+    fetchTransactions();
   } catch (error) {
     console.error(error);
     alert(error.message);
@@ -184,9 +246,3 @@ document.getElementById("transactionForm").addEventListener("submit", (e) => {
 document.getElementById("cancelButton").addEventListener("click", () => {
   resetForm();
 });
-
-// Handle login button
-document.getElementById("loginButton").addEventListener("click", () => {
-  fetchTransactions();
-});
-
