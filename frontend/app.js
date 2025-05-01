@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const API_BASE_URL = '/api'; // Adjust if backend is served differently
+  const API_BASE_URL = 'http://localhost:8000/api'; // Adjust if backend is served differently
   const API_KEY_NAME = 'access_token';
   const API_KEY = 'supersecretadmintoken'; // Should match backend token
 
