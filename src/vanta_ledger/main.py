@@ -94,4 +94,3 @@ if __name__ == "__main__":
     import uvicorn
     logger.info("Starting VantaLedger backend server")
     uvicorn.run("src.vanta_ledger.main:app", host="0.0.0.0", port=8500, reload=True)
-
