@@ -25,3 +25,7 @@ app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 def read_index():
     index_path = os.path.join(frontend_path, "index.html")
     return FileResponse(index_path)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("src.vanta_ledger.main:app", host="0.0.0.0", port=8000, reload=True)
