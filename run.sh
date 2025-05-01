@@ -12,7 +12,7 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 echo "Starting VantaLedger backend..."
-PYTHONPATH=./src uvicorn vanta_ledger.main:app --reload --port 8000 &
+PYTHONPATH=./src uvicorn src.vanta_ledger.main:app --reload --port 8000 &
 BACKEND_PID=$!
 
 sleep 3
@@ -26,8 +26,7 @@ else
 fi
 
 echo "Starting frontend server on port 8001..."
-cd frontend
-python3 -m http.server 8001 &
+python3 -m http.server 8001 --directory Vanta-ledger/frontend &
 FRONTEND_PID=$!
 
 sleep 3
