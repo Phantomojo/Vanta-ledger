@@ -1,12 +1,21 @@
-# Stub for future DB setup (SQLAlchemy or similar)
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from vanta_ledger.core.config import settings
+
+SQLALCHEMY_DATABASE_URL = settings.DATABASE_URL
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False} if "sqlite" in SQLALCHEMY_DATABASE_URL else {}
+)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 def get_db():
     """
-    Placeholder generator for database session.
-    Replace with actual session logic when ready.
+    Provide a database session
     """
-    db = None  # Replace with actual DB session, e.g., SessionLocal()
+    db = SessionLocal()
     try:
         yield db
     finally:
-        if db:
-            db.close()
+        db.close()
+

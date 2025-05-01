@@ -1,8 +1,7 @@
 from databases import Database
-# Update the import path if models.py is not in the same package
-# For example, if models.py is in the parent directory:
-# from ..models import DATABASE_URL
+from vanta_ledger.core.config import settings
 
-from models import DATABASE_URL  # Use this if models.py is in the same directory as db.py
+DATABASE_URL = settings.DATABASE_URL
 
 database = Database(DATABASE_URL)
+
