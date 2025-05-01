@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi.responses import JSONResponse
 from fastapi.requests import Request
 from vanta_ledger.api.endpoints import router as api_router
 import os
@@ -23,7 +23,7 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api")
 
-# Dynamically determine frontend directory and serve static files at /static
+# Dynamically determine frontend directory and serve at root with SPA support
 base_dir = os.path.dirname(os.path.abspath(__file__))
 possible_frontend_dirs = [
     os.path.join(base_dir, "..", "..", "vanta-ledger", "frontend"),
@@ -38,18 +38,8 @@ for path in possible_frontend_dirs:
         break
 
 if frontend_path:
-    app.mount("/static", StaticFiles(directory=frontend_path), name="static")
-    logger.info(f"Mounted static files from {frontend_path} at /static")
-
-    @app.get("/")
-    def read_login():
-        login_path = os.path.join(frontend_path, "login.html")
-        if os.path.isfile(login_path):
-            logger.info(f"Serving login.html from {login_path}")
-            return FileResponse(login_path)
-        else:
-            logger.warning("login.html not found in frontend directory.")
-            return JSONResponse(content={"message": "Frontend login.html not found"}, status_code=404)
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+    logger.info(f"Mounted static files from {frontend_path} at root /")
 else:
     logger.warning("Frontend directory not found. Static files will not be served.")
 
