@@ -1,6 +1,7 @@
 import os
-from fastapi import APIRouter, HTTPException, Depends, Security
+from fastapi import APIRouter, HTTPException, Depends, Security, status
 from fastapi.security.api_key import APIKeyHeader, APIKey
+from fastapi.responses import JSONResponse
 from typing import List
 from sqlalchemy.orm import Session
 from vanta_ledger.db.session import get_db
@@ -21,6 +22,11 @@ async def get_api_key(api_key_header: str = Security(api_key_header)):
 
 # Initialize the router
 router = APIRouter()
+
+# Route to verify token
+@router.post("/verify")
+async def verify_token(api_key: APIKey = Depends(get_api_key)):
+    return JSONResponse(content={"message": "Token is valid"}, status_code=status.HTTP_200_OK)
 
 # Route to get all transactions
 @router.get("/transactions", response_model=List[Transaction])
