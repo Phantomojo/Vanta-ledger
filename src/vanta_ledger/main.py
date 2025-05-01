@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi.responses import JSONResponse
 from fastapi.requests import Request
 from vanta_ledger.api.endpoints import router as api_router
-import os
 import logging
 
 app = FastAPI()
@@ -13,45 +11,16 @@ app = FastAPI()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("vanta_ledger")
 
+# Configure CORS to allow frontend origin on port 8001
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust as needed for security
+    allow_origins=["http://localhost:8001"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 app.include_router(api_router, prefix="/api")
-
-# Dynamically determine frontend directory and serve static files at /static
-base_dir = os.path.dirname(os.path.abspath(__file__))
-possible_frontend_dirs = [
-    os.path.join(base_dir, "..", "..", "vanta-ledger", "frontend"),
-    os.path.join(base_dir, "..", "..", "Vanta-ledger", "frontend"),
-    os.path.join(base_dir, "..", "..", "frontend"),
-]
-
-frontend_path = None
-for path in possible_frontend_dirs:
-    if os.path.isdir(path):
-        frontend_path = path
-        break
-
-if frontend_path:
-    app.mount("/static", StaticFiles(directory=frontend_path), name="static")
-    logger.info(f"Mounted static files from {frontend_path} at /static")
-
-    @app.get("/")
-    def read_login():
-        login_path = os.path.join(frontend_path, "login.html")
-        if os.path.isfile(login_path):
-            logger.info(f"Serving login.html from {login_path}")
-            return FileResponse(login_path)
-        else:
-            logger.warning("login.html not found in frontend directory.")
-            return JSONResponse(content={"message": "Frontend login.html not found"}, status_code=404)
-else:
-    logger.warning("Frontend directory not found. Static files will not be served.")
 
 @app.get("/health")
 def health_check():
