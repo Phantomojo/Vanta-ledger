@@ -11,8 +11,15 @@ cleanup() {
 
 trap cleanup SIGINT SIGTERM
 
+if [ ! -d "src" ]; then
+  echo "Directory 'src' not found. Are you in the project root?"
+  exit 1
+fi
+
+cd src
+
 echo "Starting VantaLedger backend..."
-cd Vanta-ledger/src && PYTHONPATH=. uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8000 --reload &
+PYTHONPATH=. uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8000 --reload &
 BACKEND_PID=$!
 
 sleep 3
@@ -26,7 +33,7 @@ else
 fi
 
 echo "Starting frontend server on port 8001..."
-python3 -m http.server 8001 --directory Vanta-ledger/frontend &
+python3 -m http.server 8001 --directory ../frontend &
 FRONTEND_PID=$!
 
 sleep 3
