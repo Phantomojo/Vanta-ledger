@@ -43,14 +43,13 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api")
 
-# Determine frontend path dynamically and mount if exists
+# Serve frontend static files from unified directory
 base_dir = os.path.dirname(os.path.abspath(__file__))
 possible_frontend_dirs = [
     os.path.join(base_dir, "..", "..", "vanta-ledger", "frontend"),
     os.path.join(base_dir, "..", "..", "Vanta-ledger", "frontend"),
     os.path.join(base_dir, "..", "..", "frontend"),
 ]
->>>>>>> 67a7847beeaea87c17459674b1fac19a8c37a98c
 
 frontend_path = None
 for path in possible_frontend_dirs:
@@ -71,6 +70,16 @@ if frontend_path:
         else:
             logger.warning("index.html not found in frontend directory.")
             return JSONResponse(content={"message": "Frontend index.html not found"}, status_code=404)
+
+    @app.get("/app.js")
+    def serve_app_js():
+        app_js_path = os.path.join(frontend_path, "app.js")
+        if os.path.isfile(app_js_path):
+            logger.info(f"Serving app.js from {app_js_path}")
+            return FileResponse(app_js_path)
+        else:
+            logger.warning("app.js not found in frontend directory.")
+            return JSONResponse(content={"message": "Frontend app.js not found"}, status_code=404)
 else:
     logger.warning("Frontend directory not found. Static files will not be served.")
 
