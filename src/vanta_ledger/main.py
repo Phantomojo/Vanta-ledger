@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.requests import Request
 from vanta_ledger.api.endpoints import router as api_router
+import os
 import logging
 
 app = FastAPI()
@@ -22,6 +23,27 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api")
 
+# Serve frontend static files and index.html for root path
+base_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_path = os.path.abspath(os.path.join(base_dir, "..", "..", "frontend"))
+
+if os.path.isdir(frontend_path):
+    from fastapi.staticfiles import StaticFiles
+    app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+    logger.info(f"Mounted static files from {frontend_path} at /static")
+
+    @app.get("/")
+    def serve_index():
+        index_path = os.path.join(frontend_path, "index.html")
+        if os.path.isfile(index_path):
+            logger.info(f"Serving index.html from {index_path}")
+            return FileResponse(index_path)
+        else:
+            logger.warning("index.html not found in frontend directory.")
+            return JSONResponse(content={"message": "Frontend index.html not found"}, status_code=404)
+else:
+    logger.warning("Frontend directory not found. Static files will not be served.")
+
 @app.get("/health")
 def health_check():
     logger.info("Health check endpoint called")
@@ -37,4 +59,4 @@ async def log_requests(request: Request, call_next):
 if __name__ == "__main__":
     import uvicorn
     logger.info("Starting VantaLedger backend server")
-    uvicorn.run("src.vanta_ledger.main:app", host="0.0.0.0", port=8500, reload=True)
+    uvicorn.run("vanta_ledger.main:app", host="0.0.0.0", port=8500, reload=True)

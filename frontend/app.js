@@ -1,6 +1,6 @@
-const API_BASE_URL = "http://localhost:8500/api";
-
 document.addEventListener("DOMContentLoaded", () => {
+  const API_BASE_URL = "http://localhost:8500/api";
+
   const loginButton = document.getElementById("loginButton");
   const accessTokenInput = document.getElementById("accessTokenInput");
   const transactionsTableBody = document.getElementById("transactionsTableBody");
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let authToken = null;
   let editingTransactionId = null;
 
-  // Login handler
   loginButton.addEventListener("click", async () => {
     const token = accessTokenInput.value.trim();
     if (!token) {
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         authToken = token;
         accessTokenInput.disabled = true;
         loginButton.disabled = true;
+        alert("Login successful");
         loadTransactions();
       } else {
         alert("Invalid token");
@@ -39,9 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Load transactions from backend
   async function loadTransactions() {
-    if (!authToken) return;
+    if (!authToken) {
+      alert("Please login first");
+      return;
+    }
     try {
       const res = await fetch(API_BASE_URL + "/transactions", {
         headers: { Authorization: "Bearer " + authToken },
@@ -58,9 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Render transactions in table
   function renderTransactions(transactions) {
     transactionsTableBody.innerHTML = "";
+    if (transactions.length === 0) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td colspan="6" class="p-3 text-center text-gray-500">No transactions found.</td>`;
+      transactionsTableBody.appendChild(tr);
+      return;
+    }
     transactions.forEach((tx) => {
       const tr = document.createElement("tr");
       tr.classList.add("table-row");
@@ -78,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
       transactionsTableBody.appendChild(tr);
     });
 
-    // Attach event listeners for edit and delete buttons
     document.querySelectorAll(".edit-btn").forEach((btn) =>
       btn.addEventListener("click", (e) => {
         const id = e.target.getAttribute("data-id");
@@ -93,9 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // Start editing a transaction
   async function startEditTransaction(id) {
-    if (!authToken) return;
+    if (!authToken) {
+      alert("Please login first");
+      return;
+    }
     try {
       const res = await fetch(`${API_BASE_URL}/transactions/${id}`, {
         headers: { Authorization: "Bearer " + authToken },
@@ -117,9 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Delete a transaction
   async function deleteTransaction(id) {
-    if (!authToken) return;
+    if (!authToken) {
+      alert("Please login first");
+      return;
+    }
     if (!confirm("Are you sure you want to delete this transaction?")) return;
     try {
       const res = await fetch(`${API_BASE_URL}/transactions/${id}`, {
@@ -137,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Handle form submit for add/update
   transactionForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!authToken) {
@@ -172,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
       if (res.ok) {
+        alert("Transaction saved successfully");
         resetForm();
         loadTransactions();
       } else {
@@ -183,13 +193,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Reset form and editing state
   function resetForm() {
     editingTransactionId = null;
     transactionForm.reset();
   }
 
-  // Cancel button handler
   cancelButton.addEventListener("click", () => {
     resetForm();
   });
