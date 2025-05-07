@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const transactionsTableBody = document.getElementById("transactionsTableBody");
   const transactionForm = document.getElementById("transactionForm");
   const cancelButton = document.getElementById("cancelButton");
+  const exportButton = document.getElementById("exportButton");
 
   let authToken = null;
   let editingTransactionId = null;
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch(API_BASE_URL + "/verify", {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + token,
+          access_token: token,
           "Content-Type": "application/json",
         },
       });
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     try {
       const res = await fetch(API_BASE_URL + "/transactions", {
-        headers: { Authorization: "Bearer " + authToken },
+        headers: { access_token: authToken },
       });
       if (res.ok) {
         const transactions = await res.json();
@@ -106,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     try {
       const res = await fetch(`${API_BASE_URL}/transactions/${id}`, {
-        headers: { Authorization: "Bearer " + authToken },
+        headers: { access_token: authToken },
       });
       if (res.ok) {
         const tx = await res.json();
@@ -134,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const res = await fetch(`${API_BASE_URL}/transactions/${id}`, {
         method: "DELETE",
-        headers: { Authorization: "Bearer " + authToken },
+        headers: { access_token: authToken },
       });
       if (res.ok) {
         loadTransactions();
@@ -166,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + authToken,
+            access_token: authToken,
           },
           body: JSON.stringify(txData),
         });
@@ -175,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + authToken,
+            access_token: authToken,
           },
           body: JSON.stringify(txData),
         });
@@ -200,5 +201,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cancelButton.addEventListener("click", () => {
     resetForm();
+  });
+
+  exportButton.addEventListener("click", async () => {
+    if (!authToken) {
+      alert("Please login first");
+      return;
+    }
+    try {
+      const res = await fetch(API_BASE_URL + "/transactions", {
+        headers: { access_token: authToken },
+      });
+      if (!res.ok) {
+        alert("Failed to load transactions for export");
+        return;
+      }
+      const transactions = await res.json();
+      if (transactions.length === 0) {
+        alert("No transactions to export");
+        return;
+      }
+      // Convert transactions to CSV
+      const csvRows = [];
+      const headers = ["ID", "Type", "Amount", "Description", "Date"];
+      csvRows.push(headers.join(","));
+      for (const tx of transactions) {
+        const row = [
+          tx.id,
+          tx.type,
+          tx.amount.toFixed(2),
+          `"${tx.description.replace(/"/g, '""')}"`,
+          new Date(tx.date).toISOString(),
+        ];
+        csvRows.push(row.join(","));
+      }
+      const csvContent = csvRows.join("\n");
+      // Trigger download
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "vanta_ledger_transactions.csv";
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Export transactions error:", error);
+      alert("Server error or connection issue.");
+    }
   });
 });

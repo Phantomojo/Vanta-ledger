@@ -32,15 +32,8 @@ if os.path.isdir(frontend_path):
     app.mount("/static", StaticFiles(directory=frontend_path), name="static")
     logger.info(f"Mounted static files from {frontend_path} at /static")
 
-    @app.get("/")
-    def serve_index():
-        index_path = os.path.join(frontend_path, "index.html")
-        if os.path.isfile(index_path):
-            logger.info(f"Serving index.html from {index_path}")
-            return FileResponse(index_path)
-        else:
-            logger.warning("index.html not found in frontend directory.")
-            return JSONResponse(content={"message": "Frontend index.html not found"}, status_code=404)
+    # Removed serving index.html at root to avoid confusion with frontend server
+    # Frontend should be accessed via separate frontend server on port 8001
 else:
     logger.warning("Frontend directory not found. Static files will not be served.")
 
@@ -52,9 +45,13 @@ def health_check():
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     logger.info(f"Incoming request: {request.method} {request.url}")
-    response = await call_next(request)
-    logger.info(f"Response status: {response.status_code}")
-    return response
+    try:
+        response = await call_next(request)
+        logger.info(f"Response status: {response.status_code}")
+        return response
+    except Exception as e:
+        logger.error(f"Error processing request: {e}", exc_info=True)
+        return JSONResponse(content={"detail": "Internal server error"}, status_code=500)
 
 if __name__ == "__main__":
     import uvicorn

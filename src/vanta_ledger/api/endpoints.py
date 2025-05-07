@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, Depends, Security, status
 from fastapi.security.api_key import APIKeyHeader, APIKey
 from fastapi.responses import JSONResponse
 from typing import List
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from vanta_ledger.db.session import get_db
 from vanta_ledger.crud.transaction import create_transaction, get_transaction, get_transactions
 from vanta_ledger.schemas.transaction import Transaction, TransactionCreate
@@ -27,33 +27,33 @@ async def verify_token(api_key: APIKey = Depends(get_api_key)):
     return JSONResponse(content={"message": "Token is valid"}, status_code=status.HTTP_200_OK)
 
 @router.get("/transactions", response_model=List[Transaction])
-def get_transactions_endpoint(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
-    transactions = get_transactions(db, skip=skip, limit=limit)
+async def get_transactions_endpoint(skip: int = 0, limit: int = 100, db: AsyncSession = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
+    transactions = await get_transactions(db, skip=skip, limit=limit)
     return transactions
 
 @router.get("/transactions/{transaction_id}", response_model=Transaction)
-def get_transaction_endpoint(transaction_id: int, db: Session = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
-    transaction = get_transaction(db, transaction_id)
+async def get_transaction_endpoint(transaction_id: int, db: AsyncSession = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
+    transaction = await get_transaction(db, transaction_id)
     if not transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
     return transaction
 
 @router.post("/transactions", response_model=Transaction)
-def create_transaction_endpoint(transaction: TransactionCreate, db: Session = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
-    db_transaction = create_transaction(db, amount=transaction.amount, type=transaction.type, description=transaction.description, date=transaction.date)
+async def create_transaction_endpoint(transaction: TransactionCreate, db: AsyncSession = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
+    db_transaction = await create_transaction(db, amount=transaction.amount, type=transaction.type, description=transaction.description, date=transaction.date)
     return db_transaction
 
 @router.delete("/transactions/{transaction_id}")
-def delete_transaction_endpoint(transaction_id: int, db: Session = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
-    db_transaction = get_transaction(db, transaction_id)
+async def delete_transaction_endpoint(transaction_id: int, db: AsyncSession = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
+    db_transaction = await get_transaction(db, transaction_id)
     if not db_transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
-    db.delete(db_transaction)
-    db.commit()
+    await db.delete(db_transaction)
+    await db.commit()
     return {"message": "Transaction deleted"}
 
 @router.get("/logs")
-def get_logs(api_key: APIKey = Depends(get_api_key)):
+async def get_logs(api_key: APIKey = Depends(get_api_key)):
     logs = [
         "2025-05-05 10:00:00 INFO User logged in",
         "2025-05-05 10:05:00 INFO Transaction created",
