@@ -31,7 +31,7 @@ The backend is a FastAPI application exposing RESTful APIs under the `/api` pref
 
 To run the backend locally without Docker, ensure you have Python and dependencies installed, then run:
 
-```bash
+```powershell
 uvicorn src.vanta_ledger.main:app --host 0.0.0.0 --port 8500 --reload
 ```
 
