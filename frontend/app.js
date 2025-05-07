@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE_URL = "http://localhost:8500/api";
+  // Dynamically determine API base URL based on current host
+  const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:8500/api`;
 
   const loginButton = document.getElementById("loginButton");
   const accessTokenInput = document.getElementById("accessTokenInput");

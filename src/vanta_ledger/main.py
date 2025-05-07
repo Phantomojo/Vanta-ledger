@@ -15,7 +15,7 @@ logger = logging.getLogger("vanta_ledger")
 # Configure CORS to allow frontend origin on port 8001
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8001"],
+    allow_origins=["http://localhost:8001", "http://172.25.99.222:8001", "http://127.0.0.1:8001", "http://0.0.0.0:8001"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

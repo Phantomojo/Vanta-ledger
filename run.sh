@@ -16,10 +16,8 @@ if [ ! -d "src" ]; then
   exit 1
 fi
 
-cd src
-
 echo "Starting VantaLedger backend..."
-PYTHONPATH=. uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8500 --reload &
+PYTHONPATH=src uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8500 --reload &
 BACKEND_PID=$!
 
 sleep 3

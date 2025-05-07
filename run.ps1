@@ -24,11 +24,9 @@ if (-not (Test-Path -Path "src" -PathType Container)) {
     exit 1
 }
 
-Set-Location -Path "src"
-
 Write-Host "Starting VantaLedger backend..."
-$env:PYTHONPATH = "."
-$backendProcess = Start-Process -FilePath "uvicorn" -ArgumentList "vanta_ledger.main:app", "--host", "0.0.0.0", "--port", "8500", "--reload" -NoNewWindow -PassThru
+$envVars = @{ "PYTHONPATH" = "src" }
+$backendProcess = Start-Process -FilePath "python" -ArgumentList "-m", "uvicorn", "vanta_ledger.main:app", "--host", "0.0.0.0", "--port", "8500", "--reload" -NoNewWindow -PassThru -Environment $envVars
 
 Start-Sleep -Seconds 3
 
