@@ -10,7 +10,9 @@ from vanta_ledger.schemas.transaction import Transaction, TransactionCreate
 from vanta_ledger.core.config import settings
 
 API_KEY_NAME = "access_token"
-API_KEY = settings.API_KEY
+import os
+
+API_KEY = os.getenv("VANTALEDGER_API_KEY", settings.API_KEY)
 
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 

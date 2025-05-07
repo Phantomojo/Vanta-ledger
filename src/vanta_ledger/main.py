@@ -32,8 +32,17 @@ if os.path.isdir(frontend_path):
     app.mount("/static", StaticFiles(directory=frontend_path), name="static")
     logger.info(f"Mounted static files from {frontend_path} at /static")
 
-    # Removed serving index.html at root to avoid confusion with frontend server
-    # Frontend should be accessed via separate frontend server on port 8001
+    # Serve index.html at root for simpler deployment
+    from fastapi.responses import FileResponse
+
+    @app.get("/")
+    async def serve_index():
+        index_path = os.path.join(frontend_path, "index.html")
+        if os.path.exists(index_path):
+            return FileResponse(index_path)
+        else:
+            logger.warning("index.html not found in frontend directory")
+            return JSONResponse(content={"detail": "Frontend not found"}, status_code=404)
 else:
     logger.warning("Frontend directory not found. Static files will not be served.")
 

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Dynamically determine API base URL based on current host
-  const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:8500/api`;
+  // Use environment variable for API base URL or fallback to dynamic URL
+  const API_BASE_URL = window.VANTALEDGER_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8500/api`;
 
   const loginButton = document.getElementById("loginButton");
   const accessTokenInput = document.getElementById("accessTokenInput");
