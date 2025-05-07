@@ -31,7 +31,7 @@ The backend is a FastAPI application exposing RESTful APIs under the `/api` pref
 
 To run the backend locally without Docker, ensure you have Python and dependencies installed, then run:
 
-```powershell
+```bash
 uvicorn src.vanta_ledger.main:app --host 0.0.0.0 --port 8500 --reload
 ```
 
@@ -63,6 +63,28 @@ The frontend is a responsive dashboard web app named "VantaLedger Dashboard" bui
 
 You can serve the frontend files using any static file server or open `frontend/index.html` directly in a browser. The frontend expects the backend API to be accessible at `http://localhost:8500/api`.
 
+Alternatively, you can use the provided `run.sh` script to start both backend and frontend servers together:
+
+```bash
+./run.sh
+```
+
+This script will start:
+
+- Backend server on port 8500 (FastAPI)
+- Frontend static file server on port 8001 (Python's http.server serving the `frontend/` directory)
+
+Access the frontend UI at: [http://localhost:8001/](http://localhost:8001/)
+
+Access the backend API at: [http://localhost:8500/api/](http://localhost:8500/api/)
+
+### Notes on Static Files and 404 Errors
+
+- The backend serves static frontend files under the `/static` path and serves `index.html` at `/`.
+- However, the frontend references static files (e.g., `app.js`) at the root path.
+- To avoid 404 errors when accessing frontend files, use the frontend server on port 8001, which serves files at root.
+- Accessing frontend files via backend root path may cause 404 errors for static assets.
+
 ## Android WebView App
 
 The Android app is a WebView wrapper that loads the frontend dashboard. It is designed to run on Android devices or emulators.
@@ -78,7 +100,7 @@ You can customize the frontend URL in `MainActivity.kt`.
 ## Docker Usage Summary
 
 - Backend runs on port 8500
-- Frontend runs on port 3000
+- Frontend runs on port 3000 (Docker) or 8001 (local)
 - Android app connects to frontend via `10.0.2.2` (Android emulator localhost)
 
 ## Notes

@@ -54,6 +54,13 @@ async def delete_transaction_endpoint(transaction_id: int, db: AsyncSession = De
     await db.commit()
     return {"message": "Transaction deleted"}
 
+@router.put("/transactions/{transaction_id}", response_model=Transaction)
+async def update_transaction_endpoint(transaction_id: int, transaction: TransactionCreate, db: AsyncSession = Depends(get_db), api_key: APIKey = Depends(get_api_key)):
+    updated_transaction = await update_transaction(db, transaction_id, amount=transaction.amount, type=transaction.type, description=transaction.description, date=transaction.date)
+    if not updated_transaction:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    return updated_transaction
+
 @router.get("/logs")
 async def get_logs(api_key: APIKey = Depends(get_api_key)):
     logs = [
