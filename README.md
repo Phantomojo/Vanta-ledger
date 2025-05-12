@@ -1,123 +1,52 @@
-# VantaLedger Application
+# Vanta Ledger
 
-## Project Overview
+This project is a ledger application with a Python Kivy-based desktop/mobile UI.
 
-VantaLedger is a ledger management system designed to help users track and manage financial transactions efficiently. It consists of a FastAPI backend API, a modern frontend dashboard built with Tailwind CSS and Alpine.js, and an Android WebView app that provides mobile access to the frontend interface.
+## Setup
 
-## Technology Stack
-
-- **Backend:** FastAPI (Python)
-- **Frontend:** HTML, Tailwind CSS, Alpine.js, Font Awesome
-- **Mobile App:** Android WebView
-- **Containerization:** Docker
-
-## Backend
-
-The backend is a FastAPI application exposing RESTful APIs under the `/api` prefix. It handles transaction data management and serves static frontend files optionally.
-
-### Running Backend with Docker
-
-1. Build the backend Docker image:
-   ```bash
-   docker build -f backend.Dockerfile -t vantaledger-backend .
-   ```
-
-2. Run the backend container:
-   ```bash
-   docker run -d -p 8500:8500 vantaledger-backend
-   ```
-
-### Running Backend Locally
-
-To run the backend locally without Docker, ensure you have Python and dependencies installed, then run:
+1. Create and activate a Python virtual environment:
 
 ```bash
-uvicorn src.vanta_ledger.main:app --host 0.0.0.0 --port 8500 --reload
+python3 -m venv env
+source env/bin/activate
 ```
 
-The backend listens on port 8500 by default.
+2. Install dependencies:
 
-## Frontend
+```bash
+pip install -r requirements.txt
+```
 
-The frontend is a responsive dashboard web app named "VantaLedger Dashboard" built with Tailwind CSS and Alpine.js. It provides features such as:
+3. Run the backend API server (if applicable):
 
-- Viewing transaction lists with details (ID, type, amount, description, date)
-- Adding and updating transactions via a form
-- Exporting transactions
-- Dark mode toggle
-- Access token-based login
+```bash
+uvicorn src.vanta_ledger.main:app --reload
+```
 
-### Running Frontend with Docker
-
-1. Build the frontend Docker image:
-   ```bash
-   docker build -f frontend.Dockerfile -t vantaledger-frontend .
-   ```
-
-2. Run the frontend container:
-   ```bash
-   docker run -d -p 3000:3000 vantaledger-frontend
-   ```
-
-### Running Frontend Locally
-
-You can serve the frontend files using any static file server or open `frontend/index.html` directly in a browser. The frontend expects the backend API to be accessible at `http://localhost:8500/api`.
-
-Alternatively, you can use the provided `run.sh` script to start both backend and frontend servers together:
+4. Run the Kivy UI app:
 
 ```bash
 ./run.sh
 ```
 
-This script will start:
+or on Windows:
 
-- Backend server on port 8500 (FastAPI)
-- Frontend static file server on port 8001 (Python's http.server serving the `frontend/` directory)
+```bash
+run.bat
+```
 
-Access the frontend UI at: [http://localhost:8001/](http://localhost:8001/)
+## Removed Frontends
 
-Access the backend API at: [http://localhost:8500/api/](http://localhost:8500/api/)
-
-### Notes on Static Files and 404 Errors
-
-- The backend serves static frontend files under the `/static` path and serves `index.html` at `/`.
-- However, the frontend references static files (e.g., `app.js`) at the root path.
-- To avoid 404 errors when accessing frontend files, use the frontend server on port 8001, which serves files at root.
-- Accessing frontend files via backend root path may cause 404 errors for static assets.
-
-## Android WebView App
-
-The Android app is a WebView wrapper that loads the frontend dashboard. It is designed to run on Android devices or emulators.
-
-### Running the Android App
-
-1. Open the `android-webview-app` folder in Android Studio.
-2. Build and run the app on an emulator or physical device.
-3. The app loads the frontend served at `http://10.0.2.2:3000` by default (adjust if needed).
-
-You can customize the frontend URL in `MainActivity.kt`.
-
-## Docker Usage Summary
-
-- Backend runs on port 8500
-- Frontend runs on port 3000 (Docker) or 8001 (local)
-- Android app connects to frontend via `10.0.2.2` (Android emulator localhost)
+- The old Vue.js frontend and Tkinter UI app have been removed.
+- The current UI is implemented using Kivy for better mobile and desktop support.
 
 ## Notes
 
-- Ensure the backend is running and accessible at `http://localhost:8500`.
-- The Android emulator uses `10.0.2.2` to access the host machine's localhost.
-- For production deployment, consider bundling frontend assets inside the Android app or hosting the backend remotely.
-- CORS is configured to allow frontend origin on port 8001 for local development.
+- The Kivy app requires system clipboard utilities `xclip` and `xsel` on Linux.
+- If you encounter crashes or segmentation faults, it may be related to graphics drivers or Kivy compatibility.
+- Consider running the app with debug logging enabled for troubleshooting.
 
-## License
+## Project Cleanup
 
-*(Add license information here if applicable)*
-
-## Contribution
-
-Contributions are welcome. Please open issues or pull requests for improvements or bug fixes.
-
----
-
-&copy; 2025 VantaLedger. All rights reserved.
+- Unused frontend files and dependencies have been removed.
+- The project is cleaned up to focus on the Kivy UI app and backend API.

@@ -25,21 +25,14 @@ app.include_router(api_router, prefix="/api")
 
 # Serve Vue.js frontend static files and index.html for root path
 base_dir = os.path.dirname(os.path.abspath(__file__))
-frontend_dist_path = os.path.abspath(os.path.join(base_dir, "..", "..", "frontend-vue", "dist"))
+frontend_path = os.path.abspath(os.path.join(base_dir, "..", "..", "frontend"))
 
-if os.path.isdir(frontend_dist_path):
+if os.path.isdir(frontend_path):
     from fastapi.staticfiles import StaticFiles
-    app.mount("/static", StaticFiles(directory=frontend_dist_path), name="static")
-    logger.info(f"Mounted static files from {frontend_dist_path} at /static")
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+    logger.info(f"Mounted static files from {frontend_path} at /")
 
-    @app.get("/")
-    async def serve_index():
-        index_path = os.path.join(frontend_dist_path, "index.html")
-        if os.path.exists(index_path):
-            return FileResponse(index_path)
-        else:
-            logger.warning("index.html not found in frontend dist directory")
-            return JSONResponse(content={"detail": "Frontend not found"}, status_code=404)
+    # Remove the explicit root route since StaticFiles with html=True serves index.html automatically
 else:
     logger.warning("Frontend dist directory not found. Static files will not be served.")
 
