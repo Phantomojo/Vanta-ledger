@@ -51,16 +51,19 @@ async def calculate_totals(db: AsyncSession) -> dict:
 
     profit_loss = total_sales - total_expenses
 
+    def stringify_keys(d):
+        return {str(k): v for k, v in d.items()}
+
     return {
         "total_sales": total_sales,
         "total_expenses": total_expenses,
         "profit_loss": profit_loss,
-        "daily_sales": dict(daily_sales),
-        "daily_expenses": dict(daily_expenses),
-        "monthly_sales": dict(monthly_sales),
-        "monthly_expenses": dict(monthly_expenses),
-        "quarterly_sales": dict(quarterly_sales),
-        "quarterly_expenses": dict(quarterly_expenses),
-        "yearly_sales": dict(yearly_sales),
-        "yearly_expenses": dict(yearly_expenses),
+        "daily_sales": stringify_keys(daily_sales),
+        "daily_expenses": stringify_keys(daily_expenses),
+        "monthly_sales": stringify_keys(monthly_sales),
+        "monthly_expenses": stringify_keys(monthly_expenses),
+        "quarterly_sales": stringify_keys(quarterly_sales),
+        "quarterly_expenses": stringify_keys(quarterly_expenses),
+        "yearly_sales": stringify_keys(yearly_sales),
+        "yearly_expenses": stringify_keys(yearly_expenses),
     }

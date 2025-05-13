@@ -1,5 +1,6 @@
 import os
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 
 class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./vanta_ledger.db"
@@ -9,7 +10,6 @@ class Settings(BaseSettings):
     LEDGER_DEFAULT_CURRENCY: str = "USD"
     LEDGER_ALLOW_NEGATIVE_BALANCE: bool = False
 
-    class Config:
-        env_file = ".env"
+    model_config = ConfigDict(env_file=".env")
 
 settings = Settings()

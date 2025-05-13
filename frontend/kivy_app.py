@@ -183,6 +183,7 @@ class VantaLedgerUI(BoxLayout):
         self.access_token = None
         self.editing_id = None
         self.db_path = "vanta_ledger.db"
+        self.admin_token = "supersecretadmintoken"
         self.load_settings()
         self.update_ui_state()
 
@@ -197,11 +198,26 @@ class VantaLedgerUI(BoxLayout):
         if not token:
             self.show_popup("Error", "Please enter an access token")
             return
-        self.access_token = token
-        self.authenticated = True
-        self.update_ui_state()
-        self.load_transactions()
-        self.load_summary()
+        # Check if token is admin token or matches stored token
+        if token == self.admin_token or token == self.access_token:
+            self.access_token = token
+            self.authenticated = True
+            self.update_ui_state()
+            self.load_transactions()
+            self.load_summary()
+        else:
+            self.show_popup("Error", "Invalid access token")
+
+    def change_password(self, new_token):
+        if not new_token:
+            self.show_popup("Error", "New token cannot be empty")
+            return
+        # Prevent changing admin token
+        if new_token == self.admin_token:
+            self.show_popup("Error", "Cannot use reserved admin token")
+            return
+        self.access_token = new_token
+        self.show_popup("Success", "Access token changed successfully")
 
     def logout(self):
         self.authenticated = False
