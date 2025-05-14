@@ -7,8 +7,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 from vanta_ledger.main import app
 import asyncio
 
-API_KEY = "supersecretadmintoken"  # Use the admin token for testing
-
 @pytest.mark.asyncio
 async def test_get_ledger_summary():
     async with AsyncClient(app=app, base_url="http://test") as ac:

@@ -19,8 +19,9 @@ class TestVantaLedgerApp(unittest.TestCase):
         self.app_ui = VantaLedgerUI()
         self.app_ui.db_path = self.db_path
         self.app_ui.load_settings()
-        self.app_ui.authenticated = True
-        self.app_ui.update_ui_state()
+        # Remove authentication related attributes
+        # self.app_ui.authenticated = True
+        # self.app_ui.update_ui_state()
 
         # Manually assign ObjectProperty widgets to avoid NoneType errors in tests
         self.app_ui.type_input = type('obj', (object,), {'text': ''})()
@@ -31,8 +32,9 @@ class TestVantaLedgerApp(unittest.TestCase):
         self.app_ui.summary_label = type('obj', (object,), {'text': ''})()
         self.app_ui.currency_input = type('obj', (object,), {'text': 'USD'})()
         self.app_ui.allow_negative_checkbox = type('obj', (object,), {'active': False})()
-        self.app_ui.login_btn = type('obj', (object,), {'disabled': False})()
-        self.app_ui.logout_btn = type('obj', (object,), {'disabled': True})()
+        # Remove login/logout buttons as they no longer exist
+        # self.app_ui.login_btn = type('obj', (object,), {'disabled': False})()
+        # self.app_ui.logout_btn = type('obj', (object,), {'disabled': True})()
         self.app_ui.tab_panel = type('obj', (object,), {'disabled': True})()
         self.app_ui.save_btn = type('obj', (object,), {'disabled': False})()
         self.app_ui.cancel_btn = type('obj', (object,), {'disabled': False})()
@@ -57,15 +59,16 @@ class TestVantaLedgerApp(unittest.TestCase):
         os.close(self.db_fd)
         os.unlink(self.db_path)
 
-    def test_login_logout_ui_state(self):
-        self.app_ui.authenticated = False
-        self.app_ui.update_ui_state()
-        self.assertTrue(self.app_ui.logout_btn.disabled)
-        self.assertFalse(self.app_ui.login_btn.disabled)
-        self.app_ui.authenticated = True
-        self.app_ui.update_ui_state()
-        self.assertTrue(self.app_ui.login_btn.disabled)
-        self.assertFalse(self.app_ui.logout_btn.disabled)
+    # Removed test_login_logout_ui_state due to removed authentication
+    # def test_login_logout_ui_state(self):
+    #     self.app_ui.authenticated = False
+    #     self.app_ui.update_ui_state()
+    #     self.assertTrue(self.app_ui.logout_btn.disabled)
+    #     self.assertFalse(self.app_ui.login_btn.disabled)
+    #     self.app_ui.authenticated = True
+    #     self.app_ui.update_ui_state()
+    #     self.assertTrue(self.app_ui.login_btn.disabled)
+    #     self.assertFalse(self.app_ui.logout_btn.disabled)
 
     def test_add_transaction_valid(self):
         self.app_ui.type_input.text = "sale"
@@ -185,27 +188,30 @@ class TestVantaLedgerApp(unittest.TestCase):
         self.assertEqual(self.app_ui.currency, "EUR")
         self.assertTrue(self.app_ui.allow_negative_balance)
 
-    def test_change_password_valid(self):
-        old_token = self.app_ui.access_token
-        new_token = "newtoken123"
-        self.app_ui.change_password(new_token)
-        self.assertEqual(self.app_ui.access_token, new_token)
-        # Login with new token should succeed
-        self.app_ui.access_token_input = type('obj', (object,), {'text': new_token})()
-        self.app_ui.login()
-        self.assertTrue(self.app_ui.authenticated)
+    # Removed test_change_password_valid due to removed authentication
+    # def test_change_password_valid(self):
+    #     old_token = self.app_ui.access_token
+    #     new_token = "newtoken123"
+    #     self.app_ui.change_password(new_token)
+    #     self.assertEqual(self.app_ui.access_token, new_token)
+    #     # Login with new token should succeed
+    #     self.app_ui.access_token_input = type('obj', (object,), {'text': new_token})()
+    #     self.app_ui.login()
+    #     self.assertTrue(self.app_ui.authenticated)
 
-    def test_change_password_to_admin_token(self):
-        admin_token = self.app_ui.admin_token
-        self.app_ui.change_password(admin_token)
-        # Token should not change to admin token
-        self.assertNotEqual(self.app_ui.access_token, admin_token)
+    # Removed test_change_password_to_admin_token due to removed authentication
+    # def test_change_password_to_admin_token(self):
+    #     admin_token = self.app_ui.admin_token
+    #     self.app_ui.change_password(admin_token)
+    #     # Token should not change to admin token
+    #     self.assertNotEqual(self.app_ui.access_token, admin_token)
 
-    def test_login_with_admin_token(self):
-        admin_token = self.app_ui.admin_token
-        self.app_ui.access_token_input = type('obj', (object,), {'text': admin_token})()
-        self.app_ui.login()
-        self.assertTrue(self.app_ui.authenticated)
+    # Removed test_login_with_admin_token due to removed authentication
+    # def test_login_with_admin_token(self):
+    #     admin_token = self.app_ui.admin_token
+    #     self.app_ui.access_token_input = type('obj', (object,), {'text': admin_token})()
+    #     self.app_ui.login()
+    #     self.assertTrue(self.app_ui.authenticated)
 
 if __name__ == "__main__":
     unittest.main()

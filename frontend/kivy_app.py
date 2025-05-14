@@ -18,34 +18,10 @@ KV = '''
 <VantaLedgerUI>:
     orientation: 'vertical'
 
-    BoxLayout:
-        size_hint_y: None
-        height: '40dp'
-        Label:
-            text: 'Access Token:'
-            size_hint_x: None
-            width: '120dp'
-        TextInput:
-            id: access_token_input
-            multiline: False
-        Button:
-            id: login_btn
-            text: 'Login'
-            size_hint_x: None
-            width: '100dp'
-            on_press: root.login()
-        Button:
-            id: logout_btn
-            text: 'Logout'
-            size_hint_x: None
-            width: '100dp'
-            on_press: root.logout()
-            disabled: True
-
     TabbedPanel:
         id: tab_panel
         do_default_tab: False
-        disabled: True
+        disabled: False
 
         TabbedPanelItem:
             text: 'Transactions'
@@ -161,72 +137,44 @@ KV = '''
 Builder.load_string(KV)
 
 class VantaLedgerUI(BoxLayout):
-    access_token_input = ObjectProperty(None)
-    login_btn = ObjectProperty(None)
-    logout_btn = ObjectProperty(None)
-    tab_panel = ObjectProperty(None)
-    transaction_list = ObjectProperty(None)
-    type_input = ObjectProperty(None)
-    amount_input = ObjectProperty(None)
-    description_input = ObjectProperty(None)
-    date_input = ObjectProperty(None)
-    save_btn = ObjectProperty(None)
-    cancel_btn = ObjectProperty(None)
-    summary_label = ObjectProperty(None)
-    currency_input = ObjectProperty(None)
-    allow_negative_checkbox = ObjectProperty(None)
-    export_btn = ObjectProperty(None)
+    tab_panel = ObjectProperty()
+    transaction_list = ObjectProperty()
+    type_input = ObjectProperty()
+    amount_input = ObjectProperty()
+    description_input = ObjectProperty()
+    date_input = ObjectProperty()
+    save_btn = ObjectProperty()
+    cancel_btn = ObjectProperty()
+    summary_label = ObjectProperty()
+    currency_input = ObjectProperty()
+    allow_negative_checkbox = ObjectProperty()
+    export_btn = ObjectProperty()
+
+    def on_kv_post(self, base_widget):
+        # Assign ObjectProperty fields from ids to ensure proper binding
+        self.tab_panel = self.ids.get('tab_panel')
+        self.transaction_list = self.ids.get('transaction_list')
+        self.type_input = self.ids.get('type_input')
+        self.amount_input = self.ids.get('amount_input')
+        self.description_input = self.ids.get('description_input')
+        self.date_input = self.ids.get('date_input')
+        self.save_btn = self.ids.get('save_btn')
+        self.cancel_btn = self.ids.get('cancel_btn')
+        self.summary_label = self.ids.get('summary_label')
+        self.currency_input = self.ids.get('currency_input')
+        self.allow_negative_checkbox = self.ids.get('allow_negative_checkbox')
+        self.export_btn = self.ids.get('export_btn')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.authenticated = False
-        self.access_token = None
         self.editing_id = None
         self.db_path = "vanta_ledger.db"
-        self.admin_token = "supersecretadmintoken"
         self.load_settings()
         self.update_ui_state()
 
     def update_ui_state(self):
-        if self.login_btn and self.logout_btn and self.tab_panel:
-            self.login_btn.disabled = self.authenticated
-            self.logout_btn.disabled = not self.authenticated
-            self.tab_panel.disabled = not self.authenticated
-
-    def login(self):
-        token = self.access_token_input.text.strip()
-        if not token:
-            self.show_popup("Error", "Please enter an access token")
-            return
-        # Check if token is admin token or matches stored token
-        if token == self.admin_token or token == self.access_token:
-            self.access_token = token
-            self.authenticated = True
-            self.update_ui_state()
-            self.load_transactions()
-            self.load_summary()
-        else:
-            self.show_popup("Error", "Invalid access token")
-
-    def change_password(self, new_token):
-        if not new_token:
-            self.show_popup("Error", "New token cannot be empty")
-            return
-        # Prevent changing admin token
-        if new_token == self.admin_token:
-            self.show_popup("Error", "Cannot use reserved admin token")
-            return
-        self.access_token = new_token
-        self.show_popup("Success", "Access token changed successfully")
-
-    def logout(self):
-        self.authenticated = False
-        self.access_token = None
-        self.editing_id = None
-        self.access_token_input.text = ""
-        self.clear_transaction_form()
-        self.clear_transaction_list()
-        self.update_ui_state()
+        if self.tab_panel:
+            self.tab_panel.disabled = False
 
     def load_transactions(self):
         self.clear_transaction_list()
@@ -279,10 +227,13 @@ class VantaLedgerUI(BoxLayout):
             return
 
     def save_transaction(self):
-        type_ = self.type_input.text.strip()
-        amount = self.amount_input.text.strip()
-        description = self.description_input.text.strip()
-        date = self.date_input.text.strip()
+        if not self.type_input or not self.amount_input or not self.description_input or not self.date_input:
+            self.show_popup("Error", "UI elements not properly initialized")
+            return
+        type_ = self.type_input.text.strip() if self.type_input.text else ""
+        amount = self.amount_input.text.strip() if self.amount_input.text else ""
+        description = self.description_input.text.strip() if self.description_input.text else ""
+        date = self.date_input.text.strip() if self.date_input.text else ""
 
         if not type_ or not amount or not description or not date:
             self.show_popup("Warning", "Please fill in all fields")
@@ -357,9 +308,20 @@ class VantaLedgerUI(BoxLayout):
         self.allow_negative_balance = False
 
     def save_settings(self):
-        self.currency = self.currency_input.text.strip().upper() or "USD"
-        self.allow_negative_balance = self.allow_negative_checkbox.active
-        self.show_popup("Settings", "Settings saved")
+        try:
+            currency_text = getattr(self.currency_input, 'text', None)
+            if currency_text:
+                self.currency = currency_text.strip().upper() or "USD"
+            else:
+                self.currency = "USD"
+            allow_negative = getattr(self.allow_negative_checkbox, 'active', None)
+            if allow_negative is not None:
+                self.allow_negative_balance = allow_negative
+            else:
+                self.allow_negative_balance = False
+            self.show_popup("Settings", "Settings saved")
+        except Exception as e:
+            self.show_popup("Error", f"Failed to save settings: {e}")
 
     def export_transactions(self):
         file_path = os.path.join(os.path.expanduser("~"), "transactions_export.csv")
