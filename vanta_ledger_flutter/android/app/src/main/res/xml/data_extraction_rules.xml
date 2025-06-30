@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Exclude sensitive data from cloud backup -->
+        <exclude domain="database" path="vanta_ledger.db"/>
+        <exclude domain="sharedpref" path="secure_prefs.xml"/>
+        <exclude domain="file" path="biometric_key"/>
+    </cloud-backup>
+    <device-transfer>
+        <!-- Allow device transfer for user data -->
+        <include domain="database" path="vanta_ledger.db"/>
+        <include domain="sharedpref" path="flutter_prefs.xml"/>
+    </device-transfer>
+</data-extraction-rules> 
