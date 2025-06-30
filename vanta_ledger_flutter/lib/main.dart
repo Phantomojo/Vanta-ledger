@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'theme/app_theme.dart';
-import 'screens/timeline_screen.dart';
+import 'package:provider/provider.dart';
+import 'providers/transaction_provider.dart';
+import 'providers/category_provider.dart';
+import 'providers/account_provider.dart';
+// TODO: Replace with actual TimelineScreen implementation
+import 'screens/dashboard_screen.dart';
+import 'screens/settings_screen.dart';
+import 'screens/account_screen.dart';
+import 'screens/category_screen.dart';
 
 void main() {
   runApp(const VantaLedgerApp());
@@ -12,11 +18,27 @@ class VantaLedgerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vanta Ledger',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkPurpleTheme,
-      home: const TimelineScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TransactionProvider()),
+        ChangeNotifierProvider(create: (_) => CategoryProvider()),
+        ChangeNotifierProvider(create: (_) => AccountProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Vanta Ledger',
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          colorSchemeSeed: Colors.deepPurple,
+          useMaterial3: true,
+        ),
+        home: const DashboardScreen(),
+        routes: {
+          '/settings': (context) => const SettingsScreen(),
+          '/accounts': (context) => const AccountScreen(),
+          '/categories': (context) => const CategoryScreen(),
+        },
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 } 

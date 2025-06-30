@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import '../models/transaction.dart';
+import '../services/database_service.dart';
+
+class TransactionProvider extends ChangeNotifier {
+  List<TransactionModel> _transactions = [];
+  List<TransactionModel> get transactions => _transactions;
+
+  final DatabaseService _db = DatabaseService();
+
+  Future<void> loadTransactions() async {
+    _transactions = await _db.getTransactions();
+    notifyListeners();
+  }
+
+  Future<void> addTransaction(TransactionModel tx) async {
+    await _db.insertTransaction(tx);
+    await loadTransactions();
+  }
+
+  Future<void> updateTransaction(TransactionModel tx) async {
+    await _db.updateTransaction(tx);
+    await loadTransactions();
+  }
+
+  Future<void> deleteTransaction(int id) async {
+    await _db.deleteTransaction(id);
+    await loadTransactions();
+  }
+} 
