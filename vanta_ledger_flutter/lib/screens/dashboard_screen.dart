@@ -335,25 +335,25 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                         _QuickActionButton(
                           icon: Icons.add,
                           label: 'Add',
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddTransactionScreen())),
+                          onTap: () => _navigateWithFade(context, const AddTransactionScreen()),
                         ),
                         const SizedBox(width: 12),
                         _QuickActionButton(
                           icon: Icons.timeline,
                           label: 'Timeline',
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TimelineScreen())),
+                          onTap: () => _navigateWithFade(context, const TimelineScreen()),
                         ),
                         const SizedBox(width: 12),
                         _QuickActionButton(
                           icon: Icons.account_balance_wallet,
                           label: 'Accounts',
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AccountScreen())),
+                          onTap: () => _navigateWithFade(context, const AccountScreen()),
                         ),
                         const SizedBox(width: 12),
                         _QuickActionButton(
                           icon: Icons.category,
                           label: 'Categories',
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CategoryScreen())),
+                          onTap: () => _navigateWithFade(context, const CategoryScreen()),
                         ),
                       ],
                     ),
@@ -401,6 +401,16 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
         ),
       ),
     );
+  }
+
+  void _navigateWithFade(BuildContext context, Widget page) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      transitionDuration: const Duration(milliseconds: 350),
+    ));
   }
 }
 

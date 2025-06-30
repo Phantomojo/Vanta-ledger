@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'transactions_screen.dart';
 import 'account_screen.dart';
+import 'category_screen.dart';
+import 'budgets_screen.dart';
+import 'reports_screen.dart';
+import 'bills_screen.dart';
+import 'investments_screen.dart';
 
 class MainNavScreen extends StatefulWidget {
   const MainNavScreen({super.key});
@@ -17,8 +22,11 @@ class _MainNavScreenState extends State<MainNavScreen> {
     const DashboardScreen(),
     const TransactionsScreen(),
     const AccountScreen(),
-    Center(child: Text('Budgets (Coming Soon)', style: TextStyle(fontSize: 20))),
-    Center(child: Text('Reports (Coming Soon)', style: TextStyle(fontSize: 20))),
+    const CategoryScreen(),
+    const BudgetsScreen(),
+    const BillsScreen(),
+    const ReportsScreen(),
+    const InvestmentsScreen(),
   ];
 
   @override
@@ -35,8 +43,14 @@ class _MainNavScreenState extends State<MainNavScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Transactions'),
           BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Accounts'),
+          BottomNavigationBarItem(icon: Icon(Icons.category), label: 'Categories'),
           BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Budgets'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_active), label: 'Bills'),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Reports'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.trending_up),
+            label: 'Investments',
+          ),
         ],
       ),
     );

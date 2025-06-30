@@ -27,4 +27,14 @@ class TransactionProvider extends ChangeNotifier {
     await _db.deleteTransaction(id);
     await loadTransactions();
   }
+
+  Future<void> updateClearedStatus(int id, bool cleared) async {
+    final db = _db;
+    final tx = _transactions.firstWhere((t) => t.id == id, orElse: () => null);
+    if (tx != null) {
+      final updated = tx.copyWith(cleared: cleared);
+      await db.updateTransaction(updated);
+      await loadTransactions();
+    }
+  }
 } 

@@ -13,6 +13,7 @@ class TransactionModel {
   final int accountId;
   final TransactionType type;
   final RecurrenceType recurrence;
+  final bool cleared;
 
   TransactionModel({
     this.id,
@@ -23,6 +24,7 @@ class TransactionModel {
     required this.accountId,
     required this.type,
     this.recurrence = RecurrenceType.none,
+    this.cleared = false,
   });
 
   TransactionModel copyWith({
@@ -34,6 +36,7 @@ class TransactionModel {
     int? accountId,
     TransactionType? type,
     RecurrenceType? recurrence,
+    bool? cleared,
   }) {
     return TransactionModel(
       id: id ?? this.id,
@@ -44,6 +47,7 @@ class TransactionModel {
       accountId: accountId ?? this.accountId,
       type: type ?? this.type,
       recurrence: recurrence ?? this.recurrence,
+      cleared: cleared ?? this.cleared,
     );
   }
 
@@ -57,6 +61,7 @@ class TransactionModel {
       'accountId': accountId,
       'type': type.index,
       'recurrence': recurrence.index,
+      'cleared': cleared ? 1 : 0,
     };
   }
 
@@ -70,6 +75,7 @@ class TransactionModel {
       accountId: map['accountId'] as int,
       type: TransactionType.values[map['type'] as int],
       recurrence: RecurrenceType.values[map['recurrence'] as int],
+      cleared: (map['cleared'] ?? 0) == 1,
     );
   }
 } 

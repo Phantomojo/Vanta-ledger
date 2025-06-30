@@ -38,7 +38,8 @@ class DatabaseService {
         categoryId INTEGER,
         accountId INTEGER,
         type INTEGER,
-        recurrence INTEGER
+        recurrence INTEGER,
+        cleared INTEGER DEFAULT 0
       )
     ''');
     await db.execute('''
@@ -54,6 +55,38 @@ class DatabaseService {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         balance REAL
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE budgets (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        categoryId INTEGER,
+        limit REAL,
+        period TEXT,
+        spent REAL
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE bills (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        amount REAL,
+        dueDate TEXT,
+        isPaid INTEGER,
+        repeat TEXT,
+        notes TEXT,
+        remindDaysBefore INTEGER
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE investments (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        type TEXT,
+        amount REAL,
+        currency TEXT,
+        date TEXT,
+        notes TEXT
       )
     ''');
 
@@ -162,5 +195,71 @@ class DatabaseService {
   Future<int> deleteAccount(int id) async {
     final db = await database;
     return await db.delete('accounts', where: 'id = ?', whereArgs: [id]);
+  }
+
+  // Budget CRUD
+  Future<int> insertBudget(BudgetModel budget) async {
+    final db = await database;
+    return await db.insert('budgets', budget.toMap());
+  }
+
+  Future<List<BudgetModel>> getBudgets() async {
+    final db = await database;
+    final maps = await db.query('budgets');
+    return maps.map((m) => BudgetModel.fromMap(m)).toList();
+  }
+
+  Future<int> updateBudget(BudgetModel budget) async {
+    final db = await database;
+    return await db.update('budgets', budget.toMap(), where: 'id = ?', whereArgs: [budget.id]);
+  }
+
+  Future<int> deleteBudget(int id) async {
+    final db = await database;
+    return await db.delete('budgets', where: 'id = ?', whereArgs: [id]);
+  }
+
+  // Bill CRUD
+  Future<int> insertBill(BillModel bill) async {
+    final db = await database;
+    return await db.insert('bills', bill.toMap());
+  }
+
+  Future<List<BillModel>> getBills() async {
+    final db = await database;
+    final maps = await db.query('bills');
+    return maps.map((m) => BillModel.fromMap(m)).toList();
+  }
+
+  Future<int> updateBill(BillModel bill) async {
+    final db = await database;
+    return await db.update('bills', bill.toMap(), where: 'id = ?', whereArgs: [bill.id]);
+  }
+
+  Future<int> deleteBill(int id) async {
+    final db = await database;
+    return await db.delete('bills', where: 'id = ?', whereArgs: [id]);
+  }
+
+  // Investment CRUD
+  Future<int> insertInvestment(InvestmentModel investment) async {
+    final db = await database;
+    return await db.insert('investments', investment.toMap());
+  }
+
+  Future<List<InvestmentModel>> getInvestments() async {
+    final db = await database;
+    final maps = await db.query('investments');
+    return maps.map((m) => InvestmentModel.fromMap(m)).toList();
+  }
+
+  Future<int> updateInvestment(InvestmentModel investment) async {
+    final db = await database;
+    return await db.update('investments', investment.toMap(), where: 'id = ?', whereArgs: [investment.id]);
+  }
+
+  Future<int> deleteInvestment(int id) async {
+    final db = await database;
+    return await db.delete('investments', where: 'id = ?', whereArgs: [id]);
   }
 } 
