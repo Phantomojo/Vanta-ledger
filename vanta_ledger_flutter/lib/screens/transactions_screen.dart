@@ -279,9 +279,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                 ),
                                 onDismissed: _selectionMode
                                     ? null
-                                    : (_) async {
+                                    : (_) {
                                         HapticFeedback.mediumImpact();
-                                        await _deleteTransaction(tx.id!);
+                                        _deleteTransaction(tx.id!);
                                       },
                                 child: Card(
                                   margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),

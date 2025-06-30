@@ -31,7 +31,7 @@ class TransactionProvider extends ChangeNotifier {
 
   Future<void> updateClearedStatus(int id, bool cleared) async {
     final db = _db;
-    final tx = _transactions.firstWhere((t) => t.id == id, orElse: () => null);
+    final tx = _transactions.firstWhereOrNull((t) => t.id == id);
     if (tx != null) {
       final updated = tx.copyWith(cleared: cleared);
       await db.updateTransaction(updated);

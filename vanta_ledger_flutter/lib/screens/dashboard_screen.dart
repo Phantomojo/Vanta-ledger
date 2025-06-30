@@ -6,7 +6,7 @@ import 'timeline_screen.dart';
 import 'category_screen.dart';
 import 'account_screen.dart';
 import 'add_transaction_screen.dart';
-import 'package:fl_chart/fl_chart.dart';
+// import 'package:fl_chart/fl_chart.dart';
 import '../providers/category_provider.dart';
 import '../providers/account_provider.dart';
 import 'dart:math';
@@ -55,18 +55,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
     DateTime startDate = now.subtract(const Duration(days: 29));
     int? selectedAccountId;
 
-    // --- BAR CHART DATA: Expenses per day for last 30 days ---
-    List<double> dailyExpenses = List.filled(30, 0.0);
-    for (final tx in transactions.where((tx) => tx.type == TransactionType.expense)) {
-      if (tx.date.isAfter(startDate.subtract(const Duration(days: 1))) && tx.date.isBefore(now.add(const Duration(days: 1)))) {
-        int dayIndex = tx.date.difference(startDate).inDays;
-        if (dayIndex >= 0 && dayIndex < 30) {
-          dailyExpenses[dayIndex] += tx.amount;
-        }
-      }
-    }
-    double maxExpense = dailyExpenses.reduce(max);
-
     // --- SUMMARY CARDS ---
     // Top category
     int? topCategoryId;
@@ -85,22 +73,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
     );
     // Largest expense
     final largestExpense = transactions.where((tx) => tx.type == TransactionType.expense).fold<TransactionModel?>(null, (prev, tx) => prev == null || tx.amount > prev.amount ? tx : prev);
-
-    // --- PIE CHART DATA (already present) ---
-    final chartSections = expensesByCategory.entries.map((entry) {
-      final cat = categories.firstWhere(
-        (c) => c.id == entry.key,
-        orElse: () => CategoryModel(id: -1, name: 'Other', icon: Icons.category, isCustom: false),
-      );
-      final color = cat != null ? Colors.primaries[entry.key % Colors.primaries.length] : Colors.grey;
-      return PieChartSectionData(
-        value: entry.value,
-        color: color,
-        title: cat?.name ?? 'Other',
-        radius: 48,
-        titleStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
-      );
-    }).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -192,65 +164,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                     ),
                 ],
               ),
-              const SizedBox(height: 20),
-              // --- BAR CHART: Expenses over last 30 days ---
-              Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      const Text('Expenses Over Time', style: TextStyle(fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: 180,
-                        child: BarChart(
-                          BarChartData(
-                            alignment: BarChartAlignment.spaceBetween,
-                            maxY: maxExpense == 0 ? 100 : maxExpense * 1.2,
-                            barTouchData: BarTouchData(enabled: true),
-                            titlesData: FlTitlesData(
-                              leftTitles: AxisTitles(
-                                sideTitles: SideTitles(showTitles: true, reservedSize: 32),
-                              ),
-                              bottomTitles: AxisTitles(
-                                sideTitles: SideTitles(
-                                  showTitles: true,
-                                  getTitlesWidget: (value, meta) {
-                                    int day = value.toInt();
-                                    if (day % 5 == 0 || day == 29) {
-                                      DateTime date = startDate.add(Duration(days: day));
-                                      return Text('${date.day}/${date.month}', style: const TextStyle(fontSize: 10));
-                                    }
-                                    return const SizedBox.shrink();
-                                  },
-                                ),
-                              ),
-                              rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                              topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                            ),
-                            borderData: FlBorderData(show: false),
-                            barGroups: [
-                              for (int i = 0; i < 30; i++)
-                                BarChartGroupData(
-                                  x: i,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: dailyExpenses[i],
-                                      color: Colors.deepPurple,
-                                      width: 8,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                  ],
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               const SizedBox(height: 24),
               // Animated Statistics Card (now with gradient background)
               AnimatedSlide(
@@ -304,32 +217,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                 ),
               ),
               const SizedBox(height: 24),
-              // Pie Chart for Expenses by Category
-              if (chartSections.isNotEmpty)
-                Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  elevation: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        const Text('Expenses by Category', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 180,
-                          child: PieChart(
-                            PieChartData(
-                              sections: chartSections,
-                              sectionsSpace: 2,
-                              centerSpaceRadius: 32,
-                              borderData: FlBorderData(show: false),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              if (chartSections.isNotEmpty) const SizedBox(height: 24),
               // Quick Actions (grouped in a rounded card)
               Center(
                 child: Card(

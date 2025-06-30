@@ -16,42 +16,13 @@ import 'screens/settings_screen.dart';
 import 'screens/account_screen.dart';
 import 'screens/category_screen.dart';
 import 'screens/main_nav_screen.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'screens/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'providers/currency_provider.dart';
 import 'providers/notification_settings_provider.dart';
 
-class NotificationsService {
-  static final NotificationsService _instance = NotificationsService._internal();
-  factory NotificationsService() => _instance;
-  NotificationsService._internal();
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  Future<void> init() async {
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  Future<void> scheduleBillReminder(int id, String title, String body, DateTime scheduledDate) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      scheduledDate.toLocal(),
-      const NotificationDetails(android: AndroidNotificationDetails('bills', 'Bills', importance: Importance.max)),
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.dateAndTime,
-    );
-  }
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationsService().init();
   final prefs = await SharedPreferences.getInstance();
   final onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
   runApp(MyApp(onboardingComplete: onboardingComplete));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 enum TransactionType { income, expense }
 
@@ -71,6 +72,10 @@ class TransactionModel {
   }
 
   factory TransactionModel.fromMap(Map<String, dynamic> map) {
+    final type = TransactionType.values.firstWhereOrNull((e) => e.name == map['type']) ?? TransactionType.expense;
+    final recurrence = (map['recurrence'] is int && (map['recurrence'] as int) < RecurrenceType.values.length)
+      ? RecurrenceType.values[map['recurrence'] as int]
+      : RecurrenceType.none;
     return TransactionModel(
       id: map['id'] as int?,
       amount: map['amount'] as double,
@@ -78,8 +83,8 @@ class TransactionModel {
       date: DateTime.parse(map['date'] as String),
       categoryId: map['categoryId'] as int,
       accountId: map['accountId'] as int,
-      type: TransactionType.values.firstWhere((e) => e.name == map['type']),
-      recurrence: RecurrenceType.values[map['recurrence'] as int],
+      type: type,
+      recurrence: recurrence,
       cleared: (map['cleared'] ?? 0) == 1,
       categoryName: map['categoryName'] as String?,
     );
