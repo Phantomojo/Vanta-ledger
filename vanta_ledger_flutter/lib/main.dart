@@ -8,6 +8,7 @@ import 'screens/dashboard_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/account_screen.dart';
 import 'screens/category_screen.dart';
+import 'screens/main_nav_screen.dart';
 
 void main() {
   runApp(const VantaLedgerApp());
@@ -31,7 +32,7 @@ class VantaLedgerApp extends StatelessWidget {
           colorSchemeSeed: Colors.deepPurple,
           useMaterial3: true,
         ),
-        home: const DashboardScreen(),
+        home: const MainNavScreen(),
         routes: {
           '/settings': (context) => const SettingsScreen(),
           '/accounts': (context) => const AccountScreen(),
