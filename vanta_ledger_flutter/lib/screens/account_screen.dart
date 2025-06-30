@@ -163,10 +163,6 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddAccountDialog,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 } 

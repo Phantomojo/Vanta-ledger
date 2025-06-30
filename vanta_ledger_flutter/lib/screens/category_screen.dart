@@ -159,10 +159,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddCategoryDialog,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 } 

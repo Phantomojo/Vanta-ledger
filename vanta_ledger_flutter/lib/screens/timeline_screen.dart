@@ -53,18 +53,18 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddTransactionScreen()),
-          );
-          if (mounted) {
-            Provider.of<TransactionProvider>(context, listen: false).loadTransactions();
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     await Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => const AddTransactionScreen()),
+      //     );
+      //     if (mounted) {
+      //       Provider.of<TransactionProvider>(context, listen: false).loadTransactions();
+      //     }
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 } 
