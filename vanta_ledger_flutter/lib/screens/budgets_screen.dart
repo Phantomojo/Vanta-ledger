@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/budget.dart';
 import '../providers/budget_provider.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BudgetsScreen extends StatefulWidget {
   const BudgetsScreen({Key? key}) : super(key: key);
@@ -80,6 +81,15 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
       builder: (context, provider, _) {
         return Scaffold(
           appBar: AppBar(
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                'assets/images/app_logo_placeholder.svg',
+                height: 32,
+                width: 32,
+                semanticsLabel: 'Vanta Ledger Logo',
+              ),
+            ),
             title: const Text('Budgets'),
             actions: [
               IconButton(

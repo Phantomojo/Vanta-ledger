@@ -14,6 +14,7 @@ class TransactionModel {
   final TransactionType type;
   final RecurrenceType recurrence;
   final bool cleared;
+  final String? categoryName;
 
   TransactionModel({
     this.id,
@@ -25,6 +26,7 @@ class TransactionModel {
     required this.type,
     this.recurrence = RecurrenceType.none,
     this.cleared = false,
+    this.categoryName,
   });
 
   TransactionModel copyWith({
@@ -37,6 +39,7 @@ class TransactionModel {
     TransactionType? type,
     RecurrenceType? recurrence,
     bool? cleared,
+    String? categoryName,
   }) {
     return TransactionModel(
       id: id ?? this.id,
@@ -48,6 +51,7 @@ class TransactionModel {
       type: type ?? this.type,
       recurrence: recurrence ?? this.recurrence,
       cleared: cleared ?? this.cleared,
+      categoryName: categoryName ?? this.categoryName,
     );
   }
 
@@ -59,9 +63,10 @@ class TransactionModel {
       'date': date.toIso8601String(),
       'categoryId': categoryId,
       'accountId': accountId,
-      'type': type.index,
+      'type': type.name,
       'recurrence': recurrence.index,
       'cleared': cleared ? 1 : 0,
+      'categoryName': categoryName,
     };
   }
 
@@ -73,9 +78,10 @@ class TransactionModel {
       date: DateTime.parse(map['date'] as String),
       categoryId: map['categoryId'] as int,
       accountId: map['accountId'] as int,
-      type: TransactionType.values[map['type'] as int],
+      type: TransactionType.values.firstWhere((e) => e.name == map['type']),
       recurrence: RecurrenceType.values[map['recurrence'] as int],
       cleared: (map['cleared'] ?? 0) == 1,
+      categoryName: map['categoryName'] as String?,
     );
   }
 } 

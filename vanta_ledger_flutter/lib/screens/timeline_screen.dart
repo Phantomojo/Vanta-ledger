@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/transaction_provider.dart';
 import '../models/transaction.dart';
 import 'add_transaction_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TimelineScreen extends StatefulWidget {
   const TimelineScreen({super.key});
@@ -25,6 +26,15 @@ class _TimelineScreenState extends State<TimelineScreen> {
     final transactions = context.watch<TransactionProvider>().transactions;
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            'assets/images/app_logo_placeholder.svg',
+            height: 32,
+            width: 32,
+            semanticsLabel: 'Vanta Ledger Logo',
+          ),
+        ),
         title: const Text('Timeline'),
       ),
       body: transactions.isEmpty

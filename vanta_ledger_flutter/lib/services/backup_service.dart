@@ -9,6 +9,7 @@ import '../models/transaction.dart';
 import '../models/category.dart';
 import '../models/budget.dart';
 import '../models/bill.dart';
+import '../models/investment.dart';
 
 class BackupService {
   final DatabaseService _db = DatabaseService();

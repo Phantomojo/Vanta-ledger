@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({super.key});
@@ -66,6 +67,15 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            'assets/images/app_logo_placeholder.svg',
+            height: 32,
+            width: 32,
+            semanticsLabel: 'Vanta Ledger Logo',
+          ),
+        ),
         title: _selectionMode
             ? Text('${_selectedIds.length} selected')
             : const Text('Transactions'),
@@ -414,5 +424,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   void _showError(String message) {
     HapticFeedback.heavyImpact();
     // ... existing code ...
+  }
+
+  void _editTransaction(TransactionModel tx) {
+    // TODO: Implement edit logic or show edit dialog
   }
 } 

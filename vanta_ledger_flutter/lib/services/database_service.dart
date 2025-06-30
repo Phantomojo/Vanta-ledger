@@ -3,6 +3,9 @@ import 'package:path/path.dart';
 import '../models/transaction.dart';
 import '../models/category.dart';
 import '../models/account.dart';
+import '../models/budget.dart';
+import '../models/bill.dart';
+import '../models/investment.dart';
 import 'package:flutter/material.dart';
 
 class DatabaseService {

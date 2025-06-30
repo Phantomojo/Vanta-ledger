@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     },
     {
       'title': 'Get Started!',
-      'body': 'Let's build your financial future together.'
+      'body': "Let's build your financial future together."
     },
   ];
 
@@ -43,6 +44,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            const SizedBox(height: 32),
+            Center(
+              child: SvgPicture.asset(
+                'assets/images/app_logo_placeholder.svg',
+                height: 120,
+                width: 120,
+                semanticsLabel: 'Vanta Ledger Logo',
+              ),
+            ),
+            const SizedBox(height: 16),
             Expanded(
               child: PageView.builder(
                 controller: _controller,

@@ -11,6 +11,7 @@ import '../providers/category_provider.dart';
 import '../providers/account_provider.dart';
 import 'dart:math';
 import '../models/category.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -117,6 +118,15 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Center(
+                child: SvgPicture.asset(
+                  'assets/images/app_logo_placeholder.svg',
+                  height: 120,
+                  width: 120,
+                  semanticsLabel: 'Vanta Ledger Logo',
+                ),
+              ),
+              const SizedBox(height: 24),
               // --- FILTER CONTROLS ---
               Row(
                 children: [

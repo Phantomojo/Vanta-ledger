@@ -26,4 +26,20 @@ class CategoryModel {
       isCustom: isCustom ?? this.isCustom,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'icon': icon.codePoint,
+    };
+  }
+
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
+    return CategoryModel(
+      id: map['id'] as int?,
+      name: map['name'] as String,
+      icon: IconData(map['icon'] as int, fontFamily: 'MaterialIcons'),
+    );
+  }
 } 

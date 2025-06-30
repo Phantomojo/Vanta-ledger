@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationsService {
   static final NotificationsService _instance = NotificationsService._internal();
@@ -26,7 +27,7 @@ class NotificationsService {
       billId,
       title,
       body,
-      scheduledDate.toUtc(),
+      tz.TZDateTime.from(scheduledDate, tz.local),
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'bills_channel',

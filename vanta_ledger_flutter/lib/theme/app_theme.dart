@@ -35,7 +35,7 @@ class AppTheme {
       foregroundColor: darkColorScheme.onPrimary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: darkColorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -59,7 +59,7 @@ class AppTheme {
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: darkColorScheme.surface,
       titleTextStyle: GoogleFonts.poppins(
         color: darkColorScheme.onSurface,
@@ -152,7 +152,7 @@ class AppTheme {
       foregroundColor: lightColorScheme.onPrimary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: lightColorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -176,7 +176,7 @@ class AppTheme {
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: lightColorScheme.surface,
       titleTextStyle: GoogleFonts.poppins(
         color: lightColorScheme.onSurface,

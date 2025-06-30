@@ -5,6 +5,7 @@ import '../services/backup_service.dart';
 import '../providers/theme_provider.dart';
 import '../providers/currency_provider.dart';
 import '../providers/notification_settings_provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -19,7 +20,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            'assets/images/app_logo_placeholder.svg',
+            height: 32,
+            width: 32,
+            semanticsLabel: 'Vanta Ledger Logo',
+          ),
+        ),
+        title: const Text('Settings'),
+      ),
       body: ListView(
         children: [
           Consumer<ThemeProvider>(

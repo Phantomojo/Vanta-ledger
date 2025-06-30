@@ -8,7 +8,7 @@ void main() {
     final tx = TransactionModel(
       id: null,
       amount: 100.0,
-      type: 'income',
+      type: TransactionType.income,
       date: DateTime.now(),
       categoryId: 1,
       accountId: 1,

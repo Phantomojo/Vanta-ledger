@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/category_provider.dart';
 import '../models/category.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -70,7 +71,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     final categories = context.watch<CategoryProvider>().categories;
     return Scaffold(
-      appBar: AppBar(title: const Text('Categories')),
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            'assets/images/app_logo_placeholder.svg',
+            height: 32,
+            width: 32,
+            semanticsLabel: 'Vanta Ledger Logo',
+          ),
+        ),
+        title: const Text('Categories'),
+      ),
       body: categories.isEmpty
           ? const Center(child: Text('No categories yet.'))
           : ListView.builder(

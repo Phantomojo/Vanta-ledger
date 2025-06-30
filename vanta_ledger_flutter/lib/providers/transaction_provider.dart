@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import '../services/database_service.dart';
+import 'package:collection/collection.dart';
 
 class TransactionProvider extends ChangeNotifier {
   List<TransactionModel> _transactions = [];
@@ -36,5 +37,9 @@ class TransactionProvider extends ChangeNotifier {
       await db.updateTransaction(updated);
       await loadTransactions();
     }
+  }
+
+  TransactionModel? getTransactionById(int id) {
+    return _transactions.firstWhereOrNull((t) => t.id == id);
   }
 } 

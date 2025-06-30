@@ -28,4 +28,12 @@ class AccountModel {
       'balance': balance,
     };
   }
+
+  factory AccountModel.fromMap(Map<String, dynamic> map) {
+    return AccountModel(
+      id: map['id'] as int?,
+      name: map['name'] as String,
+      balance: map['balance'] as double,
+    );
+  }
 } 

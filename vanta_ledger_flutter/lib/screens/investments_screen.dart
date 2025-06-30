@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/investment.dart';
 import '../providers/investment_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class InvestmentsScreen extends StatefulWidget {
   const InvestmentsScreen({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
                 ),
                 Row(
                   children: [
-                    Text(_date == null ? 'Pick Date' : DateFormat.yMMMd().format(_date)),
+                    Text(_date == null ? 'Pick Date' : DateFormat.yMMMd().format(_date!)),
                     IconButton(
                       icon: const Icon(Icons.calendar_today),
                       onPressed: () async {
@@ -193,6 +194,15 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
       builder: (context, provider, _) {
         return Scaffold(
           appBar: AppBar(
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                'assets/images/app_logo_placeholder.svg',
+                height: 32,
+                width: 32,
+                semanticsLabel: 'Vanta Ledger Logo',
+              ),
+            ),
             title: const Text('Investments'),
             actions: [
               IconButton(

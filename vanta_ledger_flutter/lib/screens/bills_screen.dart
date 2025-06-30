@@ -4,6 +4,7 @@ import '../models/bill.dart';
 import '../providers/bill_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BillsScreen extends StatefulWidget {
   const BillsScreen({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _BillsScreenState extends State<BillsScreen> {
                 ),
                 Row(
                   children: [
-                    Text(_dueDate == null ? 'Pick Due Date' : DateFormat.yMMMd().format(_dueDate)),
+                    Text(_dueDate == null ? 'Pick Due Date' : DateFormat.yMMMd().format(_dueDate!)),
                     IconButton(
                       icon: const Icon(Icons.calendar_today),
                       onPressed: () async {
@@ -173,6 +174,15 @@ class _BillsScreenState extends State<BillsScreen> {
       builder: (context, provider, _) {
         return Scaffold(
           appBar: AppBar(
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                'assets/images/app_logo_placeholder.svg',
+                height: 32,
+                width: 32,
+                semanticsLabel: 'Vanta Ledger Logo',
+              ),
+            ),
             title: const Text('Bills'),
             actions: [
               IconButton(
