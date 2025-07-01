@@ -67,7 +67,6 @@ class TransactionModel {
       'type': type.name,
       'recurrence': recurrence.index,
       'cleared': cleared ? 1 : 0,
-      'categoryName': categoryName,
     };
   }
 

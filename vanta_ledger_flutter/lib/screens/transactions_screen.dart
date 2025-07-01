@@ -293,8 +293,10 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                           )
                                         : CircleAvatar(
                                             backgroundColor: tx.type == TransactionType.expense ? Colors.red[100] : Colors.green[100],
-                                            child: Icon(
-                                              tx.type == TransactionType.expense ? Icons.arrow_downward : Icons.arrow_upward,
+                                            child: Image.asset(
+                                              'assets/images/icon-512.png',
+                                              height: 28,
+                                              width: 28,
                                               color: tx.type == TransactionType.expense ? Colors.red : Colors.green,
                                             ),
                                           ),

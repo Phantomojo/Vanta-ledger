@@ -46,4 +46,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
-    - assets/images/ 
+    - assets/images/
+    - assets/images/icon-512.png
+    - assets/test_data/transactions_sample.json

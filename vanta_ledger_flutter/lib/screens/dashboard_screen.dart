@@ -12,6 +12,9 @@ import '../providers/account_provider.dart';
 import 'dart:math';
 import '../models/category.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -56,21 +59,6 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
     int? selectedAccountId;
 
     // --- SUMMARY CARDS ---
-    // Top category
-    int? topCategoryId;
-    double topCategoryAmount = 0.0;
-    final Map<int, double> expensesByCategory = {};
-    for (final tx in transactions.where((tx) => tx.type == TransactionType.expense)) {
-      expensesByCategory[tx.categoryId] = (expensesByCategory[tx.categoryId] ?? 0) + tx.amount;
-      if (expensesByCategory[tx.categoryId]! > topCategoryAmount) {
-        topCategoryAmount = expensesByCategory[tx.categoryId]!;
-        topCategoryId = tx.categoryId;
-      }
-    }
-    final topCategory = categories.firstWhere(
-      (c) => c.id == topCategoryId,
-      orElse: () => CategoryModel(id: -1, name: 'Other', icon: Icons.category, isCustom: false),
-    );
     // Largest expense
     final largestExpense = transactions.where((tx) => tx.type == TransactionType.expense).fold<TransactionModel?>(null, (prev, tx) => prev == null || tx.amount > prev.amount ? tx : prev);
 
@@ -90,21 +78,58 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // --- DASHBOARD LOGO (polished) ---
               Center(
-                child: SvgPicture.asset(
-                  'assets/images/app_logo_placeholder.svg',
-                  height: 120,
-                  width: 120,
-                  semanticsLabel: 'Vanta Ledger Logo',
+                child: Card(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+                  color: Colors.white.withOpacity(0.05),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.asset(
+                      'assets/images/icon-512.png',
+                      height: 72,
+                      width: 72,
+                      semanticLabel: 'Vanta Ledger Custom Logo',
+                    ),
+                  ),
                 ),
               ),
+              const SizedBox(height: 16),
+              if (kDebugMode)
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final data = await rootBundle.loadString('assets/test_data/transactions_sample.json');
+                      final List<dynamic> jsonList = json.decode(data);
+                      final txProvider = context.read<TransactionProvider>();
+                      for (final tx in jsonList) {
+                        await txProvider.addTransaction(TransactionModel(
+                          amount: tx['amount'],
+                          description: tx['description'],
+                          date: DateTime.parse(tx['date']),
+                          categoryId: tx['categoryId'],
+                          accountId: tx['accountId'],
+                          type: tx['type'] == 'income' ? TransactionType.income : TransactionType.expense,
+                          recurrence: RecurrenceType.values[tx['recurrence'] ?? 0],
+                          cleared: tx['cleared'] ?? false,
+                        ));
+                      }
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Test data imported!')),
+                        );
+                      }
+                    },
+                    child: const Text('Import 1 Year Test Data'),
+                  ),
+                ),
               const SizedBox(height: 24),
               // --- FILTER CONTROLS ---
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Text('Last 30 days', style: Theme.of(context).textTheme.labelLarge),
-                  ),
+                  Text('Last 30 days', style: Theme.of(context).textTheme.labelLarge),
                   DropdownButton<int?>(
                     value: selectedAccountId,
                     hint: const Text('All Accounts'),
@@ -120,141 +145,87 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
               ),
               const SizedBox(height: 12),
               // --- SUMMARY CARDS ---
-              Row(
-                children: [
-                  if (topCategory != null)
-                    Expanded(
-                      child: Card(
-                        color: Colors.deepPurple.shade800,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            children: [
-                              Icon(topCategory.icon, color: Colors.white, size: 28),
-                              const SizedBox(height: 4),
-                              Text('Top Category', style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Colors.white70)),
-                              Text(topCategory.name, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
-                              Text('Ksh ${topCategoryAmount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                            ],
-                          ),
+              if (largestExpense != null)
+                Card(
+                  color: Colors.red.shade900,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/app_logo_placeholder.svg',
+                          height: 28,
+                          width: 28,
+                          color: Colors.white,
                         ),
-                      ),
-                    ),
-                  if (largestExpense != null)
-                    Expanded(
-                      child: Card(
-                        color: Colors.red.shade900,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            children: [
-                              const Icon(Icons.trending_up, color: Colors.white, size: 28),
-                              const SizedBox(height: 4),
-                              Text('Largest Expense', style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Colors.white70)),
-                              Text(largestExpense.description, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
-                              Text('Ksh ${largestExpense.amount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              // Animated Statistics Card (now with gradient background)
-              AnimatedSlide(
-                offset: _controller.drive(Tween(begin: const Offset(0, 0.2), end: Offset.zero)).value,
-                duration: const Duration(milliseconds: 700),
-                curve: Curves.easeOut,
-                child: AnimatedOpacity(
-                  opacity: _controller.value,
-                  duration: const Duration(milliseconds: 700),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.deepPurple.shade400, Colors.deepPurple.shade700],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.deepPurple.withOpacity(0.18),
-                          blurRadius: 16,
-                          offset: const Offset(0, 8),
-                        ),
+                        const SizedBox(height: 4),
+                        Text('Largest Expense', style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Colors.white70)),
+                        Text(largestExpense.description, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                        Text('Ksh ${largestExpense.amount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                       ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              const Icon(Icons.trending_down, color: Colors.white, size: 32),
-                              const SizedBox(height: 8),
-                              Text('Expenses', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white70)),
-                              Text('Ksh ${totalExpenses.toStringAsFixed(2)}', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white)),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              const Icon(Icons.receipt_long, color: Colors.white, size: 32),
-                              const SizedBox(height: 8),
-                              Text('Transactions', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white70)),
-                              Text('$totalTransactions', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white)),
-                            ],
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
-              ),
               const SizedBox(height: 24),
-              // Quick Actions (grouped in a rounded card)
-              Center(
-                child: Card(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _QuickActionButton(
-                          icon: Icons.add,
-                          label: 'Add',
-                          onTap: () => _navigateWithFade(context, const AddTransactionScreen()),
+              // --- DASHBOARD STATISTICS CARD (redesigned) ---
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      margin: const EdgeInsets.only(right: 12, bottom: 16, top: 16),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.trending_down, color: Colors.red, size: 32),
+                            const SizedBox(height: 8),
+                            Text('Expenses', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.red)),
+                            Text('Ksh ${totalExpenses.toStringAsFixed(2)}', style: Theme.of(context).textTheme.titleLarge),
+                          ],
                         ),
-                        const SizedBox(width: 12),
-                        _QuickActionButton(
-                          icon: Icons.timeline,
-                          label: 'Timeline',
-                          onTap: () => _navigateWithFade(context, const TimelineScreen()),
-                        ),
-                        const SizedBox(width: 12),
-                        _QuickActionButton(
-                          icon: Icons.account_balance_wallet,
-                          label: 'Accounts',
-                          onTap: () => _navigateWithFade(context, const AccountScreen()),
-                        ),
-                        const SizedBox(width: 12),
-                        _QuickActionButton(
-                          icon: Icons.category,
-                          label: 'Categories',
-                          onTap: () => _navigateWithFade(context, const CategoryScreen()),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      margin: const EdgeInsets.only(right: 12, bottom: 16, top: 16),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.trending_up, color: Colors.green, size: 32),
+                            const SizedBox(height: 8),
+                            Text('Income', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.green)),
+                            Text('Ksh ${transactions.where((tx) => tx.type == TransactionType.income).fold<double>(0.0, (sum, tx) => sum + tx.amount).toStringAsFixed(2)}', style: Theme.of(context).textTheme.titleLarge),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      margin: const EdgeInsets.only(right: 12, bottom: 16, top: 16),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.receipt_long, color: Colors.deepPurple, size: 32),
+                            const SizedBox(height: 8),
+                            Text('Transactions', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.deepPurple)),
+                            Text('$totalTransactions', style: Theme.of(context).textTheme.titleLarge),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 24),

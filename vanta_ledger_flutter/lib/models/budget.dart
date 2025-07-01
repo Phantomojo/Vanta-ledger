@@ -1,14 +1,14 @@
 class BudgetModel {
   final int? id;
   final int categoryId;
-  final double limit;
+  final double budgetLimit;
   final String period; // e.g. 'monthly', 'weekly', 'custom'
   final double spent;
 
   BudgetModel({
     this.id,
     required this.categoryId,
-    required this.limit,
+    required this.budgetLimit,
     required this.period,
     this.spent = 0.0,
   });
@@ -16,14 +16,14 @@ class BudgetModel {
   BudgetModel copyWith({
     int? id,
     int? categoryId,
-    double? limit,
+    double? budgetLimit,
     String? period,
     double? spent,
   }) {
     return BudgetModel(
       id: id ?? this.id,
       categoryId: categoryId ?? this.categoryId,
-      limit: limit ?? this.limit,
+      budgetLimit: budgetLimit ?? this.budgetLimit,
       period: period ?? this.period,
       spent: spent ?? this.spent,
     );
@@ -33,7 +33,7 @@ class BudgetModel {
     return {
       'id': id,
       'categoryId': categoryId,
-      'limit': limit,
+      'budget_limit': budgetLimit,
       'period': period,
       'spent': spent,
     };
@@ -43,7 +43,7 @@ class BudgetModel {
     return BudgetModel(
       id: map['id'] as int?,
       categoryId: map['categoryId'] as int,
-      limit: map['limit'] as double,
+      budgetLimit: map['budget_limit'] as double,
       period: map['period'] as String,
       spent: map['spent'] as double,
     );

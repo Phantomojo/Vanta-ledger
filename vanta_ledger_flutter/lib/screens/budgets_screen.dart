@@ -22,7 +22,7 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
   }
 
   void _showBudgetDialog({BudgetModel? budget}) {
-    final _limitController = TextEditingController(text: budget?.limit.toString() ?? '');
+    final _budgetLimitController = TextEditingController(text: budget?.budgetLimit.toString() ?? '');
     final _periodController = TextEditingController(text: budget?.period ?? 'monthly');
     HapticFeedback.mediumImpact();
     showDialog(
@@ -34,9 +34,9 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: _limitController,
+                controller: _budgetLimitController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Limit'),
+                decoration: const InputDecoration(labelText: 'Budget Limit'),
               ),
               TextField(
                 controller: _periodController,
@@ -51,13 +51,13 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                final limit = double.tryParse(_limitController.text) ?? 0.0;
+                final budgetLimit = double.tryParse(_budgetLimitController.text) ?? 0.0;
                 final period = _periodController.text;
                 final provider = Provider.of<BudgetProvider>(context, listen: false);
                 if (budget == null) {
-                  await provider.addBudget(BudgetModel(categoryId: 0, limit: limit, period: period));
+                  await provider.addBudget(BudgetModel(categoryId: 0, budgetLimit: budgetLimit, period: period));
                 } else {
-                  await provider.updateBudget(budget.copyWith(limit: limit, period: period));
+                  await provider.updateBudget(budget.copyWith(budgetLimit: budgetLimit, period: period));
                 }
                 Navigator.pop(context);
               },
@@ -120,12 +120,12 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
                   itemCount: provider.budgets.length,
                   itemBuilder: (context, i) {
                     final budget = provider.budgets[i];
-                    final percent = (budget.spent / budget.limit).clamp(0.0, 1.0);
-                    final over = budget.spent > budget.limit;
+                    final percent = (budget.spent / budget.budgetLimit).clamp(0.0, 1.0);
+                    final over = budget.spent > budget.budgetLimit;
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: ListTile(
-                        title: Text('Limit: ${budget.limit.toStringAsFixed(2)}'),
+                        title: Text('Budget Limit: ${budget.budgetLimit.toStringAsFixed(2)}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

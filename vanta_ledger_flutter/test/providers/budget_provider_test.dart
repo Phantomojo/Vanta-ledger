@@ -8,16 +8,16 @@ void main() {
     final budget = BudgetModel(
       id: null,
       categoryId: 1,
-      limit: 500.0,
+      budgetLimit: 500.0,
       period: 'monthly',
       spent: 0.0,
     );
     await provider.addBudget(budget);
     await provider.loadBudgets();
-    expect(provider.budgets.any((b) => b.limit == 500.0), true);
-    final added = provider.budgets.firstWhere((b) => b.limit == 500.0);
+    expect(provider.budgets.any((b) => b.budgetLimit == 500.0), true);
+    final added = provider.budgets.firstWhere((b) => b.budgetLimit == 500.0);
     await provider.deleteBudget(added.id!);
     await provider.loadBudgets();
-    expect(provider.budgets.any((b) => b.limit == 500.0), false);
+    expect(provider.budgets.any((b) => b.budgetLimit == 500.0), false);
   });
 } 

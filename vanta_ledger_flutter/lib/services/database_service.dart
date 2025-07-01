@@ -64,7 +64,7 @@ class DatabaseService {
       CREATE TABLE budgets (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         categoryId INTEGER,
-        limit REAL,
+        budget_limit REAL,
         period TEXT,
         spent REAL
       )

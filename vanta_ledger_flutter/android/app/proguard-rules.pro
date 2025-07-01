@@ -42,4 +42,11 @@
 -keep class com.dexterous.** { *; }
 
 # Keep biometric classes
--keep class androidx.biometric.** { *; } 
+-keep class androidx.biometric.** { *; }
+
+# Flutter Play Core and SplitCompat (for code/resource shrinking)
+-keep class com.google.android.play.core.** { *; }
+-keep class com.google.android.play.core.splitcompat.** { *; }
+-keep class com.google.android.play.core.splitinstall.** { *; }
+-keep class io.flutter.embedding.engine.deferredcomponents.** { *; }
+-keep class io.flutter.embedding.android.FlutterPlayStoreSplitApplication { *; } 

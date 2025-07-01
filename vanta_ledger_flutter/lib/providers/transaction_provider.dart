@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import '../services/database_service.dart';
 import 'package:collection/collection.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 
 class TransactionProvider extends ChangeNotifier {
   List<TransactionModel> _transactions = [];
@@ -11,6 +13,24 @@ class TransactionProvider extends ChangeNotifier {
 
   Future<void> loadTransactions() async {
     _transactions = await _db.getTransactions();
+    // Auto-import test data if empty
+    if (_transactions.isEmpty) {
+      final data = await rootBundle.loadString('assets/test_data/transactions_sample.json');
+      final List<dynamic> jsonList = json.decode(data);
+      for (final tx in jsonList) {
+        await _db.insertTransaction(TransactionModel(
+          amount: tx['amount'],
+          description: tx['description'],
+          date: DateTime.parse(tx['date']),
+          categoryId: tx['categoryId'],
+          accountId: tx['accountId'],
+          type: tx['type'] == 'income' ? TransactionType.income : TransactionType.expense,
+          recurrence: RecurrenceType.values[tx['recurrence'] ?? 0],
+          cleared: tx['cleared'] ?? false,
+        ));
+      }
+      _transactions = await _db.getTransactions();
+    }
     notifyListeners();
   }
 

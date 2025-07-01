@@ -1,0 +1,102 @@
+[
+  {
+    "amount": 1200.50,
+    "description": "Groceries",
+    "date": "2023-07-01T14:23:00.000Z",
+    "categoryId": 1,
+    "accountId": 1,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": true
+  },
+  {
+    "amount": 5000.00,
+    "description": "Salary",
+    "date": "2023-07-01T09:00:00.000Z",
+    "categoryId": 5,
+    "accountId": 1,
+    "type": "income",
+    "recurrence": 0,
+    "cleared": true
+  },
+  {
+    "amount": 300.00,
+    "description": "Transport",
+    "date": "2023-07-02T08:00:00.000Z",
+    "categoryId": 2,
+    "accountId": 2,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": false
+  },
+  {
+    "amount": 150.00,
+    "description": "Coffee",
+    "date": "2023-07-03T10:30:00.000Z",
+    "categoryId": 1,
+    "accountId": 1,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": true
+  },
+  {
+    "amount": 2000.00,
+    "description": "Bonus",
+    "date": "2023-07-05T12:00:00.000Z",
+    "categoryId": 5,
+    "accountId": 1,
+    "type": "income",
+    "recurrence": 0,
+    "cleared": true
+  },
+  {
+    "amount": 800.00,
+    "description": "Dining",
+    "date": "2023-07-06T19:00:00.000Z",
+    "categoryId": 1,
+    "accountId": 3,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": false
+  },
+  {
+    "amount": 100.00,
+    "description": "Snacks",
+    "date": "2023-07-07T15:00:00.000Z",
+    "categoryId": 1,
+    "accountId": 2,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": true
+  },
+  {
+    "amount": 250.00,
+    "description": "Fuel",
+    "date": "2023-07-08T11:00:00.000Z",
+    "categoryId": 2,
+    "accountId": 2,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": false
+  },
+  {
+    "amount": 400.00,
+    "description": "Utilities",
+    "date": "2023-07-09T18:00:00.000Z",
+    "categoryId": 4,
+    "accountId": 1,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": true
+  },
+  {
+    "amount": 350.00,
+    "description": "Internet",
+    "date": "2023-07-10T20:00:00.000Z",
+    "categoryId": 4,
+    "accountId": 3,
+    "type": "expense",
+    "recurrence": 0,
+    "cleared": true
+  }
+] 
