@@ -1,4 +1,4 @@
-# <img src="vanta_ledger_flutter/assets/images/app_logo_placeholder.svg" alt="Vanta Ledger Logo" height="60" style="vertical-align:middle;"> Vanta Ledger
+# <img src="vanta_ledger_flutter/assets/images/icon-512.png" alt="Vanta Ledger Logo" height="60" style="vertical-align:middle;"> Vanta Ledger
 
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -76,7 +76,7 @@ flutter build apk --release --no-tree-shake-icons
 ## 🖼️ Logo & Animation
 
 <p align="center">
-  <img src="vanta_ledger_flutter/assets/images/app_logo_placeholder.svg" alt="Vanta Ledger Logo" height="120"/>
+  <img src="vanta_ledger_flutter/assets/images/icon-512.png" alt="Vanta Ledger Logo" height="120"/>
 </p>
 
 ---
