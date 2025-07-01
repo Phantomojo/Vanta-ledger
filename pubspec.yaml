@@ -1,0 +1,4 @@
+dependencies:
+  flutter:
+    sdk: flutter
+  telephony: ^0.2.0 

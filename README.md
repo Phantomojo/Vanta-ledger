@@ -1,101 +1,87 @@
-# VantaLedger Android App
+# <img src="vanta_ledger_flutter/assets/images/app_logo_placeholder.svg" alt="Vanta Ledger Logo" height="60" style="vertical-align:middle;"> Vanta Ledger
 
-A modern, offline-first financial management application with an MPesa/Instagram-inspired interface.
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Desktop-purple)
 
-## Overview
+---
 
-VantaLedger is a standalone Android application for managing income and expenses. It features a professional financial interface inspired by MPesa combined with the engaging timeline feel of Instagram. The app is designed to be fully offline-first with optional manual cloud backups.
+> **A modern, offline-first finance app with MPesa/Instagram-inspired UI, analytics, and blazing performance.**
 
-## Key Features
+---
 
-- **Modern UI/UX**: Clean, professional interface with Instagram-inspired timeline
-- **Transaction Management**: Quick and intuitive income and expense tracking
-- **Category System**: Predefined and custom categories with visual icons
-- **Recurring Transactions**: Schedule repeating transactions with notifications
-- **Budget Planning**: Set and track budgets by category with alerts
-- **Reports & Analytics**: Visual breakdowns of spending and income patterns
-- **Offline-First**: Full functionality without internet connection
-- **Backup & Restore**: Manual export to JSON/CSV and Google Drive integration
-- **Multi-Account Support**: Track multiple financial accounts
-- **Security Features**: Optional biometric and PIN protection
+## ✨ Features
 
-## Tech Stack
+- **Modern UI/UX:** Instagram-inspired timeline, beautiful dark theme
+- **Automatic Analytics:** Real-time reports, category breakdowns, net worth, and more
+- **MPesa & Bank Ready:** (Planned) SMS/notification parsing for all major providers
+- **Offline-First:** Works without internet, with optional cloud backup
+- **Multi-Account Support:** Track all your wallets and banks
+- **Security:** Biometric/PIN lock
+- **Export/Import:** CSV/JSON backup and restore
+- **Custom Categories:** Visual icons, easy management
+- **Test Data:** Demo-ready with 1-year and 10,000+ transaction datasets
+
+---
+
+## 🚀 Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="250"/>
+  <img src="docs/screenshots/reports.png" alt="Reports" width="250"/>
+  <img src="docs/screenshots/transactions.png" alt="Transactions" width="250"/>
+</p>
+
+---
+
+## 🛠️ Tech Stack
 
 | Layer        | Technology                                   |
 | ------------ | -------------------------------------------- |
-| Language     | Kotlin                                       |
-| UI           | Jetpack Compose                              |
-| Architecture | MVVM                                         |
-| Local DB     | Room (SQLite abstraction)                    |
-| Backup       | Manual file export / Google Drive (optional) |
-| Tools        | Android Studio + Gradle                      |
+| Language     | Dart (Flutter)                               |
+| UI           | Flutter, fl_chart, Provider                  |
+| Local DB     | SQLite (sqflite)                             |
+| Backup       | Manual export/import, Google Drive (planned) |
+| Analytics    | Custom, fl_chart                             |
+| SMS Parsing  | telephony (planned)                          |
 
-## Project Structure
+---
 
+## ⚡ Quick Start
+
+```sh
+# Clone the repo
+https://github.com/Phantomojo/Vanta-ledger.git
+cd Vanta-ledger/vanta_ledger_flutter
+
+# Get dependencies
+flutter pub get
+
+# Run on emulator/device
+flutter run
+
+# Build release APK (for sharing/demo)
+flutter build apk --release --no-tree-shake-icons
 ```
-/VantaLedger/
-├── data/
-│   ├── model/      # Data entities
-│   ├── db/         # Room database and DAOs
-│   └── repository/ # Data access repositories
-├── ui/
-│   ├── screens/    # App screens
-│   ├── components/ # Reusable UI components
-│   └── theme/      # Design system
-├── viewmodel/      # ViewModels for each screen
-├── MainActivity.kt # Entry point
-└── build.gradle    # Dependencies and configuration
-```
 
-## Development Timeline
+---
 
-The project is organized into five phases:
+## 📦 Demo APK
 
-1. **Foundation & Core Transaction Management** (Weeks 1-3)
-   - Project setup, architecture, transaction management, category system
+- Download the latest APK from the [Releases page](https://github.com/Phantomojo/Vanta-ledger/releases)
+- Pre-filled with demo/test data for instant exploration
 
-2. **Enhanced Financial Features** (Weeks 4-6)
-   - Recurring transactions, budget planning, reports & analytics
+---
 
-3. **User Experience & Security** (Weeks 7-9)
-   - UI polish, notification system, security features
+## 🖼️ Logo & Animation
 
-4. **Data Management & Backup** (Weeks 10-12)
-   - Search & filtering, backup & restore, multi-account support
+<p align="center">
+  <img src="vanta_ledger_flutter/assets/images/app_logo_placeholder.svg" alt="Vanta Ledger Logo" height="120"/>
+</p>
 
-5. **Advanced Features & Polishing** (Weeks 13-15)
-   - Widgets & quick actions, extended functionality, final testing
+---
 
-## Documentation
-
-- [Feature Requirements](docs/feature_requirements.md) - Detailed breakdown of all app features
-- [Project Plan](docs/project_plan.md) - Comprehensive development roadmap
-- [Technical Architecture](docs/technical_architecture.md) - Detailed system design
-- [UI/UX Guidelines](docs/ui_guidelines.md) - Design principles and patterns
-
-## Getting Started
-
-### Prerequisites
-
-- Android Studio Arctic Fox or newer
-- JDK 11 or higher
-- Android SDK 31 (Android 12) or higher
-
-### Setup
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/Phantomojo/Vanta-ledger.git
-   cd Vanta-ledger
-   ```
-
-2. Open the project in Android Studio
-
-3. Sync Gradle and build the project
-
-4. Run on an emulator or physical device
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature-name`
@@ -103,11 +89,16 @@ The project is organized into five phases:
 4. Push to the branch: `git push origin feature-name`
 5. Submit a pull request
 
-## License
+---
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📄 License
 
-## Acknowledgments
+MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## 🙏 Acknowledgments
 
 - Original concept by Phantomojo
 - Developed with assistance from Manus AI
+- Inspired by MPesa, Instagram, and modern fintech apps
