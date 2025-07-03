@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../providers/category_provider.dart';
 import '../models/category.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../wakanda_text.dart';
+import 'dashboard_screen.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -71,94 +73,101 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     final categories = context.watch<CategoryProvider>().categories;
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(
-            'assets/images/app_logo_placeholder.svg',
-            height: 32,
-            width: 32,
-            semanticsLabel: 'Vanta Ledger Logo',
-          ),
-        ),
-        title: const Text('Categories'),
+      appBar: GlassyAppBar(
+        title: 'Categories',
       ),
-      body: categories.isEmpty
-          ? const Center(child: Text('No categories yet.'))
-          : ListView.builder(
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                final cat = categories[index];
-                return Dismissible(
-                  key: ValueKey(cat.id),
-                  direction: categories.length > 1 ? DismissDirection.endToStart : DismissDirection.none,
-                  background: Container(
-                    color: Colors.red,
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: const Icon(Icons.delete, color: Colors.white),
-                  ),
-                  confirmDismiss: (direction) async {
-                    if (categories.length <= 1) return false;
-                    return await showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Delete Category'),
-                        content: Text('Are you sure you want to delete "${cat.name}"?'),
-                        actions: [
-                          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
-                          ElevatedButton(onPressed: () => Navigator.pop(context, true), child: const Text('Delete')),
-                        ],
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/purple_glass_bg.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.45),
+            ),
+          ),
+          // Main content
+          categories.isEmpty
+              ? const Center(child: Text('No categories yet.'))
+              : ListView.builder(
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    final cat = categories[index];
+                    return Dismissible(
+                      key: ValueKey(cat.id),
+                      direction: categories.length > 1 ? DismissDirection.endToStart : DismissDirection.none,
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
                       ),
-                    );
-                  },
-                  onDismissed: (_) async {
-                    await Provider.of<CategoryProvider>(context, listen: false).deleteCategory(cat.id!);
-                  },
-                  child: ListTile(
-                    leading: Icon(cat.icon),
-                    title: Text(cat.name),
-                    subtitle: cat.isCustom ? const Text('Custom') : const Text('Default'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () async {
-                        final _formKey = GlobalKey<FormState>();
-                        String name = cat.name;
-                        await showDialog(
+                      confirmDismiss: (direction) async {
+                        if (categories.length <= 1) return false;
+                        return await showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: const Text('Rename Category'),
-                            content: Form(
-                              key: _formKey,
-                              child: TextFormField(
-                                initialValue: name,
-                                validator: (val) => val == null || val.isEmpty ? 'Enter name' : null,
-                                onSaved: (val) => name = val ?? '',
-                              ),
-                            ),
+                            title: const Text('Delete Category'),
+                            content: Text('Are you sure you want to delete "${cat.name}"?'),
                             actions: [
-                              TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  if (_formKey.currentState?.validate() ?? false) {
-                                    _formKey.currentState?.save();
-                                    await Provider.of<CategoryProvider>(context, listen: false).updateCategory(
-                                      cat.copyWith(name: name),
-                                    );
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                child: const Text('Save'),
-                              ),
+                              TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+                              ElevatedButton(onPressed: () => Navigator.pop(context, true), child: const Text('Delete')),
                             ],
                           ),
                         );
                       },
-                    ),
-                  ),
-                );
-              },
-            ),
+                      onDismissed: (_) async {
+                        await Provider.of<CategoryProvider>(context, listen: false).deleteCategory(cat.id!);
+                      },
+                      child: ListTile(
+                        leading: Icon(cat.icon),
+                        title: Text(cat.name),
+                        subtitle: cat.isCustom ? const Text('Custom') : const Text('Default'),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () async {
+                            final _formKey = GlobalKey<FormState>();
+                            String name = cat.name;
+                            await showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Rename Category'),
+                                content: Form(
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    initialValue: name,
+                                    validator: (val) => val == null || val.isEmpty ? 'Enter name' : null,
+                                    onSaved: (val) => name = val ?? '',
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      if (_formKey.currentState?.validate() ?? false) {
+                                        _formKey.currentState?.save();
+                                        await Provider.of<CategoryProvider>(context, listen: false).updateCategory(
+                                          cat.copyWith(name: name),
+                                        );
+                                        Navigator.pop(context);
+                                      }
+                                    },
+                                    child: const Text('Save'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                ),
+        ],
+      ),
     );
   }
 } 

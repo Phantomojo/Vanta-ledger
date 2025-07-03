@@ -48,4 +48,5 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/images/icon-512.png
+    - assets/images/purple_glass_bg.jpg
     - assets/test_data/transactions_sample.json

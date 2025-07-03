@@ -20,6 +20,8 @@ import 'screens/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'providers/currency_provider.dart';
 import 'providers/notification_settings_provider.dart';
+import 'screens/lock_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,10 +56,8 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: themeProvider.themeMode,
-          initialRoute: onboardingComplete ? '/' : '/onboarding',
+          home: SplashScreenLauncher(onboardingComplete: onboardingComplete),
           routes: {
-            '/': (context) => const MainNavScreen(),
-            '/onboarding': (context) => const OnboardingScreen(),
             '/settings': (context) => const SettingsScreen(),
             '/accounts': (context) => const AccountScreen(),
             '/categories': (context) => const CategoryScreen(),
@@ -66,5 +66,85 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SplashScreenLauncher extends StatefulWidget {
+  final bool onboardingComplete;
+  const SplashScreenLauncher({required this.onboardingComplete, Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreenLauncher> createState() => _SplashScreenLauncherState();
+}
+
+class _SplashScreenLauncherState extends State<SplashScreenLauncher> {
+  bool _showSplash = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _onSplashFinish() async {
+    setState(() => _showSplash = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_showSplash) {
+      return SplashScreen(onFinish: _onSplashFinish);
+    }
+    if (!widget.onboardingComplete) {
+      return const OnboardingScreen();
+    }
+    return _SecureEntryWrapper(child: const MainNavScreen());
+  }
+}
+
+class _SecureEntryWrapper extends StatefulWidget {
+  final Widget child;
+  const _SecureEntryWrapper({required this.child});
+
+  @override
+  State<_SecureEntryWrapper> createState() => _SecureEntryWrapperState();
+}
+
+class _SecureEntryWrapperState extends State<_SecureEntryWrapper> {
+  bool _unlocked = false;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkSecurity();
+  }
+
+  Future<void> _checkSecurity() async {
+    final security = Provider.of<SecurityProvider>(context, listen: false);
+    await security.loadSecurity();
+    if (security.hasPin || security.biometricEnabled) {
+      final unlocked = await Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const LockScreen()),
+      );
+      setState(() {
+        _unlocked = unlocked == true;
+        _loading = false;
+      });
+    } else {
+      setState(() {
+        _unlocked = true;
+        _loading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_loading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+    return _unlocked ? widget.child : const SizedBox.shrink();
   }
 } 

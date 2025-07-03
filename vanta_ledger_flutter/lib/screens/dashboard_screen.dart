@@ -15,6 +15,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import '../wakanda_text.dart';
+import 'dart:ui';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -44,229 +46,225 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
+    final accounts = context.watch<AccountProvider>().accounts;
     final transactions = context.watch<TransactionProvider>().transactions;
-    final categories = context.watch<CategoryProvider>().categories;
-    final accounts = context.read<AccountProvider>().accounts;
-    final totalExpenses = transactions
-        .where((tx) => tx.type == TransactionType.expense)
-        .fold<double>(0.0, (sum, tx) => sum + tx.amount);
-    final totalTransactions = transactions.length;
+    final totalBalance = accounts.fold<double>(0.0, (sum, acc) => sum + acc.balance);
     final recentTransactions = transactions.take(5).toList();
 
-    // --- FILTER CONTROLS ---
-    DateTime now = DateTime.now();
-    DateTime startDate = now.subtract(const Duration(days: 29));
-    int? selectedAccountId;
-
-    // --- SUMMARY CARDS ---
-    // Largest expense
-    final largestExpense = transactions.where((tx) => tx.type == TransactionType.expense).fold<TransactionModel?>(null, (prev, tx) => prev == null || tx.amount > prev.amount ? tx : prev);
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Vanta Ledger'),
+      appBar: GlassyAppBar(
+        title: 'Dashboard',
         actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 8, top: 12, bottom: 12),
+            child: IconButton(
+              icon: const Icon(Icons.settings, color: Colors.white70, size: 26),
+              onPressed: () => Navigator.pushNamed(context, '/settings'),
+            ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // --- DASHBOARD LOGO (polished) ---
-              Center(
-                child: Card(
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-                  color: Colors.white.withOpacity(0.05),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Image.asset(
-                      'assets/images/icon-512.png',
-                      height: 72,
-                      width: 72,
-                      semanticLabel: 'Vanta Ledger Custom Logo',
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              if (kDebugMode)
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final data = await rootBundle.loadString('assets/test_data/transactions_sample.json');
-                      final List<dynamic> jsonList = json.decode(data);
-                      final txProvider = context.read<TransactionProvider>();
-                      for (final tx in jsonList) {
-                        await txProvider.addTransaction(TransactionModel(
-                          amount: tx['amount'],
-                          description: tx['description'],
-                          date: DateTime.parse(tx['date']),
-                          categoryId: tx['categoryId'],
-                          accountId: tx['accountId'],
-                          type: tx['type'] == 'income' ? TransactionType.income : TransactionType.expense,
-                          recurrence: RecurrenceType.values[tx['recurrence'] ?? 0],
-                          cleared: tx['cleared'] ?? false,
-                        ));
-                      }
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Test data imported!')),
-                        );
-                      }
-                    },
-                    child: const Text('Import 1 Year Test Data'),
-                  ),
-                ),
-              const SizedBox(height: 24),
-              // --- FILTER CONTROLS ---
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Last 30 days', style: Theme.of(context).textTheme.labelLarge),
-                  DropdownButton<int?>(
-                    value: selectedAccountId,
-                    hint: const Text('All Accounts'),
-                    items: [
-                      const DropdownMenuItem<int?>(value: null, child: Text('All Accounts')),
-                      ...accounts.map((acc) => DropdownMenuItem<int?>(value: acc.id, child: Text(acc.name))),
-                    ],
-                    onChanged: (val) {
-                      // TODO: Implement account filter logic
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              // --- SUMMARY CARDS ---
-              if (largestExpense != null)
-                Card(
-                  color: Colors.red.shade900,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/app_logo_placeholder.svg',
-                          height: 28,
-                          width: 28,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(height: 4),
-                        Text('Largest Expense', style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Colors.white70)),
-                        Text(largestExpense.description, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white)),
-                        Text('Ksh ${largestExpense.amount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                      ],
-                    ),
-                  ),
-                ),
-              const SizedBox(height: 24),
-              // --- DASHBOARD STATISTICS CARD (redesigned) ---
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      margin: const EdgeInsets.only(right: 12, bottom: 16, top: 16),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.trending_down, color: Colors.red, size: 32),
-                            const SizedBox(height: 8),
-                            Text('Expenses', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.red)),
-                            Text('Ksh ${totalExpenses.toStringAsFixed(2)}', style: Theme.of(context).textTheme.titleLarge),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      margin: const EdgeInsets.only(right: 12, bottom: 16, top: 16),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.trending_up, color: Colors.green, size: 32),
-                            const SizedBox(height: 8),
-                            Text('Income', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.green)),
-                            Text('Ksh ${transactions.where((tx) => tx.type == TransactionType.income).fold<double>(0.0, (sum, tx) => sum + tx.amount).toStringAsFixed(2)}', style: Theme.of(context).textTheme.titleLarge),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      margin: const EdgeInsets.only(right: 12, bottom: 16, top: 16),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.receipt_long, color: Colors.deepPurple, size: 32),
-                            const SizedBox(height: 8),
-                            Text('Transactions', style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.deepPurple)),
-                            Text('$totalTransactions', style: Theme.of(context).textTheme.titleLarge),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              Text('Recent Activity', style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 8),
-              if (recentTransactions.isEmpty)
-                const Text('No recent transactions.')
-              else
-                ...recentTransactions.asMap().entries.map((entry) {
-                  final i = entry.key;
-                  final tx = entry.value;
-                  return AnimatedSlide(
-                    offset: _controller.drive(Tween(begin: Offset(0, 0.2 + i * 0.1), end: Offset.zero)).value,
-                    duration: Duration(milliseconds: 500 + i * 100),
-                    curve: Curves.easeOut,
-                    child: AnimatedOpacity(
-                      opacity: _controller.value,
-                      duration: Duration(milliseconds: 500 + i * 100),
-                      child: Card(
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: tx.type == TransactionType.expense ? Colors.red[100] : Colors.green[100],
-                            child: Icon(
-                              tx.type == TransactionType.expense ? Icons.arrow_downward : Icons.arrow_upward,
-                              color: tx.type == TransactionType.expense ? Colors.red : Colors.green,
-                            ),
-                          ),
-                          title: Text(tx.description),
-                          subtitle: Text(tx.date.toIso8601String().split('T').first),
-                          trailing: Text('Ksh ${tx.amount.toStringAsFixed(2)}', style: TextStyle(
-                            color: tx.type == TransactionType.expense ? Colors.red : Colors.green,
-                            fontWeight: FontWeight.bold,
-                          )),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-            ],
+      body: Stack(
+        children: [
+          // Cinematic purple glass background image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/purple_glass_bg.jpg',
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
+          // Dark overlay for readability
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.45),
+            ),
+          ),
+          // Main content
+          Padding(
+            padding: const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 12),
+                // Summary Cards Row (always visible)
+                SizedBox(
+                  height: 120,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                    children: [
+                      _GlassySummaryCard(
+                        icon: Icons.trending_down,
+                        label: 'Expenses',
+                        value: 'Ksh ${transactions.where((tx) => tx.type == TransactionType.expense).fold<double>(0.0, (sum, tx) => sum + tx.amount).toStringAsFixed(2)}',
+                        color: Colors.red,
+                      ),
+                      const SizedBox(width: 18),
+                      _GlassySummaryCard(
+                        icon: Icons.trending_up,
+                        label: 'Income',
+                        value: 'Ksh ${transactions.where((tx) => tx.type == TransactionType.income).fold<double>(0.0, (sum, tx) => sum + tx.amount).toStringAsFixed(2)}',
+                        color: Colors.green,
+                      ),
+                      const SizedBox(width: 18),
+                      _GlassySummaryCard(
+                        icon: Icons.receipt_long,
+                        label: 'Transactions',
+                        value: '${transactions.length}',
+                        color: Colors.deepPurple,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 18),
+                // Account Cards Carousel (glassy)
+                SizedBox(
+                  height: 200,
+                  child: accounts.isEmpty
+                      ? Center(child: Text('No accounts yet.', style: Theme.of(context).textTheme.bodyLarge))
+                      : ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                          itemCount: accounts.length,
+                          separatorBuilder: (_, __) => const SizedBox(width: 24),
+                          itemBuilder: (context, i) {
+                            final acc = accounts[i];
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(32),
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+                                child: Container(
+                                  width: 320,
+                                  height: 170,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Colors.white.withOpacity(0.10),
+                                        Colors.deepPurple.withOpacity(0.08),
+                                        Colors.transparent,
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(32),
+                                    border: Border.all(color: Colors.white.withOpacity(0.06), width: 1.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Icon(Icons.account_balance_wallet_rounded, color: Colors.white.withOpacity(0.65), size: 36),
+                                            Icon(Icons.more_horiz, color: Colors.white38),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          acc.name,
+                                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white.withOpacity(0.82),
+                                            shadows: [Shadow(color: Colors.black.withOpacity(0.18), blurRadius: 3)],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        WakandaText(
+                                          text: 'Ksh ${acc.balance.toStringAsFixed(2)}',
+                                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 32,
+                                            color: Colors.white.withOpacity(0.88),
+                                            shadows: [Shadow(color: Colors.black.withOpacity(0.22), blurRadius: 4)],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ),
+                const SizedBox(height: 32),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+                  child: Text('Recent Transactions', style: Theme.of(context).textTheme.titleMedium),
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: recentTransactions.isEmpty
+                      ? const Center(child: Text('No recent transactions.'))
+                      : ListView.separated(
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+                          itemCount: recentTransactions.length,
+                          separatorBuilder: (_, __) => const SizedBox(height: 18),
+                          itemBuilder: (context, i) {
+                            final tx = recentTransactions[i];
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(18),
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Colors.white.withOpacity(0.08),
+                                        Colors.deepPurple.withOpacity(0.06),
+                                        Colors.transparent,
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(18),
+                                    border: Border.all(color: Colors.white.withOpacity(0.05), width: 0.8),
+                                  ),
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: tx.type == TransactionType.expense ? Colors.red.withOpacity(0.18) : Colors.green.withOpacity(0.18),
+                                      child: Icon(
+                                        tx.type == TransactionType.expense ? Icons.arrow_downward : Icons.arrow_upward,
+                                        color: tx.type == TransactionType.expense ? Colors.red.withOpacity(0.7) : Colors.green.withOpacity(0.7),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      tx.description,
+                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        color: Colors.white.withOpacity(0.82),
+                                        shadows: [Shadow(color: Colors.black.withOpacity(0.14), blurRadius: 2)],
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      tx.date.toIso8601String().split('T').first,
+                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                        color: Colors.white.withOpacity(0.55),
+                                      ),
+                                    ),
+                                    trailing: WakandaText(
+                                      text: 'Ksh ${tx.amount.toStringAsFixed(2)}',
+                                      style: TextStyle(
+                                        color: tx.type == TransactionType.expense ? Colors.red.withOpacity(0.8) : Colors.green.withOpacity(0.8),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        shadows: [Shadow(color: Colors.black.withOpacity(0.18), blurRadius: 3)],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -331,6 +329,125 @@ class _QuickActionButtonState extends State<_QuickActionButton> with SingleTicke
         const SizedBox(height: 6),
         Text(widget.label, style: Theme.of(context).textTheme.labelSmall),
       ],
+    );
+  }
+}
+
+class _GlassySummaryCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color color;
+  const _GlassySummaryCard({required this.icon, required this.label, required this.value, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+        child: Container(
+          width: 140,
+          height: 130,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.white.withOpacity(0.10),
+                Colors.deepPurple.withOpacity(0.08),
+                Colors.transparent,
+              ],
+            ),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Colors.white.withOpacity(0.06), width: 1.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(icon, color: color.withOpacity(0.65), size: 26),
+                const SizedBox(height: 6),
+                Text(
+                  label,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: Colors.white.withOpacity(0.68),
+                    fontWeight: FontWeight.w500,
+                    shadows: [Shadow(color: Colors.black.withOpacity(0.12), blurRadius: 2)],
+                  ),
+                ),
+                const SizedBox(height: 2),
+                WakandaText(
+                  text: value,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white.withOpacity(0.82),
+                    fontSize: 20,
+                    shadows: [Shadow(color: Colors.black.withOpacity(0.18), blurRadius: 3)],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class GlassyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final List<Widget>? actions;
+  const GlassyAppBar({required this.title, this.actions, Key? key}) : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(64);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.22),
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 8),
+                child: Image.asset(
+                  'assets/images/icon-512.png',
+                  height: 32,
+                  width: 32,
+                  semanticLabel: 'Vanta Ledger Logo',
+                ),
+              ),
+              Expanded(
+                child: Center(
+                  child: WakandaText(
+                    text: title,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Colors.white.withOpacity(0.88),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      shadows: [Shadow(color: Colors.black.withOpacity(0.18), blurRadius: 3)],
+                    ),
+                  ),
+                ),
+              ),
+              if (actions != null)
+                ...actions!
+              else
+                const SizedBox(width: 48),
+            ],
+          ),
+        ),
+      ),
     );
   }
 } 

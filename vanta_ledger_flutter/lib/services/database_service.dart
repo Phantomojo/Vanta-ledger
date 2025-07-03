@@ -265,4 +265,12 @@ class DatabaseService {
     final db = await database;
     return await db.delete('investments', where: 'id = ?', whereArgs: [id]);
   }
+
+  // Utility: Delete the entire database file (reset all data)
+  Future<void> deleteDatabaseFile() async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'vanta_ledger.db');
+    await deleteDatabase(path);
+    _db = null;
+  }
 } 

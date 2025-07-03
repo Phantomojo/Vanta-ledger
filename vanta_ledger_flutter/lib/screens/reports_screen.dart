@@ -4,6 +4,8 @@ import '../providers/reports_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:math';
+import '../wakanda_text.dart';
+import 'dashboard_screen.dart';
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({Key? key}) : super(key: key);
@@ -26,17 +28,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return Consumer<ReportsProvider>(
       builder: (context, provider, _) {
         return Scaffold(
-          appBar: AppBar(
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                'assets/images/app_logo_placeholder.svg',
-                height: 32,
-                width: 32,
-                semanticsLabel: 'Vanta Ledger Logo',
-              ),
-            ),
-            title: const Text('Reports & Analytics'),
+          appBar: GlassyAppBar(
+            title: 'Reports',
           ),
           body: provider.incomeByMonth.isEmpty && provider.expenseByMonth.isEmpty
               ? Center(

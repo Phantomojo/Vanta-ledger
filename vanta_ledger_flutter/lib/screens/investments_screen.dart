@@ -4,6 +4,8 @@ import '../models/investment.dart';
 import '../providers/investment_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../wakanda_text.dart';
+import 'dashboard_screen.dart';
 
 class InvestmentsScreen extends StatefulWidget {
   const InvestmentsScreen({Key? key}) : super(key: key);
@@ -193,72 +195,73 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
     return Consumer<InvestmentProvider>(
       builder: (context, provider, _) {
         return Scaffold(
-          appBar: AppBar(
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                'assets/images/app_logo_placeholder.svg',
-                height: 32,
-                width: 32,
-                semanticsLabel: 'Vanta Ledger Logo',
+          appBar: GlassyAppBar(
+            title: 'Investments',
+          ),
+          body: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  'assets/images/purple_glass_bg.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            title: const Text('Investments'),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => _showInvestmentDialog(),
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black.withOpacity(0.45),
+                ),
               ),
+              // Main content
+              provider.investments.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.trending_up, size: 80, color: Colors.grey[400]),
+                          const SizedBox(height: 16),
+                          const Text('No investments yet.', style: TextStyle(fontSize: 18)),
+                          const SizedBox(height: 8),
+                          const Text('Add your first investment to get started!'),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: provider.investments.length,
+                      itemBuilder: (context, i) {
+                        final inv = provider.investments[i];
+                        return Card(
+                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: ListTile(
+                            title: Text(inv.name),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Type: ${inv.type}'),
+                                Text('Amount: ${inv.amount.toStringAsFixed(2)} ${inv.currency}'),
+                                Text('Date: ${DateFormat.yMMMd().format(inv.date)}'),
+                                if (inv.notes != null && inv.notes!.isNotEmpty)
+                                  Text('Notes: ${inv.notes}'),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  onPressed: () => _showInvestmentDialog(investment: inv),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () => _deleteInvestment(inv.id!),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ],
           ),
-          body: provider.investments.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.trending_up, size: 80, color: Colors.grey[400]),
-                      const SizedBox(height: 16),
-                      const Text('No investments yet.', style: TextStyle(fontSize: 18)),
-                      const SizedBox(height: 8),
-                      const Text('Add your first investment to get started!'),
-                    ],
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: provider.investments.length,
-                  itemBuilder: (context, i) {
-                    final inv = provider.investments[i];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: ListTile(
-                        title: Text(inv.name),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Type: ${inv.type}'),
-                            Text('Amount: ${inv.amount.toStringAsFixed(2)} ${inv.currency}'),
-                            Text('Date: ${DateFormat.yMMMd().format(inv.date)}'),
-                            if (inv.notes != null && inv.notes!.isNotEmpty)
-                              Text('Notes: ${inv.notes}'),
-                          ],
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () => _showInvestmentDialog(investment: inv),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => _deleteInvestment(inv.id!),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
         );
       },
     );
