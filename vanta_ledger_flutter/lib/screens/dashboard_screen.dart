@@ -17,6 +17,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import '../wakanda_text.dart';
 import 'dart:ui';
+import '../components/glassy_card.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

@@ -8,6 +8,7 @@ import 'reports_screen.dart';
 import 'bills_screen.dart';
 import 'investments_screen.dart';
 import 'dart:ui';
+import '../components/glassy_card.dart';
 
 class MainNavScreen extends StatefulWidget {
   const MainNavScreen({super.key});

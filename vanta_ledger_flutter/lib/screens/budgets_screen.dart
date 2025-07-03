@@ -47,7 +47,7 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
             ],
           ),
           actions: [
-            TextButton(r]
+            TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Cancel'),
             ),

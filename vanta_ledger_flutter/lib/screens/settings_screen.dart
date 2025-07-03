@@ -10,6 +10,7 @@ import '../services/database_service.dart';
 import '../wakanda_text.dart';
 import 'dashboard_screen.dart';
 import 'dart:ui';
+import '../components/glassy_card.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -44,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
             children: [
               // Theme & Currency
-              _GlassySettingsCard(
+              GlassyCard(
                 child: Column(
                   children: [
                     Consumer<ThemeProvider>(
@@ -88,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 28),
               // Account & Category Management
-              _GlassySettingsCard(
+              GlassyCard(
                 child: Column(
                   children: [
                     ListTile(
@@ -106,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 28),
               // Security Section
-              _GlassySettingsCard(
+              GlassyCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -172,7 +173,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 28),
               // Backup & Notifications
-              _GlassySettingsCard(
+              GlassyCard(
                 child: Column(
                   children: [
                     ListTile(
@@ -222,7 +223,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 28),
               // About
-              _GlassySettingsCard(
+              GlassyCard(
                 child: ListTile(
                   leading: const Icon(Icons.info_outline, color: Colors.white70),
                   title: const Text('About', style: TextStyle(color: Colors.white)),
@@ -232,7 +233,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 28),
               // Reset App Data
-              _GlassySettingsCard(
+              GlassyCard(
                 accent: true,
                 child: ListTile(
                   leading: const Icon(Icons.delete_forever_outlined, color: Colors.redAccent),
@@ -265,47 +266,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _GlassySettingsCard extends StatelessWidget {
-  final Widget child;
-  final bool accent;
-  const _GlassySettingsCard({required this.child, this.accent = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: accent
-                    ? [
-                        Colors.redAccent.withOpacity(0.10),
-                        Colors.white.withOpacity(0.08),
-                        Colors.transparent,
-                      ]
-                    : [
-                        Colors.white.withOpacity(0.10),
-                        Colors.deepPurple.withOpacity(0.08),
-                        Colors.transparent,
-                      ],
-              ),
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: Colors.white.withOpacity(0.07), width: 1.0),
-            ),
-            child: child,
-          ),
-        ),
       ),
     );
   }

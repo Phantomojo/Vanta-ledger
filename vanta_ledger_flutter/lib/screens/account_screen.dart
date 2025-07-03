@@ -5,6 +5,7 @@ import '../models/account.dart';
 import '../wakanda_text.dart';
 import 'dashboard_screen.dart';
 import 'dart:ui';
+import '../components/glassy_card.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
