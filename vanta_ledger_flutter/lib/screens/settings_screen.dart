@@ -11,6 +11,7 @@ import '../wakanda_text.dart';
 import 'dashboard_screen.dart';
 import 'dart:ui';
 import '../components/glassy_card.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -227,7 +228,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: ListTile(
                   leading: const Icon(Icons.info_outline, color: Colors.white70),
                   title: const Text('About', style: TextStyle(color: Colors.white)),
-                  subtitle: const Text('Vanta Ledger v1.0.0\nPrivacy: All data is stored locally.\nVisit: github.com/Phantomojo/Vanta-ledger', style: TextStyle(color: Colors.white54)),
+                  subtitle: FutureBuilder<PackageInfo>(
+                    future: PackageInfo.fromPlatform(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text('Loading...');
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else if (snapshot.hasData) {
+                        final packageInfo = snapshot.data!;
+                        return Text(
+                          'Vanta Ledger v${packageInfo.version} (build ${packageInfo.buildNumber})\nPrivacy: All data is stored locally.\nVisit: github.com/Phantomojo/Vanta-ledger',
+                          style: const TextStyle(color: Colors.white54),
+                        );
+                      } else {
+                        return const Text('Unknown error');
+                      }
+                    },
+                  ),
                   onTap: () {},
                 ),
               ),

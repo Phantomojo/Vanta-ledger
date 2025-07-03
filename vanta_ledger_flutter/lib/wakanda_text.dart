@@ -106,15 +106,18 @@ class _WakandaTextState extends State<WakandaText> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _playWave,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: List.generate(_displayChars.length, (i) {
-          return AnimatedDefaultTextStyle(
-            duration: widget.waveDuration ~/ (_displayChars.length + 1),
-            style: widget.style ?? DefaultTextStyle.of(context).style,
-            child: Text(_displayChars[i]),
-          );
-        }),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(_displayChars.length, (i) {
+            return AnimatedDefaultTextStyle(
+              duration: widget.waveDuration ~/ (_displayChars.length + 1),
+              style: widget.style ?? DefaultTextStyle.of(context).style,
+              child: Text(_displayChars[i]),
+            );
+          }),
+        ),
       ),
     );
   }

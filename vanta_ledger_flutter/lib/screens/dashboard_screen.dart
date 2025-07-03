@@ -152,38 +152,40 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Icon(Icons.account_balance_wallet_rounded, color: Colors.white.withOpacity(0.65), size: 36),
-                                            Icon(Icons.more_horiz, color: Colors.white38),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 16),
-                                        Text(
-                                          acc.name,
-                                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white.withOpacity(0.82),
-                                            shadows: [Shadow(color: Colors.black.withOpacity(0.18), blurRadius: 3)],
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Icon(Icons.account_balance_wallet_rounded, color: Colors.white.withOpacity(0.65), size: 36),
+                                              Icon(Icons.more_horiz, color: Colors.white38),
+                                            ],
                                           ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        WakandaText(
-                                          text: 'Ksh ${acc.balance.toStringAsFixed(2)}',
-                                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 32,
-                                            color: Colors.white.withOpacity(0.88),
-                                            shadows: [Shadow(color: Colors.black.withOpacity(0.22), blurRadius: 4)],
+                                          const SizedBox(height: 16),
+                                          Text(
+                                            acc.name,
+                                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white.withOpacity(0.82),
+                                              shadows: [Shadow(color: Colors.black.withOpacity(0.18), blurRadius: 3)],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          const SizedBox(height: 8),
+                                          WakandaText(
+                                            text: 'Ksh ${acc.balance.toStringAsFixed(2)}',
+                                            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 32,
+                                              color: Colors.white.withOpacity(0.88),
+                                              shadows: [Shadow(color: Colors.black.withOpacity(0.22), blurRadius: 4)],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
