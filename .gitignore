@@ -1,0 +1,60 @@
+# --- Vanta Ledger .gitignore (root) ---
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+.env
+.venv/
+
+# Node/React
+node_modules/
+dist/
+dist-ssr/
+.vite/
+.vite-temp/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Flutter/Dart
+**/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+*.class
+*.lock
+
+# Data, logs, cache
+raw_docs/
+logs/
+cache/
+exports/
+vanta_ledger.db
+
+# IDE/Editor
+.idea/
+.vscode/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System
+Thumbs.db
+Desktop.ini
+
+# Misc
+*.bak
+*.tmp
+
+# --- End --- 

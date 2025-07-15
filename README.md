@@ -2,82 +2,87 @@
 
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Desktop-purple)
+![Platform](https://img.shields.io/badge/platform-Web%20%7C%20Mobile%20%7C%20Desktop-purple)
 
 ---
 
-> **A modern, offline-first finance app with MPesa/Instagram-inspired UI, analytics, and blazing performance.**
+> **A modern, self-hosted business management system with unified dashboard, AI/NLP, analytics, and offline-first mobile app.**
+
+---
+
+## 🏗️ Project Structure
+
+- **Backend (FastAPI):** `src/vanta_ledger/`
+- **AI/NLP Microservice:** `src/ai_extractor/`
+- **Web Frontend (React/Vite):** `frontend-web/`
+- **Mobile App (Flutter):** `vanta_ledger_flutter/`
+- **Legacy Kivy App:** `frontend/` (being ported to web)
+- **Docs & Progress:** `docs/`, `progress_tracker.md`, `technical_architecture.md`
 
 ---
 
 ## ✨ Features
 
-- **Modern UI/UX:** Instagram-inspired timeline, beautiful dark theme
-- **Automatic Analytics:** Real-time reports, category breakdowns, net worth, and more
-- **MPesa & Bank Ready:** (Planned) SMS/notification parsing for all major providers
-- **Offline-First:** Works without internet, with optional cloud backup
-- **Multi-Account Support:** Track all your wallets and banks
-- **Security:** Biometric/PIN lock
-- **Export/Import:** CSV/JSON backup and restore
-- **Custom Categories:** Visual icons, easy management
-- **Test Data:** Demo-ready with 1-year and 10,000+ transaction datasets
+- **Unified Command Centre:** Notion/MPesa-inspired dashboard for all business modules
+- **Document Management:** Paperless-ngx integration, OCR, search, and AI extraction
+- **Finance & Ledger:** Projects, companies, transactions, analytics, and reporting
+- **AI/NLP:** Document field extraction, risk scoring, semantic search (FastAPI microservice)
+- **Offline-First Mobile:** Flutter app with local DB, Provider state, and export/import
+- **Modern Web UI:** React/Vite, modular admin panels, beautiful dark theme
+- **Security:** Roles, permissions, audit logs (planned)
+- **DevOps:** Docker Compose for full stack, Alembic migrations, .env config
 
 ---
 
-## 🚀 Screenshots
-
-<p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="Dashboard" width="250"/>
-  <img src="docs/screenshots/reports.png" alt="Reports" width="250"/>
-  <img src="docs/screenshots/transactions.png" alt="Transactions" width="250"/>
-</p>
-
----
-
-## 🛠️ Tech Stack
-
-| Layer        | Technology                                   |
-| ------------ | -------------------------------------------- |
-| Language     | Dart (Flutter)                               |
-| UI           | Flutter, fl_chart, Provider                  |
-| Local DB     | SQLite (sqflite)                             |
-| Backup       | Manual export/import, Google Drive (planned) |
-| Analytics    | Custom, fl_chart                             |
-| SMS Parsing  | telephony (planned)                          |
-
----
-
-## ⚡ Quick Start
+## 🚀 Quick Start (Docker Compose)
 
 ```sh
 # Clone the repo
 https://github.com/Phantomojo/Vanta-ledger.git
-cd Vanta-ledger/vanta_ledger_flutter
+cd Vanta-ledger
 
-# Get dependencies
-flutter pub get
+# Copy and edit .env if needed
+cp .env.example .env
 
-# Run on emulator/device
-flutter run
-
-# Build release APK (for sharing/demo)
-flutter build apk --release --no-tree-shake-icons
+# Build and run all services
+sudo docker compose up --build
 ```
 
----
-
-## 📦 Demo APK
-
-- Download the latest APK from the [Releases page](https://github.com/Phantomojo/Vanta-ledger/releases)
-- Pre-filled with demo/test data for instant exploration
+- Backend: http://localhost:8500
+- AI/NLP: http://localhost:8600
+- Postgres: localhost:5432
+- Web frontend: (see frontend-web/ for dev server)
 
 ---
 
-## 🖼️ Logo & Animation
+## 🛠️ Manual Dev Setup
 
-<p align="center">
-  <img src="vanta_ledger_flutter/assets/images/icon-512.png" alt="Vanta Ledger Logo" height="120"/>
-</p>
+- **Backend:**
+  - Python 3.11+, FastAPI, SQLAlchemy, Alembic
+  - `cd src/` → `pip install -r requirements.txt` → `alembic upgrade head` → `uvicorn vanta_ledger.main:app`
+- **AI/NLP:**
+  - `cd src/ai_extractor/` → `pip install -r requirements.txt` → `uvicorn main:app`
+- **Web Frontend:**
+  - `cd frontend-web/` → `npm install` → `npm run dev`
+- **Mobile App:**
+  - `cd vanta_ledger_flutter/` → `flutter pub get` → `flutter run`
+
+---
+
+## 📦 What’s Tracked in Git
+
+- All source code, configs, and documentation
+- **NOT tracked:**
+  - `raw_docs/`, `logs/`, `cache/`, `exports/`, `vanta_ledger.db`, `node_modules/`, `__pycache__/`, `.venv/`, build artifacts, IDE files
+  - See `.gitignore` for full list
+
+---
+
+## 📄 Documentation
+
+- **progress_tracker.md:** Living project status and next steps
+- **docs/technical_architecture.md:** System architecture, migration plan, and UI/UX vision
+- **INTEGRATION_README.md:** Integration details for Paperless-ngx and other services
 
 ---
 
@@ -101,4 +106,4 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 - Original concept by Phantomojo
 - Developed with assistance from Manus AI
-- Inspired by MPesa, Instagram, and modern fintech apps
+- Inspired by Notion, MPesa, Instagram, and modern fintech apps
