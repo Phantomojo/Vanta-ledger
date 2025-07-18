@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: vanta_ledger
+      POSTGRES_USER: vanta_user
+      POSTGRES_PASSWORD: vanta_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    command: uvicorn src.vanta_ledger.main:app --host 0.0.0.0 --port 8500
+    environment:
+      - DATABASE_URL=postgresql://vanta_user:vanta_password@postgres/vanta_ledger
+    depends_on:
+      - postgres
+    ports:
+      - "8500:8500"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
+  ai_extractor:
+    build: ./src/ai_extractor
+    command: uvicorn main:app --host 0.0.0.0 --port 8600
+    ports:
+      - "8600:8600"
+    volumes:
+      - ./src/ai_extractor:/app
+    depends_on:
+      - backend
+    environment:
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  pgdata: 

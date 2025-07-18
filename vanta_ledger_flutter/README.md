@@ -129,3 +129,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Logo
 *A modern finance logo will be added here soon. If you are a designer and want to contribute, please submit a PR!* 
+
+---
+
+## Important Notice
+
+- **Flutter is the only supported mobile app.**
+- Native Android (android/ and android-app/) projects have been deprecated and removed.
+- Large test data files (e.g., transactions_huge.json) are now in `dev_assets/` for local development only and are not required for production or normal usage.
+
+--- 

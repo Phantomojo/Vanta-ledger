@@ -385,3 +385,303 @@ class ApiClient:
         cache_dir = os.path.join(os.path.expanduser("~"), ".vanta_ledger_cache")
         os.makedirs(cache_dir, exist_ok=True)
         return cache_dir
+
+    # --- Companies ---
+    def get_companies(self):
+        if self.offline_mode:
+            return []
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/companies", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return []
+        except requests.RequestException:
+            self.offline_mode = True
+            return []
+
+    def get_company(self, company_id):
+        if self.offline_mode:
+            return None
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/companies/{company_id}", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return None
+        except requests.RequestException:
+            self.offline_mode = True
+            return None
+
+    def create_company(self, company_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.post(f"{self.base_url}/companies", json=company_data, headers=headers)
+            return response.status_code in (200, 201)
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def update_company(self, company_id, company_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.put(f"{self.base_url}/companies/{company_id}", json=company_data, headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def delete_company(self, company_id):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.delete(f"{self.base_url}/companies/{company_id}", headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    # --- Projects ---
+    def get_projects(self):
+        if self.offline_mode:
+            return []
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/projects", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return []
+        except requests.RequestException:
+            self.offline_mode = True
+            return []
+
+    def get_project(self, project_id):
+        if self.offline_mode:
+            return None
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/projects/{project_id}", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return None
+        except requests.RequestException:
+            self.offline_mode = True
+            return None
+
+    def create_project(self, project_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.post(f"{self.base_url}/projects", json=project_data, headers=headers)
+            return response.status_code in (200, 201)
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def update_project(self, project_id, project_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.put(f"{self.base_url}/projects/{project_id}", json=project_data, headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def delete_project(self, project_id):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.delete(f"{self.base_url}/projects/{project_id}", headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    # --- Ledger (Transactions) ---
+    def get_ledger_entries(self):
+        if self.offline_mode:
+            return []
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/ledger", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return []
+        except requests.RequestException:
+            self.offline_mode = True
+            return []
+
+    def get_ledger_entry(self, entry_id):
+        if self.offline_mode:
+            return None
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/ledger/{entry_id}", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return None
+        except requests.RequestException:
+            self.offline_mode = True
+            return None
+
+    def create_ledger_entry(self, entry_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.post(f"{self.base_url}/ledger", json=entry_data, headers=headers)
+            return response.status_code in (200, 201)
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def update_ledger_entry(self, entry_id, entry_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.put(f"{self.base_url}/ledger/{entry_id}", json=entry_data, headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def delete_ledger_entry(self, entry_id):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.delete(f"{self.base_url}/ledger/{entry_id}", headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    # --- Subcontractors ---
+    def get_subcontractors(self):
+        if self.offline_mode:
+            return []
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/subcontractors", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return []
+        except requests.RequestException:
+            self.offline_mode = True
+            return []
+
+    def get_subcontractor(self, subcontractor_id):
+        if self.offline_mode:
+            return None
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/subcontractors/{subcontractor_id}", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return None
+        except requests.RequestException:
+            self.offline_mode = True
+            return None
+
+    def create_subcontractor(self, subcontractor_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.post(f"{self.base_url}/subcontractors", json=subcontractor_data, headers=headers)
+            return response.status_code in (200, 201)
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def update_subcontractor(self, subcontractor_id, subcontractor_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.put(f"{self.base_url}/subcontractors/{subcontractor_id}", json=subcontractor_data, headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def delete_subcontractor(self, subcontractor_id):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.delete(f"{self.base_url}/subcontractors/{subcontractor_id}", headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    # --- Users ---
+    def get_users(self):
+        if self.offline_mode:
+            return []
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/users", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return []
+        except requests.RequestException:
+            self.offline_mode = True
+            return []
+
+    def get_user(self, user_id):
+        if self.offline_mode:
+            return None
+        try:
+            headers = self._get_auth_headers()
+            response = requests.get(f"{self.base_url}/users/{user_id}", headers=headers)
+            if response.status_code == 200:
+                return response.json()
+            return None
+        except requests.RequestException:
+            self.offline_mode = True
+            return None
+
+    def create_user(self, user_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.post(f"{self.base_url}/users", json=user_data, headers=headers)
+            return response.status_code in (200, 201)
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def update_user(self, user_id, user_data):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.put(f"{self.base_url}/users/{user_id}", json=user_data, headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False
+
+    def delete_user(self, user_id):
+        if self.offline_mode:
+            return False
+        try:
+            headers = self._get_auth_headers()
+            response = requests.delete(f"{self.base_url}/users/{user_id}", headers=headers)
+            return response.status_code == 200
+        except requests.RequestException:
+            self.offline_mode = True
+            return False

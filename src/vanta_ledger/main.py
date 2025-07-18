@@ -11,6 +11,10 @@ import sys
 import logging
 from pathlib import Path
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from .routers import projects, documents, ledger, users, paperless
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -40,6 +44,36 @@ except ImportError as e:
     print("Please make sure you're running the application from the correct directory.")
     print("Use the launcher script (launch.py) for the best experience.")
     sys.exit(1)
+
+app = FastAPI()
+
+# CORS: Allow React frontend (localhost:3000)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include the projects router so the family can manage all projects in one place
+app.include_router(projects.router)
+
+# Include the documents router so the family can upload, organize, and version all important tender documents
+app.include_router(documents.router)
+
+# Include the ledger router so the family can track all income, expenses, and withdrawals for each project and company
+app.include_router(ledger.router)
+
+# Include the users router so the family can securely manage access and authentication
+app.include_router(users.router)
+
+# Include the paperless router
+app.include_router(paperless.router)
+
+@app.get("/")
+def read_root():
+    return {"msg": "Vanta Ledger API is running"}
 
 def main():
     """Main entry point for the application."""

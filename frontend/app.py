@@ -11,6 +11,8 @@ from frontend.screens.transactions import TransactionsScreen
 from frontend.screens.analytics import AnalyticsScreen
 from frontend.screens.settings import SettingsScreen
 from frontend.screens.profile import ProfileScreen
+from frontend.screens.failed_documents import FailedDocumentsScreen
+from frontend.screens.command_center import CommandCenterScreen
 from frontend.utils.api_client import ApiClient
 from frontend.theme.colors import get_color_scheme
 
@@ -31,20 +33,20 @@ class VantaLedgerApp(App):
         self.colors = get_color_scheme()
         
         # Create screen manager
-        self.screen_manager = ScreenManager()
+        sm = ScreenManager()
+        self.screen_manager = sm
         
         # Add screens
-        self.screen_manager.add_widget(DashboardScreen(name='dashboard'))
-        self.screen_manager.add_widget(TransactionsScreen(name='transactions'))
-        self.screen_manager.add_widget(AnalyticsScreen(name='analytics'))
-        self.screen_manager.add_widget(SettingsScreen(name='settings'))
-        self.screen_manager.add_widget(ProfileScreen(name='profile'))
+        sm.add_widget(CommandCenterScreen(name='command_center'))
+        # Optionally, keep other screens for navigation/testing:
+        # sm.add_widget(DashboardScreen(name='dashboard'))
+        # sm.add_widget(FailedDocumentsScreen(name='failed_documents'))
         
         # Create main layout
         main_layout = BoxLayout(orientation='vertical')
         
         # Add screen manager to layout
-        main_layout.add_widget(self.screen_manager)
+        main_layout.add_widget(sm)
         
         # Add navigation bar to layout
         self.navigation_bar = NavigationBar(
@@ -61,9 +63,9 @@ class VantaLedgerApp(App):
     
     def on_start(self):
         """Called when the application starts."""
-        # Initialize with dashboard screen
-        self.screen_manager.current = 'dashboard'
-        self.navigation_bar.set_active_tab('dashboard')
+        # Initialize with command center screen
+        self.screen_manager.current = 'command_center'
+        self.navigation_bar.set_active_tab('command_center')
 
 if __name__ == '__main__':
     VantaLedgerApp().run()

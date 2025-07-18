@@ -211,15 +211,15 @@ class TransactionsScreen(Screen):
         # Apply type filter
         type_filter = None
         if self.current_type_filter == 'Income':
-            type_filter = 'sale'
+            type_filter = 'income'
         elif self.current_type_filter == 'Expense':
-            type_filter = 'expenditure'
+            type_filter = 'expense'
         
         # Apply owner filter
         owner_id = self.current_owner_filter
         
         # Get transactions with filters
-        transactions = self.api_client.get_transactions(owner_id=owner_id)
+        transactions = self.api_client.get_ledger_entries()
         
         # Apply type filter client-side if needed
         if type_filter:
