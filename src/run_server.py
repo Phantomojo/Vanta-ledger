@@ -13,8 +13,17 @@ import sys
 current_dir = Path(__file__).parent
 sys.path.insert(0, str(current_dir))
 
-# Set database URL for Replit
-os.environ.setdefault("DATABASE_URL", "postgresql://replit:password@db.postgres.replit.com:5432/replit")
+# Set database URL - try PostgreSQL first, fallback to SQLite
+database_url = os.getenv("DATABASE_URL")
+if not database_url:
+    # Try PostgreSQL if available
+    if os.getenv("REPLIT_DB_URL"):
+        database_url = os.getenv("REPLIT_DB_URL")
+    else:
+        # Fallback to SQLite
+        database_url = "sqlite:///./vanta_ledger.db"
+        
+os.environ["DATABASE_URL"] = database_url
 
 if __name__ == "__main__":
     try:

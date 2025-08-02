@@ -1,8 +1,7 @@
-modules = ["python-3.12", "cpp-clang14", "web", "bash", "gcloud", "nodejs-24", "postgresql-17", "python-base-3.13"]
-run = "uvicorn undefined:app --host 0.0.0.0 --port 3000"
+modules = ["python-3.10", "nodejs-20"]
 
 [nix]
-channel = "stable-25_05"
+channel = "stable-24_05"
 packages = ["glibcLocales", "libxcrypt"]
 
 [deployment]
@@ -36,4 +35,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python setup_database.py"
+args = "python simple_db_setup.py"
