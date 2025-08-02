@@ -45,7 +45,23 @@ except ImportError as e:
     print("Use the launcher script (launch.py) for the best experience.")
     sys.exit(1)
 
-app = FastAPI()
+app = FastAPI(title="Vanta Ledger API", description="Business Management and Intelligence Platform")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routers
+app.include_router(projects.router, prefix="/api/projects", tags=["projects"])
+app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
+app.include_router(ledger.router, prefix="/api/ledger", tags=["ledger"])
+app.include_router(users.router, prefix="/api/users", tags=["users"])
+app.include_router(paperless.router, prefix="/api/paperless", tags=["paperless"])
 
 # CORS: Allow React frontend (localhost:3000)
 app.add_middleware(
@@ -72,8 +88,9 @@ app.include_router(users.router)
 app.include_router(paperless.router)
 
 @app.get("/")
+@app.get("/")
 def read_root():
-    return {"msg": "Vanta Ledger API is running"}
+    return {"msg": "Vanta Ledger API is running", "version": "1.0.0"}
 
 def main():
     """Main entry point for the application."""

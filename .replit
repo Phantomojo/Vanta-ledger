@@ -6,3 +6,33 @@ channel = "stable-25_05"
 
 [deployment]
 run = ["sh", "-c", "uvicorn undefined:app --host 0.0.0.0 --port 3000"]
+
+[workflows]
+runButton = "Start Backend API"
+
+[[workflows.workflow]]
+name = "Start Backend API"
+author = 33280088
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd src && python -m uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 5000 --reload"
+
+[[workflows.workflow]]
+name = "Start Web Dashboard"
+author = 33280088
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend-web && npm install && npm run dev"
+
+[[workflows.workflow]]
+name = "Setup Database"
+author = 33280088
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd src && python setup_database.py"
