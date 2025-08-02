@@ -17,7 +17,7 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd src && python run_server.py"
+args = "cd src && python3 run_server.py"
 
 [[workflows.workflow]]
 name = "Start Web Dashboard"
@@ -35,4 +35,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python simple_db_setup.py"
+args = "python3 simple_db_setup.py"

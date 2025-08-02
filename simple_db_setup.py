@@ -1,10 +1,13 @@
-
 #!/usr/bin/env python3
 """
 Simplified Database Setup for Replit Environment
 """
 
+import sqlite3
 import os
+from datetime import datetime, timedelta
+import json
+import random
 import sys
 
 def setup_environment():
@@ -12,7 +15,7 @@ def setup_environment():
     # Set database URL for local SQLite (fallback)
     if not os.getenv("DATABASE_URL"):
         os.environ["DATABASE_URL"] = "sqlite:///./vanta_ledger.db"
-    
+
     # Add src to Python path
     current_dir = os.path.dirname(os.path.abspath(__file__))
     src_path = os.path.join(current_dir, "src")
@@ -22,26 +25,26 @@ def setup_environment():
 def create_basic_tables():
     """Create basic database tables"""
     print("🗃️ Setting up Vanta Ledger Database...")
-    
+
     try:
         # Import after setting up paths
         from vanta_ledger.database import Base, engine, SessionLocal
         from vanta_ledger.database import Company, Project, Document, User
-        
+
         # Create all tables
         print("📋 Creating database tables...")
         Base.metadata.create_all(bind=engine)
         print("✅ Database tables created successfully!")
-        
+
         # Create a session and add sample data
         db = SessionLocal()
-        
+
         # Check if we already have data
         if db.query(Company).count() > 0:
             print("✅ Database already has data")
             db.close()
             return True
-            
+
         # Add sample companies
         companies = [
             Company(
@@ -65,14 +68,14 @@ def create_basic_tables():
                 is_active=True
             )
         ]
-        
+
         for company in companies:
             db.add(company)
-            
+
         # Add admin user
         from passlib.context import CryptContext
         pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-        
+
         admin_user = User(
             username="admin",
             email="admin@familybusiness.co.ke",
@@ -82,7 +85,7 @@ def create_basic_tables():
             is_active=True
         )
         db.add(admin_user)
-        
+
         # Add sample project
         sample_project = Project(
             name="Government Tender Project",
@@ -93,14 +96,14 @@ def create_basic_tables():
             project_type="construction"
         )
         db.add(sample_project)
-        
+
         db.commit()
         db.close()
-        
+
         print("✅ Sample data created!")
         print("🔑 Admin Login: admin / admin123")
         return True
-        
+
     except ImportError as e:
         print(f"❌ Import error: {e}")
         print("🔧 Installing dependencies...")
