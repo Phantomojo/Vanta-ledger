@@ -44,7 +44,7 @@ class Company(Base):
     ledger_entries = relationship("LedgerEntry", back_populates="company")
 
 class Project(Base):
-    """Construction and tender projects"""
+    """Construction and tender projects - Central tracking for all business activities"""
     __tablename__ = "projects"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -54,11 +54,27 @@ class Project(Base):
     tender_number = Column(String(100))
     client_name = Column(String(255))
     contract_value = Column(Float)
+    actual_cost = Column(Float)  # Track actual vs budgeted
+    profit_margin = Column(Float)  # Calculated profit margin
     start_date = Column(Date)
     end_date = Column(Date)
-    status = Column(String(50), default="active")  # active, completed, cancelled
+    actual_completion_date = Column(Date)  # Track delays
+    status = Column(String(50), default="tendering")  # tendering, active, completed, cancelled, on_hold
     location = Column(String(255))
+    project_type = Column(String(100))  # road, building, bridge, etc.
+    
+    # Financial tracking fields
+    budget_allocated = Column(Float)
+    amount_spent = Column(Float, default=0.0)
+    amount_pending = Column(Float, default=0.0)
+    revenue_earned = Column(Float, default=0.0)
+    
+    # Document and compliance tracking
+    total_documents = Column(Integer, default=0)
+    compliance_documents_complete = Column(Boolean, default=False)
+    
     created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
     
     # Relationships
     company = relationship("Company", back_populates="projects")
@@ -67,7 +83,7 @@ class Project(Base):
     subcontractors = relationship("Subcontractor", back_populates="project")
 
 class Document(Base):
-    """Documents from Paperless-ngx and manual uploads"""
+    """Central filing system - All documents flow through here for data extraction"""
     __tablename__ = "documents"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -90,24 +106,50 @@ class Document(Base):
     paperless_added = Column(DateTime)
     paperless_modified = Column(DateTime)
     
-    # Document classification
-    doc_type = Column(String(100))  # NCA Certificate, Tax Compliance, etc.
-    doc_category = Column(String(100))  # statutory, financial, tender, contract
+    # Document classification for filing system
+    doc_type = Column(String(100))  # Invoice, Contract, Certificate, Statement, etc.
+    doc_category = Column(String(100))  # financial, statutory, tender, operational, compliance
+    doc_subcategory = Column(String(100))  # bank_statement, tax_cert, nca_cert, etc.
+    filing_reference = Column(String(100))  # Custom filing reference for easy retrieval
+    
+    # Central data extraction fields
+    extracted_amounts = Column(JSON)  # All monetary values found
+    extracted_dates = Column(JSON)  # All dates found
+    extracted_companies = Column(JSON)  # Company names mentioned
+    extracted_bank_details = Column(JSON)  # Account numbers, bank names
+    extracted_tax_info = Column(JSON)  # PIN numbers, VAT info
+    
+    # Financial significance
+    primary_amount = Column(Float)  # Main financial value
+    secondary_amount = Column(Float)  # Tax, fees, etc.
+    currency = Column(String(10), default="KES")
+    is_income = Column(Boolean)  # True for income documents
+    is_expense = Column(Boolean)  # True for expense documents
+    affects_cash_flow = Column(Boolean, default=False)
+    
+    # Processing status
+    processing_status = Column(String(50), default="pending")  # pending, processed, failed, manual_review
+    data_quality_score = Column(Float)  # How well we extracted data (0-1)
+    requires_manual_review = Column(Boolean, default=False)
+    
+    # Document lifecycle
     expiry_date = Column(Date)
+    renewal_required = Column(Boolean, default=False)
+    compliance_critical = Column(Boolean, default=False)
     
     # OCR and content
     ocr_text = Column(Text)
     ocr_confidence = Column(Float)
+    content_summary = Column(Text)  # AI-generated summary
+    business_impact = Column(Text)  # What this document means for business
     
-    # Business metadata
-    amount = Column(Float)  # If document contains financial amounts
-    currency = Column(String(10), default="KES")
+    # Audit and tracking
     notes = Column(Text)
-    
-    # Audit fields
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
     created_by = Column(Integer, ForeignKey("users.id"))
+    last_accessed = Column(DateTime)
+    access_count = Column(Integer, default=0)
     
     # Relationships
     company = relationship("Company", back_populates="documents")

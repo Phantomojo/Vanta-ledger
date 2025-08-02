@@ -13,7 +13,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import projects, documents, ledger, users, paperless
+from .routers import documents, ledger, paperless, projects, users, analytics, reports
 
 # Configure logging
 logging.basicConfig(
@@ -87,6 +87,10 @@ app.include_router(users.router)
 # Include the paperless router
 app.include_router(paperless.router)
 
+# Include analytics and reports routers
+app.include_router(analytics.router)
+app.include_router(reports.router)
+
 @app.get("/")
 @app.get("/")
 def read_root():
@@ -95,13 +99,13 @@ def read_root():
 def main():
     """Main entry point for the application."""
     logger.info("Starting Vanta-ledger Enhanced")
-    
+
     # Initialize managers
     auth_manager = AuthManager()
     user_manager = UserManager()
     owner_manager = OwnerManager()
     transaction_manager = TransactionManager()
-    
+
     # Initialize and run the application
     app = VantaLedgerApp(
         auth_manager=auth_manager,
@@ -109,14 +113,14 @@ def main():
         owner_manager=owner_manager,
         transaction_manager=transaction_manager
     )
-    
+
     try:
         app.run()
     except Exception as e:
         logger.error(f"Application crashed: {e}", exc_info=True)
         print(f"Error: Application crashed: {e}")
         return 1
-    
+
     return 0
 
 if __name__ == "__main__":
@@ -127,6 +131,6 @@ if __name__ == "__main__":
     else:
         # Running as script
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    
+
     # Run the application
     sys.exit(main())
