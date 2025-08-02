@@ -1,195 +1,165 @@
+
 #!/usr/bin/env python3
 """
-Database Setup Script for Vanta Ledger
+Database Setup Script for Vanta Ledger Filing System
 
-This script sets up the PostgreSQL database and initializes the schema.
+Sets up PostgreSQL database for comprehensive document management
+and financial tracking for family construction business.
 """
 
 import os
 import sys
-import subprocess
 from pathlib import Path
 
-def install_dependencies():
-    """Install required Python packages"""
-    print("Installing Python dependencies...")
-    try:
-        subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], check=True)
-        print("✅ Dependencies installed successfully!")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Failed to install dependencies: {e}")
-        return False
-    return True
+# Add src to Python path
+src_path = Path(__file__).parent / "src"
+sys.path.insert(0, str(src_path))
 
-def setup_postgresql():
-    """Set up PostgreSQL database"""
-    print("\nSetting up PostgreSQL database...")
-    
-    # Check if PostgreSQL is installed
-    try:
-        subprocess.run(["psql", "--version"], check=True, capture_output=True)
-        print("✅ PostgreSQL is installed")
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        print("❌ PostgreSQL not found. Please install PostgreSQL first:")
-        print("   sudo apt update && sudo apt install postgresql postgresql-contrib")
-        return False
-    
-    # Create database and user
-    try:
-        # Create user
-        subprocess.run([
-            "sudo", "-u", "postgres", "psql", "-c",
-            "CREATE USER vanta_user WITH PASSWORD 'vanta_password';"
-        ], check=True)
-        print("✅ Created database user")
-    except subprocess.CalledProcessError:
-        print("⚠️  User might already exist, continuing...")
+def setup_filing_system():
+    """Set up the comprehensive filing system database"""
+    print("🗃️ Setting up Vanta Ledger Filing System Database...")
     
     try:
-        # Create database
-        subprocess.run([
-            "sudo", "-u", "postgres", "psql", "-c",
-            "CREATE DATABASE vanta_ledger OWNER vanta_user;"
-        ], check=True)
-        print("✅ Created database")
-    except subprocess.CalledProcessError:
-        print("⚠️  Database might already exist, continuing...")
-    
-    return True
-
-def create_tables():
-    """Create database tables"""
-    print("\nCreating database tables...")
-    try:
-        # Add src to Python path
-        src_path = Path(__file__).parent / "src"
-        sys.path.insert(0, str(src_path))
-        
-        from vanta_ledger.database import create_tables
-        create_tables()
-        print("✅ Database tables created successfully!")
-        return True
-    except Exception as e:
-        print(f"❌ Failed to create tables: {e}")
-        return False
-
-def create_sample_data():
-    """Create sample companies and data"""
-    print("\nCreating sample data...")
-    try:
-        from vanta_ledger.database import SessionLocal, Company, User
+        from vanta_ledger.database import engine, SessionLocal, Base
+        from vanta_ledger.models.company import Company
+        from vanta_ledger.models.user import User
+        from vanta_ledger.models.project import Project
+        from vanta_ledger.models.document import Document
         from passlib.context import CryptContext
         
+        # Create all tables
+        Base.metadata.create_all(bind=engine)
+        print("✅ Database tables created")
+        
+        # Create session
+        db = SessionLocal()
         pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
         
-        db = SessionLocal()
+        # Check if data already exists
+        if db.query(Company).count() > 0:
+            print("✅ Database already initialized with data")
+            db.close()
+            return
         
-        # Create sample companies based on your document structure
+        # Create your actual family companies based on the documents
         companies = [
-            {
-                "name": "MASTERBUILD LIMITED",
-                "registration_number": "P051469193W",
-                "pin_number": "P051469193W"
-            },
-            {
-                "name": "BRIMMACS INVESTMENTS LIMITED",
-                "registration_number": "CR12/2021",
-                "pin_number": "P051454091G"
-            },
-            {
-                "name": "CABERA ENTERPRISES LIMITED",
-                "registration_number": "CR12/2022",
-                "pin_number": "P051698969L"
-            },
-            {
-                "name": "ALTAN ENTERPRISES LIMITED",
-                "registration_number": "CR12/2023",
-                "pin_number": "P051454091G"
-            },
-            {
-                "name": "DORDEN VENTURES LIMITED",
-                "registration_number": "CR12/2020",
-                "pin_number": "P051454091G"
-            },
-            {
-                "name": "NKONGE SOLUTION LIMITED",
-                "registration_number": "CR12/2021",
-                "pin_number": "P051454091G"
-            },
-            {
-                "name": "NETZACH AGENCIES LIMITED",
-                "registration_number": "CR12/2022",
-                "pin_number": "P051454091G"
-            },
-            {
-                "name": "ZERUBBABEL TAILOR WORKS LIMITED",
-                "registration_number": "CR12/2020",
-                "pin_number": "P051454091G"
-            }
+            Company(
+                name="MASTERBUILD LIMITED",
+                registration_number="P051469193W",
+                pin_number="P051469193W",
+                agpo_number="AGPO001",
+                phone="+254700000001",
+                email="masterbuild@familybusiness.co.ke",
+                address="Nairobi, Kenya",
+                status="active"
+            ),
+            Company(
+                name="BRIMMACS INVESTMENTS LIMITED", 
+                registration_number="CR12/2021",
+                pin_number="P051454091G",
+                agpo_number="AGPO002",
+                phone="+254700000002",
+                email="brimmacs@familybusiness.co.ke",
+                address="Nairobi, Kenya",
+                status="active"
+            ),
+            Company(
+                name="CABERA ENTERPRISES LIMITED",
+                registration_number="CR12/2022",
+                pin_number="P051698969L",
+                agpo_number="AGPO003",
+                phone="+254700000003",
+                email="cabera@familybusiness.co.ke", 
+                address="Nairobi, Kenya",
+                status="active"
+            ),
+            Company(
+                name="ALTAN ENTERPRISES LIMITED",
+                registration_number="CR12/2023",
+                pin_number="P051454091G",
+                agpo_number="AGPO004",
+                phone="+254700000004",
+                email="altan@familybusiness.co.ke",
+                address="Nairobi, Kenya",
+                status="active"
+            ),
+            Company(
+                name="DORDEN VENTURES LIMITED",
+                registration_number="CR12/2020",
+                pin_number="P051454091G",
+                agpo_number="AGPO005",
+                phone="+254700000005", 
+                email="dorden@familybusiness.co.ke",
+                address="Nairobi, Kenya",
+                status="active"
+            )
         ]
         
-        for company_data in companies:
-            existing = db.query(Company).filter(Company.name == company_data["name"]).first()
-            if not existing:
-                company = Company(**company_data)
-                db.add(company)
+        for company in companies:
+            db.add(company)
         
-        # Create admin user
-        existing_user = db.query(User).filter(User.username == "admin").first()
-        if not existing_user:
-            admin_user = User(
-                username="admin",
-                email="admin@vanta-ledger.com",
-                full_name="System Administrator",
-                hashed_password=pwd_context.hash("admin123"),
-                role="admin"
+        # Create admin user for the filing system
+        admin_user = User(
+            username="admin",
+            email="admin@familybusiness.co.ke",
+            full_name="Family Business Administrator",
+            hashed_password=pwd_context.hash("change_password_123"),
+            role="admin",
+            is_active=True
+        )
+        db.add(admin_user)
+        
+        # Create sample project categories for tender tracking
+        sample_projects = [
+            Project(
+                name="Government Road Construction Tender",
+                description="Main highway construction project",
+                status="bidding",
+                company_id=1,
+                tender_amount=5000000.00,
+                project_type="construction"
+            ),
+            Project(
+                name="School Building Project",
+                description="Primary school construction",
+                status="in_progress", 
+                company_id=2,
+                tender_amount=2500000.00,
+                project_type="construction"
+            ),
+            Project(
+                name="Water Pipeline Installation",
+                description="Municipal water infrastructure",
+                status="completed",
+                company_id=3,
+                tender_amount=1800000.00,
+                project_type="infrastructure"
             )
-            db.add(admin_user)
+        ]
+        
+        for project in sample_projects:
+            db.add(project)
         
         db.commit()
-        print("✅ Sample data created successfully!")
+        print("✅ Filing system initialized successfully!")
+        print("\n📊 Created:")
+        print(f"   🏢 {len(companies)} Family Companies")
+        print(f"   👤 1 Admin User")
+        print(f"   📋 {len(sample_projects)} Sample Projects")
+        print("\n🔑 Login Credentials:")
+        print("   Username: admin")
+        print("   Password: change_password_123")
+        print("\n🎯 Next Steps:")
+        print("   1. Start the backend: Click Run button")
+        print("   2. Access API docs: http://localhost:5000/docs")
+        print("   3. Start web dashboard for file management")
+        
         db.close()
-        return True
         
     except Exception as e:
-        print(f"❌ Failed to create sample data: {e}")
-        return False
-
-def main():
-    """Main setup function"""
-    print("🚀 Setting up Vanta Ledger Database System")
-    print("=" * 50)
-    
-    # Change to project directory
-    project_dir = Path(__file__).parent
-    os.chdir(project_dir)
-    
-    # Install dependencies
-    if not install_dependencies():
-        return False
-    
-    # Setup PostgreSQL
-    if not setup_postgresql():
-        return False
-    
-    # Create tables
-    if not create_tables():
-        return False
-    
-    # Create sample data
-    if not create_sample_data():
-        return False
-    
-    print("\n🎉 Setup completed successfully!")
-    print("\nNext steps:")
-    print("1. Run the Paperless-ngx integration:")
-    print("   cd src && python -m vanta_ledger.paperless_integration")
-    print("2. Start the FastAPI server:")
-    print("   cd src && uvicorn vanta_ledger.main:app --reload")
-    print("3. Access the API at: http://localhost:8000")
-    
-    return True
+        print(f"❌ Error setting up filing system: {e}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
-    success = main()
-    sys.exit(0 if success else 1) 
+    setup_filing_system()
