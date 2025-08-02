@@ -11,20 +11,20 @@ import os
 import sys
 from pathlib import Path
 
-# Add src to Python path
-src_path = Path(__file__).parent / "src"
+# Add src to Python path for Replit environment
+current_dir = Path(__file__).parent
+src_path = current_dir / "src"
 sys.path.insert(0, str(src_path))
+
+# Set environment variables for database
+os.environ.setdefault("DATABASE_URL", "postgresql://replit:password@db.postgres.replit.com:5432/replit")
 
 def setup_filing_system():
     """Set up the comprehensive filing system database"""
     print("🗃️ Setting up Vanta Ledger Filing System Database...")
     
     try:
-        from vanta_ledger.database import engine, SessionLocal, Base
-        from vanta_ledger.models.company import Company
-        from vanta_ledger.models.user import User
-        from vanta_ledger.models.project import Project
-        from vanta_ledger.models.document import Document
+        from vanta_ledger.database import engine, SessionLocal, Base, Company, Project, Document, User
         from passlib.context import CryptContext
         
         # Create all tables
@@ -51,7 +51,7 @@ def setup_filing_system():
                 phone="+254700000001",
                 email="masterbuild@familybusiness.co.ke",
                 address="Nairobi, Kenya",
-                status="active"
+                is_active=True
             ),
             Company(
                 name="BRIMMACS INVESTMENTS LIMITED", 
@@ -61,7 +61,7 @@ def setup_filing_system():
                 phone="+254700000002",
                 email="brimmacs@familybusiness.co.ke",
                 address="Nairobi, Kenya",
-                status="active"
+                is_active=True
             ),
             Company(
                 name="CABERA ENTERPRISES LIMITED",
@@ -71,7 +71,7 @@ def setup_filing_system():
                 phone="+254700000003",
                 email="cabera@familybusiness.co.ke", 
                 address="Nairobi, Kenya",
-                status="active"
+                is_active=True
             ),
             Company(
                 name="ALTAN ENTERPRISES LIMITED",
@@ -81,7 +81,7 @@ def setup_filing_system():
                 phone="+254700000004",
                 email="altan@familybusiness.co.ke",
                 address="Nairobi, Kenya",
-                status="active"
+                is_active=True
             ),
             Company(
                 name="DORDEN VENTURES LIMITED",
@@ -91,7 +91,7 @@ def setup_filing_system():
                 phone="+254700000005", 
                 email="dorden@familybusiness.co.ke",
                 address="Nairobi, Kenya",
-                status="active"
+                is_active=True
             )
         ]
         
@@ -114,25 +114,25 @@ def setup_filing_system():
             Project(
                 name="Government Road Construction Tender",
                 description="Main highway construction project",
-                status="bidding",
+                status="tendering",
                 company_id=1,
-                tender_amount=5000000.00,
-                project_type="construction"
+                contract_value=5000000.00,
+                project_type="road"
             ),
             Project(
                 name="School Building Project",
                 description="Primary school construction",
-                status="in_progress", 
+                status="active", 
                 company_id=2,
-                tender_amount=2500000.00,
-                project_type="construction"
+                contract_value=2500000.00,
+                project_type="building"
             ),
             Project(
                 name="Water Pipeline Installation",
                 description="Municipal water infrastructure",
                 status="completed",
                 company_id=3,
-                tender_amount=1800000.00,
+                contract_value=1800000.00,
                 project_type="infrastructure"
             )
         ]
