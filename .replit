@@ -18,7 +18,7 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd src && python -m uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 5000 --reload"
+args = "cd src && python run_server.py"
 
 [[workflows.workflow]]
 name = "Start Web Dashboard"
@@ -36,4 +36,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd src && python setup_database.py"
+args = "python setup_database.py"
