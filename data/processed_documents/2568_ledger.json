@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2568_1",
+    "doc_id": "2568",
+    "type": "expense",
+    "amount": 200.0,
+    "currency": "KES",
+    "description": "From document 2568: Found in 2568",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2568_2",
+    "doc_id": "2568",
+    "type": "expense",
+    "amount": 20539.44,
+    "currency": "KES",
+    "description": "From document 2568: Found in 2568",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2568_3",
+    "doc_id": "2568",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2568: Found in 2568",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

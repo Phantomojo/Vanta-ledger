@@ -1,0 +1,24 @@
+{
+  "doc_id": "580",
+  "type": "invoice",
+  "companies": [
+    "Solopride Contractors & General Supplies Ltd"
+  ],
+  "financial_data": [],
+  "projects": [],
+  "dates": [
+    "23/07/2020",
+    "23/07/2020",
+    "20/03/2021"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

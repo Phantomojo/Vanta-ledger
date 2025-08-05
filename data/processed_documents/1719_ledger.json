@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1719_1",
+    "doc_id": "1719",
+    "type": "expense",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 1719: Found in 1719",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1719_2",
+    "doc_id": "1719",
+    "type": "expense",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 1719: Found in 1719",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1719_3",
+    "doc_id": "1719",
+    "type": "expense",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 1719: Found in 1719",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

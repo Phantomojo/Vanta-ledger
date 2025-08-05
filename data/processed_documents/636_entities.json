@@ -1,0 +1,26 @@
+{
+  "doc_id": "636",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 40000.0,
+      "currency": "KES",
+      "context": "Found in 636",
+      "type": "expense"
+    },
+    {
+      "amount": 80000.0,
+      "currency": "KES",
+      "context": "Found in 636",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

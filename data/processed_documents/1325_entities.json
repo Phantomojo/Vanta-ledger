@@ -1,0 +1,36 @@
+{
+  "doc_id": "1325",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1325",
+      "type": "expense"
+    },
+    {
+      "amount": 3860530.0,
+      "currency": "KES",
+      "context": "Found in 1325",
+      "type": "expense"
+    },
+    {
+      "amount": 17808199.35,
+      "currency": "KES",
+      "context": "Found in 1325",
+      "type": "expense"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 1325",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "amount",
+    "date"
+  ]
+}

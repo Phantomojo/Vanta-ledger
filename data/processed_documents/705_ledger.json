@@ -1,0 +1,32 @@
+[
+  {
+    "id": "705_1",
+    "doc_id": "705",
+    "type": "income",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 705: Found in 705",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "705_2",
+    "doc_id": "705",
+    "type": "income",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 705: Found in 705",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "705_3",
+    "doc_id": "705",
+    "type": "income",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 705: Found in 705",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

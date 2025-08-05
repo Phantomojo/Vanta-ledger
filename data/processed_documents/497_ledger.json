@@ -1,0 +1,42 @@
+[
+  {
+    "id": "497_1",
+    "doc_id": "497",
+    "type": "expense",
+    "amount": 44000.0,
+    "currency": "KES",
+    "description": "From document 497: Found in 497",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "497_2",
+    "doc_id": "497",
+    "type": "expense",
+    "amount": 44000.0,
+    "currency": "KES",
+    "description": "From document 497: Found in 497",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "497_3",
+    "doc_id": "497",
+    "type": "expense",
+    "amount": 0.0,
+    "currency": "KES",
+    "description": "From document 497: Found in 497",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "497_4",
+    "doc_id": "497",
+    "type": "expense",
+    "amount": 44000.0,
+    "currency": "KES",
+    "description": "From document 497: Found in 497",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

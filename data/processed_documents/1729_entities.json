@@ -1,0 +1,18 @@
+{
+  "doc_id": "1729",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1729",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "construction",
+    "date"
+  ]
+}

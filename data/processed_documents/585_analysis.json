@@ -1,0 +1,38 @@
+{
+  "doc_id": "585",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 585",
+      "type": "income"
+    },
+    {
+      "amount": 1401.0,
+      "currency": "KES",
+      "context": "Found in 585",
+      "type": "income"
+    },
+    {
+      "amount": 2551777.3,
+      "currency": "KES",
+      "context": "Found in 585",
+      "type": "income"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 585",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

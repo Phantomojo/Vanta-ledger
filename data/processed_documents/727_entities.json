@@ -1,0 +1,36 @@
+{
+  "doc_id": "727",
+  "companies": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 727",
+      "type": "expense"
+    }
+  ],
+  "dates": [
+    "24/08/2020",
+    "04/08/2020",
+    "05/08/2020",
+    "31/08/2022",
+    "30/08/2023",
+    "22/9/2020",
+    "22/9/2020",
+    "1/10/2021",
+    "1/10/2021",
+    "7/3/2022"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "project",
+    "amount",
+    "date"
+  ]
+}

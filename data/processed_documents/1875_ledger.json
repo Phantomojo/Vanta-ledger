@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1875_1",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 14.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1875_2",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 1485830650001.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1875_3",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 1485830650001.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1875_4",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 1485830650001.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1875_5",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 1485830650001.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1875_6",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 0.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1875_7",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 2797948.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1875_8",
+    "doc_id": "1875",
+    "type": "expense",
+    "amount": 16.0,
+    "currency": "KES",
+    "description": "From document 1875: Found in 1875",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "doc_id": "3150",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 50000.0,
+      "currency": "KES",
+      "context": "Found in 3150",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

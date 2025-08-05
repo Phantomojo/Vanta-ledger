@@ -1,0 +1,62 @@
+[
+  {
+    "id": "332_1",
+    "doc_id": "332",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 332: Found in 332",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "332_2",
+    "doc_id": "332",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 332: Found in 332",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "332_3",
+    "doc_id": "332",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 332: Found in 332",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "332_4",
+    "doc_id": "332",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 332: Found in 332",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "332_5",
+    "doc_id": "332",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 332: Found in 332",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "332_6",
+    "doc_id": "332",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 332: Found in 332",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

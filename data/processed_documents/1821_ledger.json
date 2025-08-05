@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1821_1",
+    "doc_id": "1821",
+    "type": "expense",
+    "amount": 2022.0,
+    "currency": "KES",
+    "description": "From document 1821: Found in 1821",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1821_2",
+    "doc_id": "1821",
+    "type": "expense",
+    "amount": 2022.0,
+    "currency": "KES",
+    "description": "From document 1821: Found in 1821",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1821_3",
+    "doc_id": "1821",
+    "type": "expense",
+    "amount": 350000.0,
+    "currency": "KES",
+    "description": "From document 1821: Found in 1821",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

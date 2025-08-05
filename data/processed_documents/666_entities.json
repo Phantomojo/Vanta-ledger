@@ -1,0 +1,28 @@
+{
+  "doc_id": "666",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 666",
+      "type": "expense"
+    }
+  ],
+  "dates": [
+    "27/01/2021",
+    "21/01/2022",
+    "27/01/2021",
+    "26/01/2025",
+    "01/07/2023",
+    "1/7/2023",
+    "1/7/2023",
+    "30/6/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "date"
+  ]
+}

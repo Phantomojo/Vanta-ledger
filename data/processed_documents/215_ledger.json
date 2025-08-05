@@ -1,0 +1,12 @@
+[
+  {
+    "id": "215_1",
+    "doc_id": "215",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 215: Found in 215",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

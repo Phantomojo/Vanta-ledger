@@ -1,0 +1,23 @@
+{
+  "doc_id": "1778",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [],
+  "projects": [],
+  "dates": [
+    "22/02/2020",
+    "21/02/2021",
+    "07/12/2015",
+    "03/08/2020",
+    "39/05/2019"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

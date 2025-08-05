@@ -1,0 +1,35 @@
+{
+  "doc_id": "2403",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 20.0,
+      "currency": "KES",
+      "context": "Found in 2403",
+      "type": "income"
+    },
+    {
+      "amount": 800.0,
+      "currency": "KES",
+      "context": "Found in 2403",
+      "type": "income"
+    },
+    {
+      "amount": 2000.0,
+      "currency": "KES",
+      "context": "Found in 2403",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

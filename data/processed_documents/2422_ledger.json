@@ -1,0 +1,582 @@
+[
+  {
+    "id": "2422_1",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 19.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_2",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 24.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_3",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 28.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_4",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 5.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_5",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 9.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_6",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 9.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_7",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 12.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_8",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 12.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_9",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 16.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_10",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 16.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_11",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 18.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_12",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 18.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_13",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 18.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_14",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 22.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_15",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 25.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_16",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 25.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_17",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 25.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_18",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_19",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_20",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 3.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_21",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 28.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_22",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 8.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_23",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 10.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_24",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 15.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_25",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 16.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_26",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 19.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_27",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 30.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_28",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_29",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 3.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_30",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 57.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_31",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 58.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_32",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 59.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_33",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 66.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_34",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 70.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_35",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 71.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_36",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 68.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_37",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 72.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_38",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 74.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_39",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 73.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_40",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 78.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_41",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 77.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_42",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 76.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_43",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 75.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_44",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 81.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_45",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 82.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_46",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 80.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_47",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 86.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_48",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 85.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_49",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 84.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_50",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 89.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_51",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 88.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_52",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 87.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_53",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 90.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_54",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 91.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_55",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 92.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_56",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 94.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_57",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 95.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2422_58",
+    "doc_id": "2422",
+    "type": "income",
+    "amount": 96.0,
+    "currency": "KES",
+    "description": "From document 2422: Found in 2422",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

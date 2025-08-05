@@ -1,0 +1,33 @@
+{
+  "doc_id": "1701",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 15000000.0,
+      "currency": "KES",
+      "context": "Found in 1701",
+      "type": "income"
+    },
+    {
+      "amount": 2068965.52,
+      "currency": "KES",
+      "context": "Found in 1701",
+      "type": "income"
+    },
+    {
+      "amount": 12931.0,
+      "currency": "KES",
+      "context": "Found in 1701",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

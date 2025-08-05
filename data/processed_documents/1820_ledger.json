@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1820_1",
+    "doc_id": "1820",
+    "type": "income",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 1820: Found in 1820",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1820_2",
+    "doc_id": "1820",
+    "type": "income",
+    "amount": 400.0,
+    "currency": "KES",
+    "description": "From document 1820: Found in 1820",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1820_3",
+    "doc_id": "1820",
+    "type": "income",
+    "amount": 200.0,
+    "currency": "KES",
+    "description": "From document 1820: Found in 1820",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "doc_id": "415",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 415",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "16/05/2019",
+    "14/05/2019",
+    "28/03/2018",
+    "19/07/2024",
+    "18/07/2025",
+    "8/11/2023",
+    "25/7/2024",
+    "1/8/2024",
+    "31/7/2025"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "doc_id": "2096",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 35000.0,
+      "currency": "KES",
+      "context": "Found in 2096",
+      "type": "expense"
+    },
+    {
+      "amount": 70000.0,
+      "currency": "KES",
+      "context": "Found in 2096",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "amount",
+    "date"
+  ]
+}

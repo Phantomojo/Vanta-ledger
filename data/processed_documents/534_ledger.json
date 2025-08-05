@@ -1,0 +1,12 @@
+[
+  {
+    "id": "534_1",
+    "doc_id": "534",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 534: Found in 534",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

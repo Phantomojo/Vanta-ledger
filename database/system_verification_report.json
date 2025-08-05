@@ -1,0 +1,56 @@
+{
+  "verification_date": "2025-08-03T22:26:23.298065+00:00",
+  "docker_containers": {
+    "total_containers": 0,
+    "healthy_containers": 0,
+    "all_healthy": true,
+    "containers": []
+  },
+  "database_connections": {
+    "postgresql": {
+      "connected": true,
+      "document_count": "count \n-------\n  3353\n(1 row)"
+    },
+    "mongodb": {
+      "connected": false,
+      "document_count": "N/A"
+    }
+  },
+  "api_endpoints": {
+    "health": {
+      "status_code": 200,
+      "accessible": true,
+      "response_time": 0.002349
+    },
+    "docs": {
+      "status_code": 200,
+      "accessible": true,
+      "response_time": 0.000824
+    }
+  },
+  "migration_data": {
+    "migration_summary_exists": true,
+    "total_migrated": 3153,
+    "success_rate": "100.00%",
+    "migration_date": "2025-08-03T22:24:31.041517+00:00"
+  },
+  "cleanup_results": {
+    "log_files_cleaned": 0,
+    "temp_files_cleaned": 0,
+    "disk_usage": {
+      "total": "468G",
+      "used": "340G",
+      "available": "105G",
+      "usage_percent": "77%"
+    }
+  },
+  "system_health": {
+    "overall_status": "degraded",
+    "healthy_components": [
+      "docker",
+      "api",
+      "migration"
+    ],
+    "health_score": 75.0
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "doc_id": "1828",
+  "type": "invoice",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 5000.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 50000.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 0.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 3.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 2407044.6,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 3.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 8.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    },
+    {
+      "amount": 7.0,
+      "currency": "KES",
+      "context": "Found in 1828",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "05/03/2021",
+    "02/07/2020",
+    "17/06/2019",
+    "28/06/2021",
+    "27/06/2022",
+    "07/07/2021",
+    "31/10/2021",
+    "8/16/2021",
+    "29/06/2021",
+    "28/06/2022",
+    "06/07/2021",
+    "06/29/2022",
+    "29/06/2021",
+    "28/06/2022",
+    "06/07/2021",
+    "29/06/2022",
+    "29/06/2021",
+    "28/06/2022",
+    "23/06/2021",
+    "29/06/2022",
+    "24/04/2021",
+    "24/04/2021",
+    "24/04/2021",
+    "23/09/2013",
+    "9/04/2015",
+    "14/12/2020",
+    "14/43/2019",
+    "27/03/2020",
+    "07/04/2020",
+    "3/7/2021",
+    "3/7/2021",
+    "3/7/2021",
+    "3/7/2021",
+    "3/7/2021"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

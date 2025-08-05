@@ -1,0 +1,21 @@
+{
+  "doc_id": "261",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 261",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "27/07/2023",
+    "26/07/2024"
+  ],
+  "keywords": [
+    "date"
+  ]
+}

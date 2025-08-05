@@ -1,0 +1,42 @@
+[
+  {
+    "id": "187_1",
+    "doc_id": "187",
+    "type": "income",
+    "amount": 20117.0,
+    "currency": "KES",
+    "description": "From document 187: Found in 187",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "187_2",
+    "doc_id": "187",
+    "type": "income",
+    "amount": 344622492.0,
+    "currency": "KES",
+    "description": "From document 187: Found in 187",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "187_3",
+    "doc_id": "187",
+    "type": "income",
+    "amount": 344622495.0,
+    "currency": "KES",
+    "description": "From document 187: Found in 187",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "187_4",
+    "doc_id": "187",
+    "type": "income",
+    "amount": 0.0,
+    "currency": "KES",
+    "description": "From document 187: Found in 187",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "doc_id": "322",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    },
+    {
+      "amount": 10000.0,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    },
+    {
+      "amount": 629310.66,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    },
+    {
+      "amount": 100689.66,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    },
+    {
+      "amount": 730000.0,
+      "currency": "KES",
+      "context": "Found in 322",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "11/12/2023",
+    "10/12/2024",
+    "11/08/2010",
+    "31/08/2014"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

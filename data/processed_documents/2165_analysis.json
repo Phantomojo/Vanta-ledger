@@ -1,0 +1,19 @@
+{
+  "doc_id": "2165",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 848715.69,
+      "currency": "KES",
+      "context": "Found in 2165",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "doc_id": "497",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 44000.0,
+      "currency": "KES",
+      "context": "Found in 497",
+      "type": "expense"
+    },
+    {
+      "amount": 44000.0,
+      "currency": "KES",
+      "context": "Found in 497",
+      "type": "expense"
+    },
+    {
+      "amount": 0.0,
+      "currency": "KES",
+      "context": "Found in 497",
+      "type": "expense"
+    },
+    {
+      "amount": 44000.0,
+      "currency": "KES",
+      "context": "Found in 497",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "05/08/2024",
+    "07/08/2024"
+  ],
+  "keywords": [
+    "contract",
+    "amount",
+    "date"
+  ]
+}

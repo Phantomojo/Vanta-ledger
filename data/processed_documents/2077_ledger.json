@@ -1,0 +1,102 @@
+[
+  {
+    "id": "2077_1",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_2",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_3",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 145259.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_4",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_5",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_6",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_7",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_8",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_9",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 7294737.59,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2077_10",
+    "doc_id": "2077",
+    "type": "income",
+    "amount": 5.0,
+    "currency": "KES",
+    "description": "From document 2077: Found in 2077",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

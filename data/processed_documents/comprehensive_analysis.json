@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "total_documents": 3153,
+    "total_companies": 3,
+    "total_projects": 2,
+    "total_transactions": 2045,
+    "analysis_date": "2025-07-29T03:48:27.690438"
+  },
+  "companies": [
+    "Solopride Contractors & General Supplies Ltd",
+    "MASTERBUILD LIMITED",
+    "HILLTOP DRILLERS & CONSTRUCTION LTD"
+  ],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS",
+    "GRADING AND GRAVELLING WORKS"
+  ],
+  "financial_summary": {
+    "total_income": 207785716348415.12,
+    "total_expenses": 5943483947500.75,
+    "net_profit": 201842232400914.38,
+    "transaction_count": 2045,
+    "largest_transaction": {
+      "amount": 10047202000040.0,
+      "currency": "KES",
+      "context": "Found in 772",
+      "type": "income"
+    }
+  },
+  "keywords": [
+    "receipt",
+    "contract",
+    "payment",
+    "date",
+    "construction",
+    "amount",
+    "invoice",
+    "project"
+  ],
+  "document_types": {
+    "tender": 145,
+    "unknown": 1067,
+    "invoice": 721,
+    "contract": 1119,
+    "receipt": 101
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "doc_id": "1618",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1618",
+      "type": "income"
+    },
+    {
+      "amount": 1401.0,
+      "currency": "KES",
+      "context": "Found in 1618",
+      "type": "income"
+    },
+    {
+      "amount": 2551777.3,
+      "currency": "KES",
+      "context": "Found in 1618",
+      "type": "income"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 1618",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

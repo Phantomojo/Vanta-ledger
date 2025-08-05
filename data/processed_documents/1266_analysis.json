@@ -1,0 +1,19 @@
+{
+  "doc_id": "1266",
+  "type": "tender",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 60000.0,
+      "currency": "KES",
+      "context": "Found in 1266",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "construction",
+    "amount"
+  ]
+}

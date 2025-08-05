@@ -1,0 +1,98 @@
+{
+  "doc_id": "316",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 25754978.8,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 3860530.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 4266880.9,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 316",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "16/09/2019",
+    "16/09/2019",
+    "16/09/2019",
+    "07/41/2023",
+    "06/11/2024",
+    "12/04/2022",
+    "14/04/2023",
+    "10/10/2022"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

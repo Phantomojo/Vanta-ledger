@@ -1,0 +1,26 @@
+{
+  "doc_id": "37",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 72029.0,
+      "currency": "KES",
+      "context": "Found in 37",
+      "type": "income"
+    },
+    {
+      "amount": 140512.0,
+      "currency": "KES",
+      "context": "Found in 37",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "payment",
+    "date"
+  ]
+}

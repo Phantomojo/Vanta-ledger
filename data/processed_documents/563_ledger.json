@@ -1,0 +1,42 @@
+[
+  {
+    "id": "563_1",
+    "doc_id": "563",
+    "type": "expense",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 563: Found in 563",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "563_2",
+    "doc_id": "563",
+    "type": "expense",
+    "amount": 3860530.0,
+    "currency": "KES",
+    "description": "From document 563: Found in 563",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "563_3",
+    "doc_id": "563",
+    "type": "expense",
+    "amount": 7067551.15,
+    "currency": "KES",
+    "description": "From document 563: Found in 563",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "563_4",
+    "doc_id": "563",
+    "type": "expense",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 563: Found in 563",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "mongodb_atlas": {
+    "uri": "mongodb+srv://mike:106730Mmi..@katana.pgpnmol.mongodb.net/?retryWrites=true&w=majority&appName=katana",
+    "database": "vanta_ledger",
+    "cluster": "katana",
+    "region": "AWS / Cape Town (af-south-1)",
+    "connection_method": "MongoDB Driver"
+  },
+  "application": {
+    "name": "Vanta Ledger",
+    "version": "2.0.0",
+    "database_type": "mongodb_atlas"
+  },
+  "setup_date": "2025-07-29T02:25:43.971230+00:00"
+}

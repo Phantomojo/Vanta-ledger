@@ -1,0 +1,28 @@
+{
+  "doc_id": "3106",
+  "companies": [],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 3106",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "2014-07-08",
+    "2015-03-16"
+  ],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

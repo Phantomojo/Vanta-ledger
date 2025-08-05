@@ -1,0 +1,30 @@
+{
+  "doc_id": "2568",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 200.0,
+      "currency": "KES",
+      "context": "Found in 2568",
+      "type": "expense"
+    },
+    {
+      "amount": 20539.44,
+      "currency": "KES",
+      "context": "Found in 2568",
+      "type": "expense"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2568",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "receipt",
+    "date"
+  ]
+}

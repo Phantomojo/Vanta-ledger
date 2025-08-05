@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1236_1",
+    "doc_id": "1236",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 1236: Found in 1236",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1236_2",
+    "doc_id": "1236",
+    "type": "income",
+    "amount": 25000.0,
+    "currency": "KES",
+    "description": "From document 1236: Found in 1236",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1236_3",
+    "doc_id": "1236",
+    "type": "income",
+    "amount": 776513.5,
+    "currency": "KES",
+    "description": "From document 1236: Found in 1236",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1236_4",
+    "doc_id": "1236",
+    "type": "income",
+    "amount": 6259929.8,
+    "currency": "KES",
+    "description": "From document 1236: Found in 1236",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

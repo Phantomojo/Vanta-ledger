@@ -1,0 +1,72 @@
+[
+  {
+    "id": "309_1",
+    "doc_id": "309",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 309: Found in 309",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "309_2",
+    "doc_id": "309",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 309: Found in 309",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "309_3",
+    "doc_id": "309",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 309: Found in 309",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "309_4",
+    "doc_id": "309",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 309: Found in 309",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "309_5",
+    "doc_id": "309",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 309: Found in 309",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "309_6",
+    "doc_id": "309",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 309: Found in 309",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "309_7",
+    "doc_id": "309",
+    "type": "income",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 309: Found in 309",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "doc_id": "1090",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 510075.0,
+      "currency": "KES",
+      "context": "Found in 1090",
+      "type": "income"
+    },
+    {
+      "amount": 629310.66,
+      "currency": "KES",
+      "context": "Found in 1090",
+      "type": "income"
+    },
+    {
+      "amount": 100689.66,
+      "currency": "KES",
+      "context": "Found in 1090",
+      "type": "income"
+    },
+    {
+      "amount": 730000.0,
+      "currency": "KES",
+      "context": "Found in 1090",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

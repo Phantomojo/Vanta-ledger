@@ -1,0 +1,22 @@
+{
+  "doc_id": "1795",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 5000.0,
+      "currency": "KES",
+      "context": "Found in 1795",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2021-02-24"
+  ],
+  "keywords": [
+    "construction",
+    "amount",
+    "date"
+  ]
+}

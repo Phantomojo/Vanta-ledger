@@ -1,0 +1,35 @@
+{
+  "doc_id": "232",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 232",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "08/11/2019",
+    "08/11/2019",
+    "08/11/2019",
+    "31/10/2022",
+    "30/10/2023",
+    "03/06/1998",
+    "26/06/2020",
+    "04/01/2018",
+    "10/04/2018"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

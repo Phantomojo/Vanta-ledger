@@ -1,0 +1,48 @@
+{
+  "doc_id": "515",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ],
+  "document_id": "515",
+  "analysis_timestamp": "2025-08-06T01:06:53.322569",
+  "content_length": 65,
+  "extracted_data": {
+    "amounts": [],
+    "dates": [],
+    "companies": [],
+    "keywords": [
+      "invoice",
+      "receipt",
+      "payment",
+      "amount",
+      "contract",
+      "date"
+    ],
+    "entities": {
+      "persons": [],
+      "organizations": [],
+      "locations": [],
+      "dates": [],
+      "amounts": []
+    }
+  },
+  "confidence_scores": {
+    "amounts": 0.85,
+    "dates": 0.9,
+    "companies": 0.75,
+    "keywords": 0.8
+  },
+  "analysis_status": "completed"
+}

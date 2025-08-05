@@ -1,0 +1,35 @@
+{
+  "doc_id": "772",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 10047202000040.0,
+      "currency": "KES",
+      "context": "Found in 772",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2202-42-01",
+    "2202-98-62",
+    "2202-99-80",
+    "23/03/2022",
+    "23/03/2022",
+    "23/03/2022",
+    "23/03/2022",
+    "6/6/2022",
+    "6/6/2022",
+    "6/6/2022"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

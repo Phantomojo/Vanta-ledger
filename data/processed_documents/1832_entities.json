@@ -1,0 +1,55 @@
+{
+  "doc_id": "1832",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1832",
+      "type": "income"
+    },
+    {
+      "amount": 25.0,
+      "currency": "KES",
+      "context": "Found in 1832",
+      "type": "income"
+    },
+    {
+      "amount": 3186.0,
+      "currency": "KES",
+      "context": "Found in 1832",
+      "type": "income"
+    },
+    {
+      "amount": 93525.0,
+      "currency": "KES",
+      "context": "Found in 1832",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "09/08/2021",
+    "01/07/2021",
+    "08/12/2020",
+    "22/08/2023",
+    "14/12/2022",
+    "31/07/2025",
+    "01/8/2022",
+    "1/8/2022",
+    "31/7/2023",
+    "28/02/2023",
+    "31/12/2023",
+    "26/09/2023"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

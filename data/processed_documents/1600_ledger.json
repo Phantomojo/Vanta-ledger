@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1600_1",
+    "doc_id": "1600",
+    "type": "income",
+    "amount": 640000.0,
+    "currency": "KES",
+    "description": "From document 1600: Found in 1600",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1600_2",
+    "doc_id": "1600",
+    "type": "income",
+    "amount": 640000.0,
+    "currency": "KES",
+    "description": "From document 1600: Found in 1600",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1600_3",
+    "doc_id": "1600",
+    "type": "income",
+    "amount": 640000.0,
+    "currency": "KES",
+    "description": "From document 1600: Found in 1600",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1600_4",
+    "doc_id": "1600",
+    "type": "income",
+    "amount": 2700.0,
+    "currency": "KES",
+    "description": "From document 1600: Found in 1600",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1600_5",
+    "doc_id": "1600",
+    "type": "income",
+    "amount": 2400.0,
+    "currency": "KES",
+    "description": "From document 1600: Found in 1600",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

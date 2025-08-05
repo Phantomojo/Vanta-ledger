@@ -1,0 +1,25 @@
+{
+  "doc_id": "1680",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 4600.0,
+      "currency": "KES",
+      "context": "Found in 1680",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

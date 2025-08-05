@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2403_1",
+    "doc_id": "2403",
+    "type": "income",
+    "amount": 20.0,
+    "currency": "KES",
+    "description": "From document 2403: Found in 2403",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2403_2",
+    "doc_id": "2403",
+    "type": "income",
+    "amount": 800.0,
+    "currency": "KES",
+    "description": "From document 2403: Found in 2403",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2403_3",
+    "doc_id": "2403",
+    "type": "income",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 2403: Found in 2403",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

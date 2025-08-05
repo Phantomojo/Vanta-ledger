@@ -1,0 +1,13 @@
+{
+  "api_base_url": "http://localhost:8500",
+  "working_login_endpoint": "/working-login",
+  "fallback_login_endpoint": "/auth/login",
+  "admin_credentials": {
+    "username": "admin",
+    "password": "admin123"
+  },
+  "database_info": {
+    "location": "database/vanta_ledger_fixed.db",
+    "created_at": "2025-07-29T01:42:05.417657+00:00"
+  }
+}

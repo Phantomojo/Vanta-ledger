@@ -1,0 +1,30 @@
+{
+  "doc_id": "198",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 198",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "24/02/2020",
+    "15/10/2018",
+    "18/02/2020",
+    "13/07/2023",
+    "12/07/2024",
+    "1/8/2023",
+    "25/07/2025"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "project",
+    "amount",
+    "date"
+  ]
+}

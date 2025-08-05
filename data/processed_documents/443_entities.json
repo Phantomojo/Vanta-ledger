@@ -1,0 +1,24 @@
+{
+  "doc_id": "443",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 443",
+      "type": "expense"
+    },
+    {
+      "amount": 7400000.0,
+      "currency": "KES",
+      "context": "Found in 443",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "amount",
+    "date"
+  ]
+}

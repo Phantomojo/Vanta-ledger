@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1090_1",
+    "doc_id": "1090",
+    "type": "income",
+    "amount": 510075.0,
+    "currency": "KES",
+    "description": "From document 1090: Found in 1090",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1090_2",
+    "doc_id": "1090",
+    "type": "income",
+    "amount": 629310.66,
+    "currency": "KES",
+    "description": "From document 1090: Found in 1090",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1090_3",
+    "doc_id": "1090",
+    "type": "income",
+    "amount": 100689.66,
+    "currency": "KES",
+    "description": "From document 1090: Found in 1090",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1090_4",
+    "doc_id": "1090",
+    "type": "income",
+    "amount": 730000.0,
+    "currency": "KES",
+    "description": "From document 1090: Found in 1090",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

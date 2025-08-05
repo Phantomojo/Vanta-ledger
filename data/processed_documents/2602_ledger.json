@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2602_1",
+    "doc_id": "2602",
+    "type": "income",
+    "amount": 600000.0,
+    "currency": "KES",
+    "description": "From document 2602: Found in 2602",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2602_2",
+    "doc_id": "2602",
+    "type": "income",
+    "amount": 600000.0,
+    "currency": "KES",
+    "description": "From document 2602: Found in 2602",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2602_3",
+    "doc_id": "2602",
+    "type": "income",
+    "amount": 600000.0,
+    "currency": "KES",
+    "description": "From document 2602: Found in 2602",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]
