@@ -1,72 +1,151 @@
-# --- Vanta Ledger .gitignore (root) ---
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.db
-*.sqlite3
-.env
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
 .venv/
 
-# Node/React
-node_modules/
-dist/
-dist-ssr/
-.vite/
-.vite-temp/
+# Environment variables and secrets
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.key
+*.pem
+*.crt
+*.csr
+secrets.json
+config.json
+credentials.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+data/
+uploads/
+processed_documents/
+logs/
 *.log
+
+# Production files
+production_ai_system.log
+system_monitor.log
+alert_*.json
+health_snapshot_*.json
+production_report_*.json
+monitoring_report_*.json
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Node.js (if any frontend components)
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-# Flutter/Dart
-**/build/
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-*.class
-*.lock
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+htmlcov/
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
 
-# Data, logs, cache
-raw_docs/
-logs/
-cache/
-exports/
-vanta_ledger.db
-uploads/
-paperless_ocr_texts/
-paperless-ngx/
+# Documentation builds
+docs/_build/
+site/
 
-# IDE/Editor
-.idea/
-.vscode/
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Jupyter Notebook
+.ipynb_checkpoints
 
-# System
-Thumbs.db
-Desktop.ini
+# pyenv
+.python-version
 
-# Misc
-*.bak
-*.tmp
+# Celery
+celerybeat-schedule
+celerybeat.pid
 
-# Sensitive files
-*.key
-*.pem
-*.p12
-*.pfx
-secrets.json
-config.json
+# SageMath parsed files
+*.sage.py
 
-# --- End --- venv/
-.venv/
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Project specific
+company_data/
+vanta_companies_data_improved/
+ssl/
+database/ssl/
+database/mongodb/
+database/postgresql/
+database/redis/

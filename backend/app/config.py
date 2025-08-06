@@ -13,8 +13,8 @@ class Settings:
     PORT: int = int(os.getenv("PORT", "8500"))
     
     # Database - Use environment variables only
-    MONGO_URI: str = os.getenv("MONGO_URI", "mongodb://admin:THq2ibwBwnNCHUqbKFlSHrkmo3eSpzPGPX4AZg2V7yU=@localhost:27017/vanta_ledger?authSource=admin")
-    POSTGRES_URI: str = os.getenv("POSTGRES_URI", "postgresql://vanta_user:vanta_password@localhost:5432/vanta_ledger")
+    MONGO_URI: str = os.getenv("MONGO_URI", "mongodb://user:password@localhost:27017/vanta_ledger")
+    POSTGRES_URI: str = os.getenv("POSTGRES_URI", "postgresql://user:password@localhost:5432/vanta_ledger")
     REDIS_URI: str = os.getenv("REDIS_URI", "redis://localhost:6379/0")
     DATABASE_NAME: str = os.getenv("DATABASE_NAME", "vanta_ledger")
     

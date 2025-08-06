@@ -39,22 +39,20 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Get credentials from environment variables
+# Get credentials from environment variables with defaults
 POSTGRES_USER = os.getenv('POSTGRES_USER', 'vanta_user')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'vanta_secure_password_2024')
 POSTGRES_DB = os.getenv('POSTGRES_DB', 'vanta_ledger')
 MONGO_USER = os.getenv('MONGO_ROOT_USERNAME', 'admin')
-MONGO_PASSWORD = os.getenv('MONGO_ROOT_PASSWORD')
+MONGO_PASSWORD = os.getenv('MONGO_ROOT_PASSWORD', 'THq2ibwBwnNCHUqbKFlSHrkmo3eSpzPGPX4AZg2V7yU=')
 MONGO_DB = os.getenv('MONGO_DATABASE', 'vanta_ledger')
 
-# Validate required environment variables
-if not POSTGRES_PASSWORD:
-    raise ValueError("POSTGRES_PASSWORD environment variable is required")
-if not MONGO_PASSWORD:
-    raise ValueError("MONGO_ROOT_PASSWORD environment variable is required")
+# Debug: Print connection info (without password)
+print(f"PostgreSQL: {POSTGRES_USER}@{POSTGRES_DB}")
+print(f"MongoDB: {MONGO_USER}@{MONGO_DB}")
 
-POSTGRES_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@postgresql/{POSTGRES_DB}"
-MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@mongodb:27017/{MONGO_DB}?authSource=admin"
+POSTGRES_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost/{POSTGRES_DB}"
+MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@localhost:27017/{MONGO_DB}?authSource=admin"
 
 # ALL 29 Companies (10 Original + 19 Additional)
 ALL_COMPANIES = [

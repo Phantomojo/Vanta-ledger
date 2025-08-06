@@ -28,11 +28,13 @@ from .middleware import LoggingMiddleware, SecurityHeadersMiddleware, RateLimitM
 
 # Import document processor
 from .services.document_processor import DocumentProcessor
+from .services.ai_analytics_service import ai_analytics_service
+from .services.analytics_dashboard import analytics_dashboard
 
 # Initialize FastAPI app
 app = FastAPI(
     title="Vanta Ledger API",
-    description="Advanced document processing and financial data management system",
+    description="Advanced document processing and financial data management system with AI analytics",
     version=settings.VERSION
 )
 
@@ -477,6 +479,270 @@ async def get_notifications(current_user: dict = Depends(verify_token)):
 @app.get("/notifications/settings/")
 async def get_notification_settings(current_user: dict = Depends(verify_token)):
     return {"email": True, "push": False}
+
+# AI Analytics Endpoints
+@app.post("/ai/analyze-document/{document_id}")
+async def analyze_document_ai(document_id: str, current_user: dict = Depends(verify_token)):
+    """Analyze document using AI/LLM for intelligent insights"""
+    try:
+        # Get document from database
+        client = get_mongo_client()
+        db = client.vanta_ledger
+        collection = db.processed_documents
+        
+        document = collection.find_one({"document_id": document_id})
+        if not document:
+            raise HTTPException(status_code=404, detail="Document not found")
+        
+        # Analyze with AI
+        analysis = await ai_analytics_service.analyze_document_intelligence(document)
+        
+        # Save analysis to database
+        collection.update_one(
+            {"document_id": document_id},
+            {"$set": {"ai_analysis": analysis}}
+        )
+        
+        return analysis
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"AI analysis failed: {str(e)}")
+
+@app.get("/ai/company-report/{company_id}")
+async def generate_company_report(company_id: str, current_user: dict = Depends(verify_token)):
+    """Generate comprehensive company report using AI analysis"""
+    try:
+        # Get all documents for company
+        client = get_mongo_client()
+        db = client.vanta_ledger
+        collection = db.processed_documents
+        
+        documents = list(collection.find({"company": company_id}))
+        if not documents:
+            raise HTTPException(status_code=404, detail="No documents found for company")
+        
+        # Generate AI report
+        report = await ai_analytics_service.generate_company_report(company_id, documents)
+        
+        # Save report to database
+        db.ai_reports.insert_one(report)
+        
+        return report
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Company report generation failed: {str(e)}")
+
+@app.get("/ai/system-analytics")
+async def generate_system_analytics(current_user: dict = Depends(verify_token)):
+    """Generate system-wide analytics and insights using AI"""
+    try:
+        # Get all documents
+        client = get_mongo_client()
+        db = client.vanta_ledger
+        collection = db.processed_documents
+        
+        all_documents = list(collection.find({}))
+        if not all_documents:
+            raise HTTPException(status_code=404, detail="No documents found")
+        
+        # Generate AI analytics
+        analytics = await ai_analytics_service.generate_system_analytics(all_documents)
+        
+        # Save analytics to database
+        db.system_analytics.insert_one(analytics)
+        
+        return analytics
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"System analytics generation failed: {str(e)}")
+
+@app.get("/ai/reports/")
+async def list_ai_reports(current_user: dict = Depends(verify_token)):
+    """List all AI-generated reports"""
+    try:
+        client = get_mongo_client()
+        db = client.vanta_ledger
+        
+        # Get company reports
+        company_reports = list(db.ai_reports.find({}, {"_id": 0}).limit(20))
+        
+        # Get system analytics
+        system_analytics = list(db.system_analytics.find({}, {"_id": 0}).limit(10))
+        
+        return {
+            "company_reports": company_reports,
+            "system_analytics": system_analytics
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch AI reports: {str(e)}")
+
+@app.get("/ai/reports/{report_id}")
+async def get_ai_report(report_id: str, current_user: dict = Depends(verify_token)):
+    """Get specific AI report"""
+    try:
+        client = get_mongo_client()
+        db = client.vanta_ledger
+        
+        # Try to find in company reports
+        report = db.ai_reports.find_one({"company_id": report_id}, {"_id": 0})
+        if report:
+            return report
+        
+        # Try to find in system analytics
+        report = db.system_analytics.find_one({"report_date": report_id}, {"_id": 0})
+        if report:
+            return report
+        
+        raise HTTPException(status_code=404, detail="Report not found")
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch report: {str(e)}")
+
+# Analytics Dashboard Endpoints
+@app.get("/dashboard/overview")
+async def get_dashboard_overview(current_user: dict = Depends(verify_token)):
+    """Get comprehensive dashboard overview"""
+    try:
+        mongo_client = get_mongo_client()
+        postgres_conn = get_postgres_connection()
+        
+        overview = await analytics_dashboard.get_dashboard_overview(mongo_client, postgres_conn)
+        
+        postgres_conn.close()
+        
+        return overview
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Dashboard overview failed: {str(e)}")
+
+@app.get("/dashboard/company/{company_id}")
+async def get_company_dashboard(company_id: str, current_user: dict = Depends(verify_token)):
+    """Get company-specific dashboard"""
+    try:
+        mongo_client = get_mongo_client()
+        postgres_conn = get_postgres_connection()
+        
+        company_dashboard = await analytics_dashboard.get_company_dashboard(company_id, mongo_client, postgres_conn)
+        
+        postgres_conn.close()
+        
+        return company_dashboard
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Company dashboard failed: {str(e)}")
+
+@app.get("/analytics/financial")
+async def get_financial_analytics(current_user: dict = Depends(verify_token)):
+    """Get detailed financial analytics"""
+    try:
+        mongo_client = get_mongo_client()
+        postgres_conn = get_postgres_connection()
+        
+        # Get financial data from both databases
+        mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
+        postgres_data = await analytics_dashboard._get_postgres_analytics(postgres_conn)
+        
+        financial_analytics = analytics_dashboard._combine_financial_data(mongo_data, postgres_data)
+        
+        postgres_conn.close()
+        
+        return financial_analytics
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Financial analytics failed: {str(e)}")
+
+@app.get("/analytics/compliance")
+async def get_compliance_analytics(current_user: dict = Depends(verify_token)):
+    """Get compliance analytics"""
+    try:
+        mongo_client = get_mongo_client()
+        
+        mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
+        compliance_analytics = analytics_dashboard._get_compliance_metrics(mongo_data)
+        
+        return compliance_analytics
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Compliance analytics failed: {str(e)}")
+
+@app.get("/analytics/processing")
+async def get_processing_analytics(current_user: dict = Depends(verify_token)):
+    """Get processing analytics"""
+    try:
+        mongo_client = get_mongo_client()
+        
+        mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
+        processing_analytics = analytics_dashboard._get_processing_metrics(mongo_data)
+        
+        return processing_analytics
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Processing analytics failed: {str(e)}")
+
+@app.get("/analytics/trends")
+async def get_trends_analytics(current_user: dict = Depends(verify_token)):
+    """Get trends analytics"""
+    try:
+        mongo_client = get_mongo_client()
+        
+        mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
+        trends_analytics = await analytics_dashboard._get_trends(mongo_data)
+        
+        return trends_analytics
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Trends analytics failed: {str(e)}")
+
+@app.get("/analytics/alerts")
+async def get_system_alerts(current_user: dict = Depends(verify_token)):
+    """Get system alerts"""
+    try:
+        mongo_client = get_mongo_client()
+        
+        mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
+        alerts = await analytics_dashboard._get_alerts(mongo_data)
+        
+        return alerts
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"System alerts failed: {str(e)}")
+
+@app.get("/analytics/top-performers")
+async def get_top_performers(current_user: dict = Depends(verify_token)):
+    """Get top performing companies"""
+    try:
+        mongo_client = get_mongo_client()
+        
+        mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
+        top_performers = analytics_dashboard._get_top_performers(mongo_data)
+        
+        return top_performers
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Top performers analytics failed: {str(e)}")
+
+@app.get("/analytics/risk-analysis")
+async def get_risk_analysis(current_user: dict = Depends(verify_token)):
+    """Get comprehensive risk analysis"""
+    try:
+        mongo_client = get_mongo_client()
+        
+        mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
+        risk_analysis = analytics_dashboard._get_risk_analysis(mongo_data)
+        
+        return risk_analysis
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Risk analysis failed: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
