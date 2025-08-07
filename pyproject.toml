@@ -58,7 +58,7 @@ dev = [
 "Bug Tracker" = "https://github.com/Phantomojo/Vanta-ledger/issues"
 
 [tool.setuptools.packages.find]
-where = ["backend"]
+where = ["src"]
 
 [tool.black]
 line-length = 88

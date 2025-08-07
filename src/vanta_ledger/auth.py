@@ -131,38 +131,79 @@ class AuthService:
             logger.error(f"Error checking token blacklist: {str(e)}")
             return False
 
-# User management functions (to be implemented with database)
+# User management functions with database integration
 async def get_user_by_username(username: str) -> Optional[User]:
     """Get user by username from database"""
-    # TODO: Implement a proper database query to fetch users.
-    # The hardcoded 'admin' user has been removed for security reasons.
-    # A real implementation should query a database like this:
-    # user_data = await db.users.find_one({"username": username})
-    # if user_data:
-    #     return User(**user_data)
-    return None
+    try:
+        from .services.user_service import get_user_service
+        user_service = get_user_service()
+        db_user = user_service.get_user_by_username(username)
+        
+        if db_user:
+            return User(
+                id=db_user.id,
+                username=db_user.username,
+                email=db_user.email,
+                hashed_password=db_user.hashed_password,
+                is_active=db_user.is_active,
+                role=db_user.role
+            )
+        return None
+    except Exception as e:
+        logger.error(f"Error getting user by username {username}: {str(e)}")
+        return None
 
 async def get_user_by_id(user_id: str) -> Optional[User]:
     """Get user by ID from database"""
-    # TODO: Implement database query
-    return None
+    try:
+        from .services.user_service import get_user_service
+        user_service = get_user_service()
+        db_user = user_service.get_user_by_id(user_id)
+        
+        if db_user:
+            return User(
+                id=db_user.id,
+                username=db_user.username,
+                email=db_user.email,
+                hashed_password=db_user.hashed_password,
+                is_active=db_user.is_active,
+                role=db_user.role
+            )
+        return None
+    except Exception as e:
+        logger.error(f"Error getting user by ID {user_id}: {str(e)}")
+        return None
 
 async def create_user(username: str, email: str, password: str, role: str = "user") -> User:
     """Create new user with hashed password"""
-    # TODO: Implement database insertion
-    user_id = str(uuid.uuid4())
-    hashed_password = AuthService.get_password_hash(password)
-    
-    user = User(
-        id=user_id,
-        username=username,
-        email=email,
-        hashed_password=hashed_password,
-        role=role
-    )
-    
-    # TODO: Save to database
-    return user
+    try:
+        from .services.user_service import get_user_service
+        from .models.user_models import UserCreate
+        
+        user_service = get_user_service()
+        user_data = UserCreate(
+            username=username,
+            email=email,
+            password=password,
+            role=role
+        )
+        
+        db_user = user_service.create_user(user_data)
+        
+        if db_user:
+            return User(
+                id=db_user.id,
+                username=db_user.username,
+                email=db_user.email,
+                hashed_password=db_user.hashed_password,
+                is_active=db_user.is_active,
+                role=db_user.role
+            )
+        else:
+            raise Exception("Failed to create user")
+    except Exception as e:
+        logger.error(f"Error creating user {username}: {str(e)}")
+        raise
 
 # Dependency for getting current user
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> User:
