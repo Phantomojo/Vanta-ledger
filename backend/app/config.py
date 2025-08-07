@@ -13,8 +13,8 @@ class Settings:
     PORT: int = int(os.getenv("PORT", "8500"))
     
     # Database - Use environment variables only
-    MONGO_URI: str = os.getenv("MONGO_URI", "mongodb://user:password@localhost:27017/vanta_ledger")
-    POSTGRES_URI: str = os.getenv("POSTGRES_URI", "postgresql://user:password@localhost:5432/vanta_ledger")
+    MONGO_URI: str = os.getenv("MONGO_URI")
+    POSTGRES_URI: str = os.getenv("POSTGRES_URI")
     REDIS_URI: str = os.getenv("REDIS_URI", "redis://localhost:6379/0")
     DATABASE_NAME: str = os.getenv("DATABASE_NAME", "vanta_ledger")
     
@@ -76,5 +76,11 @@ class Settings:
     LLM_MAX_CONTEXT_LENGTH: int = int(os.getenv("LLM_MAX_CONTEXT_LENGTH", "4096"))
     LLM_DEFAULT_TEMPERATURE: float = float(os.getenv("LLM_DEFAULT_TEMPERATURE", "0.7"))
     LLM_USE_GPU: bool = os.getenv("LLM_USE_GPU", "True").lower() == "true"
+
+    def __init__(self):
+        if not self.MONGO_URI:
+            raise ValueError("MONGO_URI must be set in the environment.")
+        if not self.POSTGRES_URI:
+            raise ValueError("POSTGRES_URI must be set in the environment.")
 
 settings = Settings() 

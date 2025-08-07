@@ -254,7 +254,7 @@ HOST=0.0.0.0
 PORT=8500
 
 # Security
-SECRET_KEY=your-secret-key-change-this-in-production
+SECRET_KEY=${SECRET_KEY}
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 # File Storage

@@ -1,0 +1,11 @@
+-r requirements.in
+
+# Testing
+pytest
+pytest-asyncio
+httpx
+
+# Development
+black
+flake8
+mypy

@@ -134,16 +134,12 @@ class AuthService:
 # User management functions (to be implemented with database)
 async def get_user_by_username(username: str) -> Optional[User]:
     """Get user by username from database"""
-    # TODO: Implement database query
-    # This is a placeholder - implement with your database
-    if username == "admin":
-        return User(
-            id="1",
-            username="admin",
-            email="admin@example.com",
-            hashed_password=AuthService.get_password_hash("admin123"),
-            role="admin"
-        )
+    # TODO: Implement a proper database query to fetch users.
+    # The hardcoded 'admin' user has been removed for security reasons.
+    # A real implementation should query a database like this:
+    # user_data = await db.users.find_one({"username": username})
+    # if user_data:
+    #     return User(**user_data)
     return None
 
 async def get_user_by_id(user_id: str) -> Optional[User]:

@@ -33,8 +33,13 @@ class HybridDatabaseManager:
     
     def __init__(self):
         # Database configuration
-        self.postgres_uri = os.getenv("POSTGRES_URI", "postgresql://vanta_user:vanta_password@localhost:5432/vanta_ledger")
-        self.mongo_uri = os.getenv("MONGO_URI", "mongodb://admin:admin123@localhost:27017/vanta_ledger")
+        self.postgres_uri = os.getenv("POSTGRES_URI")
+        self.mongo_uri = os.getenv("MONGO_URI")
+
+        if not self.postgres_uri:
+            raise ValueError("POSTGRES_URI must be set in the environment for the hybrid database.")
+        if not self.mongo_uri:
+            raise ValueError("MONGO_URI must be set in the environment for the hybrid database.")
         
         # Database connections
         self.postgres_engine = None
