@@ -16,7 +16,6 @@ parts/
 sdist/
 var/
 wheels/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -28,54 +27,15 @@ env/
 ENV/
 env.bak/
 venv.bak/
-.venv/
 
-# Environment variables and secrets
-.env
-.env.local
-.env.development
-.env.test
-.env.production
-*.key
-*.pem
-*.crt
-*.csr
-secrets.json
-config.json
-credentials.json
-
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-data/
-uploads/
-processed_documents/
-logs/
-*.log
-
-# Production files
-production_ai_system.log
-system_monitor.log
-alert_*.json
-health_snapshot_*.json
-production_report_*.json
-monitoring_report_*.json
-
-# Docker
-.dockerignore
-docker-compose.override.yml
-
-# IDE and editors
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-.DS_Store
-Thumbs.db
 
-# OS generated files
+# OS
 .DS_Store
 .DS_Store?
 ._*
@@ -84,11 +44,46 @@ Thumbs.db
 ehthumbs.db
 Thumbs.db
 
-# Temporary files
+# Logs
+*.log
+logs/
+log/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.staging
+
+# Model files (too large for git)
+models/*.gguf
+models/*.bin
+models/*.safetensors
+models/*.pt
+models/*.pth
+models/*.onnx
+models/tinyllama/
+models/mistral/
+models/*/
+
+# Test results and temporary files
+test_*.json
+*_results.json
 *.tmp
 *.temp
-*.bak
-*.backup
+
+# Backup files
+*_backup.txt
+backup_*/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
 
 # Node.js (if any frontend components)
 node_modules/
@@ -96,25 +91,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Testing
-.coverage
-.pytest_cache/
-.tox/
+# Coverage reports
 htmlcov/
+.coverage
 .coverage.*
 coverage.xml
 *.cover
 .hypothesis/
-
-# Documentation builds
-docs/_build/
-site/
+.pytest_cache/
 
 # Jupyter Notebook
 .ipynb_checkpoints
 
 # pyenv
 .python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
 
 # Celery
 celerybeat-schedule
@@ -141,11 +137,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Project specific
-company_data/
-vanta_companies_data_improved/
-ssl/
-database/ssl/
-database/mongodb/
-database/postgresql/
-database/redis/
+# Cursor IDE specific
+.cursor/

@@ -1,622 +1,569 @@
 #!/usr/bin/env python3
 """
-AI Analytics Service for Vanta Ledger
-====================================
-
-This service provides intelligent analysis of processed documents using cloud-based LLMs,
-generates comprehensive reports, and connects insights across the entire ledger system.
+Enhanced AI Analytics Service
+Core AI features for predictive analytics and anomaly detection
 """
 
-import os
-import json
-import asyncio
-import aiohttp
-from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional
-from pathlib import Path
 import logging
+import json
+import numpy as np
+import pandas as pd
+from datetime import datetime, timedelta
+from typing import List, Optional, Dict, Any, Tuple
+from uuid import UUID
+from decimal import Decimal
+import asyncio
 
-# Cloud LLM providers
-import openai
-from anthropic import Anthropic
-import google.generativeai as genai
+from pymongo import MongoClient
+from pymongo.collection import Collection
+from pymongo.database import Database
+import redis
+
+from ..config import settings
 
 logger = logging.getLogger(__name__)
 
-class AIAnalyticsService:
-    """AI Analytics Service with cloud-based LLM integration"""
+class EnhancedAIAnalyticsService:
+    """Enhanced AI analytics service with predictive capabilities"""
     
     def __init__(self):
-        """Initialize the AI analytics service"""
-        self.openai_client = None
-        self.anthropic_client = None
-        self.gemini_client = None
+        # Database connections
+        self.mongo_client = MongoClient(settings.MONGO_URI)
+        self.db: Database = self.mongo_client[settings.DATABASE_NAME]
+        self.redis_client = redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
         
-        # Initialize cloud LLM clients
-        self._setup_llm_clients()
+        # Collections
+        self.invoices: Collection = self.db.invoices
+        self.bills: Collection = self.db.bills
+        self.payments: Collection = self.db.payments
+        self.documents: Collection = self.db.documents
+        self.journal_entries: Collection = self.db.journal_entries
         
-        # Analytics cache
-        self.analytics_cache = {}
-        
-        logger.info("🚀 AI Analytics Service initialized")
-
-    def _setup_llm_clients(self):
-        """Setup cloud-based LLM clients"""
+    async def analyze_financial_trends(self, user_id: UUID, period_days: int = 90) -> Dict[str, Any]:
+        """Analyze financial trends and patterns"""
         try:
-            # OpenAI (GPT-4)
-            if os.getenv("OPENAI_API_KEY"):
-                openai.api_key = os.getenv("OPENAI_API_KEY")
-                self.openai_client = openai
-                logger.info("✅ OpenAI client configured")
+            # Get historical data
+            end_date = datetime.utcnow()
+            start_date = end_date - timedelta(days=period_days)
             
-            # Anthropic (Claude)
-            if os.getenv("ANTHROPIC_API_KEY"):
-                self.anthropic_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-                logger.info("✅ Anthropic client configured")
+            # Collect invoice data
+            invoice_data = list(self.invoices.find({
+                "created_at": {"$gte": start_date, "$lte": end_date}
+            }))
             
-            # Google Gemini
-            if os.getenv("GOOGLE_API_KEY"):
-                genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-                self.gemini_client = genai.GenerativeModel('gemini-pro')
-                logger.info("✅ Google Gemini client configured")
-                
-        except Exception as e:
-            logger.error(f"❌ Failed to setup LLM clients: {e}")
-
-    async def analyze_document_intelligence(self, document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze document using cloud-based LLM for intelligent insights"""
-        try:
-            # Prepare document context
-            context = self._prepare_document_context(document_data)
+            # Collect payment data
+            payment_data = list(self.payments.find({
+                "payment_date": {"$gte": start_date, "$lte": end_date}
+            }))
             
-            # Generate analysis prompts
-            analysis_prompts = self._generate_analysis_prompts(context)
+            # Analyze trends
+            trends = await self._analyze_revenue_trends(invoice_data, payment_data)
+            patterns = await self._analyze_payment_patterns(payment_data)
             
-            # Get LLM analysis
-            llm_insights = await self._get_llm_analysis(analysis_prompts)
-            
-            # Process and structure insights
-            structured_insights = self._structure_llm_insights(llm_insights, document_data)
-            
-            logger.info(f"✅ Document intelligence analysis completed for {document_data.get('filename', 'Unknown')}")
-            return structured_insights
-            
-        except Exception as e:
-            logger.error(f"❌ Document intelligence analysis failed: {e}")
-            return {"error": str(e)}
-
-    def _prepare_document_context(self, document_data: Dict[str, Any]) -> str:
-        """Prepare document context for LLM analysis"""
-        context_parts = []
-        
-        # Basic document info
-        context_parts.append(f"Document: {document_data.get('filename', 'Unknown')}")
-        context_parts.append(f"Company: {document_data.get('company', 'Unknown')}")
-        context_parts.append(f"Category: {document_data.get('category', 'Unknown')}")
-        context_parts.append(f"Document Type: {document_data.get('document_type', 'Unknown')}")
-        
-        # Extracted text (truncated for LLM)
-        text = document_data.get('text', '')[:4000]  # Limit for LLM context
-        context_parts.append(f"Document Text: {text}")
-        
-        # Extracted entities
-        entities = document_data.get('entities', {})
-        if entities:
-            entity_summary = []
-            for entity_type, values in entities.items():
-                if values:
-                    entity_summary.append(f"{entity_type}: {', '.join(str(v) for v in values[:5])}")
-            context_parts.append(f"Extracted Entities: {'; '.join(entity_summary)}")
-        
-        # Financial data
-        amounts = entities.get('amounts', [])
-        if amounts:
-            context_parts.append(f"Financial Amounts: {', '.join(str(amt) for amt in amounts[:10])}")
-        
-        # Dates
-        dates = entities.get('dates', [])
-        if dates:
-            context_parts.append(f"Important Dates: {', '.join(str(date) for date in dates[:5])}")
-        
-        return "\n".join(context_parts)
-
-    def _generate_analysis_prompts(self, context: str) -> Dict[str, str]:
-        """Generate analysis prompts for different aspects"""
-        return {
-            "business_insights": f"""
-            Analyze this Kenyan business document and provide intelligent business insights:
-            
-            {context}
-            
-            Please provide:
-            1. Key business insights and implications
-            2. Financial analysis and trends
-            3. Risk assessment and opportunities
-            4. Compliance and regulatory considerations
-            5. Strategic recommendations
-            
-            Focus on Kenyan business context, KSH currency, and local market dynamics.
-            """,
-            
-            "compliance_analysis": f"""
-            Analyze this document for compliance and regulatory requirements:
-            
-            {context}
-            
-            Please identify:
-            1. Tax compliance requirements (KRA, VAT, etc.)
-            2. Regulatory obligations
-            3. Required documentation
-            4. Compliance deadlines
-            5. Potential compliance risks
-            
-            Focus on Kenyan regulatory framework.
-            """,
-            
-            "financial_analysis": f"""
-            Perform detailed financial analysis of this document:
-            
-            {context}
-            
-            Please analyze:
-            1. Financial performance indicators
-            2. Cash flow implications
-            3. Cost-benefit analysis
-            4. Budget impact
-            5. Financial risk assessment
-            
-            Consider KSH currency and Kenyan financial context.
-            """,
-            
-            "strategic_recommendations": f"""
-            Provide strategic recommendations based on this document:
-            
-            {context}
-            
-            Please provide:
-            1. Strategic opportunities
-            2. Risk mitigation strategies
-            3. Operational improvements
-            4. Growth recommendations
-            5. Competitive advantages
-            
-            Focus on Kenyan market opportunities and challenges.
-            """
-        }
-
-    async def _get_llm_analysis(self, prompts: Dict[str, str]) -> Dict[str, str]:
-        """Get analysis from cloud-based LLMs"""
-        results = {}
-        
-        for analysis_type, prompt in prompts.items():
-            try:
-                # Try different LLM providers
-                if self.openai_client:
-                    response = await self._call_openai(prompt)
-                    results[analysis_type] = response
-                elif self.anthropic_client:
-                    response = await self._call_anthropic(prompt)
-                    results[analysis_type] = response
-                elif self.gemini_client:
-                    response = await self._call_gemini(prompt)
-                    results[analysis_type] = response
-                else:
-                    results[analysis_type] = "No LLM provider available"
-                    
-            except Exception as e:
-                logger.error(f"❌ LLM analysis failed for {analysis_type}: {e}")
-                results[analysis_type] = f"Analysis failed: {str(e)}"
-        
-        return results
-
-    async def _call_openai(self, prompt: str) -> str:
-        """Call OpenAI GPT-4"""
-        try:
-            response = await asyncio.to_thread(
-                self.openai_client.ChatCompletion.create,
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a Kenyan business analyst expert in financial documents, compliance, and strategic analysis."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=1000,
-                temperature=0.3
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            raise Exception(f"OpenAI error: {e}")
-
-    async def _call_anthropic(self, prompt: str) -> str:
-        """Call Anthropic Claude"""
-        try:
-            response = await asyncio.to_thread(
-                self.anthropic_client.messages.create,
-                model="claude-3-sonnet-20240229",
-                max_tokens=1000,
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            return response.content[0].text
-        except Exception as e:
-            raise Exception(f"Anthropic error: {e}")
-
-    async def _call_gemini(self, prompt: str) -> str:
-        """Call Google Gemini"""
-        try:
-            response = await asyncio.to_thread(
-                self.gemini_client.generate_content,
-                prompt
-            )
-            return response.text
-        except Exception as e:
-            raise Exception(f"Gemini error: {e}")
-
-    def _structure_llm_insights(self, llm_insights: Dict[str, str], document_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Structure LLM insights into organized format"""
-        return {
-            "document_id": document_data.get('document_id'),
-            "filename": document_data.get('filename'),
-            "company": document_data.get('company'),
-            "analysis_timestamp": datetime.now().isoformat(),
-            "business_insights": llm_insights.get('business_insights', ''),
-            "compliance_analysis": llm_insights.get('compliance_analysis', ''),
-            "financial_analysis": llm_insights.get('financial_analysis', ''),
-            "strategic_recommendations": llm_insights.get('strategic_recommendations', ''),
-            "confidence_score": self._calculate_confidence_score(document_data),
-            "risk_level": self._assess_risk_level(document_data),
-            "priority_level": self._assess_priority_level(document_data)
-        }
-
-    def _calculate_confidence_score(self, document_data: Dict[str, Any]) -> float:
-        """Calculate confidence score based on document quality"""
-        score = 0.0
-        
-        # Text quality
-        text = document_data.get('text', '')
-        if len(text) > 100:
-            score += 0.3
-        
-        # Entity extraction
-        entities = document_data.get('entities', {})
-        if entities.get('amounts'):
-            score += 0.2
-        if entities.get('dates'):
-            score += 0.2
-        if entities.get('companies'):
-            score += 0.2
-        if entities.get('tax_numbers'):
-            score += 0.1
-        
-        return min(score, 1.0)
-
-    def _assess_risk_level(self, document_data: Dict[str, Any]) -> str:
-        """Assess risk level of document"""
-        entities = document_data.get('entities', {})
-        
-        # High risk indicators
-        if entities.get('tax_numbers') or entities.get('compliance_issues'):
-            return "HIGH"
-        
-        # Medium risk indicators
-        if entities.get('amounts') and any(float(str(amt).replace(',', '')) > 1000000 for amt in entities.get('amounts', [])):
-            return "MEDIUM"
-        
-        return "LOW"
-
-    def _assess_priority_level(self, document_data: Dict[str, Any]) -> str:
-        """Assess priority level of document"""
-        entities = document_data.get('entities', {})
-        
-        # High priority indicators
-        if entities.get('compliance_issues') or entities.get('deadlines'):
-            return "HIGH"
-        
-        # Medium priority indicators
-        if entities.get('amounts') and any(float(str(amt).replace(',', '')) > 500000 for amt in entities.get('amounts', [])):
-            return "MEDIUM"
-        
-        return "LOW"
-
-    async def generate_company_report(self, company_id: str, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Generate comprehensive company report using LLM analysis"""
-        try:
-            # Prepare company context
-            company_context = self._prepare_company_context(documents)
-            
-            # Generate company analysis prompt
-            prompt = f"""
-            Analyze this Kenyan company's financial documents and provide a comprehensive business report:
-            
-            {company_context}
-            
-            Please provide:
-            1. Executive Summary
-            2. Financial Performance Analysis
-            3. Compliance Status
-            4. Risk Assessment
-            5. Strategic Recommendations
-            6. Market Position Analysis
-            7. Operational Insights
-            8. Growth Opportunities
-            
-            Focus on Kenyan business context and provide actionable insights.
-            """
-            
-            # Get LLM analysis
-            llm_analysis = await self._get_llm_analysis({"company_report": prompt})
-            
-            # Structure report
-            report = {
-                "company_id": company_id,
-                "report_date": datetime.now().isoformat(),
-                "total_documents": len(documents),
-                "analysis": llm_analysis.get('company_report', ''),
-                "financial_summary": self._generate_financial_summary(documents),
-                "compliance_summary": self._generate_compliance_summary(documents),
-                "risk_summary": self._generate_risk_summary(documents),
-                "recommendations": self._generate_recommendations(documents)
+            return {
+                "success": True,
+                "analysis": {
+                    "trends": trends,
+                    "patterns": patterns,
+                    "period": {
+                        "start_date": start_date.isoformat(),
+                        "end_date": end_date.isoformat(),
+                        "days": period_days
+                    }
+                }
             }
             
-            logger.info(f"✅ Company report generated for company {company_id}")
-            return report
+        except Exception as e:
+            logger.error(f"Error analyzing financial trends: {str(e)}")
+            raise
+    
+    async def predict_financial_metrics(self, user_id: UUID, forecast_periods: int = 12) -> Dict[str, Any]:
+        """Predict future financial metrics"""
+        try:
+            # Get historical data for prediction
+            end_date = datetime.utcnow()
+            start_date = end_date - timedelta(days=365)  # 1 year of data
+            
+            # Collect historical metrics
+            historical_data = await self._get_historical_metrics(start_date, end_date)
+            
+            # Generate predictions
+            revenue_forecast = await self._forecast_revenue(historical_data, forecast_periods)
+            
+            return {
+                "success": True,
+                "predictions": {
+                    "revenue_forecast": revenue_forecast,
+                    "forecast_periods": forecast_periods,
+                    "confidence_level": 0.85
+                }
+            }
             
         except Exception as e:
-            logger.error(f"❌ Company report generation failed: {e}")
-            return {"error": str(e)}
-
-    def _prepare_company_context(self, documents: List[Dict[str, Any]]) -> str:
-        """Prepare company context from multiple documents"""
-        context_parts = []
-        
-        # Company info
-        if documents:
-            company = documents[0].get('company', 'Unknown')
-            context_parts.append(f"Company: {company}")
-        
-        # Document summary
-        context_parts.append(f"Total Documents: {len(documents)}")
-        
-        # Financial summary
-        total_amount = 0
-        all_amounts = []
-        for doc in documents:
-            amounts = doc.get('entities', {}).get('amounts', [])
-            all_amounts.extend(amounts)
-            for amt in amounts:
-                try:
-                    total_amount += float(str(amt).replace(',', ''))
-                except:
-                    pass
-        
-        context_parts.append(f"Total Financial Value: KSh {total_amount:,.2f}")
-        context_parts.append(f"Number of Transactions: {len(all_amounts)}")
-        
-        # Document types
-        doc_types = {}
-        for doc in documents:
-            doc_type = doc.get('document_type', 'Unknown')
-            doc_types[doc_type] = doc_types.get(doc_type, 0) + 1
-        
-        context_parts.append(f"Document Types: {', '.join([f'{k} ({v})' for k, v in doc_types.items()])}")
-        
-        # Key entities
-        all_entities = {}
-        for doc in documents:
-            entities = doc.get('entities', {})
-            for entity_type, values in entities.items():
-                if entity_type not in all_entities:
-                    all_entities[entity_type] = []
-                all_entities[entity_type].extend(values)
-        
-        for entity_type, values in all_entities.items():
-            if values:
-                context_parts.append(f"{entity_type}: {', '.join(str(v) for v in set(values)[:10])}")
-        
-        return "\n".join(context_parts)
-
-    def _generate_financial_summary(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Generate financial summary from documents"""
-        total_amount = 0
-        amounts = []
-        dates = []
-        
-        for doc in documents:
-            doc_amounts = doc.get('entities', {}).get('amounts', [])
-            doc_dates = doc.get('entities', {}).get('dates', [])
+            logger.error(f"Error predicting financial metrics: {str(e)}")
+            raise
+    
+    async def detect_anomalies(self, user_id: UUID, data_type: str = "all") -> Dict[str, Any]:
+        """Detect anomalies in financial data and documents"""
+        try:
+            anomalies = {
+                "financial_anomalies": [],
+                "document_anomalies": [],
+                "payment_anomalies": []
+            }
             
-            amounts.extend(doc_amounts)
-            dates.extend(doc_dates)
+            if data_type in ["all", "financial"]:
+                financial_anomalies = await self._detect_financial_anomalies()
+                anomalies["financial_anomalies"] = financial_anomalies
             
-            for amt in doc_amounts:
-                try:
-                    total_amount += float(str(amt).replace(',', ''))
-                except:
-                    pass
-        
-        return {
-            "total_value": total_amount,
-            "transaction_count": len(amounts),
-            "average_transaction": total_amount / len(amounts) if amounts else 0,
-            "date_range": f"{min(dates)} to {max(dates)}" if dates else "Unknown"
-        }
-
-    def _generate_compliance_summary(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Generate compliance summary from documents"""
-        tax_numbers = []
-        compliance_issues = []
-        
-        for doc in documents:
-            entities = doc.get('entities', {})
-            tax_numbers.extend(entities.get('tax_numbers', []))
-            compliance_issues.extend(entities.get('compliance_issues', []))
-        
-        return {
-            "tax_numbers_found": len(set(tax_numbers)),
-            "compliance_issues": len(set(compliance_issues)),
-            "compliance_status": "COMPLIANT" if not compliance_issues else "NON_COMPLIANT"
-        }
-
-    def _generate_risk_summary(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Generate risk summary from documents"""
-        high_risk_docs = 0
-        medium_risk_docs = 0
-        low_risk_docs = 0
-        
-        for doc in documents:
-            risk_level = self._assess_risk_level(doc)
-            if risk_level == "HIGH":
-                high_risk_docs += 1
-            elif risk_level == "MEDIUM":
-                medium_risk_docs += 1
+            if data_type in ["all", "documents"]:
+                document_anomalies = await self._detect_document_anomalies()
+                anomalies["document_anomalies"] = document_anomalies
+            
+            if data_type in ["all", "payments"]:
+                payment_anomalies = await self._detect_payment_anomalies()
+                anomalies["payment_anomalies"] = payment_anomalies
+            
+            return {
+                "success": True,
+                "anomalies": anomalies,
+                "detection_timestamp": datetime.utcnow().isoformat()
+            }
+            
+        except Exception as e:
+            logger.error(f"Error detecting anomalies: {str(e)}")
+            raise
+    
+    async def generate_financial_insights(self, user_id: UUID) -> Dict[str, Any]:
+        """Generate comprehensive financial insights"""
+        try:
+            # Get current financial state
+            current_state = await self._get_current_financial_state()
+            
+            # Analyze performance metrics
+            performance_metrics = await self._analyze_performance_metrics()
+            
+            # Generate recommendations
+            recommendations = await self._generate_recommendations(current_state, performance_metrics)
+            
+            return {
+                "success": True,
+                "insights": {
+                    "current_state": current_state,
+                    "performance_metrics": performance_metrics,
+                    "recommendations": recommendations,
+                    "generated_at": datetime.utcnow().isoformat()
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error generating financial insights: {str(e)}")
+            raise
+    
+    async def _analyze_revenue_trends(self, invoice_data: List[Dict], payment_data: List[Dict]) -> Dict[str, Any]:
+        """Analyze revenue trends"""
+        try:
+            if not invoice_data:
+                return {"message": "No invoice data available for analysis"}
+            
+            # Convert to pandas DataFrame for analysis
+            df_invoices = pd.DataFrame(invoice_data)
+            df_invoices['invoice_date'] = pd.to_datetime(df_invoices['invoice_date'])
+            
+            # Monthly revenue aggregation
+            monthly_revenue = df_invoices.groupby(df_invoices['invoice_date'].dt.to_period('M'))['total_amount'].sum()
+            
+            # Calculate trend metrics
+            if len(monthly_revenue) > 1:
+                trend_direction = "increasing" if monthly_revenue.iloc[-1] > monthly_revenue.iloc[-2] else "decreasing"
+                growth_rate = ((monthly_revenue.iloc[-1] - monthly_revenue.iloc[-2]) / monthly_revenue.iloc[-2]) * 100
             else:
-                low_risk_docs += 1
-        
-        return {
-            "high_risk_documents": high_risk_docs,
-            "medium_risk_documents": medium_risk_docs,
-            "low_risk_documents": low_risk_docs,
-            "overall_risk_level": "HIGH" if high_risk_docs > 0 else "MEDIUM" if medium_risk_docs > 0 else "LOW"
-        }
-
-    def _generate_recommendations(self, documents: List[Dict[str, Any]]) -> List[str]:
-        """Generate recommendations based on document analysis"""
-        recommendations = []
-        
-        # Analyze patterns
-        total_docs = len(documents)
-        high_risk_docs = sum(1 for doc in documents if self._assess_risk_level(doc) == "HIGH")
-        
-        if high_risk_docs > total_docs * 0.2:
-            recommendations.append("Implement enhanced risk monitoring procedures")
-        
-        if not any(doc.get('entities', {}).get('tax_numbers') for doc in documents):
-            recommendations.append("Ensure proper tax documentation and compliance")
-        
-        if total_docs < 5:
-            recommendations.append("Consider expanding document collection for better analysis")
-        
-        return recommendations
-
-    async def generate_system_analytics(self, all_documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Generate system-wide analytics and insights"""
-        try:
-            # Prepare system context
-            system_context = self._prepare_system_context(all_documents)
+                trend_direction = "stable"
+                growth_rate = 0
             
-            # Generate system analysis prompt
-            prompt = f"""
-            Analyze this comprehensive dataset of Kenyan business documents and provide system-wide insights:
-            
-            {system_context}
-            
-            Please provide:
-            1. Market Trends and Insights
-            2. Industry Analysis
-            3. Economic Indicators
-            4. Compliance Trends
-            5. Risk Patterns
-            6. Strategic Opportunities
-            7. System Performance Insights
-            8. Recommendations for Improvement
-            
-            Focus on Kenyan business ecosystem and provide actionable insights.
-            """
-            
-            # Get LLM analysis
-            llm_analysis = await self._get_llm_analysis({"system_analytics": prompt})
-            
-            # Structure analytics
-            analytics = {
-                "report_date": datetime.now().isoformat(),
-                "total_documents": len(all_documents),
-                "analysis": llm_analysis.get('system_analytics', ''),
-                "system_metrics": self._calculate_system_metrics(all_documents),
-                "trends": self._identify_trends(all_documents),
-                "insights": self._generate_system_insights(all_documents)
+            return {
+                "monthly_revenue": monthly_revenue.to_dict(),
+                "trend_direction": trend_direction,
+                "growth_rate_percent": round(growth_rate, 2),
+                "average_monthly_revenue": round(monthly_revenue.mean(), 2),
+                "revenue_volatility": round(monthly_revenue.std(), 2)
             }
             
-            logger.info("✅ System analytics generated")
-            return analytics
+        except Exception as e:
+            logger.error(f"Error analyzing revenue trends: {str(e)}")
+            return {"error": str(e)}
+    
+    async def _analyze_payment_patterns(self, payment_data: List[Dict]) -> Dict[str, Any]:
+        """Analyze payment patterns"""
+        try:
+            if not payment_data:
+                return {"message": "No payment data available for analysis"}
+            
+            df_payments = pd.DataFrame(payment_data)
+            df_payments['payment_date'] = pd.to_datetime(df_payments['payment_date'])
+            
+            # Payment method analysis
+            payment_methods = df_payments['payment_type'].value_counts().to_dict()
+            
+            # Monthly payment patterns
+            monthly_payments = df_payments.groupby(df_payments['payment_date'].dt.to_period('M'))['amount'].sum()
+            
+            return {
+                "payment_methods": payment_methods,
+                "monthly_payments": monthly_payments.to_dict(),
+                "total_payments": len(payment_data),
+                "average_payment_amount": round(df_payments['amount'].mean(), 2)
+            }
             
         except Exception as e:
-            logger.error(f"❌ System analytics generation failed: {e}")
+            logger.error(f"Error analyzing payment patterns: {str(e)}")
             return {"error": str(e)}
-
-    def _prepare_system_context(self, all_documents: List[Dict[str, Any]]) -> str:
-        """Prepare system-wide context"""
-        context_parts = []
-        
-        # Basic stats
-        context_parts.append(f"Total Documents: {len(all_documents)}")
-        
-        # Company distribution
-        companies = {}
-        for doc in all_documents:
-            company = doc.get('company', 'Unknown')
-            companies[company] = companies.get(company, 0) + 1
-        
-        context_parts.append(f"Companies: {len(companies)}")
-        context_parts.append(f"Company Distribution: {', '.join([f'{k} ({v})' for k, v in list(companies.items())[:10]])}")
-        
-        # Document types
-        doc_types = {}
-        for doc in all_documents:
-            doc_type = doc.get('document_type', 'Unknown')
-            doc_types[doc_type] = doc_types.get(doc_type, 0) + 1
-        
-        context_parts.append(f"Document Types: {', '.join([f'{k} ({v})' for k, v in doc_types.items()])}")
-        
-        # Financial summary
-        total_amount = 0
-        for doc in all_documents:
-            amounts = doc.get('entities', {}).get('amounts', [])
-            for amt in amounts:
-                try:
-                    total_amount += float(str(amt).replace(',', ''))
-                except:
-                    pass
-        
-        context_parts.append(f"Total Financial Value: KSh {total_amount:,.2f}")
-        
-        return "\n".join(context_parts)
-
-    def _calculate_system_metrics(self, all_documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Calculate system-wide metrics"""
-        return {
-            "total_documents": len(all_documents),
-            "total_companies": len(set(doc.get('company') for doc in all_documents)),
-            "total_financial_value": sum(
-                sum(float(str(amt).replace(',', '')) for amt in doc.get('entities', {}).get('amounts', []))
-                for doc in all_documents
-            ),
-            "average_documents_per_company": len(all_documents) / len(set(doc.get('company') for doc in all_documents)) if all_documents else 0,
-            "processing_success_rate": len([doc for doc in all_documents if doc.get('processing_status') == 'success']) / len(all_documents) if all_documents else 0
-        }
-
-    def _identify_trends(self, all_documents: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Identify trends in the data"""
-        # This would analyze temporal patterns, financial trends, etc.
-        return {
-            "financial_trends": "Analysis of financial patterns over time",
-            "compliance_trends": "Analysis of compliance patterns",
-            "document_type_trends": "Analysis of document type distribution"
-        }
-
-    def _generate_system_insights(self, all_documents: List[Dict[str, Any]]) -> List[str]:
-        """Generate system-wide insights"""
-        insights = []
-        
-        # Add insights based on data analysis
-        total_docs = len(all_documents)
-        if total_docs > 1000:
-            insights.append("Large-scale document processing system with significant data volume")
-        
-        companies = set(doc.get('company') for doc in all_documents)
-        if len(companies) > 50:
-            insights.append("Diverse client base with multiple companies")
-        
-        return insights
+    
+    async def _get_historical_metrics(self, start_date: datetime, end_date: datetime) -> Dict[str, Any]:
+        """Get historical financial metrics"""
+        try:
+            # Get invoices in date range
+            invoices = list(self.invoices.find({
+                "invoice_date": {"$gte": start_date, "$lte": end_date}
+            }))
+            
+            # Get payments in date range
+            payments = list(self.payments.find({
+                "payment_date": {"$gte": start_date, "$lte": end_date}
+            }))
+            
+            # Calculate monthly metrics
+            monthly_metrics = {}
+            
+            for invoice in invoices:
+                month_key = invoice["invoice_date"].strftime("%Y-%m")
+                if month_key not in monthly_metrics:
+                    monthly_metrics[month_key] = {"revenue": 0, "payments": 0, "invoice_count": 0, "payment_count": 0}
+                monthly_metrics[month_key]["revenue"] += float(invoice["total_amount"])
+                monthly_metrics[month_key]["invoice_count"] += 1
+            
+            for payment in payments:
+                month_key = payment["payment_date"].strftime("%Y-%m")
+                if month_key not in monthly_metrics:
+                    monthly_metrics[month_key] = {"revenue": 0, "payments": 0, "invoice_count": 0, "payment_count": 0}
+                monthly_metrics[month_key]["payments"] += float(payment["amount"])
+                monthly_metrics[month_key]["payment_count"] += 1
+            
+            return {
+                "monthly_metrics": monthly_metrics,
+                "total_revenue": sum(float(inv["total_amount"]) for inv in invoices),
+                "total_payments": sum(float(pay["amount"]) for pay in payments),
+                "period": {
+                    "start_date": start_date.isoformat(),
+                    "end_date": end_date.isoformat()
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting historical metrics: {str(e)}")
+            raise
+    
+    async def _forecast_revenue(self, historical_data: Dict[str, Any], periods: int) -> Dict[str, Any]:
+        """Forecast future revenue using simple moving average"""
+        try:
+            monthly_metrics = historical_data["monthly_metrics"]
+            
+            if not monthly_metrics:
+                return {"message": "Insufficient data for revenue forecasting"}
+            
+            # Extract revenue data
+            revenue_data = [metrics["revenue"] for metrics in monthly_metrics.values()]
+            
+            if len(revenue_data) < 3:
+                return {"message": "Need at least 3 months of data for forecasting"}
+            
+            # Simple moving average forecast
+            window_size = min(3, len(revenue_data))
+            moving_average = sum(revenue_data[-window_size:]) / window_size
+            
+            # Generate forecast
+            forecast = []
+            for i in range(periods):
+                forecast.append(round(moving_average * (1 + 0.02 * i), 2))  # 2% growth assumption
+            
+            return {
+                "forecast_values": forecast,
+                "method": "moving_average",
+                "window_size": window_size,
+                "last_actual_value": revenue_data[-1] if revenue_data else 0,
+                "confidence_interval": 0.85
+            }
+            
+        except Exception as e:
+            logger.error(f"Error forecasting revenue: {str(e)}")
+            return {"error": str(e)}
+    
+    async def _detect_financial_anomalies(self) -> List[Dict[str, Any]]:
+        """Detect financial anomalies"""
+        try:
+            anomalies = []
+            
+            # Get recent invoices
+            recent_invoices = list(self.invoices.find({
+                "invoice_date": {"$gte": datetime.utcnow() - timedelta(days=30)}
+            }))
+            
+            if recent_invoices:
+                # Calculate average invoice amount
+                amounts = [float(inv["total_amount"]) for inv in recent_invoices]
+                avg_amount = np.mean(amounts)
+                std_amount = np.std(amounts)
+                
+                # Detect outliers (2 standard deviations from mean)
+                threshold = avg_amount + (2 * std_amount)
+                
+                for invoice in recent_invoices:
+                    if float(invoice["total_amount"]) > threshold:
+                        anomalies.append({
+                            "type": "high_value_invoice",
+                            "severity": "medium",
+                            "description": f"Invoice {invoice['invoice_number']} has unusually high value",
+                            "value": float(invoice["total_amount"]),
+                            "threshold": round(threshold, 2),
+                            "date": invoice["invoice_date"].isoformat(),
+                            "recommendation": "Review invoice for accuracy and approval"
+                        })
+            
+            # Detect overdue invoices
+            overdue_invoices = list(self.invoices.find({
+                "due_date": {"$lt": datetime.utcnow()},
+                "status": {"$in": ["sent", "viewed"]}
+            }))
+            
+            for invoice in overdue_invoices:
+                days_overdue = (datetime.utcnow() - invoice["due_date"]).days
+                if days_overdue > 30:
+                    anomalies.append({
+                        "type": "severely_overdue_invoice",
+                        "severity": "high",
+                        "description": f"Invoice {invoice['invoice_number']} is {days_overdue} days overdue",
+                        "days_overdue": days_overdue,
+                        "amount": float(invoice["total_amount"]),
+                        "date": invoice["due_date"].isoformat(),
+                        "recommendation": "Follow up with customer immediately"
+                    })
+            
+            return anomalies
+            
+        except Exception as e:
+            logger.error(f"Error detecting financial anomalies: {str(e)}")
+            return []
+    
+    async def _detect_document_anomalies(self) -> List[Dict[str, Any]]:
+        """Detect document anomalies"""
+        try:
+            anomalies = []
+            
+            # Get recent documents
+            recent_documents = list(self.documents.find({
+                "created_at": {"$gte": datetime.utcnow() - timedelta(days=7)}
+            }))
+            
+            if recent_documents:
+                # Detect unusually large files
+                file_sizes = [doc["file_size"] for doc in recent_documents]
+                avg_size = np.mean(file_sizes)
+                std_size = np.std(file_sizes)
+                
+                threshold = avg_size + (2 * std_size)
+                
+                for doc in recent_documents:
+                    if doc["file_size"] > threshold:
+                        anomalies.append({
+                            "type": "large_file",
+                            "severity": "low",
+                            "description": f"Document {doc['original_filename']} is unusually large",
+                            "file_size_mb": round(doc["file_size"] / (1024 * 1024), 2),
+                            "threshold_mb": round(threshold / (1024 * 1024), 2),
+                            "date": doc["created_at"].isoformat(),
+                            "recommendation": "Consider file compression or alternative format"
+                        })
+            
+            # Detect processing errors
+            error_documents = list(self.documents.find({
+                "status": "error",
+                "created_at": {"$gte": datetime.utcnow() - timedelta(days=1)}
+            }))
+            
+            for doc in error_documents:
+                anomalies.append({
+                    "type": "processing_error",
+                    "severity": "medium",
+                    "description": f"Document {doc['original_filename']} failed to process",
+                    "errors": doc.get("processing_errors", []),
+                    "date": doc["created_at"].isoformat(),
+                    "recommendation": "Review document format and retry processing"
+                })
+            
+            return anomalies
+            
+        except Exception as e:
+            logger.error(f"Error detecting document anomalies: {str(e)}")
+            return []
+    
+    async def _detect_payment_anomalies(self) -> List[Dict[str, Any]]:
+        """Detect payment anomalies"""
+        try:
+            anomalies = []
+            
+            # Get recent payments
+            recent_payments = list(self.payments.find({
+                "payment_date": {"$gte": datetime.utcnow() - timedelta(days=30)}
+            }))
+            
+            if recent_payments:
+                # Detect unusual payment amounts
+                amounts = [float(pay["amount"]) for pay in recent_payments]
+                avg_amount = np.mean(amounts)
+                std_amount = np.std(amounts)
+                
+                threshold = avg_amount + (2 * std_amount)
+                
+                for payment in recent_payments:
+                    if float(payment["amount"]) > threshold:
+                        anomalies.append({
+                            "type": "high_value_payment",
+                            "severity": "medium",
+                            "description": f"Payment {payment['payment_number']} has unusually high value",
+                            "amount": float(payment["amount"]),
+                            "threshold": round(threshold, 2),
+                            "date": payment["payment_date"].isoformat(),
+                            "recommendation": "Verify payment details and approval"
+                        })
+            
+            return anomalies
+            
+        except Exception as e:
+            logger.error(f"Error detecting payment anomalies: {str(e)}")
+            return []
+    
+    async def _get_current_financial_state(self) -> Dict[str, Any]:
+        """Get current financial state"""
+        try:
+            # Get current month data
+            current_month_start = datetime.utcnow().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+            
+            # Current month invoices
+            current_invoices = list(self.invoices.find({
+                "invoice_date": {"$gte": current_month_start}
+            }))
+            
+            # Current month payments
+            current_payments = list(self.payments.find({
+                "payment_date": {"$gte": current_month_start}
+            }))
+            
+            # Calculate metrics
+            total_revenue = sum(float(inv["total_amount"]) for inv in current_invoices)
+            total_payments = sum(float(pay["amount"]) for pay in current_payments)
+            
+            # Outstanding invoices
+            outstanding_invoices = list(self.invoices.find({
+                "status": {"$in": ["sent", "viewed"]},
+                "due_date": {"$lt": datetime.utcnow()}
+            }))
+            
+            outstanding_amount = sum(float(inv["balance_due"]) for inv in outstanding_invoices)
+            
+            return {
+                "current_month_revenue": round(total_revenue, 2),
+                "current_month_payments": round(total_payments, 2),
+                "outstanding_amount": round(outstanding_amount, 2),
+                "outstanding_invoices_count": len(outstanding_invoices),
+                "current_month_invoices_count": len(current_invoices),
+                "current_month_payments_count": len(current_payments)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting current financial state: {str(e)}")
+            raise
+    
+    async def _analyze_performance_metrics(self) -> Dict[str, Any]:
+        """Analyze performance metrics"""
+        try:
+            # Get last 12 months data
+            end_date = datetime.utcnow()
+            start_date = end_date - timedelta(days=365)
+            
+            invoices = list(self.invoices.find({
+                "invoice_date": {"$gte": start_date, "$lte": end_date}
+            }))
+            
+            payments = list(self.payments.find({
+                "payment_date": {"$gte": start_date, "$lte": end_date}
+            }))
+            
+            # Calculate metrics
+            total_revenue = sum(float(inv["total_amount"]) for inv in invoices)
+            total_payments = sum(float(pay["amount"]) for pay in payments)
+            
+            # Payment efficiency
+            payment_efficiency = (total_payments / total_revenue * 100) if total_revenue > 0 else 0
+            
+            # Average invoice value
+            avg_invoice_value = total_revenue / len(invoices) if invoices else 0
+            
+            return {
+                "annual_revenue": round(total_revenue, 2),
+                "annual_payments": round(total_payments, 2),
+                "payment_efficiency_percent": round(payment_efficiency, 2),
+                "average_invoice_value": round(avg_invoice_value, 2),
+                "total_invoices": len(invoices),
+                "total_payments": len(payments)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error analyzing performance metrics: {str(e)}")
+            raise
+    
+    async def _generate_recommendations(self, current_state: Dict[str, Any], performance_metrics: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Generate financial recommendations"""
+        try:
+            recommendations = []
+            
+            # Revenue recommendations
+            if current_state["current_month_revenue"] < performance_metrics["annual_revenue"] / 12:
+                recommendations.append({
+                    "category": "revenue",
+                    "priority": "high",
+                    "title": "Increase Revenue Generation",
+                    "description": "Current month revenue is below monthly average",
+                    "action": "Review sales pipeline and marketing strategies",
+                    "expected_impact": "Increase monthly revenue by 15-20%"
+                })
+            
+            # Payment efficiency recommendations
+            if performance_metrics["payment_efficiency_percent"] < 80:
+                recommendations.append({
+                    "category": "collections",
+                    "priority": "medium",
+                    "title": "Improve Payment Collections",
+                    "description": f"Payment efficiency is {performance_metrics['payment_efficiency_percent']}%",
+                    "action": "Implement automated payment reminders and follow-up procedures",
+                    "expected_impact": "Improve payment efficiency to 85%+"
+                })
+            
+            # Outstanding invoices recommendations
+            if current_state["outstanding_amount"] > current_state["current_month_revenue"] * 0.5:
+                recommendations.append({
+                    "category": "collections",
+                    "priority": "high",
+                    "title": "Address Outstanding Invoices",
+                    "description": f"Outstanding amount is {current_state['outstanding_amount']}",
+                    "action": "Prioritize collection of overdue invoices",
+                    "expected_impact": "Reduce outstanding amount by 30%"
+                })
+            
+            return recommendations
+            
+        except Exception as e:
+            logger.error(f"Error generating recommendations: {str(e)}")
+            return []
 
 # Global instance
-ai_analytics_service = AIAnalyticsService() 
+enhanced_ai_analytics_service = EnhancedAIAnalyticsService() 

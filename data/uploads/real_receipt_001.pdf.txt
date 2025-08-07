@@ -1,0 +1,42 @@
+RECEIPT
+
+Receipt Number: RCP-2025-001
+Date: January 20, 2025
+Time: 14:30:25
+
+STORE: OfficeMax Supplies
+Address: 789 Commerce Blvd, Nairobi, Kenya
+Phone: +254-700-987-654
+Email: sales@officemax.co.ke
+
+CUSTOMER:
+Vanta Ledger Ltd
+123 Business Street
+Nairobi, Kenya
+
+ITEMS PURCHASED:
+1. HP LaserJet Pro M404n Printer - $450.00
+2. HP 26A Black Toner Cartridge (2x) - $89.98
+3. HP 26A Cyan Toner Cartridge - $45.99
+4. HP 26A Magenta Toner Cartridge - $45.99
+5. HP 26A Yellow Toner Cartridge - $45.99
+6. A4 Printer Paper (500 sheets, 5 packs) - $125.00
+7. USB Cables (10x) - $50.00
+8. Surge Protector - $35.00
+
+SUBTOTAL: $887.95
+TAX (16% VAT): $142.07
+TOTAL: $1,030.02
+
+PAYMENT METHOD: Corporate Credit Card
+CARD: **** **** **** 1234
+AUTHORIZATION: 123456
+
+CASHIER: Sarah Johnson
+REGISTER: 03
+
+Thank you for your purchase!
+Please keep this receipt for your records.
+
+Return Policy: 30 days with original receipt
+Warranty: 1 year manufacturer warranty on electronics 

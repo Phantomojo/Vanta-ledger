@@ -26,17 +26,47 @@ from prometheus_client import Counter, Histogram
 from .config import settings
 from .middleware import LoggingMiddleware, SecurityHeadersMiddleware, RateLimitMiddleware
 
+# Import authentication
+from .auth import AuthService, get_current_user, get_user_by_username
+
+# Import secure file handling
+from .utils.file_utils import secure_file_handler
+
+# Import input validation
+from .utils.validation import input_validator
+
 # Import document processor
 from .services.document_processor import DocumentProcessor
-from .services.ai_analytics_service import ai_analytics_service
+from .services.ai_analytics_service import enhanced_ai_analytics_service
 from .services.analytics_dashboard import analytics_dashboard
+
+# Import enhanced document management
+from .routes.enhanced_documents import router as enhanced_documents_router
+
+# Import financial management
+from .routes.financial import router as financial_router
+
+# Import AI analytics
+from .routes.ai_analytics import router as ai_analytics_router
+
+# Import local LLM
+from .routes.local_llm import router as local_llm_router
+
+# Import startup
+from .startup import initialize_services, health_check
 
 # Initialize FastAPI app
 app = FastAPI(
     title="Vanta Ledger API",
-    description="Advanced document processing and financial data management system with AI analytics",
+    description="Advanced document processing and financial data management system with AI analytics and local LLM",
     version=settings.VERSION
 )
+
+# Startup event
+@app.on_event("startup")
+async def startup_event():
+    """Initialize services on startup"""
+    await initialize_services()
 
 # Add middleware
 app.add_middleware(LoggingMiddleware)
@@ -46,7 +76,7 @@ app.add_middleware(RateLimitMiddleware)
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS.split(","),
+    allow_origins=settings.ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -57,6 +87,18 @@ security = HTTPBearer()
 
 # Initialize document processor
 document_processor = DocumentProcessor()
+
+# Include enhanced document management routes
+app.include_router(enhanced_documents_router)
+
+# Include financial management routes
+app.include_router(financial_router)
+
+# Include AI analytics routes
+app.include_router(ai_analytics_router)
+
+# Include local LLM routes
+app.include_router(local_llm_router)
 
 # Prometheus metrics
 REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP requests', ['method', 'endpoint', 'status'])
@@ -72,18 +114,15 @@ def get_postgres_connection():
 def get_redis_client():
     return redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
 
-# Authentication
+# Authentication - using the new AuthService
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    try:
-        payload = jwt.decode(credentials.credentials, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
-        return payload
-    except jwt.PyJWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+    return AuthService.verify_token(credentials.credentials)
 
 # Health check
 @app.get("/health")
-async def health_check():
-    return {"status": "healthy", "timestamp": datetime.now().isoformat()}
+async def health_check_endpoint():
+    """Health check endpoint with service status"""
+    return await health_check()
 
 # Metrics endpoint
 @app.get("/metrics")
@@ -91,22 +130,74 @@ async def metrics():
     return prometheus_client.generate_latest()
 
 # Authentication endpoints
-@app.post("/simple-auth")
-async def simple_auth(username: str, password: str):
-    if username == "admin" and password == "admin123":
+@app.post("/auth/login")
+async def login(username: str = Form(...), password: str = Form(...)):
+    """Secure login endpoint with password hashing"""
+    try:
+        # Get user from database (implement proper user management)
+        user = await get_user_by_username(username)
+        if not user or not verify_password(password, user.hashed_password):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        # Create access token
         access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-        access_token = create_access_token(
-            data={"sub": username}, expires_delta=access_token_expires
+        access_token = AuthService.create_access_token(
+            data={"sub": user.username, "user_id": user.id}, 
+            expires_delta=access_token_expires
         )
+        
         return {
             "access_token": access_token,
             "token_type": "bearer",
-            "user": {
-                "username": username,
-                "role": "admin"
-            }
+            "expires_in": settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
         }
-    raise HTTPException(status_code=401, detail="Invalid credentials")
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error"
+        )
+
+@app.post("/auth/logout")
+async def logout(current_user: dict = Depends(verify_token)):
+    """Logout endpoint - add token to blacklist"""
+    try:
+        # Add token to blacklist (implement token revocation)
+        await blacklist_token(current_user.get("jti"))
+        return {"message": "Successfully logged out"}
+    except Exception as e:
+        logger.error(f"Logout error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error"
+        )
+
+@app.post("/auth/refresh")
+async def refresh_token(current_user: dict = Depends(verify_token)):
+    """Refresh access token"""
+    try:
+        # Create new access token
+        access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = AuthService.create_access_token(
+            data={"sub": current_user.get("sub"), "user_id": current_user.get("user_id")}, 
+            expires_delta=access_token_expires
+        )
+        
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "expires_in": settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        }
+    except Exception as e:
+        logger.error(f"Token refresh error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error"
+        )
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
@@ -160,40 +251,47 @@ async def upload_document(
     file: UploadFile = File(...),
     current_user: dict = Depends(verify_token)
 ):
-    """Upload and process a new document"""
+    """Upload and process a new document securely"""
+    temp_file_path = None
     try:
-        # Validate file type
-        allowed_extensions = {'.pdf', '.docx', '.doc', '.txt', '.png', '.jpg', '.jpeg', '.tiff', '.bmp'}
-        file_ext = Path(file.filename).suffix.lower()
+        # Get user ID from token
+        user_id = current_user.get("user_id", "unknown")
         
-        if file_ext not in allowed_extensions:
-            raise HTTPException(
-                status_code=400, 
-                detail=f"Unsupported file type. Allowed: {', '.join(allowed_extensions)}"
-            )
-        
-        # Save uploaded file temporarily
-        temp_file_path = f"/tmp/{file.filename}"
-        with open(temp_file_path, "wb") as buffer:
-            content = await file.read()
-            buffer.write(content)
+        # Save file securely using the secure file handler
+        temp_file_path, secure_filename = secure_file_handler.save_file_securely(
+            file, user_id, settings.UPLOAD_DIR
+        )
         
         # Process document
-        result = document_processor.process_document(temp_file_path, file.filename)
+        result = document_processor.process_document(str(temp_file_path), file.filename)
         
-        # Clean up temp file
-        os.remove(temp_file_path)
+        # Add security metadata
+        result["security"] = {
+            "uploaded_by": user_id,
+            "secure_filename": secure_filename,
+            "original_filename": file.filename,
+            "file_size": file.size,
+            "upload_timestamp": datetime.now().isoformat()
+        }
         
         return {
             "message": "Document uploaded and processed successfully",
             "doc_id": result['doc_id'],
             "original_filename": result['original_filename'],
             "type": result['analysis']['type'],
-            "summary": result['analysis']['summary']
+            "summary": result['analysis']['summary'],
+            "security": result["security"]
         }
         
+    except HTTPException:
+        raise
     except Exception as e:
+        logger.error(f"Error uploading document: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Document processing failed: {str(e)}")
+    finally:
+        # Always cleanup temporary file
+        if temp_file_path:
+            secure_file_handler.cleanup_temp_file(temp_file_path)
 
 @app.get("/upload/documents")
 async def list_documents(
@@ -303,33 +401,71 @@ async def reanalyze_document(
 
 # Legacy endpoints for backward compatibility
 @app.get("/companies/")
-async def get_companies(current_user: dict = Depends(verify_token)):
+async def get_companies(
+    page: int = 1,
+    limit: int = 20,
+    current_user: dict = Depends(verify_token)
+):
+    """Get all companies with secure pagination"""
     try:
+        # Validate pagination parameters
+        page, limit = input_validator.validate_pagination_params(page, limit, max_limit=100)
+        
         conn = get_postgres_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT postgres_id, name, industry, revenue FROM companies LIMIT 50")
+        
+        # Get total count using parameterized query
+        cursor.execute("SELECT COUNT(*) FROM companies")
+        total_count = cursor.fetchone()[0]
+        
+        # Calculate offset
+        offset = (page - 1) * limit
+        
+        # Get companies with secure parameterized query
+        cursor.execute(
+            "SELECT postgres_id, name, industry, revenue FROM companies ORDER BY name LIMIT %s OFFSET %s",
+            (limit, offset)
+        )
         companies = cursor.fetchall()
         cursor.close()
         conn.close()
         
-        return [
-            {
-                "id": company[0],  # Map postgres_id to id for frontend compatibility
-                "name": company[1],
-                "industry": company[2],
-                "revenue": company[3]
-            }
-            for company in companies
-        ]
+        return {
+            "companies": [
+                {
+                    "id": company[0],
+                    "name": company[1],
+                    "industry": company[2],
+                    "revenue": company[3]
+                }
+                for company in companies
+            ],
+            "total_count": total_count,
+            "page": page,
+            "limit": limit,
+            "total_pages": (total_count + limit - 1) // limit
+        }
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to fetch companies: {str(e)}")
+        logger.error(f"Database error in get_companies: {str(e)}")
+        raise HTTPException(status_code=500, detail="Database error occurred")
 
 @app.get("/companies/{company_id}")
 async def get_company(company_id: int, current_user: dict = Depends(verify_token)):
+    """Get company by ID with input validation"""
     try:
+        # Validate company_id
+        company_id = input_validator.validate_integer(company_id, min_value=1, field_name="company_id")
+        
         conn = get_postgres_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT postgres_id, name, industry, revenue FROM companies WHERE postgres_id = %s", (company_id,))
+        
+        # Use parameterized query to prevent SQL injection
+        cursor.execute(
+            "SELECT postgres_id, name, industry, revenue FROM companies WHERE postgres_id = %s",
+            (company_id,)
+        )
         company = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -346,7 +482,8 @@ async def get_company(company_id: int, current_user: dict = Depends(verify_token
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to fetch company: {str(e)}")
+        logger.error(f"Database error in get_company: {str(e)}")
+        raise HTTPException(status_code=500, detail="Database error occurred")
 
 @app.get("/projects/")
 async def get_projects(current_user: dict = Depends(verify_token)):
