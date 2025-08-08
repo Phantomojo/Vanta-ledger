@@ -520,8 +520,8 @@ class AnalyticsDashboard:
             return company_analytics
             
         except Exception as e:
-            logger.error(f"❌ Company dashboard generation failed: {e}")
-            return {"error": str(e)}
+            logger.error(f"❌ Company dashboard generation failed: {e}", exc_info=True)
+            return {"error": "An internal error occurred while generating the company dashboard."}
 
     def _get_company_financial_summary(self, documents: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Get company financial summary"""
