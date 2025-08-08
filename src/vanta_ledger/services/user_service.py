@@ -22,10 +22,24 @@ class UserService:
     """Service for user management operations"""
     
     def __init__(self, db: Session):
+        """
+        Initialize the UserService with a database session.
+        
+        Parameters:
+            db (Session): SQLAlchemy session for database operations.
+        """
         self.db = db
     
     def get_user_by_id(self, user_id: str) -> Optional[UserDB]:
-        """Get user by ID"""
+        """
+        Retrieve a user record by its unique ID.
+        
+        Parameters:
+            user_id (str): The unique identifier of the user.
+        
+        Returns:
+            Optional[UserDB]: The user record if found, otherwise None.
+        """
         try:
             return self.db.query(UserDB).filter(UserDB.id == user_id).first()
         except Exception as e:
@@ -33,7 +47,12 @@ class UserService:
             return None
     
     def get_user_by_username(self, username: str) -> Optional[UserDB]:
-        """Get user by username"""
+        """
+        Retrieve a user record by username.
+        
+        Returns:
+            UserDB or None: The user object if found, otherwise None.
+        """
         try:
             return self.db.query(UserDB).filter(UserDB.username == username).first()
         except Exception as e:
@@ -41,7 +60,15 @@ class UserService:
             return None
     
     def get_user_by_email(self, email: str) -> Optional[UserDB]:
-        """Get user by email"""
+        """
+        Retrieve a user record by email address.
+        
+        Parameters:
+            email (str): The email address to search for.
+        
+        Returns:
+            Optional[UserDB]: The user record if found, otherwise None.
+        """
         try:
             return self.db.query(UserDB).filter(UserDB.email == email).first()
         except Exception as e:
@@ -49,7 +76,16 @@ class UserService:
             return None
     
     def get_users(self, skip: int = 0, limit: int = 100) -> List[UserDB]:
-        """Get list of users with pagination"""
+        """
+        Retrieve a paginated list of users from the database.
+        
+        Parameters:
+            skip (int): Number of records to skip before starting to collect the result set.
+            limit (int): Maximum number of users to return.
+        
+        Returns:
+            List[UserDB]: A list of user records, or an empty list if an error occurs.
+        """
         try:
             return self.db.query(UserDB).offset(skip).limit(limit).all()
         except Exception as e:
@@ -57,7 +93,15 @@ class UserService:
             return []
     
     def create_user(self, user_data: UserCreate) -> Optional[UserDB]:
-        """Create a new user"""
+        """
+        Creates a new user with unique username and email, hashing the password and storing the user in the database.
+        
+        Raises:
+            HTTPException: If the username or email is already registered, if a database integrity error occurs, or if an unexpected error happens.
+        
+        Returns:
+            The created UserDB object if successful, otherwise None.
+        """
         try:
             # Check if username already exists
             if self.get_user_by_username(user_data.username):
@@ -111,7 +155,14 @@ class UserService:
             )
     
     def update_user(self, user_id: str, user_data: UserUpdate) -> Optional[UserDB]:
-        """Update user information"""
+        """
+        Update an existing user's information, including username, email, active status, role, and password.
+        
+        Checks for uniqueness of username and email before updating. Raises an HTTP 404 error if the user does not exist, HTTP 400 if the new username or email is already taken by another user, and HTTP 500 for unexpected errors.
+        
+        Returns:
+            The updated user object if successful, otherwise raises an HTTPException.
+        """
         try:
             db_user = self.get_user_by_id(user_id)
             if not db_user:
@@ -169,7 +220,15 @@ class UserService:
             )
     
     def delete_user(self, user_id: str) -> bool:
-        """Delete a user"""
+        """
+        Deletes a user by their unique ID.
+        
+        Raises:
+            HTTPException: If the user is not found (404) or if an internal server error occurs (500).
+        
+        Returns:
+            bool: True if the user was successfully deleted.
+        """
         try:
             db_user = self.get_user_by_id(user_id)
             if not db_user:
@@ -195,7 +254,15 @@ class UserService:
             )
     
     def update_last_login(self, user_id: str) -> bool:
-        """Update user's last login timestamp"""
+        """
+        Update the last login timestamp for a user by their ID.
+        
+        Parameters:
+            user_id (str): The unique identifier of the user.
+        
+        Returns:
+            bool: True if the last login timestamp was updated successfully, False if the user was not found or an error occurred.
+        """
         try:
             db_user = self.get_user_by_id(user_id)
             if not db_user:
@@ -211,7 +278,18 @@ class UserService:
             return False
     
     def verify_user_credentials(self, username: str, password: str) -> Optional[UserDB]:
-        """Verify user credentials and return user if valid"""
+        """
+        Validates a user's credentials and returns the user object if authentication is successful.
+        
+        Checks if the user exists, is active, and if the provided password matches the stored hash. Updates the user's last login timestamp upon successful authentication.
+        
+        Parameters:
+            username (str): The username to authenticate.
+            password (str): The plaintext password to verify.
+        
+        Returns:
+            Optional[UserDB]: The authenticated user object if credentials are valid; otherwise, None.
+        """
         try:
             user = self.get_user_by_username(username)
             if not user:
@@ -236,12 +314,21 @@ class UserService:
 user_service: Optional[UserService] = None
 
 def get_user_service() -> UserService:
-    """Get the global user service instance"""
+    """
+    Return the global UserService instance.
+    
+    Raises:
+        RuntimeError: If the user service has not been initialized.
+    """
     if user_service is None:
         raise RuntimeError("User service not initialized")
     return user_service
 
 def init_user_service(db: Session):
-    """Initialize the global user service with database session"""
+    """
+    Initializes the global user service instance with the provided database session.
+    
+    This function must be called before accessing the global user service.
+    """
     global user_service
     user_service = UserService(db) 

@@ -78,6 +78,12 @@ class Settings:
     LLM_USE_GPU: bool = os.getenv("LLM_USE_GPU", "True").lower() == "true"
 
     def __init__(self):
+        """
+        Initialize the Settings instance and validate required database URIs.
+        
+        Raises:
+            ValueError: If either MONGO_URI or POSTGRES_URI is not set in the environment.
+        """
         if not self.MONGO_URI:
             raise ValueError("MONGO_URI must be set in the environment.")
         if not self.POSTGRES_URI:

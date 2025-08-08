@@ -16,34 +16,37 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Function to print colored output
+# print_status prints an informational message in blue color to indicate status updates.
 print_status() {
     echo -e "${BLUE}[INFO]${NC} $1"
 }
 
+# print_success prints a success message in green to stdout.
 print_success() {
     echo -e "${GREEN}[SUCCESS]${NC} $1"
 }
 
+# print_warning prints a warning message in yellow to stdout.
 print_warning() {
     echo -e "${YELLOW}[WARNING]${NC} $1"
 }
 
+# print_error prints an error message in red to indicate a failure or critical issue.
 print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Function to check if a command exists
+# command_exists checks if a given command is available in the system's PATH.
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Function to check if a port is in use
+# port_in_use checks if the specified port is currently in use on the system.
 port_in_use() {
     lsof -i :$1 >/dev/null 2>&1
 }
 
-# Function to wait for a service to be ready
+# wait_for_service waits for a network service to become available on a specified host and port, retrying for up to 60 seconds.
 wait_for_service() {
     local host=$1
     local port=$2
@@ -68,7 +71,7 @@ wait_for_service() {
     return 1
 }
 
-# Step 1: Check and fix virtual environment
+# check_and_fix_environment verifies the integrity of the Python virtual environment, backs up dependencies if corruption is detected, removes and recreates the environment as needed to ensure a clean setup.
 check_and_fix_environment() {
     print_status "Step 1: Checking virtual environment..."
     
@@ -110,7 +113,7 @@ check_and_fix_environment() {
     fi
 }
 
-# Step 2: Activate environment and install dependencies
+# setup_environment activates the Python virtual environment and installs project dependencies in editable development mode.
 setup_environment() {
     print_status "Step 2: Setting up environment and dependencies..."
     
@@ -135,7 +138,7 @@ setup_environment() {
     fi
 }
 
-# Step 3: Set up environment variables
+# setup_environment_variables ensures a .env file with default configuration exists and loads its variables into the environment.
 setup_environment_variables() {
     print_status "Step 3: Setting up environment variables..."
     
@@ -172,7 +175,7 @@ EOF
     print_success "Environment variables loaded"
 }
 
-# Step 4: Check and start database services
+# start_database_services ensures required database services (PostgreSQL, MongoDB, Redis) are running, starting them via Docker Compose if possible, or prompting manual startup if necessary.
 start_database_services() {
     print_status "Step 4: Checking database services..."
     
@@ -207,7 +210,7 @@ start_database_services() {
     fi
 }
 
-# Step 5: Initialize database
+# initialize_database runs the database initialization script if present, reporting success or warnings and skipping if the script is missing.
 initialize_database() {
     print_status "Step 5: Initializing database..."
     
@@ -224,7 +227,7 @@ initialize_database() {
     fi
 }
 
-# Step 6: Run tests to verify setup
+# run_tests executes available Python test scripts to verify the project setup, reporting pass or fail status but continuing regardless of test outcomes.
 run_tests() {
     print_status "Step 6: Running tests to verify setup..."
     
@@ -249,7 +252,7 @@ run_tests() {
     fi
 }
 
-# Step 7: Start the FastAPI application
+# start_application launches the FastAPI server for the Vanta Ledger project on port 8500, ensuring the port is available and providing URLs for access and documentation.
 start_application() {
     print_status "Step 7: Starting FastAPI application..."
     
@@ -271,7 +274,7 @@ start_application() {
     python3 -m uvicorn vanta_ledger.main:app --host 0.0.0.0 --port 8500 --reload
 }
 
-# Main execution
+# main orchestrates the full startup process for the Vanta Ledger project, ensuring environment setup, dependency installation, database readiness, test execution, and application launch from the project root directory.
 main() {
     echo "🚀 Starting Vanta Ledger project..."
     echo ""

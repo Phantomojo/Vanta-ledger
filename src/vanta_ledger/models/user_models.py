@@ -28,6 +28,9 @@ class UserDB(Base):
     last_login = Column(DateTime(timezone=True), nullable=True)
     
     def __repr__(self):
+        """
+        Return a string representation of the user instance, including id, username, and email.
+        """
         return f"<User(id={self.id}, username='{self.username}', email='{self.email}')>"
 
 # Pydantic models for API

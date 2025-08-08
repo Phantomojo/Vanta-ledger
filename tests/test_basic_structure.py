@@ -8,7 +8,9 @@ import sys
 from pathlib import Path
 
 def test_project_structure():
-    """Test that the project structure is correct"""
+    """
+    Verify that the essential directories and files for the vanta_ledger project exist in the expected locations.
+    """
     # Check that src/vanta_ledger exists
     assert Path("src/vanta_ledger").exists(), "src/vanta_ledger directory should exist"
     
@@ -24,7 +26,11 @@ def test_project_structure():
     assert Path("src/vanta_ledger/utils").exists(), "utils directory should exist"
 
 def test_basic_imports():
-    """Test that basic imports work"""
+    """
+    Verify that the `settings` object can be imported from `vanta_ledger.config`.
+    
+    Fails the test if the import is unsuccessful or if `settings` is not defined.
+    """
     try:
         from vanta_ledger.config import settings
         assert settings is not None, "Settings should be importable"
@@ -32,7 +38,11 @@ def test_basic_imports():
         pytest.fail(f"Failed to import settings: {e}")
 
 def test_main_app_import():
-    """Test that the main app can be imported"""
+    """
+    Verify that the main application object can be imported from the vanta_ledger.main module.
+    
+    Fails the test if the import is unsuccessful or if the app object is not defined.
+    """
     try:
         from vanta_ledger.main import app
         assert app is not None, "Main app should be importable"
@@ -40,7 +50,11 @@ def test_main_app_import():
         pytest.fail(f"Failed to import main app: {e}")
 
 def test_auth_import():
-    """Test that auth module can be imported"""
+    """
+    Verify that the AuthService class can be imported from the vanta_ledger.auth module.
+    
+    Fails the test if the import is unsuccessful.
+    """
     try:
         from vanta_ledger.auth import AuthService
         assert AuthService is not None, "AuthService should be importable"
@@ -48,7 +62,11 @@ def test_auth_import():
         pytest.fail(f"Failed to import AuthService: {e}")
 
 def test_models_import():
-    """Test that models can be imported"""
+    """
+    Verify that the `document_models` and `financial_models` modules can be imported from `vanta_ledger.models`.
+    
+    Fails the test if either module cannot be imported.
+    """
     try:
         from vanta_ledger.models import document_models, financial_models
         assert document_models is not None, "document_models should be importable"
@@ -57,7 +75,11 @@ def test_models_import():
         pytest.fail(f"Failed to import models: {e}")
 
 def test_utils_import():
-    """Test that utils can be imported"""
+    """
+    Verify that the `validation` and `file_utils` modules in `vanta_ledger.utils` can be imported successfully.
+    
+    Fails the test if either module cannot be imported.
+    """
     try:
         from vanta_ledger.utils import validation, file_utils
         assert validation is not None, "validation should be importable"
@@ -66,7 +88,11 @@ def test_utils_import():
         pytest.fail(f"Failed to import utils: {e}")
 
 def test_routes_import():
-    """Test that routes can be imported"""
+    """
+    Verify that the `auth`, `documents`, and `companies` route modules in `vanta_ledger.routes` can be imported successfully.
+    
+    Fails the test if any of the specified route modules cannot be imported.
+    """
     try:
         from vanta_ledger.routes import auth, documents, companies
         assert auth is not None, "auth routes should be importable"
@@ -76,7 +102,11 @@ def test_routes_import():
         pytest.fail(f"Failed to import routes: {e}")
 
 def test_services_import():
-    """Test that services can be imported"""
+    """
+    Verify that the `document_processor` and `ai_analytics_service` modules can be imported from `vanta_ledger.services`.
+    
+    Fails the test if either module cannot be imported.
+    """
     try:
         from vanta_ledger.services import document_processor, ai_analytics_service
         assert document_processor is not None, "document_processor should be importable"
