@@ -28,6 +28,19 @@ security = HTTPBearer()
 # Redis client for token blacklisting
 redis_client = redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
 
+# Convenience functions for backward compatibility
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a password against its hash"""
+    return AuthService.verify_password(plain_password, hashed_password)
+
+def get_password_hash(password: str) -> str:
+    """Generate password hash"""
+    return AuthService.get_password_hash(password)
+
+def blacklist_token(jti: str, expires_in: int = None) -> bool:
+    """Blacklist a JWT token"""
+    return AuthService.blacklist_token(jti, expires_in)
+
 class User:
     """User model for authentication"""
     def __init__(self, id: str, username: str, email: str, hashed_password: str, 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from ..auth import AuthService
-from ..main import get_mongo_client
+from ..database import get_mongo_client
 
 router = APIRouter(prefix='/ledger', tags=['Ledger'])
 

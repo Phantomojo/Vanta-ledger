@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from ..auth import AuthService
-from ..main import get_postgres_connection, get_mongo_client
+from ..database import get_postgres_connection, get_mongo_client
 from ..services.ai_analytics_service import enhanced_ai_analytics_service
 from ..services.analytics_dashboard import analytics_dashboard
 

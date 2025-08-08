@@ -1,0 +1,27 @@
+{
+  "models": {
+    "tinyllama": {
+      "status": "ready",
+      "size_mb": 637.8
+    },
+    "mistral": {
+      "status": "empty"
+    }
+  },
+  "dependencies": {
+    "torch": "installed",
+    "transformers": "installed",
+    "llama_cpp": "installed",
+    "redis": "installed",
+    "pymongo": "installed"
+  },
+  "hardware": {
+    "cpu_cores": 20,
+    "memory_gb": 15.3,
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+      "memory_mb": 4096
+    }
+  },
+  "overall": "ready"
+}

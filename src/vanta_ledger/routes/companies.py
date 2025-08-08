@@ -4,7 +4,7 @@ from typing import List
 from ..auth import AuthService
 from ..utils.validation import input_validator
 from ..config import settings
-from ..main import get_postgres_connection
+from ..database import get_postgres_connection
 
 router = APIRouter(prefix="/companies", tags=["Companies"])
 

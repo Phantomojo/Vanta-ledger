@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from ..auth import AuthService
-from ..main import get_postgres_connection
+from ..database import get_postgres_connection
 
 router = APIRouter(prefix='/projects', tags=['Projects'])
 
