@@ -7,10 +7,10 @@
 set -e
 
 # Configuration
-PROJECT_DIR="/home/phantomojo/Vanta-ledger"
-LOG_DIR="$PROJECT_DIR/logs"
-REPORT_DIR="$PROJECT_DIR/security_reports"
-ANALYSIS_DIR="$PROJECT_DIR/security_analysis"
+PROJECT_DIR="${PROJECT_DIR:-$(pwd)}"
+LOG_DIR="${LOG_DIR:-$PROJECT_DIR/logs}"
+REPORT_DIR="${REPORT_DIR:-$PROJECT_DIR/security_reports}"
+ANALYSIS_DIR="${ANALYSIS_DIR:-$PROJECT_DIR/security_analysis}"
 DATE=$(date +%Y%m%d_%H%M%S)
 TIMESTAMP=$(date -Iseconds)
 

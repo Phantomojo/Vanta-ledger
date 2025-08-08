@@ -36,7 +36,7 @@ print_error() {
 }
 
 # Check if we're in the right directory
-if [ ! -f "backend/requirements.txt" ]; then
+if [ ! -f "requirements.txt" ]; then
     print_error "Please run this script from the Vanta Ledger root directory"
     exit 1
 fi
@@ -53,8 +53,8 @@ fi
 
 # Backup current requirements
 print_status "Creating backup of current requirements..."
-cp backend/requirements.txt backend/requirements.txt.backup
-print_success "Backup created: backend/requirements.txt.backup"
+cp requirements.txt requirements.txt.backup
+print_success "Backup created: requirements.txt.backup"
 
 # Critical security updates
 print_status "🔴 Updating Critical Packages..."
@@ -89,7 +89,7 @@ print_success "Additional security packages updated"
 
 # Update requirements.txt with new versions
 print_status "Updating requirements.txt with secure versions..."
-venv/bin/pip freeze > backend/requirements.txt
+venv/bin/pip freeze > requirements.txt
 print_success "Requirements file updated"
 
 # Run security scan

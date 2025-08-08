@@ -5,8 +5,8 @@
 
 set -e
 
-PROJECT_DIR="/home/phantomojo/Vanta-ledger"
-REPORT_DIR="$PROJECT_DIR/security_reports"
+PROJECT_DIR="${PROJECT_DIR:-$(pwd)}"
+REPORT_DIR="${REPORT_DIR:-$PROJECT_DIR/security_reports}"
 WEEKLY_REPORT="$REPORT_DIR/weekly_security_report_$(date +%Y%m%d).md"
 
 # Create report directory
