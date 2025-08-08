@@ -1,0 +1,12 @@
+-r requirements.in
+
+# LLM & AI
+torch
+transformers
+llama-cpp-python
+sentence-transformers
+
+# Optional: Advanced AI
+accelerate
+bitsandbytes
+optimum
