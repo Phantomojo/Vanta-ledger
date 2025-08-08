@@ -37,8 +37,8 @@ class Settings:
     LOGIN_RATE_LIMIT_PER_MINUTE: int = int(os.getenv("LOGIN_RATE_LIMIT_PER_MINUTE", "5"))
     
     # File Storage
-    UPLOAD_DIR: str = os.getenv("UPLOAD_DIR", "../data/uploads")
-    PROCESSED_DOCUMENTS_DIR: str = os.getenv("PROCESSED_DOCUMENTS_DIR", "../data/processed_documents")
+    UPLOAD_DIR: str = os.getenv("UPLOAD_DIR", "data/uploads")
+    PROCESSED_DOCUMENTS_DIR: str = os.getenv("PROCESSED_DOCUMENTS_DIR", "data/processed_documents")
     MAX_FILE_SIZE: int = int(os.getenv("MAX_FILE_SIZE", "10485760"))  # 10MB
     ALLOWED_FILE_EXTENSIONS: list = os.getenv("ALLOWED_FILE_EXTENSIONS", ".pdf,.docx,.doc,.txt,.png,.jpg,.jpeg,.tiff,.bmp").split(",")
     
@@ -50,7 +50,7 @@ class Settings:
     MAX_PAGE_SIZE: int = int(os.getenv("MAX_PAGE_SIZE", "1000"))
     
     # CORS
-    ALLOWED_ORIGINS: list = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5175,http://127.0.0.1:5175,http://localhost:5176,http://127.0.0.1:5176").split(",")
+    ALLOWED_ORIGINS: list = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
     
     # Logging
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
@@ -71,7 +71,7 @@ class Settings:
     
     # Local LLM Configuration
     ENABLE_LOCAL_LLM: bool = os.getenv("ENABLE_LOCAL_LLM", "True").lower() == "true"
-    LLM_MODELS_DIR: str = os.getenv("LLM_MODELS_DIR", "../models")
+    LLM_MODELS_DIR: str = os.getenv("LLM_MODELS_DIR", "models")
     LLM_CACHE_TTL: int = int(os.getenv("LLM_CACHE_TTL", "3600"))  # 1 hour
     LLM_MAX_CONTEXT_LENGTH: int = int(os.getenv("LLM_MAX_CONTEXT_LENGTH", "4096"))
     LLM_DEFAULT_TEMPERATURE: float = float(os.getenv("LLM_DEFAULT_TEMPERATURE", "0.7"))
