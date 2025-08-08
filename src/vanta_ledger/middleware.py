@@ -34,7 +34,14 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         # Determine client IP (basic proxy-aware)
         xff = request.headers.get("x-forwarded-for")
-        client_ip = xff.split(",")[0].strip() if xff else request.client.host
+        # Determine client IP securely: only trust X-Forwarded-For if from trusted proxy
+        xff = request.headers.get("x-forwarded-for")
+        trusted_proxies = getattr(settings, "TRUSTED_PROXIES", [])
+        if request.client.host in trusted_proxies and xff:
+            # Use the left-most IP in XFF (original client)
+            client_ip = xff.split(",")[0].strip()
+        else:
+            client_ip = request.client.host
         
         # Check rate limits
         current_time = time.time()
