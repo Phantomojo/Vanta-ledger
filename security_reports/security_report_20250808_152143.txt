@@ -1,0 +1,62 @@
+Safety 3.6.0 scanning /home/phantomojo/Vanta-ledger
+2025-08-08 12:22:18 UTC
+
+Account: Michael Muriithi, ST02563362023@students.ouk.ac.ke 
+ Git branch: jules
+ Environment: Stage.development
+ Scan policy: local scan policy file
+
+Python detected. Found 1 Python pyproject.toml file and 5 Python 
+requirements files
+
+✅ pyproject.toml: No issues found.
+
+✅ database/requirements.txt: No issues found.
+
+✅ database/backup_20250807_004013/requirements.txt: No issues 
+found.
+
+Dependency vulnerabilities detected:
+
+📝 backend/requirements.txt:
+
+ ecdsa==0.19.1 [2 vulnerabilities found]                          
+  -> Vuln ID 64459: CVE-2024-23342, CVSS Severity HIGH            
+     The python-ecdsa library, which implements ECDSA cryptography
+     in Python, is vulnerable to the Minerva attack (...          
+  -> Vuln ID 64396:                                               
+     Ecdsa does not protects against side-channel attacks. This is
+     because Python does not provide side-channel sec...          
+ No known fix for ecdsa==0.19.1 to fix 2 vulnerabilities          
+ Learn more:                                                      
+ https://data.safetycli.com/p/pypi/ecdsa/eda/?from=0.19.1         
+
+ pypdf2==3.0.1 [1 vulnerability found]                            
+  -> Vuln ID 59234: CVE-2023-36464, CVSS Severity MEDIUM          
+     Pypdf2 is vulnerable to CVE-2023-36464: An attacker may craft
+     a PDF which leads to an infinite loop if '__pars...          
+ No known fix for pypdf2==3.0.1 to fix 1 vulnerability            
+ Learn more:                                                      
+ https://data.safetycli.com/p/pypi/pypdf2/eda/?from=3.0.1         
+
+ python-jose==3.5.0 [2 vulnerabilities found]                     
+  -> Vuln ID 70716:                                               
+     Affected versions of Python-jose allow attackers to cause a  
+     denial of service (resource consumption) during a ...        
+  -> Vuln ID 70715:                                               
+     Affected versions of Python-jose have a algorithm confusion  
+     vulnerability with OpenSSH ECDSA keys and other ke...        
+ No known fix for python-jose==3.5.0 to fix 2 vulnerabilities     
+ Learn more:                                                      
+ https://data.safetycli.com/p/pypi/python-jose/eda/?from=3.5.0    
+
+✅ database/backup_20250807_003927/requirements.txt: No issues 
+found.
+
+✅ scripts/ai_requirements.txt: No issues found.
+
+Tested 210 dependencies for security issues using local scan 
+policy file project scan policy
+117 vulnerabilities found, 112 ignored due to policy.
+0 fixes suggested, resolving 0 vulnerabilities.
+
