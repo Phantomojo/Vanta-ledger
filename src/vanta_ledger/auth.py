@@ -68,17 +68,17 @@ class User:
     def __init__(self, id: str, username: str, email: str, hashed_password: str, 
                  is_active: bool = True, role: str = "user"):
         """
-                 Initialize a User instance with identification, authentication, and role attributes.
-                 
-                 Parameters:
-                     id (str): Unique identifier for the user.
-                     username (str): The user's username.
-                     email (str): The user's email address.
-                     hashed_password (str): The user's hashed password.
-                     is_active (bool, optional): Indicates if the user account is active. Defaults to True.
-                     role (str, optional): The user's role (e.g., "user", "admin"). Defaults to "user".
-                 """
-                 self.id = id
+        Initialize a User instance with identification, authentication, and role attributes.
+        
+        Parameters:
+            id (str): Unique identifier for the user.
+            username (str): The user's username.
+            email (str): The user's email address.
+            hashed_password (str): The user's hashed password.
+            is_active (bool, optional): Indicates if the user account is active. Defaults to True.
+            role (str, optional): The user's role (e.g., "user", "admin"). Defaults to "user".
+        """
+        self.id = id
         self.username = username
         self.email = email
         self.hashed_password = hashed_password
