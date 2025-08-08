@@ -6,7 +6,7 @@ Handles user database operations and business logic
 
 import uuid
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
@@ -201,7 +201,7 @@ class UserService:
             if user_data.password is not None:
                 db_user.hashed_password = AuthService.get_password_hash(user_data.password)
             
-            db_user.updated_at = datetime.utcnow()
+            db_user.updated_at = datetime.now(timezone.utc)
             
             self.db.commit()
             self.db.refresh(db_user)
@@ -268,7 +268,7 @@ class UserService:
             if not db_user:
                 return False
             
-            db_user.last_login = datetime.utcnow()
+            db_user.last_login = datetime.now(timezone.utc)
             self.db.commit()
             
             return True

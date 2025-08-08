@@ -5,8 +5,6 @@ Advanced document processing and financial data management system
 """
 
 import os
-import json
-import glob
 from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
 from pathlib import Path
@@ -188,7 +186,11 @@ async def metrics():
     """
     Return the latest Prometheus metrics data for monitoring and observability systems.
     """
-    return prometheus_client.generate_latest()
+    from fastapi.responses import Response
+    return Response(
+        content=prometheus_client.generate_latest(),
+        media_type="text/plain"
+    )
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

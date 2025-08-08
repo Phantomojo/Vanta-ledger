@@ -11,7 +11,9 @@ from .config import settings
 import os
 
 # Ensure log directory exists
-os.makedirs(os.path.dirname(settings.LOG_FILE), exist_ok=True)
+log_dir = os.path.dirname(settings.LOG_FILE)
+if log_dir:  # Only create directory if there's a path
+    os.makedirs(log_dir, exist_ok=True)
 
 logging.basicConfig(
     level=getattr(logging, settings.LOG_LEVEL),
