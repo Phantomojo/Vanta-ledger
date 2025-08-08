@@ -66,7 +66,7 @@ echo "   API Docs: http://localhost:8500/docs"
 if [ ! -z "$FRONTEND_PORT" ]; then
     echo "   Frontend: http://localhost:$FRONTEND_PORT"
 fi
-echo "   Login: admin/admin123"
+echo "   Login: <username>/<password> (see documentation or environment variables)"
 echo ""
 echo "📋 To stop the services:"
 echo "   pkill -f uvicorn"
