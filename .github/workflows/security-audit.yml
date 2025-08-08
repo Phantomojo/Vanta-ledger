@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: '0 6 * * 1'
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   pip-audit:
     runs-on: ubuntu-latest
@@ -19,7 +23,7 @@ jobs:
       - name: Install pip-audit
         run: pip install pip-audit
       - name: Audit backend requirements
-        run: pip-audit -r backend/requirements.txt --strict || true
+        run: pip-audit -r requirements.txt --strict || true
   bandit:
     runs-on: ubuntu-latest
     steps:

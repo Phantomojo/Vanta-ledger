@@ -77,7 +77,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ MongoDB analytics failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while fetching MongoDB analytics."}
 
     async def _get_postgres_analytics(self, postgres_conn) -> Dict[str, Any]:
         """Get analytics data from PostgreSQL"""
@@ -121,7 +121,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ PostgreSQL analytics failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while fetching analytics data."}
 
     async def _get_system_health(self, mongo_client, postgres_conn) -> Dict[str, Any]:
         """Get system health metrics"""
@@ -159,7 +159,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ System health check failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while checking system health."}
 
     def _combine_financial_data(self, mongo_data: Dict[str, Any], postgres_data: Dict[str, Any]) -> Dict[str, Any]:
         """Combine financial data from both databases"""
@@ -194,7 +194,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Financial data combination failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while combining financial data."}
 
     def _get_compliance_metrics(self, mongo_data: Dict[str, Any]) -> Dict[str, Any]:
         """Get compliance metrics from documents"""
@@ -233,7 +233,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Compliance metrics failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while calculating compliance metrics."}
 
     def _get_processing_metrics(self, mongo_data: Dict[str, Any]) -> Dict[str, Any]:
         """Get document processing metrics"""
@@ -268,7 +268,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Processing metrics failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while processing analytics."}
 
     async def _get_trends(self, mongo_data: Dict[str, Any]) -> Dict[str, Any]:
         """Get trends and patterns in the data"""
@@ -315,7 +315,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Trends analysis failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while analyzing trends."}
 
     def _calculate_growth_rate(self, values: List[float]) -> float:
         """Calculate growth rate from a list of values"""
@@ -376,7 +376,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Alerts generation failed: {e}")
-            return [{"error": str(e)}]
+            return [{"error": "Failed to generate alerts"}]
 
     def _get_top_performers(self, mongo_data: Dict[str, Any]) -> Dict[str, Any]:
         """Get top performing companies and metrics"""
@@ -428,7 +428,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Top performers analysis failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while retrieving top performers."}
 
     def _get_risk_analysis(self, mongo_data: Dict[str, Any]) -> Dict[str, Any]:
         """Get comprehensive risk analysis"""
@@ -491,7 +491,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Risk analysis failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error occurred while performing risk analysis."}
 
     async def get_company_dashboard(self, company_id: str, mongo_client, postgres_conn) -> Dict[str, Any]:
         """Get company-specific dashboard"""

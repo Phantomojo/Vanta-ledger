@@ -183,9 +183,9 @@ class AuthService:
             return False
 
 # User management functions with database integration
-async def get_user_by_username(username: str) -> Optional[User]:
+def get_user_by_username(username: str) -> Optional[User]:
     """
-    Asynchronously retrieves a user by username from the database.
+    Retrieves a user by username from the database.
     
     Parameters:
         username (str): The username to search for.
@@ -212,7 +212,7 @@ async def get_user_by_username(username: str) -> Optional[User]:
         logger.error(f"Error getting user by username {username}: {str(e)}")
         return None
 
-async def get_user_by_id(user_id: str) -> Optional[User]:
+def get_user_by_id(user_id: str) -> Optional[User]:
     """
     Retrieve a user by their unique ID from the database.
     
