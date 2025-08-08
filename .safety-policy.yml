@@ -1,14 +1,12 @@
-security:
-  # 🔒 Enterprise-Grade Safety Policy Configuration for Vanta Ledger
-  # Date: August 8, 2025
-  # Version: Safety CLI 3.6.0
-  # Purpose: Maximum security coverage and quality monitoring
+# 🔒 Safety Policy for Vanta Ledger
+# Version: Safety CLI 3.0
+# Purpose: Security scanning configuration
 
-  # Ignore low severity vulnerabilities to focus on critical issues
-  ignore-cvss-severity-below: 4.0
-  
-  # Continue scanning even if vulnerabilities are found
-  continue-on-vulnerability-error: true
-  
-  # Ignore unpinned requirements warnings (we pin everything)
-  ignore-unpinned-requirements: true
+# Ignore low severity vulnerabilities
+ignore-cvss-severity-below: 4.0
+
+# Continue scanning even if vulnerabilities are found
+continue-on-vulnerability-error: true
+
+# Ignore unpinned requirements warnings
+ignore-unpinned-requirements: true
