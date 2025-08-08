@@ -15,10 +15,10 @@ def test_imports():
     print("🧪 Testing AI Imports...")
     
     try:
-        import PyPDF2
-        print("✅ PyPDF2 imported successfully")
+        import fitz
+        print("✅ PyMuPDF imported successfully")
     except ImportError as e:
-        print(f"❌ PyPDF2 import failed: {e}")
+        print(f"❌ PyMuPDF import failed: {e}")
     
     try:
         import docx

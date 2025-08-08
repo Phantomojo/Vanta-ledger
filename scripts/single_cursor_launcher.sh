@@ -20,7 +20,7 @@ start_single_cursor() {
     echo "🎯 Starting single Cursor instance..."
     
     # Check if Cursor is already running
-    if pgrep -f "cursor.AppImage" >/dev/null; then
+    if pgrep -f "cursor.AppImage" | grep -vw $$ >/dev/null; then
         echo "✅ Cursor is already running (single instance)"
         return 0
     fi
@@ -172,7 +172,7 @@ show_status() {
     echo ""
     echo "📊 Current Status:"
     echo "=================="
-    echo "Cursor processes: $(pgrep -f cursor | wc -l)"
+    echo "Cursor processes: $(pgrep -f cursor | grep -vw $$ | wc -l)"
     echo "Python processes: $(pgrep -f python | wc -l)"
     echo "Server status: $(curl -s http://localhost:8500/health >/dev/null && echo 'Running' || echo 'Not running')"
     echo ""

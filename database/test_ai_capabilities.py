@@ -18,9 +18,6 @@ def test_pdf_processing():
     logger.info("🧪 Testing PDF Processing...")
     
     try:
-        import PyPDF2
-        logger.info("✅ PyPDF2: Available")
-        
         import fitz  # PyMuPDF
         logger.info("✅ PyMuPDF: Available")
         

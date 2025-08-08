@@ -13,13 +13,13 @@ class Settings:
     PORT: int = int(os.getenv("PORT", "8500"))
     
     # Database - Use environment variables only
-    MONGO_URI: str = os.getenv("MONGO_URI")
-    POSTGRES_URI: str = os.getenv("POSTGRES_URI")
+    MONGO_URI: Optional[str] = os.getenv("MONGO_URI")
+    POSTGRES_URI: Optional[str] = os.getenv("POSTGRES_URI")
     REDIS_URI: str = os.getenv("REDIS_URI", "redis://localhost:6379/0")
     DATABASE_NAME: str = os.getenv("DATABASE_NAME", "vanta_ledger")
     
-    # Security - Generate secure defaults if not provided
-    SECRET_KEY: str = os.getenv("SECRET_KEY", secrets.token_urlsafe(64))
+    # Security - Generate secure defaults if not provided (dev only)
+    SECRET_KEY: str = os.getenv("SECRET_KEY", secrets.token_urlsafe(64) if os.getenv("DEBUG", "False").lower() == "true" else "")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     REFRESH_TOKEN_EXPIRE_DAYS: int = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
@@ -77,16 +77,17 @@ class Settings:
     LLM_DEFAULT_TEMPERATURE: float = float(os.getenv("LLM_DEFAULT_TEMPERATURE", "0.7"))
     LLM_USE_GPU: bool = os.getenv("LLM_USE_GPU", "True").lower() == "true"
 
-    def __init__(self):
+    def validate_required_config(self):
         """
-        Initialize the Settings instance and validate required database URIs.
-        
-        Raises:
-            ValueError: If either MONGO_URI or POSTGRES_URI is not set in the environment.
+        Validate required runtime configuration at application startup, not import time.
+        Raises ValueError if critical settings are missing in non-debug mode.
         """
+        is_debug = self.DEBUG
         if not self.MONGO_URI:
             raise ValueError("MONGO_URI must be set in the environment.")
         if not self.POSTGRES_URI:
             raise ValueError("POSTGRES_URI must be set in the environment.")
+        if not self.SECRET_KEY and not is_debug:
+            raise ValueError("SECRET_KEY must be set in production.")
 
 settings = Settings() 

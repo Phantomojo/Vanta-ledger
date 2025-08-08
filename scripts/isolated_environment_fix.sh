@@ -126,7 +126,7 @@ show_final_status() {
     echo "Virtual environment: $(if [ -d "venv" ]; then echo "✅ Created"; else echo "❌ Missing"; fi)"
     echo "Python executable: $(if [ -f "venv/bin/python3" ]; then echo "✅ Working"; else echo "❌ Broken"; fi)"
     echo "Pip executable: $(if [ -f "venv/bin/pip" ]; then echo "✅ Working"; else echo "❌ Broken"; fi)"
-    echo "Project installed: $(if [ -d "venv/lib/python*/site-packages/vanta_ledger" ]; then echo "✅ Yes"; else echo "❌ No"; fi)"
+    echo "Project installed: $(if find venv/lib -name "python*" -type d -exec test -d {}/site-packages/vanta_ledger \; -print -quit | grep -q .; then echo "✅ Yes"; else echo "❌ No"; fi)"
     echo "Cursor interference: $(if venv/bin/python3 --version 2>/dev/null | grep -q "Python"; then echo "✅ None"; else echo "❌ Still present"; fi)"
     echo ""
     echo "🎯 Environment isolated successfully!"

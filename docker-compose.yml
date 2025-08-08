@@ -57,7 +57,7 @@ services:
       - POSTGRES_URI=postgresql://vanta_user:vanta_secure_password_2024@postgres:5432/vanta_ledger
       - MONGO_URI=mongodb://admin:THq2ibwBwnNCHUqbKFlSHrkmo3eSpzPGPX4AZg2V7yU=@mongodb:27017/vanta_ledger?authSource=admin
       - REDIS_URI=redis://redis:6379
-      - SECRET_KEY=${SECRET_KEY:-your_super_secret_key_here}
+      - SECRET_KEY=${SECRET_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
