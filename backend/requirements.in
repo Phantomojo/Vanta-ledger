@@ -1,0 +1,53 @@
+# Core Framework
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+starlette
+
+# Database
+sqlalchemy
+alembic
+psycopg2-binary
+pymongo
+redis
+
+# Authentication & Security
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+PyJWT
+cryptography
+
+# HTTP & Networking
+requests
+aiohttp
+httpx
+urllib3
+
+# File Processing
+python-multipart
+aiofiles
+Pillow
+
+# Data Processing
+numpy
+pandas
+scikit-learn
+
+# System & Monitoring
+psutil
+GPUtil
+
+# Utilities
+python-dotenv
+PyYAML
+click
+rich
+
+# Optional: Document Processing
+pytesseract
+pdf2image
+python-docx
+PyPDF2
+spacy
