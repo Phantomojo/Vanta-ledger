@@ -1,0 +1,42 @@
+# 🔒 Enterprise-Grade Safety Policy Configuration for Vanta Ledger
+# Date: August 8, 2025
+# Version: Safety CLI 3.6.0
+# Purpose: Maximum security coverage and quality monitoring
+
+# Scan configuration - Comprehensive coverage with minimal exclusions
+scan:
+  # Exclude only essential system directories, scan everything else
+  exclude:
+    - "/usr/lib/python3*/dist-packages/"  # System packages only
+    - "/usr/local/lib/python3*/dist-packages/"  # System packages only
+    - ".git/"
+    - "node_modules/"
+    - "__pycache__/"
+    - "*.pyc"
+    - "*.pyo"
+    - "*.pyd"
+    - ".pytest_cache/"
+    - ".coverage"
+    - "*.egg-info/"
+    - "build/"
+    - "dist/"
+    - "*.log"
+    - "*.tmp"
+    - "*.bak"
+    - "*.swp"
+    - "*.swo"
+    - "*~"
+    - ".DS_Store"
+    - "Thumbs.db"
+    - "venv/"
+    - ".venv/"
+    - "logs/"
+    - "security_reports/"
+    - "security_analysis/"
+    - "database/backup_*/"
+    - "data/processed_documents/"
+    - "models/"
+    - "paperless/"
+    - "nginx/"
+    - "monitoring/"
+    - "scripts/"

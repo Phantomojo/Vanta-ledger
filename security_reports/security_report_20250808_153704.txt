@@ -1,0 +1,10 @@
+Safety 3.6.0 scanning /home/phantomojo/Vanta-ledger
+2025-08-08 12:41:58 UTC
+
+Account: Michael Muriithi, ST02563362023@students.ouk.ac.ke 
+Project: vanta-ledger
+ Git branch: jules
+ Environment: Stage.development
+ Scan policy: fetched from Safety Platform, ignoring any local 
+Safety CLI policy files
+
