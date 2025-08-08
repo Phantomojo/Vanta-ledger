@@ -80,7 +80,7 @@ async def logout(current_user: dict = Depends(verify_token)):
     Returns:
         dict: A message indicating successful logout.
     """
-    await blacklist_token(current_user.get("jti"))
+    blacklist_token(current_user.get("jti"))
     return {"message": "Successfully logged out"}
 
 @router.post("/refresh")
@@ -154,4 +154,4 @@ async def register_user(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="User registration failed"
-        )
+        ) from e

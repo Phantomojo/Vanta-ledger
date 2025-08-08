@@ -145,14 +145,14 @@ class UserService:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="User creation failed - duplicate data"
-            )
+            ) from e
         except Exception as e:
             self.db.rollback()
             logger.error(f"Error creating user: {str(e)}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Internal server error"
-            )
+            ) from e
     
     def update_user(self, user_id: str, user_data: UserUpdate) -> Optional[UserDB]:
         """
