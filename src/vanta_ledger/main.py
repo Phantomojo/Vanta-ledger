@@ -74,7 +74,9 @@ app = FastAPI(
 # Startup event
 @app.on_event("startup")
 async def startup_event():
-    """Initialize services on startup"""
+    """
+    Initializes required services asynchronously when the application starts.
+    """
     await initialize_services()
 
 # Add middleware
@@ -124,31 +126,70 @@ REQUEST_LATENCY = Histogram('http_request_duration_seconds', 'HTTP request laten
 
 # Database connections
 def get_mongo_client():
+    """
+    Create and return a MongoDB client with a 5-second server selection and connection timeout.
+    
+    Returns:
+        MongoClient: A configured MongoDB client instance.
+    """
     return pymongo.MongoClient(settings.MONGO_URI, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000)
 
 def get_postgres_connection():
+    """
+    Establish and return a new PostgreSQL database connection with a 5-second timeout.
+    
+    Returns:
+        connection: A psycopg2 connection object to the PostgreSQL database.
+    """
     return psycopg2.connect(settings.POSTGRES_URI, connect_timeout=5)
 
 def get_redis_client():
+    """
+    Create and return a Redis client instance configured with response decoding enabled.
+    """
     return redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
 
 # Authentication - using the new AuthService
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """
+    Verifies the provided HTTP Bearer token and returns the associated user or authentication context.
+    
+    Parameters:
+        credentials (HTTPAuthorizationCredentials): The HTTP Bearer credentials extracted from the request.
+    
+    Returns:
+        The result of token verification, typically user information or authentication context.
+    """
     return AuthService.verify_token(credentials.credentials)
 
 # Health check
 @app.get("/health")
 async def health_check_endpoint():
-    """Health check endpoint with service status"""
+    """
+    Asynchronously returns the current health status of the service.
+    """
     return await health_check()
 
 # Metrics endpoint
 @app.get("/metrics")
 async def metrics():
+    """
+    Return the latest Prometheus metrics data for monitoring and observability systems.
+    """
     return prometheus_client.generate_latest()
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    """
+    Generate a JWT access token with an expiration time.
+    
+    Parameters:
+        data (dict): The payload to include in the token.
+        expires_delta (Optional[timedelta]): Optional duration until the token expires. Defaults to 15 minutes if not provided.
+    
+    Returns:
+        str: The encoded JWT access token.
+    """
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -161,6 +202,15 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 # Database test endpoints
 @app.get("/test-mongo")
 async def test_mongo():
+    """
+    Test MongoDB connectivity by inserting and deleting a test document.
+    
+    Returns:
+        dict: A status message indicating whether the MongoDB connection was successful.
+    
+    Raises:
+        HTTPException: If the MongoDB connection or operation fails.
+    """
     try:
         client = get_mongo_client()
         db = client.vanta_ledger
@@ -172,6 +222,15 @@ async def test_mongo():
 
 @app.get("/test-postgres")
 async def test_postgres():
+    """
+    Test connectivity to the PostgreSQL database and return the server version.
+    
+    Returns:
+        dict: A dictionary containing the connection status and PostgreSQL server version.
+    
+    Raises:
+        HTTPException: If the connection or query fails, returns a 500 error with details.
+    """
     try:
         conn = get_postgres_connection()
         cursor = conn.cursor()
@@ -185,6 +244,15 @@ async def test_postgres():
 
 @app.get("/test-redis")
 async def test_redis():
+    """
+    Test Redis connectivity by performing a set, get, and delete operation on a test key.
+    
+    Returns:
+        dict: A status message indicating success and the value retrieved from Redis.
+    
+    Raises:
+        HTTPException: If any Redis operation fails, returns a 500 error with details.
+    """
     try:
         r = get_redis_client()
         r.set("test", "data")

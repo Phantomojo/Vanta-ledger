@@ -241,7 +241,9 @@ def run_hybrid_database_setup():
     return True
 
 def create_environment_file():
-    """Create environment configuration file"""
+    """
+    Create a `.env` file with environment variables for database connections, application settings, security, file storage, cache, and optional Redis configuration.
+    """
     env_content = """# Vanta Ledger Hybrid Database Configuration
 
 # Database URIs

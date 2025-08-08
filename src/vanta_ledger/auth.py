@@ -30,22 +30,55 @@ redis_client = redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
 
 # Convenience functions for backward compatibility
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verify a password against its hash"""
+    """
+    Verify whether a plaintext password matches a given hashed password.
+    
+    Returns:
+        bool: True if the password matches the hash, False otherwise.
+    """
     return AuthService.verify_password(plain_password, hashed_password)
 
 def get_password_hash(password: str) -> str:
-    """Generate password hash"""
+    """
+    Generate a bcrypt hash for the provided password.
+    
+    Parameters:
+        password (str): The plaintext password to hash.
+    
+    Returns:
+        str: The hashed password.
+    """
     return AuthService.get_password_hash(password)
 
 def blacklist_token(jti: str, expires_in: int = None) -> bool:
-    """Blacklist a JWT token"""
+    """
+    Add a JWT token's unique identifier (jti) to the blacklist, preventing future use.
+    
+    Parameters:
+        jti (str): The unique identifier of the JWT token to blacklist.
+        expires_in (int, optional): Expiration time in seconds for the blacklist entry. Defaults to the access token's expiration if not provided.
+    
+    Returns:
+        bool: True if the token was successfully blacklisted, False otherwise.
+    """
     return AuthService.blacklist_token(jti, expires_in)
 
 class User:
     """User model for authentication"""
     def __init__(self, id: str, username: str, email: str, hashed_password: str, 
                  is_active: bool = True, role: str = "user"):
-        self.id = id
+        """
+                 Initialize a User instance with identification, authentication, and role attributes.
+                 
+                 Parameters:
+                     id (str): Unique identifier for the user.
+                     username (str): The user's username.
+                     email (str): The user's email address.
+                     hashed_password (str): The user's hashed password.
+                     is_active (bool, optional): Indicates if the user account is active. Defaults to True.
+                     role (str, optional): The user's role (e.g., "user", "admin"). Defaults to "user".
+                 """
+                 self.id = id
         self.username = username
         self.email = email
         self.hashed_password = hashed_password
@@ -137,7 +170,12 @@ class AuthService:
     
     @staticmethod
     def is_token_blacklisted(jti: str) -> bool:
-        """Check if token is blacklisted"""
+        """
+        Determine whether a token with the given JWT ID (`jti`) is present in the Redis blacklist.
+        
+        Returns:
+            bool: True if the token is blacklisted, False otherwise or if an error occurs.
+        """
         try:
             return redis_client.exists(f"blacklist:{jti}") > 0
         except Exception as e:
@@ -146,7 +184,15 @@ class AuthService:
 
 # User management functions with database integration
 async def get_user_by_username(username: str) -> Optional[User]:
-    """Get user by username from database"""
+    """
+    Asynchronously retrieves a user by username from the database.
+    
+    Parameters:
+        username (str): The username to search for.
+    
+    Returns:
+        Optional[User]: The corresponding User object if found, otherwise None.
+    """
     try:
         from .services.user_service import get_user_service
         user_service = get_user_service()
@@ -167,7 +213,15 @@ async def get_user_by_username(username: str) -> Optional[User]:
         return None
 
 async def get_user_by_id(user_id: str) -> Optional[User]:
-    """Get user by ID from database"""
+    """
+    Retrieve a user by their unique ID from the database.
+    
+    Parameters:
+        user_id (str): The unique identifier of the user.
+    
+    Returns:
+        Optional[User]: The corresponding User object if found, otherwise None.
+    """
     try:
         from .services.user_service import get_user_service
         user_service = get_user_service()
@@ -188,7 +242,23 @@ async def get_user_by_id(user_id: str) -> Optional[User]:
         return None
 
 async def create_user(username: str, email: str, password: str, role: str = "user") -> User:
-    """Create new user with hashed password"""
+    """
+    Create a new user with the specified username, email, password, and role.
+    
+    The password is securely hashed before storing. Raises an exception if user creation fails.
+    
+    Parameters:
+        username (str): The desired username for the new user.
+        email (str): The email address for the new user.
+        password (str): The plaintext password for the new user.
+        role (str, optional): The role to assign to the user. Defaults to "user".
+    
+    Returns:
+        User: The created user instance.
+    
+    Raises:
+        Exception: If user creation fails or an error occurs during the process.
+    """
     try:
         from .services.user_service import get_user_service
         from .models.user_models import UserCreate
@@ -220,7 +290,14 @@ async def create_user(username: str, email: str, password: str, role: str = "use
 
 # Dependency for getting current user
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> User:
-    """Get current authenticated user"""
+    """
+    Retrieves the currently authenticated user based on the provided HTTP bearer token.
+    
+    Verifies the JWT token, extracts user information, and fetches the user from the database. Raises HTTP 401 if the token is invalid or the user does not exist, and HTTP 400 if the user is inactive.
+    
+    Returns:
+        User: The authenticated and active user associated with the token.
+    """
     try:
         payload = AuthService.verify_token(credentials.credentials)
         username: str = payload.get("sub")

@@ -24,7 +24,15 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def create_database_engine():
-    """Create database engine from settings"""
+    """
+    Create and return a SQLAlchemy database engine using the application's PostgreSQL URI.
+    
+    Returns:
+        engine: A SQLAlchemy Engine instance connected to the configured PostgreSQL database.
+    
+    Raises:
+        Exception: If the engine creation fails.
+    """
     try:
         # Extract database URL from PostgreSQL URI
         db_url = settings.POSTGRES_URI.replace("postgresql://", "postgresql://")
@@ -35,7 +43,12 @@ def create_database_engine():
         raise
 
 def create_tables(engine):
-    """Create all database tables"""
+    """
+    Create all database tables defined in the application's ORM metadata using the provided SQLAlchemy engine.
+    
+    Parameters:
+        engine: SQLAlchemy engine instance used to connect to the target database.
+    """
     try:
         logger.info("Creating database tables...")
         Base.metadata.create_all(bind=engine)
@@ -45,7 +58,14 @@ def create_tables(engine):
         raise
 
 def create_initial_admin_user(session):
-    """Create initial admin user"""
+    """
+    Creates an initial admin user with default credentials if one does not already exist.
+    
+    If an admin user with the username "admin" is found, returns the existing user. Otherwise, creates a new admin user with preset credentials and returns the created user.
+    
+    Returns:
+        The existing or newly created admin user object.
+    """
     try:
         user_service = UserService(session)
         
@@ -77,7 +97,15 @@ def create_initial_admin_user(session):
         raise
 
 def test_database_connection(engine):
-    """Test database connection"""
+    """
+    Checks if the database connection is operational by executing a simple test query.
+    
+    Parameters:
+        engine: SQLAlchemy engine instance used to connect to the database.
+    
+    Returns:
+        bool: True if the connection is successful, False otherwise.
+    """
     try:
         with engine.connect() as connection:
             result = connection.execute(text("SELECT 1"))
@@ -88,7 +116,11 @@ def test_database_connection(engine):
         return False
 
 def main():
-    """Main initialization function"""
+    """
+    Orchestrates the database initialization process for the Vanta Ledger application.
+    
+    This function tests the database connection, creates the necessary tables, and sets up an initial admin user with default credentials. It logs progress and instructions for next steps. If any step fails, the process is aborted and an error is logged.
+    """
     logger.info("🚀 Initializing Vanta Ledger Database")
     logger.info("=" * 50)
     

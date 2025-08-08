@@ -14,7 +14,16 @@ import shutil
 from pathlib import Path
 
 def run_command(command, description):
-    """Run a command and handle errors"""
+    """
+    Execute a shell command and report its success or failure.
+    
+    Parameters:
+        command (str): The shell command to execute.
+        description (str): A brief description of the command's purpose, used in status messages.
+    
+    Returns:
+        bool: True if the command executes successfully, False otherwise.
+    """
     print(f"🔄 {description}...")
     try:
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
@@ -26,7 +35,12 @@ def run_command(command, description):
         return False
 
 def check_python_version():
-    """Check if Python version is compatible"""
+    """
+    Verify that the current Python interpreter is version 3.8 or higher.
+    
+    Returns:
+        bool: True if the Python version is at least 3.8, False otherwise.
+    """
     if sys.version_info < (3, 8):
         print("❌ Python 3.8 or higher is required")
         return False
@@ -34,7 +48,11 @@ def check_python_version():
     return True
 
 def create_directories():
-    """Create necessary directories"""
+    """
+    Create required directories for logs and data storage if they do not already exist.
+    
+    This function ensures that all necessary directory structures for logs and data are present, creating them as needed.
+    """
     directories = [
         "logs",
         "data/uploads",
@@ -48,7 +66,12 @@ def create_directories():
         print(f"✅ Created directory: {directory}")
 
 def setup_virtual_environment():
-    """Set up Python virtual environment"""
+    """
+    Create a Python virtual environment in the project directory if one does not already exist.
+    
+    Returns:
+        bool: True if the virtual environment exists or is created successfully, False otherwise.
+    """
     if not Path("venv").exists():
         print("🔄 Creating virtual environment...")
         if run_command("python3 -m venv venv", "Creating virtual environment"):
@@ -60,7 +83,12 @@ def setup_virtual_environment():
         return True
 
 def install_dependencies():
-    """Install Python dependencies using modern pip-tools approach"""
+    """
+    Install project dependencies in editable mode with development extras using pip.
+    
+    Returns:
+        bool: True if dependencies are installed successfully, False otherwise.
+    """
     # Determine the correct pip command
     if os.name == 'nt':  # Windows
         pip_cmd = "venv\\Scripts\\pip"
@@ -78,7 +106,11 @@ def install_dependencies():
     return False
 
 def setup_environment_file():
-    """Set up environment configuration file"""
+    """
+    Ensure a `.env` environment configuration file exists, creating it from `env.example` if available.
+    
+    If `.env` does not exist and an `env.example` template is present, copies the template to create `.env` and prompts the user to edit it. If no template is found, instructs the user to create `.env` manually. Prints status messages indicating the outcome.
+    """
     if not Path(".env").exists():
         if Path("env.example").exists():
             shutil.copy("env.example", ".env")
@@ -90,7 +122,11 @@ def setup_environment_file():
         print("✅ .env file already exists")
 
 def setup_database():
-    """Set up database configuration"""
+    """
+    Display instructions for manually setting up the required PostgreSQL and MongoDB databases for the project.
+    
+    Prints step-by-step guidance for installing database systems, creating the `vanta_ledger` database, updating environment credentials, and running initialization scripts.
+    """
     print("📋 Database Setup Instructions:")
     print("1. Install PostgreSQL and MongoDB")
     print("2. Create database 'vanta_ledger'")
@@ -98,7 +134,11 @@ def setup_database():
     print("4. Run database initialization scripts")
 
 def setup_frontend():
-    """Set up frontend dependencies"""
+    """
+    Installs frontend dependencies using npm if a frontend package.json file is present.
+    
+    If the frontend directory contains a package.json file, this function changes to the frontend directory, runs `npm install` to install dependencies, and then returns to the original directory. If no package.json is found, it skips the frontend setup and notifies the user.
+    """
     if Path("frontend/package.json").exists():
         print("🔄 Installing frontend dependencies...")
         os.chdir("frontend")
@@ -108,7 +148,9 @@ def setup_frontend():
         print("ℹ️  No frontend package.json found, skipping frontend setup")
 
 def run_tests():
-    """Run basic tests"""
+    """
+    Run the project's test suite using pytest and report the results.
+    """
     print("🧪 Running basic tests...")
     if run_command("pytest tests/ -v", "Running tests"):
         print("✅ Tests completed successfully")
@@ -116,7 +158,9 @@ def run_tests():
         print("⚠️  Some tests failed - check the output above")
 
 def main():
-    """Main setup function"""
+    """
+    Orchestrates the full setup process for the Vanta Ledger project, including environment validation, directory creation, virtual environment setup, dependency installation, environment file configuration, database instructions, frontend setup, and test execution. Exits on critical failures and prints next-step instructions upon completion.
+    """
     print("🚀 Vanta Ledger Setup (Modern Python Layout)")
     print("=" * 50)
     

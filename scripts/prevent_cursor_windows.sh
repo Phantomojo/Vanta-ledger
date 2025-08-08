@@ -6,7 +6,7 @@
 echo "🛡️  Preventing Cursor windows from opening..."
 echo "=============================================="
 
-# Function to temporarily disable Cursor in PATH
+# disable_cursor_in_path saves the current PATH and removes any directories containing "cursor" from it to prevent Cursor-related executables from being used.
 disable_cursor_in_path() {
     # Save original PATH
     export ORIGINAL_PATH="$PATH"
@@ -19,7 +19,7 @@ disable_cursor_in_path() {
     echo "   Modified PATH length: ${#PATH}"
 }
 
-# Function to restore original PATH
+# restore_path restores the PATH environment variable to its original value if it was previously saved.
 restore_path() {
     if [ ! -z "$ORIGINAL_PATH" ]; then
         export PATH="$ORIGINAL_PATH"
@@ -27,7 +27,7 @@ restore_path() {
     fi
 }
 
-# Function to use system Python explicitly
+# use_system_python sets environment variables to use the system Python and pip executables explicitly.
 use_system_python() {
     export PYTHON_EXECUTABLE="/usr/bin/python3"
     export PYTHON3_EXECUTABLE="/usr/bin/python3"
@@ -39,7 +39,7 @@ use_system_python() {
     echo "   PIP_EXECUTABLE: $PIP_EXECUTABLE"
 }
 
-# Function to create safe Python aliases
+# create_safe_aliases defines shell aliases for Python and pip commands to use the system executables.
 create_safe_aliases() {
     alias python="/usr/bin/python3"
     alias python3="/usr/bin/python3"
@@ -49,7 +49,7 @@ create_safe_aliases() {
     echo "✅ Created safe Python aliases"
 }
 
-# Function to verify system Python
+# verify_system_python checks for the presence of system Python and pip executables at /usr/bin/python3 and /usr/bin/pip3, displaying their versions if found. Returns a non-zero status if either is missing.
 verify_system_python() {
     echo "🔍 Verifying system Python..."
     
@@ -70,7 +70,7 @@ verify_system_python() {
     fi
 }
 
-# Function to check for Cursor processes
+# check_cursor_processes checks for running processes matching "cursor" and warns the user if any are found.
 check_cursor_processes() {
     echo "🔍 Checking for Cursor processes..."
     
@@ -83,7 +83,7 @@ check_cursor_processes() {
     fi
 }
 
-# Function to show current environment status
+# show_status displays the current environment status, including system Python and pip paths, virtual environment Python, and whether the PATH contains any "cursor" entries.
 show_status() {
     echo ""
     echo "📊 Current Environment Status:"
@@ -95,7 +95,7 @@ show_status() {
     echo ""
 }
 
-# Main execution
+# main orchestrates environment modifications to prevent Cursor windows from opening, sets system Python and pip, creates safe aliases, verifies system executables, checks for Cursor processes, displays status, and provides usage instructions.
 main() {
     echo "🚀 Starting Cursor prevention mode..."
     

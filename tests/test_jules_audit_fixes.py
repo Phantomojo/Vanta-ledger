@@ -10,7 +10,9 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 def test_project_structure_fixes():
-    """Test that the project structure fixes are implemented correctly"""
+    """
+    Verify that the project structure has been updated according to audit requirements, including correct placement of key files and directories within `src/vanta_ledger` and removal of the old `backend/app` directory.
+    """
     # Check src/vanta_ledger structure
     assert Path("src/vanta_ledger").exists(), "src/vanta_ledger directory should exist"
     assert Path("src/vanta_ledger/main.py").exists(), "main.py should be in src/vanta_ledger"
@@ -27,7 +29,9 @@ def test_project_structure_fixes():
     assert Path("src/vanta_ledger/utils").exists(), "utils directory should exist"
 
 def test_setup_py_fixes():
-    """Test that setup.py has been fixed"""
+    """
+    Verify that setup.py uses standard setuptools configuration and no longer contains deprecated custom functions.
+    """
     setup_py_content = Path("setup.py").read_text()
     
     # Check that setup.py is minimal and correct
@@ -40,7 +44,9 @@ def test_setup_py_fixes():
     assert "def create_directories" not in setup_py_content
 
 def test_pyproject_toml_fixes():
-    """Test that pyproject.toml has been updated for src layout"""
+    """
+    Verify that `pyproject.toml` is configured to use the `src` directory layout and no longer references the old `backend` directory.
+    """
     pyproject_content = Path("pyproject.toml").read_text()
     
     # Check that setuptools is configured for src layout
@@ -48,7 +54,9 @@ def test_pyproject_toml_fixes():
     assert 'where = ["backend"]' not in pyproject_content
 
 def test_user_management_implementation():
-    """Test that user management system is implemented"""
+    """
+    Verify that the user management system is implemented by checking for user model and service files, and ensuring authentication code integrates the user service without placeholder comments.
+    """
     # Check that user models exist
     assert Path("src/vanta_ledger/models/user_models.py").exists(), "user_models.py should exist"
     
@@ -61,7 +69,11 @@ def test_user_management_implementation():
     assert "get_user_service" in auth_content, "User service should be integrated"
 
 def test_security_improvements():
-    """Test that security improvements are implemented"""
+    """
+    Verify that key security improvements are present in the authentication and configuration modules.
+    
+    Checks for the removal of hardcoded credentials, the use of environment variables for configuration, and the implementation of secure password hashing using CryptContext and bcrypt.
+    """
     # Check that hardcoded credentials are removed
     auth_content = Path("src/vanta_ledger/auth.py").read_text()
     assert "admin123" not in auth_content, "Hardcoded admin123 should be removed"
@@ -75,7 +87,9 @@ def test_security_improvements():
     assert "bcrypt" in auth_content, "bcrypt should be used for password hashing"
 
 def test_dependency_management_fixes():
-    """Test that dependency management is improved"""
+    """
+    Verify that pip-tools input and generated requirements files exist in the backend directory to ensure proper dependency management.
+    """
     # Check that pip-tools files exist
     assert Path("backend/requirements.in").exists(), "requirements.in should exist"
     assert Path("backend/requirements-dev.in").exists(), "requirements-dev.in should exist"
@@ -87,7 +101,9 @@ def test_dependency_management_fixes():
     assert Path("backend/requirements-llm.txt").exists(), "requirements-llm.txt should exist"
 
 def test_api_structure_improvements():
-    """Test that API structure has been improved"""
+    """
+    Verify that the API structure has been refactored for better organization, including the existence of a routes directory, a reduced main.py file size, and proper route imports from separate modules.
+    """
     # Check that routes are properly organized
     routes_dir = Path("src/vanta_ledger/routes")
     assert routes_dir.exists(), "routes directory should exist"
@@ -100,7 +116,11 @@ def test_api_structure_improvements():
     assert "from .routes" in main_content, "Routes should be imported from separate modules"
 
 def test_database_integration():
-    """Test that database integration is properly implemented"""
+    """
+    Verify that the database integration is correctly implemented by checking for the existence of the initialization script and proper user model setup.
+    
+    This test asserts that the database initialization script (`scripts/init_database.py`) exists and that the user models file defines a `UserDB` model and imports SQLAlchemy's `Base`.
+    """
     # Check that database initialization script exists
     assert Path("scripts/init_database.py").exists(), "Database initialization script should exist"
     
@@ -110,7 +130,11 @@ def test_database_integration():
     assert "Base" in user_models_content, "SQLAlchemy Base should be imported"
 
 def test_import_structure():
-    """Test that imports work correctly with the new structure"""
+    """
+    Verify that key modules and components can be imported from the refactored project structure without raising ImportError.
+    
+    Fails the test if any import fails, ensuring the new module layout is accessible and correctly configured.
+    """
     try:
         # Test basic imports
         from vanta_ledger.config import settings
@@ -134,7 +158,9 @@ def test_import_structure():
         pytest.fail(f"Import failed: {e}")
 
 def test_audit_report_exists():
-    """Test that the audit report exists and is comprehensive"""
+    """
+    Verify that the audit report file exists and includes coverage of key audit areas.
+    """
     assert Path("AUDIT_REPORT.md").exists(), "AUDIT_REPORT.md should exist"
     
     audit_content = Path("AUDIT_REPORT.md").read_text()
@@ -146,7 +172,9 @@ def test_audit_report_exists():
     assert "Project Setup" in audit_content
 
 def test_new_setup_script():
-    """Test that the new setup script exists"""
+    """
+    Verify that the new setup script exists and contains references to the Modern Python Layout and the development installation command.
+    """
     assert Path("scripts/setup_project.py").exists(), "New setup script should exist"
     
     setup_script_content = Path("scripts/setup_project.py").read_text()
@@ -154,7 +182,9 @@ def test_new_setup_script():
     assert "pip install -e .[dev]" in setup_script_content
 
 def test_alembic_wrapper():
-    """Test that the alembic wrapper script exists"""
+    """
+    Verify that the Alembic wrapper script exists and references both the database URL and environment file.
+    """
     assert Path("scripts/run_alembic.sh").exists(), "Alembic wrapper script should exist"
     
     alembic_wrapper_content = Path("scripts/run_alembic.sh").read_text()
