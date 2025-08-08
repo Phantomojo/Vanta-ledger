@@ -15,7 +15,11 @@ async def upload_document(
     file: UploadFile = File(...),
     current_user: dict = Depends(AuthService.verify_token)
 ):
-    """Upload and process a new document securely"""
+    """
+    Handles secure upload and processing of a document file.
+    
+    Accepts a file upload, saves it securely, processes the document, and returns metadata including analysis results and security information. Raises an HTTP 500 error if processing fails.
+    """
     temp_file_path = None
     try:
         user_id = current_user.get("user_id", "unknown")
@@ -57,7 +61,16 @@ async def list_documents(
     limit: int = 20,
     current_user: dict = Depends(AuthService.verify_token)
 ):
-    """List all processed documents with pagination"""
+    """
+    Retrieve a paginated list of all processed documents.
+    
+    Parameters:
+        page (int): The page number to retrieve.
+        limit (int): The maximum number of documents per page.
+    
+    Returns:
+        dict: A dictionary containing the list of documents for the requested page and pagination metadata.
+    """
     documents = document_processor.list_documents()
 
     start_idx = (page - 1) * limit
@@ -79,7 +92,15 @@ async def get_document_details(
     document_id: str,
     current_user: dict = Depends(AuthService.verify_token)
 ):
-    """Get detailed information about a specific document"""
+    """
+    Retrieve detailed analysis and metadata for a specific document by its ID.
+    
+    Returns:
+        dict: A dictionary containing the document ID, content (or a placeholder if unavailable), analysis results, and metadata such as type, word count, and processing timestamp.
+    
+    Raises:
+        HTTPException: If the document is not found.
+    """
     analysis = document_processor.get_document_analysis(document_id)
     if not analysis:
         raise HTTPException(status_code=404, detail="Document not found")
@@ -104,7 +125,15 @@ async def get_document_content(
     document_id: str,
     current_user: dict = Depends(AuthService.verify_token)
 ):
-    """Get raw text content of a document"""
+    """
+    Retrieve the raw text content of a document by its ID.
+    
+    Raises:
+        HTTPException: If the document content is not found.
+        
+    Returns:
+        dict: A dictionary containing the document's raw content under the "content" key.
+    """
     content = document_processor.get_document_content(document_id)
     if not content:
         raise HTTPException(status_code=404, detail="Document content not found")
@@ -116,7 +145,18 @@ async def reanalyze_document(
     document_id: str,
     current_user: dict = Depends(AuthService.verify_token)
 ):
-    """Re-analyze a document with updated AI processing"""
+    """
+    Re-analyzes an existing document using updated AI processing and stores the new analysis.
+    
+    Parameters:
+        document_id (str): The unique identifier of the document to re-analyze.
+    
+    Returns:
+        dict: A message indicating success, the document ID, and the updated analysis results.
+    
+    Raises:
+        HTTPException: If the document content is not found.
+    """
     content = document_processor.get_document_content(document_id)
     if not content:
         raise HTTPException(status_code=404, detail="Document content not found")

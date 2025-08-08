@@ -16,24 +16,27 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Function to print colored output
+# print_status prints an informational message in blue color to the terminal.
 print_status() {
     echo -e "${BLUE}[INFO]${NC} $1"
 }
 
+# print_success prints a success message in green color to the terminal.
 print_success() {
     echo -e "${GREEN}[SUCCESS]${NC} $1"
 }
 
+# print_warning prints a warning message in yellow color to the terminal.
 print_warning() {
     echo -e "${YELLOW}[WARNING]${NC} $1"
 }
 
+# print_error prints an error message in red to stderr.
 print_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Check if running as root (needed for some operations)
+# check_root checks if the script is running with root privileges and prints a status or warning message accordingly.
 check_root() {
     if [[ $EUID -eq 0 ]]; then
         print_warning "Running as root - this is fine for system-level changes"
@@ -42,7 +45,7 @@ check_root() {
     fi
 }
 
-# Backup original configuration
+# backup_config creates a timestamped backup of the user's shell configuration files and current PATH environment variable in a dedicated backup directory.
 backup_config() {
     print_status "Creating backup of current configuration..."
     
@@ -68,7 +71,7 @@ backup_config() {
     print_success "Backup created at: $BACKUP_DIR"
 }
 
-# Method 1: Fix shell configuration to prioritize system Python
+# fix_shell_config updates the user's shell configuration to prioritize system Python over Cursor, adds functions and aliases for creating isolated virtual environments, checking for Cursor interference, and repairing corrupted environments.
 fix_shell_config() {
     print_status "Method 1: Fixing shell configuration..."
     
@@ -176,7 +179,7 @@ EOF
     print_status "  - fix-venv (alias for fix_corrupted_venv)"
 }
 
-# Method 2: Create system-wide Python wrapper
+# create_python_wrapper creates a system-wide Python wrapper script that enforces the use of the system Python interpreter instead of Cursor's Python, warning users if a virtual environment is corrupted by Cursor and providing a safe executable for Python operations.
 create_python_wrapper() {
     print_status "Method 2: Creating system-wide Python wrapper..."
     
@@ -217,7 +220,7 @@ EOF
     print_status "Use 'python3-safe' instead of 'python3' for guaranteed system Python"
 }
 
-# Method 3: Configure Cursor IDE settings
+# configure_cursor_settings locates the Cursor IDE user settings directory and overwrites its settings to enforce system Python usage and disable environment auto-detection and activation.
 configure_cursor_settings() {
     print_status "Method 3: Configuring Cursor IDE settings..."
     
@@ -264,7 +267,7 @@ EOF
     done
 }
 
-# Method 4: Create system-wide environment isolation
+# create_system_isolation creates a system-wide script that enables users to create Python virtual environments isolated from Cursor IDE interference. The generated script, `/usr/local/bin/create-venv-safe`, ensures the virtual environment is built using the system Python by temporarily removing Cursor from the PATH.
 create_system_isolation() {
     print_status "Method 4: Creating system-wide environment isolation..."
     
@@ -306,7 +309,7 @@ EOF
     print_status "Use 'create-venv-safe [name] [python_path]' for safe environment creation"
 }
 
-# Method 5: Create monitoring and auto-fix system
+# create_monitoring_system sets up a monitoring script that detects and logs Cursor IDE interference in Python virtual environments and enables automatic repair if configured.
 create_monitoring_system() {
     print_status "Method 5: Creating monitoring and auto-fix system..."
     
@@ -357,7 +360,7 @@ EOF
     print_status "Auto-fix enabled: Set AUTO_FIX_CURSOR=true to auto-fix corruption"
 }
 
-# Method 6: Create comprehensive documentation
+# create_documentation generates a comprehensive README file in the user's local share directory, documenting all commands, prevention methods, troubleshooting steps, and configuration file locations related to the Cursor IDE fix.
 create_documentation() {
     print_status "Method 6: Creating comprehensive documentation..."
     
@@ -400,7 +403,7 @@ EOF
     print_success "Documentation created at $HOME/.local/share/cursor-fix/README.md"
 }
 
-# Main execution
+# main orchestrates the installation of all permanent system-level fixes to prevent Cursor IDE from interfering with Python virtual environments.
 main() {
     echo "🛡️  Starting permanent Cursor fix installation..."
     echo ""

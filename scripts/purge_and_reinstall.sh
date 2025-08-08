@@ -6,7 +6,7 @@
 echo "🧹 PURGE AND REINSTALL - Complete Environment Reset"
 echo "=================================================="
 
-# Function to kill all Cursor processes
+# kill_cursor_processes terminates all running processes related to Cursor to prevent interference with environment setup.
 kill_cursor_processes() {
     echo "🛑 Killing all Cursor processes..."
     pkill -f "cursor.AppImage" 2>/dev/null
@@ -15,7 +15,7 @@ kill_cursor_processes() {
     echo "✅ All Cursor processes terminated"
 }
 
-# Function to purge all virtual environments
+# purge_environments removes all Python virtual environments, cache directories, compiled files, and pip cache from the project directory and its subdirectories.
 purge_environments() {
     echo "🗑️  Purging all virtual environments..."
     
@@ -48,7 +48,7 @@ purge_environments() {
     echo "✅ All environments purged"
 }
 
-# Function to backup important files
+# backup_files creates a timestamped backup directory and copies key project files such as requirements and environment configuration files into it if they exist.
 backup_files() {
     echo "📦 Creating backups..."
     
@@ -77,7 +77,7 @@ backup_files() {
     echo "✅ Backups created in $BACKUP_DIR/"
 }
 
-# Function to verify system Python
+# verify_system_python checks for the presence of system Python and pip executables, printing their versions and exiting if either is missing.
 verify_system_python() {
     echo "🔍 Verifying system Python..."
     
@@ -100,7 +100,7 @@ verify_system_python() {
     echo "✅ System pip found: $PIP_VERSION"
 }
 
-# Function to create clean virtual environment
+# create_clean_environment creates a new Python virtual environment named 'venv' using the system Python executable, exiting with an error if creation fails.
 create_clean_environment() {
     echo "🏗️  Creating clean virtual environment..."
     
@@ -115,7 +115,7 @@ create_clean_environment() {
     echo "✅ Virtual environment created"
 }
 
-# Function to fix symbolic links
+# fix_symbolic_links removes existing Python and pip symbolic links in the virtual environment and recreates them to point directly to system Python and pip executables.
 fix_symbolic_links() {
     echo "🔗 Fixing symbolic links..."
     
@@ -147,7 +147,7 @@ fix_symbolic_links() {
     echo "✅ Symbolic links fixed"
 }
 
-# Function to install dependencies
+# install_dependencies activates the virtual environment, upgrades pip, installs core dependencies, and installs the project with development dependencies in editable mode.
 install_dependencies() {
     echo "📦 Installing dependencies..."
     
@@ -169,7 +169,7 @@ install_dependencies() {
     echo "✅ Dependencies installed"
 }
 
-# Function to test the installation
+# test_installation activates the virtual environment and verifies the installation by checking Python functionality, importing key project modules, and running a basic test script.
 test_installation() {
     echo "🧪 Testing installation..."
     
@@ -209,7 +209,7 @@ except ImportError as e:
     echo "✅ Installation test completed"
 }
 
-# Function to create environment validation script
+# create_validation_script generates a shell script that validates the integrity of the Python virtual environment, ensuring correct symbolic links, Python execution, and successful project imports.
 create_validation_script() {
     echo "📝 Creating environment validation script..."
     
@@ -268,7 +268,7 @@ EOF
     echo "✅ Validation script created: scripts/validate_environment.sh"
 }
 
-# Function to show final status
+# show_final_status prints a summary of the purge and reinstall process, including completed steps and next actions for the user.
 show_final_status() {
     echo ""
     echo "🎉 PURGE AND REINSTALL COMPLETED!"
@@ -293,7 +293,7 @@ show_final_status() {
     echo ""
 }
 
-# Main execution
+# main orchestrates the full purge and reinstallation of the Python development environment, ensuring a clean setup and validating its integrity.
 main() {
     echo "🚀 Starting complete environment purge and reinstall..."
     echo ""

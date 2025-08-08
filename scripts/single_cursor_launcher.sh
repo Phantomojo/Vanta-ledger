@@ -6,7 +6,7 @@
 echo "🚀 Single Cursor Launcher - Vanta Ledger Project"
 echo "================================================"
 
-# Function to kill all Cursor processes
+# kill_all_cursor terminates all running Cursor application processes.
 kill_all_cursor() {
     echo "🛑 Stopping all Cursor processes..."
     pkill -f "cursor.AppImage" 2>/dev/null
@@ -15,7 +15,7 @@ kill_all_cursor() {
     echo "✅ All Cursor processes stopped"
 }
 
-# Function to start single Cursor instance
+# start_single_cursor ensures only one instance of the Cursor application is running, launching it if not already active and verifying successful startup.
 start_single_cursor() {
     echo "🎯 Starting single Cursor instance..."
     
@@ -41,7 +41,7 @@ start_single_cursor() {
     fi
 }
 
-# Function to fix virtual environment
+# fix_virtual_environment recreates the Python virtual environment, backing up current dependencies, removing the old environment, and correcting symbolic links to system Python and pip executables.
 fix_virtual_environment() {
     echo "🔧 Fixing virtual environment..."
     
@@ -81,7 +81,7 @@ fix_virtual_environment() {
     echo "✅ Virtual environment fixed!"
 }
 
-# Function to install project dependencies
+# install_dependencies installs and upgrades project dependencies in the Python virtual environment using pip.
 install_dependencies() {
     echo "📦 Installing project dependencies..."
     
@@ -97,7 +97,7 @@ install_dependencies() {
     echo "✅ Dependencies installed successfully!"
 }
 
-# Function to test the setup
+# test_setup verifies the Python environment, checks key project imports, and runs a basic test script to ensure the setup is correct.
 test_setup() {
     echo "🧪 Testing setup..."
     
@@ -130,7 +130,7 @@ except ImportError as e:
     echo "✅ Setup test completed!"
 }
 
-# Function to start the project
+# start_project activates the Python virtual environment, launches the FastAPI server for the Vanta Ledger project in the background, checks server health, and displays endpoint and usage information.
 start_project() {
     echo "🚀 Starting Vanta Ledger project..."
     
@@ -167,7 +167,7 @@ start_project() {
     echo "🛑 To stop the server, run: kill $SERVER_PID"
 }
 
-# Function to show status
+# show_status displays the number of running Cursor and Python processes and reports the health status of the FastAPI server.
 show_status() {
     echo ""
     echo "📊 Current Status:"
@@ -178,7 +178,7 @@ show_status() {
     echo ""
 }
 
-# Main execution
+# main orchestrates the full setup and launch process for the Cursor application and Vanta Ledger project, ensuring a clean environment, single Cursor instance, dependency installation, testing, server startup, and status reporting.
 main() {
     echo "🎯 Single Cursor Launcher - Ensuring clean environment"
     

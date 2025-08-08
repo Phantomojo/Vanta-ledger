@@ -9,6 +9,15 @@ router = APIRouter(tags=['Analytics'])
 
 @router.get('/extracted-data/analytics')
 async def get_analytics(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve aggregated statistics for all financial transactions.
+    
+    Returns:
+        dict: A dictionary containing the total number of transactions, total amount, average amount, minimum amount, and maximum amount across all financial transactions.
+    
+    Raises:
+        HTTPException: If no financial transaction data is found.
+    """
     conn = get_postgres_connection()
     cursor = conn.cursor()
     cursor.execute('''
@@ -35,6 +44,17 @@ async def get_analytics(current_user: dict = Depends(AuthService.verify_token)):
 
 @router.post('/ai/analyze-document/{document_id}')
 async def analyze_document_ai(document_id: str, current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Analyze a processed document using AI and return the analysis results.
+    
+    Fetches a document by its ID from the processed documents collection in MongoDB. If found, performs AI-driven analysis on the document, updates the document with the analysis results, and returns the analysis. Raises a 404 error if the document does not exist.
+    
+    Parameters:
+        document_id (str): The unique identifier of the document to analyze.
+    
+    Returns:
+        dict: The AI-generated analysis results for the specified document.
+    """
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
@@ -47,6 +67,18 @@ async def analyze_document_ai(document_id: str, current_user: dict = Depends(Aut
 
 @router.get('/ai/company-report/{company_id}')
 async def generate_company_report(company_id: str, current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Generate an AI-powered company report based on all processed documents for the specified company.
+    
+    Parameters:
+    	company_id (str): The unique identifier of the company for which to generate the report.
+    
+    Returns:
+    	dict: The generated company report containing AI-driven analytics.
+    
+    Raises:
+    	HTTPException: If no documents are found for the specified company.
+    """
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
@@ -59,6 +91,15 @@ async def generate_company_report(company_id: str, current_user: dict = Depends(
 
 @router.get('/ai/system-analytics')
 async def generate_system_analytics(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Generate and return system-wide analytics by analyzing all processed documents in the database.
+    
+    Raises:
+        HTTPException: If no processed documents are found in the database.
+    
+    Returns:
+        dict: The generated system analytics report.
+    """
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
@@ -71,6 +112,12 @@ async def generate_system_analytics(current_user: dict = Depends(AuthService.ver
 
 @router.get('/ai/reports/')
 async def list_ai_reports(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve a list of AI-generated company reports and system analytics reports.
+    
+    Returns:
+        dict: A dictionary containing up to 20 company reports and up to 10 system analytics reports from the database.
+    """
     client = get_mongo_client()
     db = client.vanta_ledger
     company_reports = list(db.ai_reports.find({}, {'_id': 0}).limit(20))
@@ -82,6 +129,20 @@ async def list_ai_reports(current_user: dict = Depends(AuthService.verify_token)
 
 @router.get('/ai/reports/{report_id}')
 async def get_ai_report(report_id: str, current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve an AI-generated report by report ID from either the company or system analytics collections.
+    
+    Searches for a report matching the given ID in the `ai_reports` collection by `company_id`, and if not found, in the `system_analytics` collection by `report_date`. Raises a 404 error if no report is found.
+    
+    Parameters:
+        report_id (str): The identifier for the company or system analytics report.
+    
+    Returns:
+        dict: The report data if found.
+    
+    Raises:
+        HTTPException: If no report is found with the given ID.
+    """
     client = get_mongo_client()
     db = client.vanta_ledger
     report = db.ai_reports.find_one({'company_id': report_id}, {'_id': 0})
@@ -94,6 +155,12 @@ async def get_ai_report(report_id: str, current_user: dict = Depends(AuthService
 
 @router.get('/dashboard/overview')
 async def get_dashboard_overview(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve an overview of analytics dashboard data by aggregating information from both MongoDB and PostgreSQL sources.
+    
+    Returns:
+        dict: A summary of key analytics metrics for the dashboard overview.
+    """
     mongo_client = get_mongo_client()
     postgres_conn = get_postgres_connection()
     overview = await analytics_dashboard.get_dashboard_overview(mongo_client, postgres_conn)
@@ -102,6 +169,15 @@ async def get_dashboard_overview(current_user: dict = Depends(AuthService.verify
 
 @router.get('/dashboard/company/{company_id}')
 async def get_company_dashboard(company_id: str, current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve the dashboard overview for a specific company by aggregating data from MongoDB and PostgreSQL.
+    
+    Parameters:
+        company_id (str): The unique identifier of the company whose dashboard data is requested.
+    
+    Returns:
+        dict: The aggregated dashboard data for the specified company.
+    """
     mongo_client = get_mongo_client()
     postgres_conn = get_postgres_connection()
     company_dashboard = await analytics_dashboard.get_company_dashboard(company_id, mongo_client, postgres_conn)
@@ -110,6 +186,12 @@ async def get_company_dashboard(company_id: str, current_user: dict = Depends(Au
 
 @router.get('/analytics/financial')
 async def get_financial_analytics(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve combined financial analytics data from both MongoDB and PostgreSQL sources.
+    
+    Returns:
+        dict: Aggregated financial analytics combining data from MongoDB and PostgreSQL.
+    """
     mongo_client = get_mongo_client()
     postgres_conn = get_postgres_connection()
     mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
@@ -120,6 +202,12 @@ async def get_financial_analytics(current_user: dict = Depends(AuthService.verif
 
 @router.get('/analytics/compliance')
 async def get_compliance_analytics(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve compliance analytics metrics from MongoDB data.
+    
+    Returns:
+        dict: Compliance analytics metrics extracted from MongoDB analytics data.
+    """
     mongo_client = get_mongo_client()
     mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
     compliance_analytics = analytics_dashboard._get_compliance_metrics(mongo_data)
@@ -127,6 +215,12 @@ async def get_compliance_analytics(current_user: dict = Depends(AuthService.veri
 
 @router.get('/analytics/processing')
 async def get_processing_analytics(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve processing analytics metrics from MongoDB data.
+    
+    Returns:
+        dict: Processing analytics metrics extracted from MongoDB analytics data.
+    """
     mongo_client = get_mongo_client()
     mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
     processing_analytics = analytics_dashboard._get_processing_metrics(mongo_data)
@@ -134,6 +228,12 @@ async def get_processing_analytics(current_user: dict = Depends(AuthService.veri
 
 @router.get('/analytics/trends')
 async def get_trends_analytics(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve trends analytics data by processing MongoDB analytics information.
+    
+    Returns:
+        dict: Trends analytics data extracted from MongoDB.
+    """
     mongo_client = get_mongo_client()
     mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
     trends_analytics = await analytics_dashboard._get_trends(mongo_data)
@@ -141,6 +241,12 @@ async def get_trends_analytics(current_user: dict = Depends(AuthService.verify_t
 
 @router.get('/analytics/alerts')
 async def get_system_alerts(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve system alerts analytics data.
+    
+    Returns:
+        A list or dictionary containing system alerts extracted from analytics data.
+    """
     mongo_client = get_mongo_client()
     mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
     alerts = await analytics_dashboard._get_alerts(mongo_data)
@@ -148,6 +254,12 @@ async def get_system_alerts(current_user: dict = Depends(AuthService.verify_toke
 
 @router.get('/analytics/top-performers')
 async def get_top_performers(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve analytics data for top-performing entities from the MongoDB data source.
+    
+    Returns:
+        A list or dictionary containing information about the top performers as determined by analytics processing.
+    """
     mongo_client = get_mongo_client()
     mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
     top_performers = analytics_dashboard._get_top_performers(mongo_data)
@@ -155,6 +267,12 @@ async def get_top_performers(current_user: dict = Depends(AuthService.verify_tok
 
 @router.get('/analytics/risk-analysis')
 async def get_risk_analysis(current_user: dict = Depends(AuthService.verify_token)):
+    """
+    Retrieve risk analysis metrics from analytics data.
+    
+    Returns:
+        dict: Risk analysis metrics extracted from MongoDB analytics data.
+    """
     mongo_client = get_mongo_client()
     mongo_data = await analytics_dashboard._get_mongo_analytics(mongo_client)
     risk_analysis = analytics_dashboard._get_risk_analysis(mongo_data)

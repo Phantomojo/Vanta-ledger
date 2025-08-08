@@ -9,11 +9,29 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 security = HTTPBearer()
 
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """
+    Extract and validate a JWT token from the HTTP Authorization header.
+    
+    Returns:
+        dict: The decoded token payload if the token is valid.
+    """
     return AuthService.verify_token(credentials.credentials)
 
 @router.post("/login")
 async def login(username: str = Form(...), password: str = Form(...)):
-    """Secure login endpoint with password hashing"""
+    """
+    Authenticates a user with provided credentials and returns a JWT access token on success.
+    
+    Parameters:
+        username (str): The user's username.
+        password (str): The user's password.
+    
+    Returns:
+        dict: Contains the JWT access token, token type, token expiration in seconds, and user information.
+    
+    Raises:
+        HTTPException: If authentication fails or an unexpected error occurs.
+    """
     try:
         from ..services.user_service import get_user_service
         
@@ -54,13 +72,25 @@ async def login(username: str = Form(...), password: str = Form(...)):
 
 @router.post("/logout")
 async def logout(current_user: dict = Depends(verify_token)):
-    """Logout endpoint - add token to blacklist"""
+    """
+    Logs out the current user by blacklisting their JWT token.
+    
+    Requires a valid JWT token. After blacklisting the token's unique identifier, the user is effectively logged out and cannot use the token for further authentication.
+    
+    Returns:
+        dict: A message indicating successful logout.
+    """
     await blacklist_token(current_user.get("jti"))
     return {"message": "Successfully logged out"}
 
 @router.post("/refresh")
 async def refresh_token(current_user: dict = Depends(verify_token)):
-    """Refresh access token"""
+    """
+    Generate a new JWT access token for the authenticated user, preserving their claims and configured expiration.
+    
+    Returns:
+        dict: Contains the new access token, token type, and expiration time in seconds.
+    """
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = AuthService.create_access_token(
         data={"sub": current_user.get("sub"), "user_id": current_user.get("user_id"), "role": current_user.get("role")},
@@ -80,7 +110,21 @@ async def register_user(
     password: str = Form(...),
     role: str = Form(default="user")
 ):
-    """Register a new user"""
+    """
+    Registers a new user with the provided username, email, password, and optional role.
+    
+    Parameters:
+        username (str): The desired username for the new user.
+        email (str): The email address for the new user.
+        password (str): The password for the new user.
+        role (str, optional): The role to assign to the user. Defaults to "user".
+    
+    Returns:
+        dict: A dictionary containing a success message and the created user's details.
+    
+    Raises:
+        HTTPException: If user creation fails or an unexpected error occurs.
+    """
     try:
         from ..services.user_service import get_user_service
         from ..models.user_models import UserCreate

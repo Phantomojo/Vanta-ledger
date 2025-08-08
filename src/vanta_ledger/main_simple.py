@@ -33,12 +33,22 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    """Root endpoint"""
+    """
+    Handles the root endpoint and returns a status message with the API version.
+    
+    Returns:
+        dict: A JSON object containing a status message and the API version.
+    """
     return {"message": "Vanta Ledger API is running", "version": "0.1.0"}
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint"""
+    """
+    Return the current health status, timestamp, and API version for service monitoring.
+    
+    Returns:
+        dict: A JSON-serializable dictionary with keys "status", "timestamp", and "version".
+    """
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
@@ -47,7 +57,12 @@ async def health_check():
 
 @app.get("/test")
 async def test_endpoint():
-    """Test endpoint for verification"""
+    """
+    Handles GET requests to the /test endpoint, returning a success message for verification purposes.
+    
+    Returns:
+        dict: A JSON object with a confirmation message and success status.
+    """
     return {"message": "Test endpoint working", "status": "success"}
 
 if __name__ == "__main__":
