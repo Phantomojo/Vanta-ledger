@@ -24,7 +24,7 @@ try:
     OCR_AVAILABLE = True
 except ImportError:
     OCR_AVAILABLE = False
-    logging.warning("OCR libraries not available. Install: pip install pytesseract pdf2image python-docx PyMuPDF Pillow")
+    logging.warning("OCR libraries not available. Install: pip install pytesseract pdf2image python-docx2txt PyMuPDF Pillow")
 
 # AI and text processing
 import re

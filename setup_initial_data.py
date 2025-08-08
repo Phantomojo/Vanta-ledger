@@ -55,7 +55,7 @@ def setup_initial_data():
                 role="admin"
             )
             db.add(admin_user)
-            print(f"✅ Admin user created (username: admin, password: {admin_password})")
+            print(f"✅ Admin user created (username: admin)")
         
         # Check if Auntie Nyaruai user exists
         auntie_user = db.query(User).filter(User.username == "auntie_nyaruai").first()
@@ -69,7 +69,7 @@ def setup_initial_data():
                 role="admin"
             )
             db.add(auntie_user)
-            print(f"✅ Auntie Nyaruai user created (username: auntie_nyaruai, password: {auntie_password})")
+            print(f"✅ Auntie Nyaruai user created (username: auntie_nyaruai)")
         
         # Create default companies
         companies_data = [
@@ -110,8 +110,8 @@ def setup_initial_data():
         db.commit()
         print("🎉 Initial data setup completed successfully!")
         print("\n📋 Default Users:")
-        print(f"   - Admin: admin / {admin_password}")
-        print(f"   - Auntie Nyaruai: auntie_nyaruai / {auntie_password}")
+        print(f"   - Admin: admin")
+        print(f"   - Auntie Nyaruai: auntie_nyaruai")
         print("\n🏢 Default Companies:")
         print("   - Solopride Contractors & General Supplies Ltd")
         print("   - Company 2")
