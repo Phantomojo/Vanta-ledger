@@ -1,5 +1,4 @@
 import re
-import os
 import subprocess
 from pathlib import Path
 
@@ -39,11 +38,13 @@ target_files = [
 def update_dependency_lines(content, dep_map):
     new_lines = []
     for line in content.splitlines():
+        updated_line = line
         for pkg, version in dep_map.items():
-            # Replace if match found
-            if re.match(fr"^{pkg}[=><~]", line.strip(), re.IGNORECASE):
-                line = f"{pkg}{version}"
-        new_lines.append(line)
+            # Replace if match found - more precise pattern matching
+            if re.match(fr"^{re.escape(pkg)}[=><~]", line.strip(), re.IGNORECASE):
+                updated_line = f"{pkg}{version}"
+                break  # Only replace the first match per line
+        new_lines.append(updated_line)
     return "\n".join(new_lines)
 
 def update_file(file_path, dep_map):
