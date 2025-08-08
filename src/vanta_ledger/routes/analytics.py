@@ -102,7 +102,8 @@ async def generate_company_report(company_id: str, current_user: dict = Depends(
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
-    documents = list(collection.find({'company': company_id}))
+    # Limit to prevent unbounded reads - max 1000 documents per company
+    documents = list(collection.find({'company': company_id}).limit(1000))
     if not documents:
         raise HTTPException(status_code=404, detail='No documents found for company')
     report = await enhanced_ai_analytics_service.generate_company_report(company_id, documents)
@@ -123,7 +124,8 @@ async def generate_system_analytics(current_user: dict = Depends(AuthService.ver
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
-    all_documents = list(collection.find({}))
+    # Limit to prevent unbounded reads - max 5000 documents for system analytics
+    all_documents = list(collection.find({}).limit(5000))
     if not all_documents:
         raise HTTPException(status_code=404, detail='No documents found')
     analytics = await enhanced_ai_analytics_service.generate_system_analytics(all_documents)

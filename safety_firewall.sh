@@ -45,7 +45,7 @@ print_cyan() {
 }
 
 # Check if we're in the right directory
-if [ ! -f "backend/requirements.txt" ]; then
+if [ ! -f "requirements.txt" ]; then
     print_error "Please run this script from the Vanta Ledger root directory"
     exit 1
 fi
@@ -135,9 +135,9 @@ cat > security_monitor.sh << 'EOF'
 set -e
 
 # Configuration
-PROJECT_DIR="/home/phantomojo/Vanta-ledger"
-LOG_DIR="$PROJECT_DIR/logs"
-REPORT_DIR="$PROJECT_DIR/security_reports"
+PROJECT_DIR="${PROJECT_DIR:-$(pwd)}"
+LOG_DIR="${LOG_DIR:-$PROJECT_DIR/logs}"
+REPORT_DIR="${REPORT_DIR:-$PROJECT_DIR/security_reports}"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # Colors

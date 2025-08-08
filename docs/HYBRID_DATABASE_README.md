@@ -3,8 +3,9 @@
 Use environment variables for credentials. Do not embed real usernames/passwords here. Example:
 
 ```
-<<<<<<< Current (Your changes)
-<<<<<<< Current (Your changes)
+# Hybrid Database Readme
+
+Use environment variables for credentials. Do not embed real usernames/passwords here. Example:
 
 ## 🚀 Quick Start
 

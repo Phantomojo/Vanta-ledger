@@ -10,13 +10,13 @@ cat > $CRON_FILE << 'CRON_JOBS'
 # Generated: $(date)
 
 # Daily security scan at 6 AM
-0 6 * * * cd /home/phantomojo/Vanta-ledger && ./security_monitor.sh >> /home/phantomojo/Vanta-ledger/logs/cron.log 2>&1
+0 6 * * * cd "${PROJECT_DIR:-$(pwd)}" && ./security_monitor.sh >> "${PROJECT_DIR:-$(pwd)}/logs/cron.log" 2>&1
 
 # Weekly security report every Sunday at 8 AM
-0 8 * * 0 cd /home/phantomojo/Vanta-ledger && ./weekly_security_report.sh >> /home/phantomojo/Vanta-ledger/logs/cron.log 2>&1
+0 8 * * 0 cd "${PROJECT_DIR:-$(pwd)}" && ./weekly_security_report.sh >> "${PROJECT_DIR:-$(pwd)}/logs/cron.log" 2>&1
 
 # Monthly dependency update check on 1st of month at 10 AM
-0 10 1 * * cd /home/phantomojo/Vanta-ledger && ./security_fix.sh >> /home/phantomojo/Vanta-ledger/logs/cron.log 2>&1
+0 10 1 * * cd "${PROJECT_DIR:-$(pwd)}" && ./security_fix.sh >> "${PROJECT_DIR:-$(pwd)}/logs/cron.log" 2>&1
 CRON_JOBS
 
 echo "🔒 Security cron jobs created:"

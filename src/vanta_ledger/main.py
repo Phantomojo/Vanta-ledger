@@ -6,10 +6,9 @@ Advanced document processing and financial data management system
 
 import os
 from datetime import datetime, timedelta
-from typing import List, Optional, Dict, Any
-from pathlib import Path
+from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Depends, status, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -25,18 +24,7 @@ from .config import settings
 from .middleware import LoggingMiddleware, SecurityHeadersMiddleware, RateLimitMiddleware
 
 # Import authentication
-from .auth import AuthService, get_current_user, get_user_by_username
-
-# Import secure file handling
-from .utils.file_utils import secure_file_handler
-
-# Import input validation
-from .utils.validation import input_validator
-
-# Import document processor
-from .services.document_processor import DocumentProcessor
-from .services.ai_analytics_service import enhanced_ai_analytics_service
-from .services.analytics_dashboard import analytics_dashboard
+from .auth import AuthService
 
 # Import enhanced document management
 from .routes.enhanced_documents import router as enhanced_documents_router
