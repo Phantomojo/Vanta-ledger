@@ -6,7 +6,7 @@
 echo "🖥️  Cursor Single Window Manager"
 echo "================================"
 
-# Function to kill all Cursor processes
+# kill_all_cursor terminates all running Cursor application processes, first attempting a graceful shutdown and then forcefully killing any remaining instances.
 kill_all_cursor() {
     echo "🔄 Killing all Cursor processes..."
     
@@ -23,13 +23,13 @@ kill_all_cursor() {
     echo "✅ All Cursor processes terminated"
 }
 
-# Function to check if Cursor is running
+# is_cursor_running checks if any Cursor process is currently running and returns success if found, failure otherwise.
 is_cursor_running() {
     pgrep -f "cursor.AppImage" >/dev/null 2>&1
     return $?
 }
 
-# Function to start Cursor in single instance mode
+# start_cursor_single ensures only one Cursor process is running by terminating existing instances and launching Cursor in single instance mode.
 start_cursor_single() {
     echo "🚀 Starting Cursor in single instance mode..."
     
@@ -42,7 +42,7 @@ start_cursor_single() {
     echo "✅ Cursor started in single instance mode"
 }
 
-# Function to monitor and maintain single instance
+# monitor_cursor continuously checks for multiple running Cursor processes and enforces a single instance by terminating extras and restarting Cursor if needed.
 monitor_cursor() {
     echo "👁️  Monitoring Cursor processes..."
     
@@ -62,7 +62,7 @@ monitor_cursor() {
     done
 }
 
-# Function to create a systemd user service (optional)
+# create_systemd_service creates and starts a systemd user service to monitor and enforce a single instance of the Cursor application.
 create_systemd_service() {
     echo "🔧 Creating systemd user service for Cursor management..."
     
@@ -91,7 +91,7 @@ EOF
     echo "   To disable: systemctl --user disable cursor-single.service"
 }
 
-# Function to show current Cursor status
+# show_status displays the number and PIDs of running Cursor processes, indicating whether none, one, or multiple instances are active.
 show_status() {
     echo ""
     echo "📊 Current Cursor Status:"
@@ -114,7 +114,7 @@ show_status() {
     echo ""
 }
 
-# Function to create desktop shortcut with single instance
+# create_desktop_shortcut creates a desktop shortcut that launches the Cursor application in single instance mode using this script.
 create_desktop_shortcut() {
     echo "🔧 Creating desktop shortcut for single instance Cursor..."
     
@@ -135,7 +135,7 @@ EOF
     echo "✅ Desktop shortcut created: ~/Desktop/Cursor-Single.desktop"
 }
 
-# Function to create Python wrapper to prevent Cursor windows
+# create_python_wrapper creates a shell script that wraps Python execution to prevent Cursor windows by terminating Cursor processes before and after running a Python script.
 create_python_wrapper() {
     echo "🐍 Creating Python wrapper to prevent Cursor windows..."
     
@@ -161,7 +161,7 @@ EOF
     echo "   Usage: ./scripts/safe_python.sh <script.py>"
 }
 
-# Function to add to .bashrc for automatic protection
+# add_to_bashrc configures the user's .bashrc to enforce single-instance Cursor protection and safe Python execution in new terminal sessions.
 add_to_bashrc() {
     echo "🔧 Adding Cursor protection to .bashrc..."
     
@@ -179,7 +179,7 @@ add_to_bashrc() {
     fi
 }
 
-# Function to protect current session
+# protect_session kills all running Cursor processes and sets up aliases in the current shell session to ensure Python commands use a wrapper that prevents multiple Cursor windows.
 protect_session() {
     echo "🛡️  Protecting current session from multiple Cursor windows..."
     
@@ -193,7 +193,7 @@ protect_session() {
     echo "✅ Session protected - Python commands will use safe wrapper"
 }
 
-# Main function
+# main parses command-line options and executes the corresponding Cursor management function or setup action.
 main() {
     case "${1:-}" in
         "--kill")

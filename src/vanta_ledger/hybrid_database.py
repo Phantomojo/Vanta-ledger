@@ -33,6 +33,12 @@ class HybridDatabaseManager:
     
     def __init__(self):
         # Database configuration
+        """
+        Initializes the HybridDatabaseManager by loading required database URIs from environment variables and establishing connections to PostgreSQL and MongoDB.
+        
+        Raises:
+            ValueError: If either POSTGRES_URI or MONGO_URI environment variable is not set.
+        """
         self.postgres_uri = os.getenv("POSTGRES_URI")
         self.mongo_uri = os.getenv("MONGO_URI")
 

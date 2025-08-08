@@ -6,7 +6,7 @@
 echo "🔒 Isolated Environment Fix - Complete Cursor Isolation"
 echo "======================================================="
 
-# Function to create isolated environment
+# create_isolated_environment creates a new Python virtual environment with all Cursor-related paths temporarily removed from PATH to prevent interference, verifies its integrity, and restores the original PATH. Returns a nonzero status if creation or verification fails.
 create_isolated_environment() {
     echo "🔒 Creating isolated environment..."
     
@@ -52,7 +52,7 @@ create_isolated_environment() {
     fi
 }
 
-# Function to install dependencies in isolated environment
+# install_dependencies installs and upgrades pip, then installs project dependencies in editable development mode within the isolated Python virtual environment.
 install_dependencies() {
     echo "📦 Installing dependencies in isolated environment..."
     
@@ -70,7 +70,7 @@ install_dependencies() {
     echo "✅ Dependencies installed successfully"
 }
 
-# Function to test the isolated environment
+# test_isolated_environment activates the isolated Python virtual environment, verifies Python and pip functionality, and tests importing key project modules to ensure the environment is correctly set up.
 test_isolated_environment() {
     echo "🧪 Testing isolated environment..."
     
@@ -118,7 +118,7 @@ except Exception as e:
     echo "✅ Isolated environment test completed"
 }
 
-# Function to show final status
+# show_final_status prints a summary of the isolated Python environment setup, including environment status, project installation, absence of Cursor interference, and recommended next steps.
 show_final_status() {
     echo ""
     echo "📊 Final Status:"
@@ -139,7 +139,7 @@ show_final_status() {
     echo "🛡️  Cursor was not touched - it should still be running!"
 }
 
-# Main execution
+# main orchestrates the creation, setup, testing, and status reporting of a fully isolated Python environment free from Cursor interference.
 main() {
     echo "🚀 Starting isolated environment fix..."
     

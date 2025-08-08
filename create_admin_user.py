@@ -15,7 +15,12 @@ from vanta_ledger.services.user_service import get_user_service
 from vanta_ledger.models.user_models import UserCreate
 
 def create_admin_user():
-    """Create admin user"""
+    """
+    Creates an admin user with predefined credentials in the Vanta Ledger system.
+    
+    Returns:
+        The created admin user object if successful, or None if user creation fails.
+    """
     try:
         user_service = get_user_service()
         

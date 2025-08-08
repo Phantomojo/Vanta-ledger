@@ -6,17 +6,17 @@
 CURSOR_APP="/home/phantomojo/Applications/cursor.AppImage"
 LOCK_FILE="/tmp/cursor_single_instance.lock"
 
-# Function to check if Cursor is running
+# is_cursor_running checks if any Cursor application process is currently running.
 is_cursor_running() {
     pgrep -f "cursor.AppImage" >/dev/null
 }
 
-# Function to get Cursor PID
+# get_cursor_pid retrieves the process ID(s) of running Cursor application instances.
 get_cursor_pid() {
     pgrep -f "cursor.AppImage"
 }
 
-# Function to start Cursor (single instance)
+# start_cursor launches the Cursor application if it is not already running, ensuring only a single instance by creating a lock file with the process ID.
 start_cursor() {
     if is_cursor_running; then
         echo "✅ Cursor is already running (PID: $(get_cursor_pid))"
@@ -41,7 +41,7 @@ start_cursor() {
     fi
 }
 
-# Function to stop Cursor
+# stop_cursor terminates all running instances of the Cursor application and removes the lock file.
 stop_cursor() {
     if ! is_cursor_running; then
         echo "ℹ️  Cursor is not running"
@@ -63,7 +63,7 @@ stop_cursor() {
     echo "✅ Cursor stopped"
 }
 
-# Function to restart Cursor
+# restart_cursor stops the running Cursor application and then starts it again.
 restart_cursor() {
     echo "🔄 Restarting Cursor..."
     stop_cursor
@@ -71,7 +71,7 @@ restart_cursor() {
     start_cursor
 }
 
-# Function to show status
+# show_status displays the current running status of the Cursor application, including its PID and lock file state, and lists available management commands.
 show_status() {
     echo "📊 Cursor Status:"
     echo "================="
@@ -93,7 +93,7 @@ show_status() {
     echo "   $0 status   - Show status"
 }
 
-# Function to clean up stale lock files
+# cleanup_lock removes the lock file if it exists and the recorded process is no longer running.
 cleanup_lock() {
     if [ -f "$LOCK_FILE" ]; then
         LOCK_PID=$(cat $LOCK_FILE)
@@ -104,7 +104,7 @@ cleanup_lock() {
     fi
 }
 
-# Main execution
+# main parses the command-line argument and executes the corresponding Cursor process management command.
 main() {
     # Clean up stale lock files
     cleanup_lock

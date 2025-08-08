@@ -14,7 +14,16 @@ async def get_companies(
     limit: int = 20,
     current_user: dict = Depends(AuthService.verify_token)
 ):
-    """Get all companies with secure pagination"""
+    """
+    Retrieve a paginated list of companies with their details.
+    
+    Parameters:
+        page (int): The page number to retrieve, starting from 1.
+        limit (int): The maximum number of companies per page, up to 100.
+    
+    Returns:
+        dict: Contains a list of companies (each with id, name, industry, revenue), total count, current page, limit, and total pages.
+    """
     page, limit = input_validator.validate_pagination_params(page, limit, max_limit=100)
 
     conn = get_postgres_connection()
@@ -51,7 +60,17 @@ async def get_companies(
 
 @router.get("/{company_id}")
 async def get_company(company_id: int, current_user: dict = Depends(AuthService.verify_token)):
-    """Get company by ID with input validation"""
+    """
+    Retrieve a company's details by its unique ID.
+    
+    Validates the provided company ID and returns the company's id, name, industry, and revenue. Raises a 404 error if the company does not exist.
+    
+    Parameters:
+    	company_id (int): The unique identifier of the company to retrieve.
+    
+    Returns:
+    	dict: A dictionary containing the company's id, name, industry, and revenue.
+    """
     company_id = input_validator.validate_integer(company_id, min_value=1, field_name="company_id")
 
     conn = get_postgres_connection()

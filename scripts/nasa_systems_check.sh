@@ -20,44 +20,49 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Function to print colored output
+# print_header prints a formatted header message in purple color for section separation.
 print_header() {
     echo -e "${PURPLE}╔══════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${PURPLE}║ $1${NC}"
     echo -e "${PURPLE}╚══════════════════════════════════════════════════════════════╝${NC}"
 }
 
+# print_status prints an informational status message in blue to stdout.
 print_status() {
     echo -e "${BLUE}[INFO]${NC} $1"
 }
 
+# print_success prints a success message in green with a checkmark indicator.
 print_success() {
     echo -e "${GREEN}[✓ SUCCESS]${NC} $1"
 }
 
+# print_warning prints a warning message in yellow with a warning icon.
 print_warning() {
     echo -e "${YELLOW}[⚠ WARNING]${NC} $1"
 }
 
+# print_error prints an error message in red with an "[✗ ERROR]" prefix.
 print_error() {
     echo -e "${RED}[✗ ERROR]${NC} $1"
 }
 
+# print_critical prints a critical error message in red with a "CRITICAL" label.
 print_critical() {
     echo -e "${RED}[🚨 CRITICAL]${NC} $1"
 }
 
-# Function to check if a command exists
+# command_exists checks if a given command is available in the system's PATH.
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Function to check if a port is in use
+# port_in_use checks if the specified port is currently in use on the system.
 port_in_use() {
     lsof -i :$1 >/dev/null 2>&1
 }
 
-# Function to check if a service is responding
+# check_service tests if a network service is responding on a specified host and port, printing the result and returning success or failure.
 check_service() {
     local host=$1
     local port=$2
@@ -73,7 +78,7 @@ check_service() {
     fi
 }
 
-# Function to check file permissions
+# check_file_permissions verifies that a specified file exists and matches the expected permissions, printing a status message accordingly.
 check_file_permissions() {
     local file=$1
     local expected_perms=$2
@@ -91,7 +96,7 @@ check_file_permissions() {
     fi
 }
 
-# Function to check directory structure
+# check_directory_structure verifies the existence of essential directories and files required for the Vanta Ledger project structure, reporting any missing components.
 check_directory_structure() {
     print_header "SYSTEMS CHECK 1: PROJECT STRUCTURE VERIFICATION"
     
@@ -135,7 +140,7 @@ check_directory_structure() {
     done
 }
 
-# Function to check virtual environment
+# check_virtual_environment verifies the presence, integrity, and activation of the Python virtual environment, ensuring correct symbolic links and functional Python and pip executables.
 check_virtual_environment() {
     print_header "SYSTEMS CHECK 2: VIRTUAL ENVIRONMENT VERIFICATION"
     
@@ -192,7 +197,7 @@ check_virtual_environment() {
     fi
 }
 
-# Function to check dependencies
+# check_dependencies verifies that the Vanta Ledger package and all critical Python dependencies are installed, attempting installation if missing.
 check_dependencies() {
     print_header "SYSTEMS CHECK 3: DEPENDENCIES VERIFICATION"
     
@@ -233,7 +238,7 @@ check_dependencies() {
     done
 }
 
-# Function to check environment variables
+# check_environment_variables verifies the presence of a .env file and checks that all critical environment variables required for the application are set.
 check_environment_variables() {
     print_header "SYSTEMS CHECK 4: ENVIRONMENT VARIABLES VERIFICATION"
     
@@ -266,7 +271,7 @@ check_environment_variables() {
     done
 }
 
-# Function to check database connectivity
+# check_database_connectivity verifies connectivity to PostgreSQL, MongoDB, and Redis services and tests actual database connections using Python.
 check_database_connectivity() {
     print_header "SYSTEMS CHECK 5: DATABASE CONNECTIVITY VERIFICATION"
     
@@ -327,7 +332,7 @@ except Exception as e:
     fi
 }
 
-# Function to check security configuration
+# check_security_configuration verifies security-related settings, including file permissions, presence of hardcoded secrets, and JWT configuration for the Vanta Ledger project.
 check_security_configuration() {
     print_header "SYSTEMS CHECK 6: SECURITY CONFIGURATION VERIFICATION"
     
@@ -365,7 +370,7 @@ check_security_configuration() {
     fi
 }
 
-# Function to check application imports
+# check_application_imports verifies that critical Vanta Ledger Python modules can be imported and that the FastAPI application instance can be created successfully.
 check_application_imports() {
     print_header "SYSTEMS CHECK 7: APPLICATION IMPORTS VERIFICATION"
     
@@ -399,7 +404,7 @@ print('FastAPI application created successfully')
     fi
 }
 
-# Function to check network connectivity
+# check_network_connectivity verifies local network connectivity, checks if the application port 8500 is available, and tests internet access by pinging an external DNS server.
 check_network_connectivity() {
     print_header "SYSTEMS CHECK 8: NETWORK CONNECTIVITY VERIFICATION"
     
@@ -425,7 +430,7 @@ check_network_connectivity() {
     fi
 }
 
-# Function to run application tests
+# run_application_tests executes key Python test scripts for the Vanta Ledger project, reporting their presence and pass/fail status.
 run_application_tests() {
     print_header "SYSTEMS CHECK 9: APPLICATION TESTS VERIFICATION"
     
@@ -454,7 +459,7 @@ run_application_tests() {
     fi
 }
 
-# Function to check system resources
+# check_system_resources verifies disk usage, available memory, and reports Python and pip versions to assess system readiness.
 check_system_resources() {
     print_header "SYSTEMS CHECK 10: SYSTEM RESOURCES VERIFICATION"
     
@@ -483,7 +488,7 @@ check_system_resources() {
     print_status "Pip version: $PIP_VERSION"
 }
 
-# Function to generate systems report
+# generate_systems_report prints a final summary report of the systems check, including operational status, recommendations, launch readiness, and next steps for the Vanta Ledger project.
 generate_systems_report() {
     print_header "SYSTEMS CHECK 11: FINAL SYSTEMS REPORT"
     
@@ -535,7 +540,7 @@ generate_systems_report() {
     echo ""
 }
 
-# Main execution
+# main orchestrates the full systems check sequence for the Vanta Ledger project, verifying environment setup, dependencies, connectivity, security, and readiness for launch.
 main() {
     echo "🚀 Starting NASA-style systems check..."
     echo "Mission Control: All systems, prepare for verification sequence..."

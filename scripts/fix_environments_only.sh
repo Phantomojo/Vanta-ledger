@@ -6,7 +6,7 @@
 echo "🔧 Fixing Python Environments (Keeping Cursor Alive)"
 echo "===================================================="
 
-# Function to backup current state
+# backup_current_state creates timestamped backups of current Python dependencies and the .env configuration file if they exist.
 backup_current_state() {
     echo "📦 Backing up current state..."
     
@@ -25,7 +25,7 @@ backup_current_state() {
     echo "✅ Backup completed"
 }
 
-# Function to purge corrupted environments
+# purge_environments removes existing Python virtual environments, cache files, and corrupted Python symbolic links from the project directory.
 purge_environments() {
     echo "🗑️  Purging corrupted environments..."
     
@@ -53,7 +53,7 @@ purge_environments() {
     echo "✅ Environment purge completed"
 }
 
-# Function to verify system Python
+# verify_system_python checks for the presence of system Python and pip at expected locations and exits with an error if either is missing.
 verify_system_python() {
     echo "🔍 Verifying system Python..."
     
@@ -74,7 +74,7 @@ verify_system_python() {
     echo "✅ System pip found: $(/usr/bin/pip3 --version)"
 }
 
-# Function to create clean virtual environment
+# create_clean_environment creates a new Python virtual environment named 'venv' using the system Python interpreter.
 create_clean_environment() {
     echo "🏗️  Creating clean virtual environment..."
     
@@ -90,7 +90,7 @@ create_clean_environment() {
     echo "✅ Virtual environment created"
 }
 
-# Function to fix symbolic links
+# fix_symbolic_links removes existing Python and pip symbolic links in the virtual environment and recreates them to point to the system Python and pip binaries, ensuring correct interpreter usage. Exits with an error if the new links do not function properly.
 fix_symbolic_links() {
     echo "🔗 Fixing symbolic links..."
     
@@ -126,7 +126,7 @@ fix_symbolic_links() {
     fi
 }
 
-# Function to install dependencies
+# install_dependencies installs and upgrades pip, then installs project dependencies in editable mode with development extras inside the virtual environment.
 install_dependencies() {
     echo "📦 Installing dependencies..."
     
@@ -144,7 +144,7 @@ install_dependencies() {
     echo "✅ Dependencies installed"
 }
 
-# Function to test the setup
+# test_setup activates the virtual environment and verifies Python and project module imports, then runs a basic project test script to confirm the environment is correctly set up.
 test_setup() {
     echo "🧪 Testing setup..."
     
@@ -184,7 +184,7 @@ except ImportError as e:
     echo "✅ Setup test completed"
 }
 
-# Function to show final status
+# show_final_status displays the outcome of the environment repair process, summarizes the status of key components, and provides next steps for the user.
 show_final_status() {
     echo ""
     echo "📊 Final Status:"
@@ -204,7 +204,7 @@ show_final_status() {
     echo "🛡️  Cursor was not touched - it should still be running!"
 }
 
-# Main execution
+# main orchestrates the full repair process for Python virtual environments, ensuring a clean setup while preserving the running Cursor IDE session.
 main() {
     echo "🚀 Starting environment fix (keeping Cursor alive)..."
     
