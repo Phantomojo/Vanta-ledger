@@ -18,18 +18,18 @@ redis==5.0.1
 # Authentication & Security
 python-jose[cryptography]==3.5.0
 passlib[bcrypt]==1.7.4
-python-multipart==0.0.20
+python-multipart==0.0.18
 PyJWT==2.10.1
-cryptography==45.0.6
+cryptography==44.0.1
 
 # HTTP & Networking
 requests==2.32.4
-aiohttp==3.12.15
+aiohttp==3.12.14
 httpx==0.28.1
 urllib3==2.5.0
 
 # File Processing
-python-multipart==0.0.20
+python-multipart==0.0.18
 aiofiles==24.1.0
 Pillow==10.3.0
 
