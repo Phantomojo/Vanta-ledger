@@ -7,6 +7,7 @@ Creates default users and companies for the system
 import sys
 import os
 from pathlib import Path
+from getpass import getpass
 
 # Add the src directory to Python path
 src_path = Path(__file__).parent / "src"
@@ -17,12 +18,23 @@ from vanta_ledger.models.user import User
 from vanta_ledger.models.company import Company
 from vanta_ledger.auth import get_password_hash
 
+
+def get_initial_passwords():
+    """Fetch initial passwords from environment, error if missing/weak."""
+    admin_password = os.getenv("ADMIN_PASSWORD")
+    auntie_password = os.getenv("AUNTIE_PASSWORD")
+    if not admin_password or len(admin_password) < 12:
+        raise RuntimeError("ADMIN_PASSWORD must be set and at least 12 characters")
+    if not auntie_password or len(auntie_password) < 12:
+        raise RuntimeError("AUNTIE_PASSWORD must be set and at least 12 characters")
+    return admin_password, auntie_password
+
+
 def setup_initial_data():
     """Setup initial data for the system"""
     
-    # Get passwords from environment or use defaults
-    admin_password = os.getenv("ADMIN_PASSWORD", "admin123")
-    auntie_password = os.getenv("AUNTIE_PASSWORD", "auntie123")
+    admin_password, auntie_password = get_initial_passwords()
+    print("✅ Initial passwords loaded from environment.")
     
     # Create database tables
     print("📊 Creating database tables...")
