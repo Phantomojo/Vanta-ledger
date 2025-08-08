@@ -51,7 +51,7 @@ class AnalyticsDashboard:
             
         except Exception as e:
             logger.error(f"❌ Dashboard overview generation failed: {e}")
-            return {"error": str(e)}
+            return {"error": "An internal error has occurred."}
 
     async def _get_mongo_analytics(self, mongo_client) -> Dict[str, Any]:
         """Get analytics data from MongoDB"""
