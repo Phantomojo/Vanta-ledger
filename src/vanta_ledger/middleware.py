@@ -32,8 +32,9 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         self.requests_per_hour: Dict[str, list] = defaultdict(list)
     
     async def dispatch(self, request: Request, call_next):
-        # Get client IP
-        client_ip = request.client.host
+        # Determine client IP (basic proxy-aware)
+        xff = request.headers.get("x-forwarded-for")
+        client_ip = xff.split(",")[0].strip() if xff else request.client.host
         
         # Check rate limits
         current_time = time.time()
@@ -92,7 +93,8 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         if request.url.path == "/docs":
             response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' https://fastapi.tiangolo.com; font-src 'self' https://cdn.jsdelivr.net"
         else:
-            response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
+            # Remove unsafe-inline by default for app routes
+            response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self'"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
         
@@ -105,7 +107,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         start_time = time.time()
         
         # Log request
-        logger.info(f"Request: {request.method} {request.url} from {request.client.host}")
+        logger.info(f"Request: {request.method} {request.url} from {request.headers.get('x-forwarded-for') or request.client.host}")
         
         # Process request
         response = await call_next(request)

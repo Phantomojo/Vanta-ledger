@@ -1,7 +1,11 @@
-# Vanta Ledger
+# Vanta Ledger Documentation
 
-A comprehensive document management and financial tracking system for construction companies.
+## Access
+- Backend API: http://localhost:8500
+- API Docs: http://localhost:8500/docs
 
+<<<<<<< Current (Your changes)
+<<<<<<< Current (Your changes)
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -166,3 +170,9 @@ For support and questions:
 - Review the API documentation
 - Check the logs in `/logs`
 - Open an issue on GitHub
+=======
+Note: Initial admin credentials are not hardcoded. Set `ADMIN_PASSWORD` (12+ chars) in your environment before running the database init script. Do not commit secrets.
+>>>>>>> Incoming (Background Agent changes)
+=======
+Note: Initial admin credentials are not hardcoded. Set `ADMIN_PASSWORD` (12+ chars) in your environment before running the database init script. Do not commit secrets.
+>>>>>>> Incoming (Background Agent changes)

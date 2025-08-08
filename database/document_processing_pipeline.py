@@ -31,7 +31,6 @@ from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
 # Document processing imports
-import PyPDF2
 import docx
 import pandas as pd
 import numpy as np
@@ -158,21 +157,11 @@ class DocumentProcessingPipeline:
         try:
             text = ""
             
-            # Try PyMuPDF first (better for complex PDFs)
-            try:
-                doc = fitz.open(file_path)
-                for page in doc:
-                    text += page.get_text()
-                doc.close()
-            except:
-                # Fallback to PyPDF2
-                try:
-                    with open(file_path, 'rb') as file:
-                        pdf_reader = PyPDF2.PdfReader(file)
-                        for page in pdf_reader.pages:
-                            text += page.extract_text()
-                except:
-                    text = f"[PDF file: {file_path.name} - text extraction failed]"
+            # Use PyMuPDF (more secure and feature-rich)
+            doc = fitz.open(file_path)
+            for page in doc:
+                text += page.get_text()
+            doc.close()
             
             return text.strip()
             

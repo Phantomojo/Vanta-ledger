@@ -59,6 +59,7 @@ log/
 .env.local
 .env.production
 .env.staging
+.env.backup.*
 
 # Model files (too large for git)
 models/*.gguf

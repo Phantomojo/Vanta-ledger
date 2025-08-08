@@ -15,7 +15,7 @@ from fastapi import FastAPI, HTTPException, Depends, status, UploadFile, File, F
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
-import jwt
+from jose import jwt
 import pymongo
 import psycopg2
 import redis
@@ -77,6 +77,11 @@ async def startup_event():
     """
     Initializes required services asynchronously when the application starts.
     """
+    # Validate required runtime configuration now (not at import time)
+    settings.validate_required_config()
+    if not settings.DEBUG and not settings.SECRET_KEY:
+        # Defensive check: validate_required_config should have raised
+        raise RuntimeError("SECRET_KEY must be configured in production")
     await initialize_services()
 
 # Add middleware

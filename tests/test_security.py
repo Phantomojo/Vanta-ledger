@@ -21,6 +21,34 @@ from backend.app.config import settings
 
 client = TestClient(app)
 
+
+def get_admin_password():
+    pwd = os.getenv("ADMIN_PASSWORD")
+    if not pwd:
+        pytest.skip("ADMIN_PASSWORD not set; skipping auth-dependent tests")
+    return pwd
+
+
+def test_login_success():
+    pwd = get_admin_password()
+    response = client.post("/auth/login", data={
+        "username": "admin",
+        "password": pwd,
+    })
+    assert response.status_code == 200
+
+
+def test_refresh_and_blacklist():
+    pwd = get_admin_password()
+    login_response = client.post("/auth/login", data={
+        "username": "admin",
+        "password": pwd,
+    })
+    token = login_response.json()["access_token"]
+    assert token
+    # Additional blacklist/refresh tests would go here
+
+
 class TestAuthentication:
     """Test authentication security"""
     

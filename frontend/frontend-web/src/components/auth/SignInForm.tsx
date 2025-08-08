@@ -181,7 +181,7 @@ export default function SignInForm() {
 
             <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
-                Demo Credentials: <strong>admin</strong> / <strong>admin123</strong>
+                Use your configured credentials. Demo accounts are not hardcoded.
               </p>
             </div>
 
