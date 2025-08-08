@@ -21,7 +21,7 @@ import psycopg2
 import redis
 import prometheus_client
 from prometheus_client import Counter, Histogram
-
+import logging
 # Import settings and middleware
 from .config import settings
 from .middleware import LoggingMiddleware, SecurityHeadersMiddleware, RateLimitMiddleware
@@ -168,8 +168,15 @@ async def health_check_endpoint():
     """
     Asynchronously returns the current health status of the service.
     """
-    return await health_check()
-
+    logger = logging.getLogger("vanta_ledger.main")
+    try:
+        return await health_check()
+    except Exception as e:
+        logger.error(f"Health check endpoint failed: {str(e)}")
+        return JSONResponse(
+            status_code=500,
+            content={"status": "unhealthy", "error": "Internal server error"}
+        )
 # Metrics endpoint
 @app.get("/metrics")
 async def metrics():
