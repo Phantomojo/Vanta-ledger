@@ -1,12 +1,9 @@
 # 🔒 Safety Policy for Vanta Ledger
-# Version: Safety CLI 3.0
+# Version: Safety CLI 3.6
 # Purpose: Security scanning configuration
 
-# Ignore low severity vulnerabilities
-ignore-cvss-severity-below: 4.0
-
-# Continue scanning even if vulnerabilities are found
-continue-on-vulnerability-error: true
-
-# Ignore unpinned requirements warnings
-ignore-unpinned-requirements: true
+# Security configuration compatible with Safety 3.6
+security:
+  ignore-cvss-severity-below: 4.0
+  continue-on-vulnerability-error: true
+  ignore-unpinned-requirements: true
