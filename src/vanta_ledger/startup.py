@@ -89,5 +89,5 @@ async def health_check():
         logger.error(f"Health check failed: {str(e)}")
         return {
             "status": "unhealthy",
-            "error": str(e)
+            "error": "Internal server error"
         } 
