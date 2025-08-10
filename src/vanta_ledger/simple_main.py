@@ -116,7 +116,7 @@ async def initialize_database():
             status_code=500,
             content={
                 "status": "error",
-                "message": str(e)
+                "message": "Internal server error"
             }
         )
 
