@@ -68,17 +68,17 @@ class User:
     def __init__(self, id: str, username: str, email: str, hashed_password: str, 
                  is_active: bool = True, role: str = "user"):
         """
-                 Initialize a User instance with identification, authentication, and role attributes.
-                 
-                 Parameters:
-                     id (str): Unique identifier for the user.
-                     username (str): The user's username.
-                     email (str): The user's email address.
-                     hashed_password (str): The user's hashed password.
-                     is_active (bool, optional): Indicates if the user account is active. Defaults to True.
-                     role (str, optional): The user's role (e.g., "user", "admin"). Defaults to "user".
-                 """
-                 self.id = id
+        Initialize a User instance with identification, authentication, and role attributes.
+        
+        Parameters:
+            id (str): Unique identifier for the user.
+            username (str): The user's username.
+            email (str): The user's email address.
+            hashed_password (str): The user's hashed password.
+            is_active (bool, optional): Indicates if the user account is active. Defaults to True.
+            role (str, optional): The user's role (e.g., "user", "admin"). Defaults to "user".
+        """
+        self.id = id
         self.username = username
         self.email = email
         self.hashed_password = hashed_password
@@ -165,7 +165,7 @@ class AuthService:
             redis_client.setex(f"blacklist:{jti}", expires_in, "1")
             return True
         except Exception as e:
-            logger.error(f"Error blacklisting token: {str(e)}")
+            logger.error("Error blacklisting token: Internal error")
             return False
     
     @staticmethod
@@ -179,13 +179,60 @@ class AuthService:
         try:
             return redis_client.exists(f"blacklist:{jti}") > 0
         except Exception as e:
-            logger.error(f"Error checking token blacklist: {str(e)}")
+            logger.error("Error checking token blacklist: Internal error")
             return False
+    
+    @staticmethod
+    def authenticate_user(username: str, password: str) -> Optional[Dict[str, Any]]:
+        """
+        Authenticate a user with username and password
+        
+        Parameters:
+            username (str): The username to authenticate
+            password (str): The plaintext password
+            
+        Returns:
+            Optional[Dict[str, Any]]: User data if authentication successful, None otherwise
+        """
+        try:
+            # Try SQLAlchemy-based authentication first
+            from .database_init import get_database_initializer
+            from .models.user_models import UserDB
+            
+            db_init = get_database_initializer()
+            session = db_init.SessionLocal()
+            
+            try:
+                # Find user by username
+                db_user = session.query(UserDB).filter(UserDB.username == username).first()
+                
+                if db_user and db_user.is_active:
+                    # Verify password
+                    if AuthService.verify_password(password, db_user.hashed_password):
+                        # Update last login
+                        db_user.last_login = datetime.utcnow()
+                        session.commit()
+                        
+                        return {
+                            "username": db_user.username,
+                            "user_id": str(db_user.id),
+                            "email": db_user.email,
+                            "role": db_user.role
+                        }
+                
+                return None
+                
+            finally:
+                session.close()
+                
+        except Exception as e:
+            logger.error(f"Error authenticating user {username}: Authentication failed")
+            return None
 
 # User management functions with database integration
-async def get_user_by_username(username: str) -> Optional[User]:
+def get_user_by_username(username: str) -> Optional[User]:
     """
-    Asynchronously retrieves a user by username from the database.
+    Retrieves a user by username from the database.
     
     Parameters:
         username (str): The username to search for.
@@ -209,10 +256,10 @@ async def get_user_by_username(username: str) -> Optional[User]:
             )
         return None
     except Exception as e:
-        logger.error(f"Error getting user by username {username}: {str(e)}")
+        logger.error(f"Error getting user by username {username}: User retrieval failed")
         return None
 
-async def get_user_by_id(user_id: str) -> Optional[User]:
+def get_user_by_id(user_id: str) -> Optional[User]:
     """
     Retrieve a user by their unique ID from the database.
     
@@ -238,7 +285,7 @@ async def get_user_by_id(user_id: str) -> Optional[User]:
             )
         return None
     except Exception as e:
-        logger.error(f"Error getting user by ID {user_id}: {str(e)}")
+        logger.error(f"Error getting user by ID {user_id}: User retrieval failed")
         return None
 
 async def create_user(username: str, email: str, password: str, role: str = "user") -> User:
@@ -285,7 +332,7 @@ async def create_user(username: str, email: str, password: str, role: str = "use
         else:
             raise Exception("Failed to create user")
     except Exception as e:
-        logger.error(f"Error creating user {username}: {str(e)}")
+        logger.error(f"Error creating user {username}: User creation failed")
         raise
 
 # Dependency for getting current user
@@ -326,7 +373,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error getting current user: {str(e)}")
+        logger.error("Error getting current user: User retrieval failed")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials"
@@ -342,4 +389,17 @@ def require_role(required_role: str):
                 detail="Insufficient permissions"
             )
         return current_user
-    return role_checker 
+    return role_checker
+
+# FastAPI dependency function for token verification
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """
+    Verifies the provided HTTP Bearer token and returns the associated user or authentication context.
+    
+    Parameters:
+        credentials (HTTPAuthorizationCredentials): The HTTP Bearer credentials extracted from the request.
+    
+    Returns:
+        The result of token verification, typically user information or authentication context.
+    """
+    return AuthService.verify_token(credentials.credentials) 

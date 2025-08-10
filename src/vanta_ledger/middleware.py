@@ -11,7 +11,9 @@ from .config import settings
 import os
 
 # Ensure log directory exists
-os.makedirs(os.path.dirname(settings.LOG_FILE), exist_ok=True)
+log_dir = os.path.dirname(settings.LOG_FILE)
+if log_dir:  # Only create directory if there's a path
+    os.makedirs(log_dir, exist_ok=True)
 
 logging.basicConfig(
     level=getattr(logging, settings.LOG_LEVEL),
@@ -32,8 +34,9 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         self.requests_per_hour: Dict[str, list] = defaultdict(list)
     
     async def dispatch(self, request: Request, call_next):
-        # Get client IP
-        client_ip = request.client.host
+        # Determine client IP (basic proxy-aware)
+        xff = request.headers.get("x-forwarded-for")
+        client_ip = xff.split(",")[0].strip() if xff else request.client.host
         
         # Check rate limits
         current_time = time.time()
@@ -88,11 +91,11 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["X-XSS-Protection"] = "1; mode=block"
         response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
-        # Allow Swagger UI CDN resources for /docs endpoint
+        # Simplified CSP for compatibility
         if request.url.path == "/docs":
             response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' https://fastapi.tiangolo.com; font-src 'self' https://cdn.jsdelivr.net"
         else:
-            response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
+            response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self'"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
         
@@ -105,7 +108,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         start_time = time.time()
         
         # Log request
-        logger.info(f"Request: {request.method} {request.url} from {request.client.host}")
+        logger.info(f"Request: {request.method} {request.url} from {request.headers.get('x-forwarded-for') or request.client.host}")
         
         # Process request
         response = await call_next(request)

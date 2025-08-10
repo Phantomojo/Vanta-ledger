@@ -32,8 +32,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Database configuration
-POSTGRES_URI = "postgresql://vanta_user:kQ5afx/QwEInsGMsQH8ka7+ZPnPThFDe75wZjNHvZuQ=@localhost:5432/vanta_ledger"
-MONGO_URI = "mongodb://admin:THq2ibwBwnNCHUqbKFlSHrkmo3eSpzPGPX4AZg2V7yU=@localhost:27017/vanta_ledger?authSource=admin"
+POSTGRES_URI = f"postgresql://vanta_user:{os.getenv('POSTGRES_PASSWORD')}@localhost:5432/vanta_ledger"
+MONGO_URI = f"mongodb://admin:{os.getenv('MONGO_INITDB_ROOT_PASSWORD')}@localhost:27017/vanta_ledger?authSource=admin"
 
 @dataclass
 class ExtractedData:

@@ -5,7 +5,7 @@
 # This script sets up the hybrid database architecture for Vanta Ledger
 # with PostgreSQL, MongoDB, and Redis - NO DUPLICATES
 
-set -e
+set -euo pipefail
 
 echo "🚀 Vanta Ledger Database Installation"
 echo "====================================="
@@ -27,12 +27,12 @@ echo "✅ Environment file found"
 
 # Stop any existing containers
 echo "🛑 Stopping any existing containers..."
-docker stop $(docker ps -q --filter "name=vanta_ledger") 2>/dev/null || true
-docker rm $(docker ps -aq --filter "name=vanta_ledger") 2>/dev/null || true
+docker ps -q --filter "name=vanta_ledger" | xargs -r docker stop 2>/dev/null || true
+docker ps -aq --filter "name=vanta_ledger" | xargs -r docker rm 2>/dev/null || true
 
 # Remove any existing volumes
 echo "🧹 Cleaning up existing volumes..."
-docker volume rm $(docker volume ls -q --filter "name=database_") 2>/dev/null || true
+docker volume ls -q --filter "name=database_" | xargs -r docker volume rm 2>/dev/null || true
 
 # Start the hybrid database system
 echo "🚀 Starting hybrid database system..."

@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
-from ..auth import AuthService
+from ..auth import verify_token
 from ..config import settings
 
 router = APIRouter(prefix='/config', tags=['Config'])
 
 @router.get('/')
-async def get_config(current_user: dict = Depends(AuthService.verify_token)):
+async def get_config(current_user: dict = Depends(verify_token)):
     """
     Retrieve application configuration details and enabled feature flags for authenticated users.
     

@@ -47,10 +47,10 @@ async def upload_document(
             "security": result["security"]
         }
 
-    except HTTPException:
-        raise
+    except HTTPException as e:
+        raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Document processing failed: {str(e)}")
+        raise HTTPException(status_code=500, detail="Document processing failed") from e
     finally:
         if temp_file_path:
             secure_file_handler.cleanup_temp_file(temp_file_path)

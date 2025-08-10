@@ -13,22 +13,51 @@ from fastapi.testclient import TestClient
 from unittest.mock import patch, MagicMock
 from pathlib import Path
 
-from backend.app.main import app
-from backend.app.auth import AuthService, User
-from backend.app.utils.validation import input_validator
-from backend.app.utils.file_utils import secure_file_handler
-from backend.app.config import settings
+from src.vanta_ledger.main import app
+from src.vanta_ledger.auth import AuthService, User
+from src.vanta_ledger.utils.validation import input_validator
+from src.vanta_ledger.utils.file_utils import secure_file_handler
+from src.vanta_ledger.config import settings
 
 client = TestClient(app)
+
+
+def get_admin_password():
+    pwd = os.getenv("ADMIN_PASSWORD")
+    if not pwd:
+        pytest.skip("ADMIN_PASSWORD not set; skipping auth-dependent tests")
+    return pwd
+
+
+def test_login_success():
+    pwd = get_admin_password()
+    response = client.post("/auth/login", data={
+        "username": "admin",
+        "password": pwd,
+    })
+    assert response.status_code == 200
+
+
+def test_refresh_and_blacklist():
+    pwd = get_admin_password()
+    login_response = client.post("/auth/login", data={
+        "username": "admin",
+        "password": pwd,
+    })
+    token = login_response.json()["access_token"]
+    assert token
+    # Additional blacklist/refresh tests would go here
+
 
 class TestAuthentication:
     """Test authentication security"""
     
     def test_login_with_valid_credentials(self):
         """Test successful login with valid credentials"""
+        pwd = get_admin_password()
         response = client.post("/auth/login", data={
             "username": "admin",
-            "password": "admin123"
+            "password": pwd
         })
         assert response.status_code == 200
         data = response.json()

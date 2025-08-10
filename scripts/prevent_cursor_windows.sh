@@ -74,7 +74,7 @@ verify_system_python() {
 check_cursor_processes() {
     echo "🔍 Checking for Cursor processes..."
     
-    cursor_processes=$(pgrep -f "cursor" 2>/dev/null | wc -l)
+    cursor_processes=$(pgrep -f "cursor" 2>/dev/null | grep -vw $$ | wc -l)
     if [ "$cursor_processes" -gt 0 ]; then
         echo "⚠️  Found $cursor_processes Cursor processes running"
         echo "   Consider running: pkill -f cursor"

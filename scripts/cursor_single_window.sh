@@ -25,7 +25,7 @@ kill_all_cursor() {
 
 # is_cursor_running checks if any Cursor process is currently running and returns success if found, failure otherwise.
 is_cursor_running() {
-    pgrep -f "cursor.AppImage" >/dev/null 2>&1
+    pgrep -f "cursor.AppImage" | grep -vw $$ >/dev/null 2>&1
     return $?
 }
 
@@ -48,7 +48,7 @@ monitor_cursor() {
     
     while true; do
         # Count Cursor processes
-        cursor_count=$(pgrep -f "cursor" | wc -l)
+        cursor_count=$(pgrep -f "cursor" | grep -vw $$ | wc -l)
         
         if [ "$cursor_count" -gt 1 ]; then
             echo "⚠️  Multiple Cursor processes detected ($cursor_count), killing extras..."

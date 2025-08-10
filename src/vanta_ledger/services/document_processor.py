@@ -20,11 +20,11 @@ try:
     from PIL import Image
     import pdf2image
     import docx2txt
-    import PyPDF2
+    import fitz  # PyMuPDF
     OCR_AVAILABLE = True
 except ImportError:
     OCR_AVAILABLE = False
-    logging.warning("OCR libraries not available. Install: pip install pytesseract pdf2image python-docx PyPDF2 Pillow")
+    logging.warning("OCR libraries not available. Install: pip install pytesseract pdf2image python-docx2txt PyMuPDF Pillow")
 
 # AI and text processing
 import re
@@ -132,7 +132,7 @@ class DocumentProcessor:
     def _generate_doc_id(self, file_path: str, original_filename: str) -> str:
         """Generate unique document ID based on content hash"""
         with open(file_path, 'rb') as f:
-            content_hash = hashlib.md5(f.read()).hexdigest()[:8]
+            content_hash = hashlib.sha256(f.read()).hexdigest()[:8]
         return f"{content_hash}_{int(datetime.now().timestamp())}"
     
     def _extract_text(self, file_path: str) -> str:
@@ -148,18 +148,18 @@ class DocumentProcessor:
         """Extract text from PDF files"""
         text = ""
         
-        # Try PyPDF2 first (faster)
+        # Try PyMuPDF first (faster and more secure)
         try:
-            with open(file_path, 'rb') as file:
-                pdf_reader = PyPDF2.PdfReader(file)
-                for page in pdf_reader.pages:
-                    text += page.extract_text() + "\n"
+            doc = fitz.open(file_path)
+            for page in doc:
+                text += page.get_text() + "\n"
+            doc.close()
             if text.strip():
                 return text
         except Exception as e:
-            logging.warning(f"PyPDF2 failed for {file_path}: {e}")
+            logging.warning(f"PyMuPDF failed for {file_path}: {e}")
         
-        # Fallback to OCR if PyPDF2 fails or no text found
+        # Fallback to OCR if PyMuPDF fails or no text found
         if OCR_AVAILABLE:
             try:
                 images = pdf2image.convert_from_path(file_path)

@@ -1,66 +1,11 @@
-# 🏗️ Vanta Ledger Hybrid Database System
+# Hybrid Database Readme
 
-A comprehensive hybrid database solution combining **PostgreSQL** for structured financial data and **MongoDB** for document storage and AI analysis.
-
-## 🎯 Overview
-
-The Vanta Ledger project handles diverse file types and requires both ACID-compliant financial transactions and flexible document storage. This hybrid approach provides:
-
-- **PostgreSQL**: ACID compliance for financial transactions
-- **MongoDB**: Flexible schema for document storage and AI analysis
-- **Integrated Operations**: Seamless cross-database operations
-
-## 🏢 The 10 Family Companies
-
-The system is configured for these 10 family-owned companies:
-
-1. **ALTAN ENTERPRISES LIMITED** - Construction & Engineering
-2. **DORDEN VENTURES LIMITED** - Construction & Supply  
-3. **AMROLAC COMPANY LIMITED** - Construction & Services
-4. **RUCTUS GROUP LIMITED** - Construction & Development
-5. **NIFTY VENTURES LIMITED** - Construction & Trading
-6. **YUMI VENTURES LIMITED** - Construction & Supplies
-7. **SOLOPRIDE CONTRACTORS & GENERAL SUPPLIES LIMITED** - Construction & General Supplies
-8. **MEGUMI VENTURES LIMITED** - Construction & Services
-9. **CADIMO LIMITED** - Construction & Development
-10. **MOATENG LIMITED** - Construction & Engineering
-
-## 🏗️ Architecture
-
-### Database Distribution
+Use environment variables for credentials. Do not embed real usernames/passwords here. Example:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Vanta Ledger System                     │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌─────────────────┐    ┌─────────────────┐               │
-│  │   PostgreSQL    │    │    MongoDB      │               │
-│  │                 │    │                 │               │
-│  │ • Companies     │    │ • Documents     │               │
-│  │ • Projects      │    │ • AI Analysis   │               │
-│  │ • Users         │    │ • OCR Text      │               │
-│  │ • Ledger        │    │ • Metadata      │               │
-│  │ • Transactions  │    │ • Search Index  │               │
-│  │ • ACID Compliant│    │ • Flexible Schema│               │
-│  └─────────────────┘    └─────────────────┘               │
-│                                                             │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │              Hybrid Database Manager                   │ │
-│  │  • Cross-database operations                          │ │
-│  │  • Data synchronization                               │ │
-│  │  • Transaction management                             │ │
-│  └─────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-```
+# Hybrid Database Readme
 
-### Data Flow
-
-```
-Document Upload → AI Analysis → MongoDB Storage → Financial Extraction → PostgreSQL Ledger
-     ↓              ↓              ↓                    ↓                    ↓
-  File Storage   AI Processing  Document DB        Data Extraction    Financial DB
-```
+Use environment variables for credentials. Do not embed real usernames/passwords here. Example:
 
 ## 🚀 Quick Start
 
@@ -444,7 +389,7 @@ docker-compose -f database/docker-compose-hybrid.yml down
 ```bash
 # Database URIs
 POSTGRES_URI=postgresql://vanta_user:vanta_password@localhost:5432/vanta_ledger
-MONGO_URI=mongodb://admin:admin123@localhost:27017/vanta_ledger
+MONGO_URI=mongodb://admin:${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/vanta_ledger
 
 # Application Settings
 DEBUG=True
@@ -492,3 +437,13 @@ For questions or issues with the hybrid database system:
 ---
 
 **Built with ❤️ for the Vanta Ledger family business** 
+=======
+POSTGRES_URI=postgresql://<user>:<password>@localhost:5432/vanta_ledger
+MONGO_URI=mongodb://<user>:<password>@localhost:27017/vanta_ledger
+``` 
+>>>>>>> Incoming (Background Agent changes)
+=======
+POSTGRES_URI=postgresql://<user>:<password>@localhost:5432/vanta_ledger
+MONGO_URI=mongodb://<user>:<password>@localhost:27017/vanta_ledger
+``` 
+>>>>>>> Incoming (Background Agent changes)

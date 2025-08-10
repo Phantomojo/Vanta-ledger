@@ -1,6 +1,8 @@
-# Vanta Ledger
+# Vanta Ledger Documentation
 
-A comprehensive document management and financial tracking system for construction companies.
+## Access
+- Backend API: http://localhost:8500
+- API Docs: http://localhost:8500/docs
 
 ## 🚀 Quick Start
 
@@ -31,39 +33,40 @@ A comprehensive document management and financial tracking system for constructi
 4. **Access the application**
    - Frontend: http://localhost:5173
    - Backend API: http://localhost:8500
-   - MongoDB Admin: http://localhost:8081 (admin/admin123)
-   - Login: admin/admin123
+   - MongoDB Admin: http://localhost:8081
+   - Login: Use configured credentials (see environment setup)
+
+Note: Initial admin credentials are not hardcoded. Set `ADMIN_PASSWORD` (12+ chars) in your environment before running the database init script. Do not commit secrets.
 
 ## 📁 Project Structure
 
 ```
 vanta-ledger/
-├── backend/                 # FastAPI backend
-│   ├── app/
-│   │   ├── main.py         # Main application
-│   │   ├── config.py       # Configuration
-│   │   ├── auth.py         # Authentication
-│   │   ├── models/         # Database models
-│   │   ├── routes/         # API routes
-│   │   ├── services/       # Business logic
-│   │   └── utils/          # Utilities
-│   └── requirements.txt
-├── frontend/               # React frontend
+├── src/                    # Source code
+│   ├── vanta_ledger/      # Main application package
+│   │   ├── main.py        # Main application
+│   │   ├── config.py      # Configuration
+│   │   ├── auth.py        # Authentication
+│   │   ├── models/        # Database models
+│   │   ├── routes/        # API routes
+│   │   ├── services/      # Business logic
+│   │   └── utils/         # Utilities
+├── frontend/              # React frontend
 │   └── frontend-web/
-├── database/               # Database setup
-│   ├── docker-compose.yml  # MongoDB setup
-│   ├── init/              # Database initialization
-│   └── migrations/        # Database migrations
-├── scripts/               # Management scripts
-│   ├── setup.sh          # Initial setup
-│   ├── start.sh          # Start services
-│   ├── stop.sh           # Stop services
-│   └── status.sh         # Check status
-├── docs/                  # Documentation
-├── data/                  # Data storage
-│   ├── processed_documents/  # OCR processed documents
-│   └── uploads/             # File uploads
-└── logs/                  # Application logs
+├── database/              # Database setup
+│   ├── docker-compose.yml # Database services
+│   ├── init/             # Database initialization
+│   └── migrations/       # Database migrations
+├── scripts/              # Management scripts
+│   ├── setup.sh         # Initial setup
+│   ├── start.sh         # Start services
+│   ├── stop.sh          # Stop services
+│   └── status.sh        # Check status
+├── docs/                 # Documentation
+├── data/                 # Data storage
+│   ├── processed_documents/ # OCR processed documents
+│   └── uploads/            # File uploads
+└── logs/                 # Application logs
 ```
 
 ## 🔧 Management Commands
@@ -113,12 +116,10 @@ tail -f logs/frontend.log
 
 ## 🗄️ Database
 
-The system uses MongoDB for data storage with the following collections:
-- `documents`: Processed document metadata and content
-- `companies`: Client and vendor information
-- `projects`: Project details and progress
-- `users`: User accounts and profiles
-- `ledger`: Financial transactions and records
+The system uses a hybrid database approach:
+- **PostgreSQL**: Primary relational data (users, companies, projects)
+- **MongoDB**: Document storage and unstructured data
+- **Redis**: Caching and session management
 
 ## 🔒 Security
 
@@ -127,6 +128,8 @@ The system uses MongoDB for data storage with the following collections:
 - Role-based access control
 - Secure API endpoints
 - Input validation and sanitization
+- GitHub Advanced Security integration
+- Automated vulnerability scanning
 
 ## 🚀 Deployment
 

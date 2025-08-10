@@ -149,7 +149,7 @@ python3 -c "import psutil, psycopg2, pymongo"
 # Check database connectivity
 python3 -c "
 import psycopg2
-conn = psycopg2.connect(host='localhost', database='vanta_ledger', user='vanta_user', password='vanta_secure_password_2024')
+conn = psycopg2.connect(host='localhost', database='vanta_ledger', user='vanta_user', password=os.getenv('POSTGRES_PASSWORD'))
 print('PostgreSQL OK')
 "
 ```

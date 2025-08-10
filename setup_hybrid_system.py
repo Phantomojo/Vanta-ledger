@@ -248,7 +248,7 @@ def create_environment_file():
 
 # Database URIs
 POSTGRES_URI=postgresql://vanta_user:vanta_password@localhost:5432/vanta_ledger
-MONGO_URI=mongodb://admin:admin123@localhost:27017/vanta_ledger
+MONGO_URI=mongodb://admin:${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/vanta_ledger
 
 # Application Settings
 DEBUG=True
@@ -309,7 +309,7 @@ def display_setup_summary():
     
     print("\n🔐 Admin Access:")
     print("   Username: admin")
-    print("   Password: admin123")
+    print("   Password: Check your .env file or use create_secure_admin.py")
     
     print("\n🚀 Next Steps:")
     print("   1. Start the backend: python backend/app/main.py")
