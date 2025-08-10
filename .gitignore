@@ -98,6 +98,23 @@ htmlcov/
 .coverage.*
 coverage.xml
 *.cover
+
+# Security and sensitive data
+security_reports/
+security_analysis/
+security_scan_*.json
+security_report_*.txt
+comprehensive_security_report_*.md
+secrets_analysis_*.json
+compliance_report_*.json
+vulnerable_packages_*.txt
+system_health_*.json
+security_metrics_*.json
+*.scan
+*.audit
+secrets_*.json
+vulnerability_*.json
+compliance_*.json
 .hypothesis/
 .pytest_cache/
 
