@@ -126,7 +126,7 @@ class BackupAndMigrationManager:
                     docker exec vanta_ledger_mongodb mongodump \
                         --db vanta_ledger \
                         --username admin \
-                        --password admin123 \
+                        --password ${{MONGO_INITDB_ROOT_PASSWORD:-admin123}} \
                         --out /tmp/mongodb_backup
                     """
                     
@@ -433,7 +433,7 @@ class BackupAndMigrationManager:
         
         print("\n🔐 Admin Access:")
         print("   Username: admin")
-        print("   Password: admin123")
+        print("   Password: Check your .env file or use create_secure_admin.py")
         
         print("\n📊 Database Access:")
         print("   • PostgreSQL: localhost:5432/vanta_ledger")

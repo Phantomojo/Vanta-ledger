@@ -77,9 +77,9 @@ Port: 6379
 ### **Authentication System**
 ```bash
 # Admin User
-Username: mikey
-Email: mirungu015@proton.me
-Password: 106730!@#
+Username: [SET_VIA_ENV_VAR]
+Email: [SET_VIA_ENV_VAR]
+Password: [SET_VIA_ENV_VAR]
 
 # Security Features
 - JWT tokens with blacklisting

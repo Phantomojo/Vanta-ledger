@@ -1,6 +1,6 @@
 {
   "mongodb_atlas": {
-    "uri": "mongodb+srv://mike:106730Mmi..@katana.pgpnmol.mongodb.net/?retryWrites=true&w=majority&appName=katana",
+    "uri": "[SET_VIA_ENV_VAR]",
     "database": "vanta_ledger",
     "cluster": "katana",
     "region": "AWS / Cape Town (af-south-1)",

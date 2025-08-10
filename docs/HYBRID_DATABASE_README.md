@@ -389,7 +389,7 @@ docker-compose -f database/docker-compose-hybrid.yml down
 ```bash
 # Database URIs
 POSTGRES_URI=postgresql://vanta_user:vanta_password@localhost:5432/vanta_ledger
-MONGO_URI=mongodb://admin:admin123@localhost:27017/vanta_ledger
+MONGO_URI=mongodb://admin:${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/vanta_ledger
 
 # Application Settings
 DEBUG=True
