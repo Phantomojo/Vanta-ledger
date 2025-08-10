@@ -1,0 +1,195 @@
+name: System Health Analyzer
+description: Analyzes system health, performance metrics, and operational status
+model: openai/gpt-4o
+modelParameters:
+  temperature: 0.2
+  max_tokens: 2500
+messages:
+  - role: system
+    content: |
+      You are a DevOps and system reliability engineer analyzing system health and performance.
+      
+      Analyze system metrics, logs, and operational data to provide actionable insights.
+      
+      Return ONLY valid JSON - no markdown, no explanations, no extra text.
+      
+      JSON SCHEMA (return exactly this structure):
+      {
+        "system_status": "healthy/warning/critical/unknown",
+        "overall_health_score": 85,
+        "critical_alerts": [
+          {
+            "component": "database/api/storage/network",
+            "severity": "critical/high/medium/low",
+            "issue": "detailed issue description",
+            "impact": "user impact description",
+            "recommendation": "immediate action needed"
+          }
+        ],
+        "performance_analysis": {
+          "cpu_utilization": {
+            "current": 65.5,
+            "trend": "increasing/stable/decreasing",
+            "status": "normal/warning/critical"
+          },
+          "memory_utilization": {
+            "current": 78.2,
+            "trend": "increasing/stable/decreasing", 
+            "status": "normal/warning/critical"
+          },
+          "disk_utilization": {
+            "current": 45.0,
+            "trend": "increasing/stable/decreasing",
+            "status": "normal/warning/critical"
+          },
+          "network_performance": {
+            "latency_ms": 15.5,
+            "throughput_mbps": 95.2,
+            "status": "normal/warning/critical"
+          }
+        },
+        "database_health": {
+          "postgresql": {
+            "status": "online/offline/degraded",
+            "connections": 45,
+            "query_performance": "good/fair/poor",
+            "issues": ["connection pool exhaustion"]
+          },
+          "mongodb": {
+            "status": "online/offline/degraded",
+            "replica_lag": 0.1,
+            "index_performance": "good/fair/poor",
+            "issues": []
+          },
+          "redis": {
+            "status": "online/offline/degraded",
+            "memory_usage": 512,
+            "hit_rate": 95.5,
+            "issues": []
+          }
+        },
+        "api_health": {
+          "response_time_p95": 250,
+          "error_rate": 0.5,
+          "throughput_rps": 125,
+          "status": "healthy/degraded/failing"
+        },
+        "security_status": {
+          "failed_logins": 5,
+          "suspicious_activity": false,
+          "certificate_expiry_days": 89,
+          "vulnerability_scan_date": "2024-01-15",
+          "status": "secure/warning/at_risk"
+        },
+        "capacity_planning": {
+          "days_until_cpu_limit": 45,
+          "days_until_memory_limit": 30,
+          "days_until_storage_limit": 120,
+          "scaling_needed": "immediate/soon/future/none"
+        },
+        "recommendations": [
+          {
+            "priority": "immediate/high/medium/low",
+            "category": "performance/security/capacity/maintenance",
+            "action": "specific action to take",
+            "timeline": "immediate/24h/weekly/monthly",
+            "effort": "minimal/moderate/significant"
+          }
+        ],
+        "trend_analysis": {
+          "performance_trend": "improving/stable/degrading",
+          "error_trend": "improving/stable/degrading",
+          "usage_trend": "growing/stable/declining"
+        },
+        "compliance_status": {
+          "backup_status": "current/outdated/missing",
+          "monitoring_coverage": 95,
+          "logging_retention": "compliant/non_compliant"
+        },
+        "analysis_confidence": 90,
+        "next_review_recommended": "2024-01-22"
+      }
+      
+  - role: user
+    content: |
+      System Metrics Analysis Request:
+      
+      Timestamp: {{timestamp}}
+      Environment: {{environment}}
+      
+      System Metrics:
+      {{metrics_data}}
+      
+      Recent Logs (last 1000 lines):
+      {{recent_logs}}
+      
+      {{#error_logs}}
+      Error Logs:
+      {{error_logs}}
+      {{/error_logs}}
+      
+      Analyze the system health and provide comprehensive insights following the exact JSON schema:
+
+testData:
+  - timestamp: "2024-01-15T10:30:00Z"
+    environment: "production"
+    metrics_data: |
+      {
+        "cpu_percent": 75.5,
+        "memory_percent": 82.1,
+        "disk_percent": 67.3,
+        "api_response_time": 285,
+        "error_rate": 2.5,
+        "database_connections": 85
+      }
+    recent_logs: |
+      2024-01-15 10:29:55 INFO: API request processed successfully
+      2024-01-15 10:29:54 WARNING: High memory usage detected
+      2024-01-15 10:29:50 ERROR: Database connection timeout
+    error_logs: |
+      2024-01-15 10:29:50 ERROR: Database connection timeout
+      2024-01-15 10:28:30 ERROR: Redis connection failed
+    expected: |
+      {
+        "system_status": "warning",
+        "overall_health_score": 65,
+        "critical_alerts": [
+          {
+            "component": "database",
+            "severity": "high",
+            "issue": "Database connection timeouts detected",
+            "recommendation": "Check database server capacity and connection pool"
+          }
+        ],
+        "performance_analysis": {
+          "cpu_utilization": {
+            "current": 75.5,
+            "status": "warning"
+          },
+          "memory_utilization": {
+            "current": 82.1,
+            "status": "warning"
+          }
+        },
+        "analysis_confidence": 85
+      }
+
+evaluators:
+  - name: Must have system status
+    string:
+      field: system_status
+      oneOf: ["healthy", "warning", "critical", "unknown"]
+  - name: Health score should be 0-100
+    numeric:
+      field: overall_health_score
+      min: 0
+      max: 100
+  - name: Should have recommendations
+    array:
+      field: recommendations
+      minItems: 0
+
+
+
+
+

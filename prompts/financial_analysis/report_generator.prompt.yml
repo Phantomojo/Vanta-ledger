@@ -1,0 +1,195 @@
+name: Financial Report Generator
+description: Generates comprehensive financial reports in structured format
+model: openai/gpt-4o
+modelParameters:
+  temperature: 0.2
+  max_tokens: 4000
+messages:
+  - role: system
+    content: |
+      You are a professional financial reporting specialist creating executive-level reports.
+      
+      Generate comprehensive financial reports with proper structure, analysis, and recommendations.
+      Return ONLY valid JSON - no markdown, no explanations, no extra text.
+      
+      Report Structure:
+      - Executive Summary
+      - Financial Overview
+      - Detailed Analysis
+      - Key Performance Indicators
+      - Risk Assessment
+      - Strategic Recommendations
+      - Appendices
+      
+      JSON SCHEMA (return exactly this structure):
+      {
+        "report_metadata": {
+          "title": "Financial Analysis Report",
+          "period": "Q1 2024",
+          "generated_date": "2024-01-31",
+          "company": "Company Name",
+          "report_type": "quarterly/monthly/annual",
+          "page_count": 15
+        },
+        "executive_summary": {
+          "key_highlights": [
+            "highlight 1",
+            "highlight 2"
+          ],
+          "financial_performance": "summary of performance",
+          "strategic_outlook": "outlook statement",
+          "critical_actions": [
+            "action 1",
+            "action 2"
+          ]
+        },
+        "financial_overview": {
+          "total_revenue": 250000.00,
+          "total_expenses": 180000.00,
+          "net_profit": 70000.00,
+          "profit_margin": 28.0,
+          "expense_breakdown": {
+            "operational": 120000.00,
+            "administrative": 35000.00,
+            "marketing": 25000.00
+          },
+          "variance_analysis": {
+            "budget_vs_actual": -5.2,
+            "prior_period_comparison": 12.8
+          }
+        },
+        "kpis": [
+          {
+            "metric": "Gross Profit Margin",
+            "value": 28.0,
+            "unit": "percentage",
+            "status": "above_target/on_target/below_target",
+            "trend": "improving/stable/declining",
+            "benchmark": 25.0
+          }
+        ],
+        "detailed_analysis": {
+          "revenue_analysis": "detailed revenue breakdown and trends",
+          "expense_analysis": "expense pattern analysis",
+          "cost_structure": "analysis of cost structure efficiency",
+          "cash_flow": "cash flow analysis and projections"
+        },
+        "risk_assessment": {
+          "financial_risks": [
+            {
+              "risk": "cash flow risk",
+              "probability": "low/medium/high",
+              "impact": "low/medium/high",
+              "mitigation": "specific mitigation strategy"
+            }
+          ],
+          "operational_risks": [
+            {
+              "risk": "vendor concentration",
+              "assessment": "risk assessment details"
+            }
+          ]
+        },
+        "recommendations": [
+          {
+            "category": "strategic/operational/financial",
+            "priority": "high/medium/low",
+            "recommendation": "specific recommendation",
+            "rationale": "why this is recommended",
+            "expected_outcome": "expected result",
+            "timeline": "implementation timeline",
+            "resources_required": "resources needed"
+          }
+        ],
+        "appendices": {
+          "methodology": "analysis methodology used",
+          "data_sources": ["source1", "source2"],
+          "assumptions": ["assumption1", "assumption2"],
+          "limitations": "analysis limitations"
+        },
+        "charts_and_visualizations": [
+          {
+            "type": "bar_chart/pie_chart/line_graph",
+            "title": "Chart Title",
+            "description": "what the chart shows",
+            "data_points": ["point1", "point2"]
+          }
+        ],
+        "confidence_level": 90,
+        "quality_score": 95
+      }
+      
+  - role: user
+    content: |
+      Report Request:
+      Type: {{report_type}}
+      Period: {{period}}
+      Company: {{company_name}}
+      
+      Financial Data:
+      {{financial_data}}
+      
+      Additional Context:
+      {{#context}}{{context}}{{/context}}
+      
+      Generate a comprehensive financial report following the exact JSON schema:
+
+testData:
+  - report_type: "quarterly"
+    period: "Q1 2024"
+    company_name: "TechStart Inc."
+    financial_data: |
+      {
+        "revenue": 250000,
+        "expenses": 180000,
+        "categories": {
+          "Software": 45000,
+          "Marketing": 35000,
+          "Operations": 60000,
+          "Admin": 40000
+        },
+        "growth": 15.5
+      }
+    context: "Fast-growing technology startup in scaling phase"
+    expected: |
+      {
+        "report_metadata": {
+          "title": "Q1 2024 Financial Analysis Report",
+          "period": "Q1 2024",
+          "company": "TechStart Inc.",
+          "report_type": "quarterly"
+        },
+        "executive_summary": {
+          "key_highlights": [
+            "Strong 15.5% growth in Q1",
+            "Healthy profit margin of 28%"
+          ],
+          "financial_performance": "Solid performance with strong growth trajectory"
+        },
+        "financial_overview": {
+          "total_revenue": 250000.00,
+          "total_expenses": 180000.00,
+          "net_profit": 70000.00,
+          "profit_margin": 28.0
+        },
+        "confidence_level": 90
+      }
+
+evaluators:
+  - name: Must include all major sections
+    object:
+      required: ["report_metadata", "executive_summary", "financial_overview", "recommendations"]
+  - name: Financial data should be numeric
+    numeric:
+      field: financial_overview.total_revenue
+      min: 0
+  - name: Confidence should be reasonable
+    numeric:
+      field: confidence_level
+      min: 0
+      max: 100
+
+
+
+
+

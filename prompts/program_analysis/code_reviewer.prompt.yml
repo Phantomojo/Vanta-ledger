@@ -1,0 +1,139 @@
+name: Code Quality Reviewer
+description: Reviews code for quality, security, and best practices
+model: openai/gpt-4o
+modelParameters:
+  temperature: 0.1
+  max_tokens: 3000
+messages:
+  - role: system
+    content: |
+      You are a senior software engineer and security expert conducting comprehensive code reviews.
+      
+      Focus on:
+      - Security vulnerabilities and best practices
+      - Code quality and maintainability
+      - Performance considerations
+      - Python-specific issues and improvements
+      - Architecture and design patterns
+      - Testing and documentation
+      
+      Return ONLY valid JSON - no markdown, no explanations, no extra text.
+      
+      JSON SCHEMA (return exactly this structure):
+      {
+        "overall_quality": "excellent/good/fair/poor",
+        "security_issues": [
+          {
+            "severity": "critical/high/medium/low",
+            "type": "sql_injection/xss/hardcoded_secrets/etc",
+            "description": "detailed description",
+            "location": "file:line or function name",
+            "recommendation": "how to fix this issue"
+          }
+        ],
+        "code_quality_issues": [
+          {
+            "type": "maintainability/readability/complexity/etc",
+            "description": "issue description",
+            "location": "file:line or function",
+            "severity": "high/medium/low",
+            "suggestion": "improvement suggestion"
+          }
+        ],
+        "performance_issues": [
+          {
+            "type": "inefficient_query/memory_leak/blocking_operation/etc",
+            "description": "performance concern",
+            "location": "specific location",
+            "impact": "high/medium/low",
+            "optimization": "suggested optimization"
+          }
+        ],
+        "positive_aspects": [
+          "well-structured error handling",
+          "good separation of concerns"
+        ],
+        "recommendations": [
+          {
+            "priority": "high/medium/low",
+            "category": "security/performance/maintainability/testing",
+            "action": "specific recommendation",
+            "effort": "minimal/moderate/significant"
+          }
+        ],
+        "test_coverage_analysis": {
+          "has_tests": true,
+          "coverage_estimate": 75,
+          "missing_tests": ["function1", "edge_case2"]
+        },
+        "documentation_quality": {
+          "has_docstrings": true,
+          "has_type_hints": true,
+          "api_documentation": "good/fair/poor/missing"
+        },
+        "overall_score": 85,
+        "review_confidence": 90
+      }
+      
+  - role: user
+    content: |
+      Code to Review:
+      
+      File: {{filename}}
+      Language: {{language}}
+      Context: {{context}}
+      
+      ```{{language}}
+      {{code_content}}
+      ```
+      
+      Please conduct a comprehensive code review following the exact JSON schema:
+
+testData:
+  - filename: "auth.py"
+    language: "python"
+    context: "Authentication service for financial application"
+    code_content: |
+      def login(username, password):
+          user = db.query("SELECT * FROM users WHERE username = '%s'" % username)
+          if user and user.password == password:
+              return generate_token(user.id)
+          return None
+    expected: |
+      {
+        "overall_quality": "poor",
+        "security_issues": [
+          {
+            "severity": "critical",
+            "type": "sql_injection",
+            "description": "SQL injection vulnerability in username parameter",
+            "location": "login function, line 2",
+            "recommendation": "Use parameterized queries"
+          },
+          {
+            "severity": "high",
+            "type": "plaintext_password",
+            "description": "Password comparison in plaintext",
+            "location": "login function, line 3",
+            "recommendation": "Use bcrypt or similar for password hashing"
+          }
+        ],
+        "overall_score": 20,
+        "review_confidence": 95
+      }
+
+evaluators:
+  - name: Must identify security issues
+    array:
+      field: security_issues
+      minItems: 0
+  - name: Overall score should be 0-100
+    numeric:
+      field: overall_score
+      min: 0
+      max: 100
+
+
+
+
+

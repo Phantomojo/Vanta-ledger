@@ -46,12 +46,6 @@ from .routes.analytics import router as analytics_router
 from .routes.users import router as users_router
 from .routes.config import router as config_router
 from .routes.notifications import router as notifications_router
-# from .routes.github_models import router as github_models_router  # Temporarily disabled due to import issues
-
-# Import new frontend compatibility routes
-from .routes.simple_auth import router as simple_auth_router
-from .routes.extracted_data import router as extracted_data_router
-from .routes.paperless_integration import router as paperless_router
 
 # Import startup
 from .startup import initialize_services, health_check
@@ -94,7 +88,6 @@ app.add_middleware(
 security = HTTPBearer()
 
 # Initialize document processor
-from .services.document_processor import DocumentProcessor
 document_processor = DocumentProcessor()
 
 # Include enhanced document management routes
@@ -117,12 +110,6 @@ app.include_router(analytics_router)
 app.include_router(users_router)
 app.include_router(config_router)
 app.include_router(notifications_router)
-# app.include_router(github_models_router)  # Temporarily disabled
-
-# Include frontend compatibility routes
-app.include_router(simple_auth_router)
-app.include_router(extracted_data_router)
-app.include_router(paperless_router)
 
 # Prometheus metrics
 REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP requests', ['method', 'endpoint', 'status'])
