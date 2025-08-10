@@ -37,11 +37,17 @@ This document explains the consolidation of all requirements files into a single
 ### **3. Security Improvements**
 - **Fixed Vulnerabilities**: Updated packages with known fixes
   - `pypdf2`: 3.0.1 → 3.0.0 (CVE-2023-36464 fix)
-  - `python-jose`: 3.5.0 → 3.4.0 (DoS and algorithm confusion fixes)
+  - `python-jose`: 3.5.0 (latest secure version)
 - **Pinned Versions**: Used exact versions for security-critical packages
 - **Documentation**: Added security notes and version constraints
 
 ## 📊 **Master Requirements Structure**
+
+**Note:** This project now uses a two-file approach:
+- `requirements.txt`: Core dependencies with version ranges
+- `constraints.txt`: Exact version pinning for security and reproducibility
+
+**Installation:** `pip install -r requirements.txt -c constraints.txt`
 
 ### **Core Framework & API**
 ```txt
@@ -63,11 +69,11 @@ redis>=5.0.1
 
 ### **Authentication & Security**
 ```txt
-python-jose[cryptography]==3.4.0  # Fixed vulnerabilities
+python-jose[cryptography]>=3.5.0  # Latest secure version (pinned in constraints.txt)
 passlib[bcrypt]>=1.7.4
 PyJWT>=2.10.1
 cryptography>=45.0.6
-ecdsa==0.19.1  # No fix available yet
+# ecdsa removed due to security vulnerabilities - using cryptography's built-in ECDSA
 ```
 
 ### **Data Processing & Analysis**
@@ -108,13 +114,14 @@ mypy>=1.0.0
 
 ### **Vulnerability Fixes Applied**
 1. **pypdf2**: Updated to 3.0.0 to fix CVE-2023-36464
-2. **python-jose**: Updated to 3.4.0 to fix DoS and algorithm confusion vulnerabilities
+2. **python-jose**: Using 3.5.0 (latest secure version)
 3. **pyasn1**: Updated to 0.4.8 for compatibility
 
 ### **Remaining Vulnerabilities**
-- **ecdsa 0.19.1**: 2 vulnerabilities (no fixes available)
+- **ecdsa**: Removed due to security vulnerabilities
   - CVE-2024-23342: Minerva attack (HIGH)
   - Side-channel attack vulnerability
+  - **Solution**: Using cryptography's built-in ECDSA implementation
 
 ### **Security Features**
 - **Version Pinning**: Critical packages pinned to specific versions

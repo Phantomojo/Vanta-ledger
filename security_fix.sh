@@ -67,8 +67,8 @@ print_success "Critical packages updated"
 
 # High priority updates
 print_status "🟡 Updating High Priority Packages..."
-venv/bin/pip install --upgrade python-jose[cryptography]==3.5.1
-venv/bin/pip install --upgrade ecdsa==0.20.0
+venv/bin/pip install --upgrade python-jose[cryptography]==3.5.0
+# ecdsa removed due to security vulnerabilities - using cryptography's built-in ECDSA
 venv/bin/pip install --upgrade paramiko==3.4.0
 print_success "High priority packages updated"
 
@@ -87,10 +87,22 @@ venv/bin/pip install --upgrade configobj==5.0.9
 venv/bin/pip install --upgrade pycares==4.9.0
 print_success "Additional security packages updated"
 
-# Update requirements.txt with new versions
-print_status "Updating requirements.txt with secure versions..."
-venv/bin/pip freeze > requirements.txt
-print_success "Requirements file updated"
+# Update constraints.txt with new versions
+print_status "Updating constraints.txt with secure versions..."
+venv/bin/pip freeze > constraints.txt
+print_success "Constraints file updated"
+
+# Update requirements.txt to reference constraints.txt
+print_status "Updating requirements.txt to reference constraints.txt..."
+echo "# IMPORTANT: Use with constraints.txt for exact version pinning:" > requirements.txt
+echo "# pip install -r requirements.txt -c constraints.txt" >> requirements.txt
+echo "" >> requirements.txt
+echo "# Core dependencies (use constraints.txt for exact versions)" >> requirements.txt
+echo "fastapi>=0.116.1" >> requirements.txt
+echo "uvicorn[standard]>=0.35.0" >> requirements.txt
+echo "python-jose[cryptography]>=3.5.0" >> requirements.txt
+echo "# ecdsa removed due to security vulnerabilities" >> requirements.txt
+print_success "Requirements file updated to reference constraints.txt"
 
 # Run security scan
 print_status "🧪 Running security scan..."

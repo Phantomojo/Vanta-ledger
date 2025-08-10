@@ -118,7 +118,7 @@ Provides real-time monitoring of:
 The system automatically connects to your Paperless-ngx instance:
 - **URL**: http://localhost:8000
 - **Username**: Mike
-- **Password**: 106730!@#
+- **Password**: [SET_VIA_ENV_VAR]
 
 ### Customization Options
 You can modify the following in `advanced_document_ai.py`:

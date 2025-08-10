@@ -20,7 +20,7 @@ def test_postgresql():
             port=5432,
             database='vanta_ledger',
             user='vanta_user',
-            password='vanta_secure_password_2024'
+            password=os.getenv('POSTGRES_PASSWORD', 'password')
         )
         
         # Test basic query
@@ -50,7 +50,7 @@ def test_mongodb():
     """Test MongoDB connection and basic operations"""
     try:
         # Connect to MongoDB
-        client = MongoClient('mongodb://admin:THq2ibwBwnNCHUqbKFlSHrkmo3eSpzPGPX4AZg2V7yU=@localhost:27017/vanta_ledger?authSource=admin')
+        client = MongoClient(f'mongodb://admin:{os.getenv("MONGO_INITDB_ROOT_PASSWORD")}@localhost:27017/vanta_ledger?authSource=admin')
         db = client.vanta_ledger
         
         # Test basic operation

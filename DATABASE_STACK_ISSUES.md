@@ -21,7 +21,7 @@ FATAL: password authentication failed for user "vanta_user"
 
 **Attempted Solutions**:
 - Created user with `createuser --interactive`
-- Set password with `ALTER USER vanta_user PASSWORD 'vanta_secure_pass_2025';`
+- Set password with `ALTER USER vanta_user PASSWORD '$POSTGRES_PASSWORD';`
 - Added authentication line to `/etc/postgresql/16/main/pg_hba.conf`:
   ```
   host vanta_ledger vanta_user 127.0.0.1/32 md5
@@ -64,17 +64,17 @@ mongod.service: Main process exited, code=exited, status=48/n/a
 
 **Root Cause**: PostgreSQL authentication configuration not working properly
 
-**Impact**: Cannot create admin user `mikey` with password `106730!@#` in database
+**Impact**: Cannot create admin user `[ADMIN_USERNAME]` with password `[ADMIN_PASSWORD]` in database
 
 ## Environment Configuration
-Current `.env` setup:
+Current `.env` setup (credentials redacted for security):
 ```bash
 POSTGRES_URI=postgresql://postgres@localhost:5432/vanta_ledger
 MONGO_URI=mongodb://localhost:27017/vanta_ledger  
 REDIS_URI=redis://localhost:6379/0
-ADMIN_USERNAME=mikey
-ADMIN_EMAIL=mirungu015@proton.me
-ADMIN_PASSWORD=106730!@#
+ADMIN_USERNAME=[SET_VIA_ENV_VAR]
+ADMIN_EMAIL=[SET_VIA_ENV_VAR]
+ADMIN_PASSWORD=[SET_VIA_ENV_VAR]
 ```
 
 ## Next Steps Required
@@ -110,7 +110,7 @@ source .env && PYTHONPATH=src python3 -c "import vanta_ledger; print('Import wor
 ## Commands That Fail
 ```bash
 # PostgreSQL with vanta_user
-PGPASSWORD=vanta_secure_pass_2025 psql -h localhost -U vanta_user -d vanta_ledger -c "SELECT 1;"
+PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U vanta_user -d vanta_ledger -c "SELECT 1;"
 
 # Database initialization
 source .env && PYTHONPATH=src python -c "from vanta_ledger.database_init import initialize_database; initialize_database()"
@@ -130,7 +130,7 @@ sudo systemctl start redis-server mongod
 ## User Requirement
 User explicitly requested "install the goddamn stack" and expects:
 - Full production-grade database setup
-- Working authentication with credentials `mikey` / `106730!@#`
+- Working authentication with credentials from environment variables
 - No more "simple solutions" or workarounds
 - Treat this like a real production system
 

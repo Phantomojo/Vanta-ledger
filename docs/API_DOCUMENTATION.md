@@ -11,7 +11,7 @@ All API endpoints (except login/register) require authentication using JWT token
 POST /auth/login
 Content-Type: application/x-www-form-urlencoded
 
-username=admin&password=admin123
+username=admin&password=YOUR_ADMIN_PASSWORD
 ```
 
 **Response:**

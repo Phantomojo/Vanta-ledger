@@ -5,7 +5,7 @@
 # This script sets up the hybrid database architecture for Vanta Ledger
 # with PostgreSQL, MongoDB, and Redis - NO DUPLICATES
 
-set -e
+set -euo pipefail
 
 echo "🚀 Vanta Ledger Database Installation"
 echo "====================================="

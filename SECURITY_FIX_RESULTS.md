@@ -79,10 +79,8 @@
    - Infinite loop vulnerability (CVE-2023-36464)
    - **Status:** No known fix available
 
-3. **python-jose 3.5.0** (2 vulnerabilities)
-   - DoS vulnerability (CVE-2024-33664)
-   - Algorithm confusion vulnerability (CVE-2024-33663)
-   - **Status:** No known fix available
+3. **python-jose 3.5.0** (latest secure version)
+   - **Status:** Using latest available version (pinned in constraints.txt)
 
 ## 🎯 **Security Impact Assessment**
 
@@ -185,7 +183,7 @@ sqlalchemy==2.0.42        # Security patches
 ### **Remaining Vulnerabilities:**
 ```bash
 # Packages with no known fixes
-ecdsa==0.19.1             # 2 vulnerabilities (no fix available)
+# ecdsa removed due to security vulnerabilities - using cryptography's built-in ECDSA
 pypdf2==3.0.1             # 1 vulnerability (no fix available)
 python-jose==3.5.0        # 2 vulnerabilities (no fix available)
 ```

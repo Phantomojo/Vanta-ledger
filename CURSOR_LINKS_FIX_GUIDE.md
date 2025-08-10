@@ -29,16 +29,21 @@ venv/bin/python3.12 -> cursor.AppImage
 We created a script that temporarily removes Cursor from PATH during virtual environment creation:
 
 ```bash
-# Save original PATH
-ORIGINAL_PATH="$PATH"
+#!/bin/bash
+# Enable strict mode for reliability and security
+set -euo pipefail
 
-# Remove Cursor from PATH temporarily
-export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v -i cursor | tr '\n' ':' | sed 's/:$//')
+# Save original PATH with proper quoting
+ORIGINAL_PATH="${PATH:-}"
+
+# Remove Cursor from PATH temporarily using robust method
+# Split PATH, filter out cursor entries, rejoin without trailing colons
+export PATH=$(printf '%s\n' "$PATH" | tr ':' '\n' | grep -v -i cursor | tr '\n' ':' | sed 's/:*$//')
 
 # Create virtual environment with clean PATH
 /usr/bin/python3 -m venv venv
 
-# Restore original PATH
+# Restore original PATH with proper quoting
 export PATH="$ORIGINAL_PATH"
 ```
 
@@ -61,13 +66,21 @@ venv/bin/python3.12 -> /usr/bin/python3.12
 
 ### **Method 2: Manual Prevention**
 ```bash
+#!/bin/bash
+# Enable strict mode for reliability and security
+set -euo pipefail
+
 # Before creating virtual environments:
-export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v -i cursor | tr '\n' ':' | sed 's/:$//')
+# Save original PATH with proper quoting
+ORIGINAL_PATH="${PATH:-}"
+
+# Remove Cursor from PATH temporarily using robust method
+export PATH=$(printf '%s\n' "$PATH" | tr ':' '\n' | grep -v -i cursor | tr '\n' ':' | sed 's/:*$//')
 
 # Create virtual environment
 /usr/bin/python3 -m venv venv
 
-# Restore PATH
+# Restore PATH with proper quoting
 export PATH="$ORIGINAL_PATH"
 ```
 
@@ -101,6 +114,7 @@ venv/bin/python3 --version
 ### **Check for Cursor Interference**
 ```bash
 #!/bin/bash
+set -euo pipefail
 # Check if virtual environment is corrupted
 
 echo "🔍 Checking for Cursor interference..."
@@ -114,14 +128,14 @@ if [ -d "venv" ]; then
         if [[ "$TARGET" == *"cursor"* ]]; then
             echo "❌ CORRUPTED: Python links to Cursor"
             echo "   Target: $TARGET"
-            return 1
+            exit 1
         else
             echo "✅ OK: Python links to system Python"
             echo "   Target: $TARGET"
         fi
     else
         echo "❌ CORRUPTED: Python is not a symbolic link"
-        return 1
+        exit 1
     fi
     
     # Test Python execution
@@ -129,7 +143,7 @@ if [ -d "venv" ]; then
         echo "✅ OK: Python execution works correctly"
     else
         echo "❌ CORRUPTED: Python execution fails"
-        return 1
+        exit 1
     fi
 else
     echo "ℹ️  No virtual environment found"
@@ -139,6 +153,7 @@ fi
 ### **Fix Corrupted Environment**
 ```bash
 #!/bin/bash
+set -euo pipefail
 # Fix corrupted virtual environment
 
 echo "🔧 Fixing corrupted virtual environment..."
@@ -152,8 +167,8 @@ fi
 rm -rf venv
 
 # Create new environment with isolated PATH
-ORIGINAL_PATH="$PATH"
-export PATH=$(echo "$PATH" | tr ':' '\n' | grep -v -i cursor | tr '\n' ':' | sed 's/:$//')
+ORIGINAL_PATH="${PATH:-}"
+export PATH=$(printf '%s\n' "$PATH" | tr ':' '\n' | grep -v -i cursor | tr '\n' ':' | sed 's/:*$//')
 
 /usr/bin/python3 -m venv venv
 
