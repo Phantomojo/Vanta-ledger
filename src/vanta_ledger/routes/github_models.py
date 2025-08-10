@@ -311,11 +311,11 @@ async def batch_analyze_documents(
             })
             
         except Exception as e:
-            logger.error(f"Batch analysis failed for document {i}: {e}")
+            logger.exception(f"Batch analysis failed for document {i}")
             results.append({
                 "index": i,
                 "success": False,
-                "error": str(e)
+                "error": "Internal error during analysis"
             })
     
     return {
