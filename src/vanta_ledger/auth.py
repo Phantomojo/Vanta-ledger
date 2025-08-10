@@ -165,7 +165,7 @@ class AuthService:
             redis_client.setex(f"blacklist:{jti}", expires_in, "1")
             return True
         except Exception as e:
-            logger.error(f"Error blacklisting token: {str(e)}")
+            logger.error("Error blacklisting token: Internal error")
             return False
     
     @staticmethod
@@ -179,7 +179,7 @@ class AuthService:
         try:
             return redis_client.exists(f"blacklist:{jti}") > 0
         except Exception as e:
-            logger.error(f"Error checking token blacklist: {str(e)}")
+            logger.error("Error checking token blacklist: Internal error")
             return False
     
     @staticmethod
@@ -226,7 +226,7 @@ class AuthService:
                 session.close()
                 
         except Exception as e:
-            logger.error(f"Error authenticating user {username}: {str(e)}")
+            logger.error(f"Error authenticating user {username}: Authentication failed")
             return None
 
 # User management functions with database integration
@@ -256,7 +256,7 @@ def get_user_by_username(username: str) -> Optional[User]:
             )
         return None
     except Exception as e:
-        logger.error(f"Error getting user by username {username}: {str(e)}")
+        logger.error(f"Error getting user by username {username}: User retrieval failed")
         return None
 
 def get_user_by_id(user_id: str) -> Optional[User]:
@@ -285,7 +285,7 @@ def get_user_by_id(user_id: str) -> Optional[User]:
             )
         return None
     except Exception as e:
-        logger.error(f"Error getting user by ID {user_id}: {str(e)}")
+        logger.error(f"Error getting user by ID {user_id}: User retrieval failed")
         return None
 
 async def create_user(username: str, email: str, password: str, role: str = "user") -> User:
@@ -332,7 +332,7 @@ async def create_user(username: str, email: str, password: str, role: str = "use
         else:
             raise Exception("Failed to create user")
     except Exception as e:
-        logger.error(f"Error creating user {username}: {str(e)}")
+        logger.error(f"Error creating user {username}: User creation failed")
         raise
 
 # Dependency for getting current user
@@ -373,7 +373,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error getting current user: {str(e)}")
+        logger.error("Error getting current user: User retrieval failed")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials"

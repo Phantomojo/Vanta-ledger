@@ -79,7 +79,7 @@ async def health_check():
                 }
             )
     except Exception as e:
-        logger.error(f"Health check failed: {str(e)}")
+        logger.error("Health check failed: Internal server error")
         return JSONResponse(
             status_code=503,
             content={
@@ -111,7 +111,7 @@ async def initialize_database():
                 }
             )
     except Exception as e:
-        logger.error(f"Database initialization failed: {str(e)}")
+        logger.error("Database initialization failed: Internal server error")
         return JSONResponse(
             status_code=500,
             content={

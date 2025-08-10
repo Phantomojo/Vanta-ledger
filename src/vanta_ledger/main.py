@@ -176,7 +176,7 @@ async def health_check_endpoint():
     try:
         return await health_check()
     except Exception as e:
-        logger.error(f"Health check endpoint failed: {str(e)}")
+        logger.error("Health check endpoint failed: Internal server error")
         return JSONResponse(
             status_code=500,
             content={"status": "unhealthy", "error": "Internal server error"}
@@ -233,7 +233,7 @@ async def test_mongo():
         db.test.delete_one({"_id": result.inserted_id})
         return {"status": "MongoDB connection successful"}
     except Exception as e:
-        logger.error(f"MongoDB connection failed: {e}")
+        logger.error("MongoDB connection failed: Connection error")
         raise HTTPException(status_code=500, detail="Database connection failed")
 
 @app.get("/test-postgres")
@@ -256,7 +256,7 @@ async def test_postgres():
         conn.close()
         return {"status": "PostgreSQL connection successful", "version": version[0]}
     except Exception as e:
-        logger.error(f"PostgreSQL connection failed: {e}")
+        logger.error("PostgreSQL connection failed: Connection error")
         raise HTTPException(status_code=500, detail="Database connection failed")
 
 @app.get("/test-redis")
@@ -277,7 +277,7 @@ async def test_redis():
         r.delete("test")
         return {"status": "Redis connection successful", "test_value": result}
     except Exception as e:
-        logger.error(f"Redis connection failed: {e}")
+        logger.error("Redis connection failed: Connection error")
         raise HTTPException(status_code=500, detail="Database connection failed")
 
 
