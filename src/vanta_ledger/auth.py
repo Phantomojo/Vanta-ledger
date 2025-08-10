@@ -181,6 +181,53 @@ class AuthService:
         except Exception as e:
             logger.error(f"Error checking token blacklist: {str(e)}")
             return False
+    
+    @staticmethod
+    def authenticate_user(username: str, password: str) -> Optional[Dict[str, Any]]:
+        """
+        Authenticate a user with username and password
+        
+        Parameters:
+            username (str): The username to authenticate
+            password (str): The plaintext password
+            
+        Returns:
+            Optional[Dict[str, Any]]: User data if authentication successful, None otherwise
+        """
+        try:
+            # Try SQLAlchemy-based authentication first
+            from .database_init import get_database_initializer
+            from .models.user_models import UserDB
+            
+            db_init = get_database_initializer()
+            session = db_init.SessionLocal()
+            
+            try:
+                # Find user by username
+                db_user = session.query(UserDB).filter(UserDB.username == username).first()
+                
+                if db_user and db_user.is_active:
+                    # Verify password
+                    if AuthService.verify_password(password, db_user.hashed_password):
+                        # Update last login
+                        db_user.last_login = datetime.utcnow()
+                        session.commit()
+                        
+                        return {
+                            "username": db_user.username,
+                            "user_id": str(db_user.id),
+                            "email": db_user.email,
+                            "role": db_user.role
+                        }
+                
+                return None
+                
+            finally:
+                session.close()
+                
+        except Exception as e:
+            logger.error(f"Error authenticating user {username}: {str(e)}")
+            return None
 
 # User management functions with database integration
 def get_user_by_username(username: str) -> Optional[User]:
@@ -342,4 +389,17 @@ def require_role(required_role: str):
                 detail="Insufficient permissions"
             )
         return current_user
-    return role_checker 
+    return role_checker
+
+# FastAPI dependency function for token verification
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """
+    Verifies the provided HTTP Bearer token and returns the associated user or authentication context.
+    
+    Parameters:
+        credentials (HTTPAuthorizationCredentials): The HTTP Bearer credentials extracted from the request.
+    
+    Returns:
+        The result of token verification, typically user information or authentication context.
+    """
+    return AuthService.verify_token(credentials.credentials) 

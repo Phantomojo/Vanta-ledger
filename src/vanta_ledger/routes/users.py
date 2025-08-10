@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from typing import List
-from ..main import verify_token
+from ..auth import verify_token
 
 router = APIRouter(prefix='/users', tags=['Users'])
 

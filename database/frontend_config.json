@@ -4,7 +4,8 @@
   "fallback_login_endpoint": "/auth/login",
   "admin_credentials": {
     "username": "admin",
-    "password": "admin123"
+    "password": "<SET_VIA_ADMIN_PASSWORD_ENV_VAR>",
+    "note": "Use create_secure_admin.py script or set ADMIN_PASSWORD environment variable"
   },
   "database_info": {
     "location": "database/vanta_ledger_fixed.db",

@@ -1,0 +1,96 @@
+name: Expense Categorizer
+description: Intelligently categorizes business expenses using AI analysis
+model: openai/gpt-4o
+modelParameters:
+  temperature: 0.1
+  max_tokens: 1500
+messages:
+  - role: system
+    content: |
+      You are an expert business expense categorization system for professional accounting.
+      
+      Categorize expenses into standard business categories with high accuracy.
+      Return ONLY valid JSON - no explanations, no markdown, no extra text.
+      
+      STANDARD BUSINESS CATEGORIES:
+      - Office Supplies & Equipment
+      - Travel & Transportation
+      - Meals & Entertainment
+      - Utilities & Communications
+      - Software & Subscriptions
+      - Marketing & Advertising
+      - Professional Services
+      - Rent & Facilities
+      - Insurance & Legal
+      - Taxes & Government Fees
+      - Maintenance & Repairs
+      - Training & Education
+      - Other Business Expenses
+      
+      JSON SCHEMA (return exactly this):
+      {
+        "category": "exact category name from list above",
+        "subcategory": "more specific classification",
+        "confidence": 85,
+        "reasoning": "brief explanation for the categorization",
+        "suggested_tags": ["tag1", "tag2", "tag3"],
+        "tax_deductible": true,
+        "requires_receipt": true,
+        "compliance_notes": "any compliance considerations"
+      }
+      
+  - role: user
+    content: |
+      Expense Details:
+      Description: {{description}}
+      {{#amount}}Amount: ${{amount}}{{/amount}}
+      {{#vendor}}Vendor: {{vendor}}{{/vendor}}
+      {{#date}}Date: {{date}}{{/date}}
+      
+      Categorize this business expense following the exact JSON schema:
+
+testData:
+  - description: "Microsoft Office 365 subscription monthly fee"
+    amount: 29.99
+    vendor: "Microsoft Corporation"
+    expected: |
+      {
+        "category": "Software & Subscriptions",
+        "subcategory": "Productivity Software",
+        "confidence": 95,
+        "reasoning": "Monthly subscription for office productivity suite",
+        "suggested_tags": ["software", "subscription", "productivity"],
+        "tax_deductible": true,
+        "requires_receipt": true
+      }
+  - description: "Lunch meeting with client"
+    amount: 85.00
+    vendor: "Downtown Restaurant"
+    expected: |
+      {
+        "category": "Meals & Entertainment",
+        "subcategory": "Business Meals",
+        "confidence": 90,
+        "reasoning": "Client meal for business purposes",
+        "suggested_tags": ["meals", "client", "business_development"],
+        "tax_deductible": true,
+        "requires_receipt": true,
+        "compliance_notes": "50% deductible for business meals"
+      }
+
+evaluators:
+  - name: Category must be from standard list
+    string:
+      field: category
+      oneOf: ["Office Supplies & Equipment", "Travel & Transportation", "Meals & Entertainment", "Utilities & Communications", "Software & Subscriptions", "Marketing & Advertising", "Professional Services", "Rent & Facilities", "Insurance & Legal", "Taxes & Government Fees", "Maintenance & Repairs", "Training & Education", "Other Business Expenses"]
+  - name: Confidence should be reasonable
+    numeric:
+      field: confidence
+      min: 0
+      max: 100
+
+
+
+
+
+

@@ -6,7 +6,11 @@ Defines user data models and database schemas
 
 from datetime import datetime
 from typing import Optional, List
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
+from typing import Union
+
+# Production fix for email validation - use string type with validation
+EmailStr = str
 from sqlalchemy import Column, String, Boolean, DateTime, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func

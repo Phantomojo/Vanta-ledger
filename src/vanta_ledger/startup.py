@@ -18,6 +18,9 @@ async def initialize_services():
     try:
         logger.info("Initializing backend services...")
         
+        # Initialize database
+        await initialize_database()
+        
         # Initialize local LLM service
         await initialize_local_llm()
         
@@ -27,6 +30,24 @@ async def initialize_services():
     except Exception as e:
         logger.error(f"Failed to initialize services: {str(e)}")
         return False
+
+async def initialize_database():
+    """Initialize database tables and admin user"""
+    try:
+        logger.info("Initializing database...")
+        
+        from .database_init import initialize_database
+        success = initialize_database()
+        
+        if success:
+            logger.info("Database initialized successfully")
+        else:
+            logger.warning("Database initialization had issues - check logs")
+            
+    except Exception as e:
+        logger.error(f"Failed to initialize database: {str(e)}")
+        # Don't fail startup if database init fails - app can still run
+        logger.info("Continuing startup without database initialization")
 
 async def initialize_local_llm():
     """Initialize local LLM service"""

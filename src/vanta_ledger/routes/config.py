@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from ..main import verify_token
+from ..auth import verify_token
 from ..config import settings
 
 router = APIRouter(prefix='/config', tags=['Config'])

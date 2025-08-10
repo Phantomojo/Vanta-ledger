@@ -132,7 +132,7 @@ class DocumentProcessor:
     def _generate_doc_id(self, file_path: str, original_filename: str) -> str:
         """Generate unique document ID based on content hash"""
         with open(file_path, 'rb') as f:
-            content_hash = hashlib.md5(f.read()).hexdigest()[:8]
+            content_hash = hashlib.sha256(f.read()).hexdigest()[:8]
         return f"{content_hash}_{int(datetime.now().timestamp())}"
     
     def _extract_text(self, file_path: str) -> str:

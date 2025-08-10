@@ -2,7 +2,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
-from ..main import verify_token
+from ..auth import verify_token
 from ..database import get_postgres_connection
 
 # Thread pool for database operations

@@ -4,6 +4,7 @@ Local LLM API Routes
 Multi-company document processing with local LLM integration
 """
 
+import tempfile
 from datetime import datetime
 from typing import List, Optional, Dict, Any
 from uuid import UUID
@@ -33,11 +34,18 @@ async def process_document_with_llm(
         # Validate company ID
         company_uuid = input_validator.validate_uuid(company_id, "company_id")
         
+        # Create secure temporary file
+        temp_fd, temp_path = tempfile.mkstemp(
+            suffix=f"_{file.filename}",
+            prefix=f"user_{current_user.id}_"
+        )
+        os.close(temp_fd)  # Close the file descriptor, we'll use the path
+        
         # Create document data
         document_data = {
             "original_filename": file.filename,
             "secure_filename": f"user_{current_user.id}_{file.filename}",
-            "file_path": f"/tmp/{file.filename}",
+            "file_path": temp_path,
             "file_size": 0,  # Will be set after file save
             "file_extension": file.filename.split(".")[-1] if "." in file.filename else "",
             "mime_type": file.content_type,

@@ -657,9 +657,9 @@ class LocalLLMService:
     
     def _generate_company_cache_key(self, document: EnhancedDocument, company_id: UUID) -> str:
         """Generate cache key including company context"""
-        content_hash = hashlib.md5(
+        content_hash = hashlib.sha256(
             f"{document.original_filename}{document.file_size}{document.checksum}{company_id}".encode()
-        ).hexdigest()
+        ).hexdigest()[:16]  # Use first 16 chars for cache key compatibility
         return f"llm_company_cache:{content_hash}"
     
     async def _get_cached_result(self, cache_key: str) -> Optional[Dict]:
