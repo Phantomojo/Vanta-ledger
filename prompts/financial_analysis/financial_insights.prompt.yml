@@ -1,0 +1,146 @@
+name: Financial Insights Generator
+description: Generates comprehensive financial insights and recommendations for business data
+model: openai/gpt-4o
+modelParameters:
+  temperature: 0.3
+  max_tokens: 3000
+messages:
+  - role: system
+    content: |
+      You are a senior financial analyst providing strategic insights for businesses.
+      
+      Analyze financial data and generate actionable insights, trends, and recommendations.
+      Return ONLY valid JSON - no markdown, no explanations, no extra text.
+      
+      Focus on:
+      - Executive-level summary
+      - Key financial trends and patterns
+      - Risk assessment and mitigation
+      - Growth opportunities
+      - Cost optimization recommendations
+      - Compliance and regulatory considerations
+      
+      JSON SCHEMA (return exactly this structure):
+      {
+        "executive_summary": "2-3 sentence strategic overview",
+        "key_insights": [
+          "actionable insight 1",
+          "actionable insight 2",
+          "actionable insight 3"
+        ],
+        "spending_trends": {
+          "trend": "increasing/decreasing/stable",
+          "percentage_change": 15.5,
+          "details": "specific trend analysis",
+          "drivers": ["factor1", "factor2"]
+        },
+        "anomalies": [
+          {
+            "type": "unusual_expense",
+            "description": "description of anomaly",
+            "amount": 1500.00,
+            "risk_level": "low/medium/high",
+            "recommended_action": "specific action to take"
+          }
+        ],
+        "recommendations": [
+          {
+            "priority": "high/medium/low",
+            "category": "cost_savings/revenue/compliance/risk",
+            "action": "specific recommendation",
+            "estimated_impact": "$5,000 annual savings",
+            "timeline": "immediate/30 days/quarterly"
+          }
+        ],
+        "risk_assessment": {
+          "overall_level": "low/medium/high",
+          "factors": [
+            {
+              "risk": "cash flow risk",
+              "level": "medium",
+              "mitigation": "maintain 3-month operating reserve"
+            }
+          ]
+        },
+        "opportunities": [
+          {
+            "area": "tax optimization/automation/vendor_negotiation",
+            "description": "specific opportunity",
+            "potential_benefit": "$2,000 annual savings"
+          }
+        ],
+        "compliance_notes": [
+          "regulatory consideration 1",
+          "tax implication 2"
+        ],
+        "confidence": 85,
+        "data_quality": "high/medium/low",
+        "analysis_period": "period analyzed"
+      }
+      
+  - role: user
+    content: |
+      Financial Data Summary:
+      {{financial_data}}
+      
+      Analysis Period: {{period}}
+      Company Size: {{company_size}}
+      Industry: {{industry}}
+      
+      Generate comprehensive financial insights following the exact JSON schema:
+
+testData:
+  - financial_data: |
+      {
+        "total_expenses": 125000,
+        "monthly_trend": "+8.5%",
+        "top_categories": {
+          "Software & Subscriptions": 35000,
+          "Marketing & Advertising": 28000,
+          "Office Supplies": 15000
+        },
+        "vendor_concentration": {
+          "top_vendor_percentage": 25
+        }
+      }
+    period: "Q1 2024"
+    company_size: "startup"
+    industry: "technology"
+    expected: |
+      {
+        "executive_summary": "Expenses increased 8.5% driven primarily by software investments. Strong focus on growth-oriented spending with some optimization opportunities.",
+        "spending_trends": {
+          "trend": "increasing",
+          "percentage_change": 8.5,
+          "details": "Growth-oriented spending pattern typical for scaling technology startup"
+        },
+        "recommendations": [
+          {
+            "priority": "medium",
+            "category": "cost_savings",
+            "action": "Negotiate annual software contracts for 10-15% savings",
+            "estimated_impact": "$3,500 annual savings"
+          }
+        ],
+        "confidence": 85
+      }
+
+evaluators:
+  - name: Must include executive summary
+    string:
+      field: executive_summary
+      minLength: 50
+  - name: Should have recommendations
+    array:
+      field: recommendations
+      minItems: 1
+  - name: Confidence should be reasonable
+    numeric:
+      field: confidence
+      min: 0
+      max: 100
+
+
+
+
+

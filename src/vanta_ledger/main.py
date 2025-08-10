@@ -5,40 +5,26 @@ Advanced document processing and financial data management system
 """
 
 import os
-import json
-import glob
 from datetime import datetime, timedelta
-from typing import List, Optional, Dict, Any
-from pathlib import Path
+from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Depends, status, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
-import jwt
+from jose import jwt
 import pymongo
 import psycopg2
 import redis
 import prometheus_client
 from prometheus_client import Counter, Histogram
-
+import logging
 # Import settings and middleware
 from .config import settings
 from .middleware import LoggingMiddleware, SecurityHeadersMiddleware, RateLimitMiddleware
 
 # Import authentication
-from .auth import AuthService, get_current_user, get_user_by_username
-
-# Import secure file handling
-from .utils.file_utils import secure_file_handler
-
-# Import input validation
-from .utils.validation import input_validator
-
-# Import document processor
-from .services.document_processor import DocumentProcessor
-from .services.ai_analytics_service import enhanced_ai_analytics_service
-from .services.analytics_dashboard import analytics_dashboard
+from .auth import AuthService
 
 # Import enhanced document management
 from .routes.enhanced_documents import router as enhanced_documents_router
@@ -60,6 +46,12 @@ from .routes.analytics import router as analytics_router
 from .routes.users import router as users_router
 from .routes.config import router as config_router
 from .routes.notifications import router as notifications_router
+# from .routes.github_models import router as github_models_router  # Temporarily disabled due to import issues
+
+# Import new frontend compatibility routes
+from .routes.simple_auth import router as simple_auth_router
+from .routes.extracted_data import router as extracted_data_router
+from .routes.paperless_integration import router as paperless_router
 
 # Import startup
 from .startup import initialize_services, health_check
@@ -77,6 +69,11 @@ async def startup_event():
     """
     Initializes required services asynchronously when the application starts.
     """
+    # Validate required runtime configuration now (not at import time)
+    settings.validate_required_config()
+    if not settings.DEBUG and not settings.SECRET_KEY:
+        # Defensive check: validate_required_config should have raised
+        raise RuntimeError("SECRET_KEY must be configured in production")
     await initialize_services()
 
 # Add middleware
@@ -97,6 +94,7 @@ app.add_middleware(
 security = HTTPBearer()
 
 # Initialize document processor
+from .services.document_processor import DocumentProcessor
 document_processor = DocumentProcessor()
 
 # Include enhanced document management routes
@@ -119,6 +117,12 @@ app.include_router(analytics_router)
 app.include_router(users_router)
 app.include_router(config_router)
 app.include_router(notifications_router)
+# app.include_router(github_models_router)  # Temporarily disabled
+
+# Include frontend compatibility routes
+app.include_router(simple_auth_router)
+app.include_router(extracted_data_router)
+app.include_router(paperless_router)
 
 # Prometheus metrics
 REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP requests', ['method', 'endpoint', 'status'])
@@ -168,15 +172,26 @@ async def health_check_endpoint():
     """
     Asynchronously returns the current health status of the service.
     """
-    return await health_check()
-
+    logger = logging.getLogger("vanta_ledger.main")
+    try:
+        return await health_check()
+    except Exception as e:
+        logger.error("Health check endpoint failed: Internal server error")
+        return JSONResponse(
+            status_code=500,
+            content={"status": "unhealthy", "error": "Internal server error"}
+        )
 # Metrics endpoint
 @app.get("/metrics")
 async def metrics():
     """
     Return the latest Prometheus metrics data for monitoring and observability systems.
     """
-    return prometheus_client.generate_latest()
+    from fastapi.responses import Response
+    return Response(
+        content=prometheus_client.generate_latest(),
+        media_type="text/plain"
+    )
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
@@ -218,7 +233,8 @@ async def test_mongo():
         db.test.delete_one({"_id": result.inserted_id})
         return {"status": "MongoDB connection successful"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"MongoDB connection failed: {str(e)}")
+        logger.error("MongoDB connection failed: Connection error")
+        raise HTTPException(status_code=500, detail="Database connection failed")
 
 @app.get("/test-postgres")
 async def test_postgres():
@@ -240,7 +256,8 @@ async def test_postgres():
         conn.close()
         return {"status": "PostgreSQL connection successful", "version": version[0]}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"PostgreSQL connection failed: {str(e)}")
+        logger.error("PostgreSQL connection failed: Connection error")
+        raise HTTPException(status_code=500, detail="Database connection failed")
 
 @app.get("/test-redis")
 async def test_redis():
@@ -260,7 +277,8 @@ async def test_redis():
         r.delete("test")
         return {"status": "Redis connection successful", "test_value": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Redis connection failed: {str(e)}")
+        logger.error("Redis connection failed: Connection error")
+        raise HTTPException(status_code=500, detail="Database connection failed")
 
 
 # Legacy endpoints for backward compatibility

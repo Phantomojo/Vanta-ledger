@@ -39,12 +39,12 @@ def main():
             port=5432,
             database='vanta_ledger',
             user='vanta_user',
-            password='vanta_secure_password_2024'
+            password=os.getenv('POSTGRES_PASSWORD', 'password')
         )
         logger.info("✅ PostgreSQL connection successful")
         
         # Test MongoDB
-        mongo_client = MongoClient('mongodb://admin:THq2ibwBwnNCHUqbKFlSHrkmo3eSpzPGPX4AZg2V7yU=@localhost:27017/vanta_ledger?authSource=admin')
+        mongo_client = MongoClient(f'mongodb://admin:{os.getenv("MONGO_INITDB_ROOT_PASSWORD")}@localhost:27017/vanta_ledger?authSource=admin')
         mongo_db = mongo_client.vanta_ledger
         logger.info("✅ MongoDB connection successful")
         

@@ -80,7 +80,7 @@ class PerformanceOptimizer:
         }
         
         key_string = json.dumps(key_data, sort_keys=True, default=str)
-        key_hash = hashlib.md5(key_string.encode()).hexdigest()
+        key_hash = hashlib.sha256(key_string.encode()).hexdigest()[:16]  # Use first 16 chars for compatibility
         
         return f"{prefix}:{key_hash}" if prefix else f"cache:{key_hash}"
     

@@ -92,7 +92,7 @@ app = Flask(__name__)
 ai_engine = LLMEnhancedDocumentAI(
     paperless_url="http://localhost:8000",
     username="Mike",
-    password="106730!@#"
+    password="[SET_VIA_ENV_VAR]"
 )
 
 @app.route('/webhook/paperless', methods=['POST'])
@@ -176,7 +176,7 @@ class BusinessDashboard:
         self.ai_engine = LLMEnhancedDocumentAI(
             paperless_url="http://localhost:8000",
             username="Mike",
-            password="106730!@#"
+            password="[SET_VIA_ENV_VAR]"
         )
     
     async def get_financial_summary(self):
@@ -461,7 +461,7 @@ class SemanticSearch:
         self.ai_engine = LLMEnhancedDocumentAI(
             paperless_url="http://localhost:8000",
             username="Mike",
-            password="106730!@#"
+            password="[SET_VIA_ENV_VAR]"
         )
         self.vectorizer = TfidfVectorizer(max_features=1000, stop_words='english')
         self.document_vectors = None
@@ -585,7 +585,7 @@ class OptimizedProcessor:
         self.ai_engine = LLMEnhancedDocumentAI(
             paperless_url="http://localhost:8000",
             username="Mike",
-            password="106730!@#"
+            password="[SET_VIA_ENV_VAR]"
         )
         self.max_workers = max_workers
         self.executor = ThreadPoolExecutor(max_workers=max_workers)

@@ -164,18 +164,9 @@ class EnhancedDocumentProcessor:
                 text += page.get_text()
             doc.close()
             return text.strip()
-        except:
-            try:
-                import PyPDF2
-                with open(file_path, 'rb') as file:
-                    pdf_reader = PyPDF2.PdfReader(file)
-                    text = ""
-                    for page in pdf_reader.pages:
-                        text += page.extract_text()
-                return text.strip()
-            except Exception as e:
-                logger.error(f"Error extracting text from PDF {file_path}: {e}")
-                return f"[PDF file: {file_path.name} - text extraction failed]"
+        except Exception as e:
+            logger.error(f"Error extracting text from PDF {file_path}: {e}")
+            return f"[PDF file: {file_path.name} - text extraction failed]"
 
     def extract_text_from_docx(self, file_path: Path) -> str:
         """Extract text from DOCX file"""

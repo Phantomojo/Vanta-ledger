@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from typing import List
-from ..auth import AuthService
+from ..auth import verify_token
 
 router = APIRouter(prefix='/users', tags=['Users'])
 
 @router.get('/')
-async def get_users(current_user: dict = Depends(AuthService.verify_token)):
+async def get_users(current_user: dict = Depends(verify_token)):
     """
     Retrieve a list of users for authenticated clients.
     

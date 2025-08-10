@@ -10,60 +10,80 @@ router = APIRouter(tags=['Analytics'])
 @router.get('/extracted-data/analytics')
 async def get_analytics(current_user: dict = Depends(AuthService.verify_token)):
     """
-    Retrieve aggregated statistics for all financial transactions.
+    Retrieve aggregated statistics for financial transactions.
+    Enforces RBAC and company isolation.
     
     Returns:
-        dict: A dictionary containing the total number of transactions, total amount, average amount, minimum amount, and maximum amount across all financial transactions.
+        dict: A dictionary containing the total number of transactions, total amount, average amount, minimum amount, and maximum amount across accessible financial transactions.
     
     Raises:
-        HTTPException: If no financial transaction data is found.
+        HTTPException: If no financial transaction data is found or access is denied.
     """
+    # Enforce RBAC - only admins can see all data
+    if current_user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+    
     conn = get_postgres_connection()
     cursor = conn.cursor()
-    cursor.execute('''
-        SELECT
-            COUNT(*) as total_transactions,
-            SUM(amount) as total_amount,
-            AVG(amount) as avg_amount,
-            MIN(amount) as min_amount,
-            MAX(amount) as max_amount
-        FROM financial_transactions
-    ''')
-    result = cursor.fetchone()
-    cursor.close()
-    conn.close()
-    if not result:
-        raise HTTPException(status_code=404, detail='No financial data found')
-    return {
-        'total_transactions': result[0] or 0,
-        'total_amount': float(result[1]) if result[1] else 0,
-        'average_amount': float(result[2]) if result[2] else 0,
-        'min_amount': float(result[3]) if result[3] else 0,
-        'max_amount': float(result[4]) if result[4] else 0
-    }
+    try:
+        cursor.execute('''
+            SELECT
+                COUNT(*) as total_transactions,
+                SUM(amount) as total_amount,
+                AVG(amount) as avg_amount,
+                MIN(amount) as min_amount,
+                MAX(amount) as max_amount
+            FROM financial_transactions
+        ''')
+        result = cursor.fetchone()
+        if not result:
+            raise HTTPException(status_code=404, detail='No financial data found')
+        return {
+            'total_transactions': result[0] or 0,
+            'total_amount': str(result[1]) if result[1] else '0',  # Return as string to preserve precision
+            'average_amount': str(result[2]) if result[2] else '0',
+            'min_amount': str(result[3]) if result[3] else '0',
+            'max_amount': str(result[4]) if result[4] else '0'
+        }
+    finally:
+        cursor.close()
+        conn.close()
 
 @router.post('/ai/analyze-document/{document_id}')
 async def analyze_document_ai(document_id: str, current_user: dict = Depends(AuthService.verify_token)):
     """
     Analyze a processed document using AI and return the analysis results.
-    
-    Fetches a document by its ID from the processed documents collection in MongoDB. If found, performs AI-driven analysis on the document, updates the document with the analysis results, and returns the analysis. Raises a 404 error if the document does not exist.
+    Enforces company isolation and RBAC.
     
     Parameters:
         document_id (str): The unique identifier of the document to analyze.
     
     Returns:
         dict: The AI-generated analysis results for the specified document.
+    
+    Raises:
+        HTTPException: If document not found or access denied.
     """
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
-    document = collection.find_one({'document_id': document_id})
-    if not document:
-        raise HTTPException(status_code=404, detail='Document not found')
-    analysis = await enhanced_ai_analytics_service.analyze_document_intelligence(document)
-    collection.update_one({'document_id': document_id}, {'$set': {'ai_analysis': analysis}})
-    return analysis
+    
+    try:
+        document = collection.find_one({'document_id': document_id})
+        if not document:
+            raise HTTPException(status_code=404, detail='Document not found')
+        
+        # Enforce company isolation - users can only access documents from their company
+        if current_user.get("role") != "admin":
+            user_company = current_user.get("company_id")
+            if not user_company or document.get("company_id") != user_company:
+                raise HTTPException(status_code=403, detail="Access denied to this document")
+        
+        analysis = await enhanced_ai_analytics_service.analyze_document_intelligence(document)
+        collection.update_one({'document_id': document_id}, {'$set': {'ai_analysis': analysis}})
+        return analysis
+    finally:
+        client.close()
 
 @router.get('/ai/company-report/{company_id}')
 async def generate_company_report(company_id: str, current_user: dict = Depends(AuthService.verify_token)):
@@ -82,7 +102,8 @@ async def generate_company_report(company_id: str, current_user: dict = Depends(
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
-    documents = list(collection.find({'company': company_id}))
+    # Limit to prevent unbounded reads - max 1000 documents per company
+    documents = list(collection.find({'company': company_id}).limit(1000))
     if not documents:
         raise HTTPException(status_code=404, detail='No documents found for company')
     report = await enhanced_ai_analytics_service.generate_company_report(company_id, documents)
@@ -103,7 +124,8 @@ async def generate_system_analytics(current_user: dict = Depends(AuthService.ver
     client = get_mongo_client()
     db = client.vanta_ledger
     collection = db.processed_documents
-    all_documents = list(collection.find({}))
+    # Limit to prevent unbounded reads - max 5000 documents for system analytics
+    all_documents = list(collection.find({}).limit(5000))
     if not all_documents:
         raise HTTPException(status_code=404, detail='No documents found')
     analytics = await enhanced_ai_analytics_service.generate_system_analytics(all_documents)

@@ -8,12 +8,12 @@ LOCK_FILE="/tmp/cursor_single_instance.lock"
 
 # is_cursor_running checks if any Cursor application process is currently running.
 is_cursor_running() {
-    pgrep -f "cursor.AppImage" >/dev/null
+    pgrep -f "cursor.AppImage" | grep -vw $$ >/dev/null
 }
 
 # get_cursor_pid retrieves the process ID(s) of running Cursor application instances.
 get_cursor_pid() {
-    pgrep -f "cursor.AppImage"
+    pgrep -f "cursor.AppImage" | grep -vw $$
 }
 
 # start_cursor launches the Cursor application if it is not already running, ensuring only a single instance by creating a lock file with the process ID.

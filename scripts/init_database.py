@@ -59,12 +59,10 @@ def create_tables(engine):
 
 def create_initial_admin_user(session):
     """
-    Creates an initial admin user with default credentials if one does not already exist.
+    Creates an initial admin user if one does not already exist.
     
-    If an admin user with the username "admin" is found, returns the existing user. Otherwise, creates a new admin user with preset credentials and returns the created user.
-    
-    Returns:
-        The existing or newly created admin user object.
+    Uses environment variables to avoid hardcoded credentials.
+    Requires ADMIN_PASSWORD to be provided via environment.
     """
     try:
         user_service = UserService(session)
@@ -75,11 +73,18 @@ def create_initial_admin_user(session):
             logger.info("✅ Admin user already exists")
             return existing_admin
         
+        admin_username = os.getenv("ADMIN_USERNAME", "admin")
+        admin_email = os.getenv("ADMIN_EMAIL", "admin@vantaledger.com")
+        admin_password = os.getenv("ADMIN_PASSWORD")
+        
+        if not admin_password or len(admin_password) < 12:
+            raise RuntimeError("ADMIN_PASSWORD must be set and at least 12 characters for initial admin creation")
+        
         # Create admin user
         admin_data = UserCreate(
-            username="admin",
-            email="admin@vantaledger.com",
-            password="admin123",  # This should be changed on first login
+            username=admin_username,
+            email=admin_email,
+            password=admin_password,
             role="admin"
         )
         
@@ -88,7 +93,7 @@ def create_initial_admin_user(session):
         logger.info(f"   Username: {admin_user.username}")
         logger.info(f"   Email: {admin_user.email}")
         logger.info(f"   Role: {admin_user.role}")
-        logger.warning("⚠️  Please change the admin password on first login!")
+        logger.warning("⚠️  Ensure the admin password is rotated and stored securely.")
         
         return admin_user
         
@@ -119,7 +124,7 @@ def main():
     """
     Orchestrates the database initialization process for the Vanta Ledger application.
     
-    This function tests the database connection, creates the necessary tables, and sets up an initial admin user with default credentials. It logs progress and instructions for next steps. If any step fails, the process is aborted and an error is logged.
+    This function tests the database connection, creates the necessary tables, and sets up an initial admin user using secure environment-provided credentials.
     """
     logger.info("🚀 Initializing Vanta Ledger Database")
     logger.info("=" * 50)
@@ -138,7 +143,7 @@ def main():
         # Create tables
         create_tables(engine)
         
-        # Create initial admin user
+        # Create initial admin user (requires ADMIN_PASSWORD)
         create_initial_admin_user(session)
         
         # Close session
@@ -147,9 +152,7 @@ def main():
         logger.info("🎉 Database initialization completed successfully!")
         logger.info("\n📋 Next Steps:")
         logger.info("1. Start the application")
-        logger.info("2. Login with admin/admin123")
-        logger.info("3. Change the admin password")
-        logger.info("4. Create additional users as needed")
+        logger.info("2. Configure RBAC and rotate admin credentials if needed")
         
     except Exception as e:
         logger.error(f"❌ Database initialization failed: {e}")

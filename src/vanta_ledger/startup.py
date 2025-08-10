@@ -18,6 +18,9 @@ async def initialize_services():
     try:
         logger.info("Initializing backend services...")
         
+        # Initialize database
+        await initialize_database()
+        
         # Initialize local LLM service
         await initialize_local_llm()
         
@@ -25,8 +28,26 @@ async def initialize_services():
         return True
         
     except Exception as e:
-        logger.error(f"Failed to initialize services: {str(e)}")
+        logger.error("Failed to initialize services: Service initialization failed")
         return False
+
+async def initialize_database():
+    """Initialize database tables and admin user"""
+    try:
+        logger.info("Initializing database...")
+        
+        from .database_init import initialize_database
+        success = initialize_database()
+        
+        if success:
+            logger.info("Database initialized successfully")
+        else:
+            logger.warning("Database initialization had issues - check logs")
+            
+    except Exception as e:
+        logger.error("Failed to initialize database: Database initialization failed")
+        # Don't fail startup if database init fails - app can still run
+        logger.info("Continuing startup without database initialization")
 
 async def initialize_local_llm():
     """Initialize local LLM service"""
@@ -52,7 +73,7 @@ async def initialize_local_llm():
         logger.info("Local LLM service initialized successfully")
         
     except Exception as e:
-        logger.error(f"Failed to initialize local LLM service: {str(e)}")
+        logger.error("Failed to initialize local LLM service: LLM service initialization failed")
         # Don't fail startup if LLM service fails - it's optional
         logger.info("Continuing startup without local LLM service")
 
@@ -86,8 +107,8 @@ async def health_check():
         return health_status
         
     except Exception as e:
-        logger.error(f"Health check failed: {str(e)}")
+        logger.error("Health check failed: Health check error")
         return {
             "status": "unhealthy",
-            "error": str(e)
+            "error": "Internal server error"
         } 

@@ -5,39 +5,58 @@ Create admin user for Vanta Ledger
 
 import os
 import sys
+import getpass
 from pathlib import Path
 
 # Add src to path
 src_path = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_path))
 
-from vanta_ledger.services.user_service import get_user_service
+from vanta_ledger.services.user_service import get_user_service, init_user_service
 from vanta_ledger.models.user_models import UserCreate
+from vanta_ledger.database import get_db_session
 
 def create_admin_user():
     """
-    Creates an admin user with predefined credentials in the Vanta Ledger system.
+    Creates an admin user with secure credentials in the Vanta Ledger system.
     
     Returns:
         The created admin user object if successful, or None if user creation fails.
     """
     try:
+        # Get admin credentials from environment or prompt securely
+        username = os.getenv("ADMIN_USERNAME", "admin")
+        email = os.getenv("ADMIN_EMAIL", "admin@vanta.com")
+        password = os.getenv("ADMIN_PASSWORD")
+        
+        if not password:
+            # Prompt without echo; fail in non-interactive environments
+            try:
+                password = getpass.getpass("Enter admin password: ")
+            except Exception:
+                raise RuntimeError("ADMIN_PASSWORD not set and no TTY available for prompting")
+        
+        role = os.getenv("ADMIN_ROLE", "admin")
+        
+        # Initialize database session and user service
+        session = get_db_session()
+        init_user_service(session)
         user_service = get_user_service()
         
         # Create admin user
         admin_data = UserCreate(
-            username="admin",
-            email="admin@vanta.com",
-            password="Admin123!",
-            role="admin"
+            username=username,
+            email=email,
+            password=password,
+            role=role
         )
         
         user = user_service.create_user(admin_data)
-        print(f"✅ Admin user created successfully!")
-        print(f"   Username: admin")
-        print(f"   Email: admin@vanta.com")
-        print(f"   Password: Admin123!")
-        print(f"   Role: admin")
+        print("✅ Admin user created successfully!")
+        print(f"   Username: {username}")
+        print(f"   Email: {email}")
+        print(f"   Role: {role}")
+        # Note: password intentionally not printed
         
         return user
         

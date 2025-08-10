@@ -299,10 +299,14 @@ final_security_validation() {
     
     # Test authentication endpoints
     log "Testing authentication endpoints..."
-    if curl -f -X POST http://localhost:8500/auth/login -H "Content-Type: application/x-www-form-urlencoded" -d "username=admin&password=admin123" >/dev/null 2>&1; then
-        success "Authentication endpoint is working"
+    if [[ -z "${ADMIN_PASSWORD:-}" ]]; then
+        warning "ADMIN_PASSWORD not set; skipping auth login test"
     else
-        warning "Authentication endpoint test failed"
+        if curl -f -X POST http://localhost:8500/auth/login -H "Content-Type: application/x-www-form-urlencoded" -d "username=admin&password=${ADMIN_PASSWORD}" >/dev/null 2>&1; then
+            success "Authentication endpoint is working"
+        else
+            warning "Authentication endpoint failed (check logs)"
+        fi
     fi
     
     # Test security headers

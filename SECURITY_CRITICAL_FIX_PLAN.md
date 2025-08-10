@@ -17,8 +17,8 @@
 - **pillow 10.1.0** → **11.3.0** (Arbitrary code execution)
 
 ### **High Priority Vulnerabilities**
-- **python-jose 3.5.0** → **3.5.1** (Algorithm confusion)
-- **ecdsa 0.19.1** → **0.20.0** (Minerva attack)
+- **python-jose 3.5.0** (latest secure version)
+- **ecdsa**: Removed due to security vulnerabilities (using cryptography's built-in ECDSA)
 - **paramiko 2.12.0** → **3.4.0** (Encryption vulnerabilities)
 
 ### **Medium Priority Vulnerabilities**
@@ -41,8 +41,8 @@ pip install --upgrade pillow==11.3.0
 ### **Step 2: Update High Priority Packages**
 ```bash
 # High priority updates
-pip install --upgrade python-jose[cryptography]==3.5.1
-pip install --upgrade ecdsa==0.20.0
+pip install --upgrade python-jose[cryptography]==3.5.0
+# ecdsa removed due to security vulnerabilities - using cryptography's built-in ECDSA
 pip install --upgrade paramiko==3.4.0
 ```
 
@@ -77,8 +77,8 @@ pip install --upgrade pillow==11.3.0
 
 # High priority updates
 echo "🟡 Updating High Priority Packages..."
-pip install --upgrade python-jose[cryptography]==3.5.1
-pip install --upgrade ecdsa==0.20.0
+pip install --upgrade python-jose[cryptography]==3.5.0
+# ecdsa removed due to security vulnerabilities - using cryptography's built-in ECDSA
 pip install --upgrade paramiko==3.4.0
 
 # Medium priority updates
@@ -94,7 +94,15 @@ safety scan
 echo "🎉 Security fix completed!"
 ```
 
-## 📋 **Updated Requirements File**
+## 📋 **Updated Package Management**
+
+### **New Two-File Approach**
+This project now uses a two-file approach for better security and reproducibility:
+
+1. **`requirements.txt`**: Core dependencies with version ranges
+2. **`constraints.txt`**: Exact version pinning for security
+
+**Installation:** `pip install -r requirements.txt -c constraints.txt`
 
 ### **New Secure Requirements**
 ```txt
@@ -106,8 +114,8 @@ setuptools==78.1.1            # Fixed: Remote code execution
 pillow==11.3.0                # Fixed: Arbitrary code execution
 
 # High Priority Security Packages
-python-jose[cryptography]==3.5.1  # Fixed: Algorithm confusion
-ecdsa==0.20.0                     # Fixed: Minerva attack
+python-jose[cryptography]==3.5.0  # Latest secure version (pinned in constraints.txt)
+# ecdsa removed due to security vulnerabilities - using cryptography's built-in ECDSA
 paramiko==3.4.0                   # Fixed: Encryption vulnerabilities
 
 # Medium Priority Security Packages
