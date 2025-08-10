@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
 from fastapi.responses import JSONResponse
 import httpx
 import os
-
+import logging
 from ..auth import AuthService
 
 router = APIRouter(prefix="/paperless", tags=["Paperless Integration"])
@@ -243,9 +243,10 @@ async def paperless_health_check(current_user: dict = Depends(AuthService.verify
                 }
                 
     except Exception as e:
+        logging.exception("Paperless health check failed")
         return {
             "status": "disconnected",
             "paperless_url": PAPERLESS_BASE_URL,
-            "message": str(e)
+            "message": "Unable to connect to Paperless-ngx. Please contact support."
         }
 
