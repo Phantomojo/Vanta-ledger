@@ -4,9 +4,8 @@ Enhanced Company Models for Vanta Ledger
 Defines comprehensive company data models matching the remote repository schema
 """
 
-from sqlalchemy import Column, String, DateTime, Boolean, Text, Float, Integer
+from sqlalchemy import Column, String, DateTime, Text, Float
 from sqlalchemy.sql import func
-from datetime import datetime
 import uuid
 import json
 
