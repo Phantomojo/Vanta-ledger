@@ -16,6 +16,21 @@
 
 **Vanta Ledger** is a NASA-grade, enterprise-level financial management platform designed to manage **10+ companies simultaneously** with AI-powered document processing, real-time analytics, and bulletproof security. Built for scalability, reliability, and zero-compromise performance.
 
+## 🔒 Open Source Code, Private Data
+
+**Vanta Ledger follows a clear separation principle:**
+- **✅ Code**: Open source and freely available for forking, modification, and commercial use
+- **🔒 Data**: Private and protected - your financial data never leaves your control
+- **🎯 Goal**: Enable community collaboration while maintaining absolute data privacy
+
+**This means:**
+- **Fork freely**: Use the code for your own projects
+- **Contribute back**: Help improve the platform for everyone
+- **Keep your data private**: Your financial information stays secure
+- **No data sharing**: We never access or share your data
+
+For more details, see our [Privacy Policy](PRIVACY.md) and [Security Policy](SECURITY.md).
+
 ## 🎥 See Vanta Ledger in Action
 
 Watch these videos to see the power of Vanta Ledger:
@@ -310,6 +325,19 @@ Viewer:
 - **Data Encryption**: All data encrypted at rest and in transit
 - **Access Control**: Role-based access with company isolation
 - **Threat Detection**: Real-time security monitoring and response
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Whether you're fixing bugs, adding features, or improving documentation, your help makes Vanta Ledger better for everyone.
+
+**Quick Start:**
+1. **Fork** the repository
+2. **Create** a feature branch
+3. **Make** your changes
+4. **Test** thoroughly
+5. **Submit** a pull request
+
+**For detailed guidelines, see our [Contributing Guide](CONTRIBUTING.md).**
 
 ## 📞 Support
 
