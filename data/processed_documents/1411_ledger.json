@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1411_1",
+    "doc_id": "1411",
+    "type": "income",
+    "amount": 900000.0,
+    "currency": "KES",
+    "description": "From document 1411: Found in 1411",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1411_2",
+    "doc_id": "1411",
+    "type": "income",
+    "amount": 900000.0,
+    "currency": "KES",
+    "description": "From document 1411: Found in 1411",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1411_3",
+    "doc_id": "1411",
+    "type": "income",
+    "amount": 900000.0,
+    "currency": "KES",
+    "description": "From document 1411: Found in 1411",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

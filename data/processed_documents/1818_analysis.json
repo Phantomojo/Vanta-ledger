@@ -1,0 +1,48 @@
+{
+  "doc_id": "1818",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1818",
+      "type": "income"
+    },
+    {
+      "amount": 20408.0,
+      "currency": "KES",
+      "context": "Found in 1818",
+      "type": "income"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 1818",
+      "type": "income"
+    },
+    {
+      "amount": 20208.0,
+      "currency": "KES",
+      "context": "Found in 1818",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "11/08/2010",
+    "31/05/2011",
+    "11/12/2023"
+  ],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

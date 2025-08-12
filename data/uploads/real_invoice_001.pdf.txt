@@ -1,0 +1,50 @@
+INVOICE
+
+Invoice Number: INV-2025-001
+Date: January 15, 2025
+Due Date: February 15, 2025
+
+BILL TO:
+Vanta Ledger Ltd
+123 Business Street
+Nairobi, Kenya
+Phone: +254-700-123-456
+Email: accounts@vantaledger.com
+
+FROM:
+TechCorp Solutions Inc
+456 Innovation Avenue
+San Francisco, CA 94105
+Phone: +1-415-555-0123
+Email: billing@techcorp.com
+
+DESCRIPTION:
+Digital Transformation Project - Phase 1
+Software Development Services
+Cloud Infrastructure Setup
+Data Migration Services
+
+ITEMS:
+1. Project Management (40 hours) - $150/hour = $6,000
+2. Software Development (80 hours) - $200/hour = $16,000
+3. Cloud Infrastructure - $2,500
+4. Data Migration - $3,500
+
+SUBTOTAL: $28,000
+TAX (16% VAT): $4,480
+TOTAL: $32,480
+
+PAYMENT TERMS:
+Net 30 days
+Bank Transfer to:
+Account: 1234567890
+Bank: TechCorp Bank
+Routing: 021000021
+
+Please include invoice number with payment.
+
+Thank you for your business!
+
+Authorized by: John Smith
+Position: Project Manager
+Date: January 15, 2025 

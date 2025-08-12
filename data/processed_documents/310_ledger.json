@@ -1,0 +1,42 @@
+[
+  {
+    "id": "310_1",
+    "doc_id": "310",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 310: Found in 310",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "310_2",
+    "doc_id": "310",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 310: Found in 310",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "310_3",
+    "doc_id": "310",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 310: Found in 310",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "310_4",
+    "doc_id": "310",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 310: Found in 310",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

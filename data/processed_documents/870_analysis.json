@@ -1,0 +1,27 @@
+{
+  "doc_id": "870",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 870",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "07/11/2023",
+    "06/11/2024",
+    "16/09/2019",
+    "16/09/2019",
+    "16/09/2019"
+  ],
+  "keywords": [
+    "contract",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "doc_id": "3130",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 420.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 880.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 35.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 40.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    },
+    {
+      "amount": 2006.0,
+      "currency": "KES",
+      "context": "Found in 3130",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "2013-03-27",
+    "2006-01-46",
+    "18/09/2014",
+    "27/03/2013",
+    "07/05/2013",
+    "05/06/2020",
+    "04/06/2021",
+    "26/09/2019",
+    "09/02/2019",
+    "12/03/2019",
+    "13/03/2020",
+    "01/03/2020",
+    "31/40/2020",
+    "44/06/2020",
+    "18/8/0316",
+    "18/8/0316",
+    "19/12/1994"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

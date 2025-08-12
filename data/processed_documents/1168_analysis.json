@@ -1,0 +1,30 @@
+{
+  "doc_id": "1168",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 10000.0,
+      "currency": "KES",
+      "context": "Found in 1168",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2021-02-26",
+    "0304-03-00",
+    "0304-03-00",
+    "24/03/2021",
+    "23/03/2022",
+    "12/07/2021",
+    "31/10/2021"
+  ],
+  "keywords": [
+    "contract",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

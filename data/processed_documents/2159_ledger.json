@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2159_1",
+    "doc_id": "2159",
+    "type": "income",
+    "amount": 400000.0,
+    "currency": "KES",
+    "description": "From document 2159: Found in 2159",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2159_2",
+    "doc_id": "2159",
+    "type": "income",
+    "amount": 400000.0,
+    "currency": "KES",
+    "description": "From document 2159: Found in 2159",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2159_3",
+    "doc_id": "2159",
+    "type": "income",
+    "amount": 400000.0,
+    "currency": "KES",
+    "description": "From document 2159: Found in 2159",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

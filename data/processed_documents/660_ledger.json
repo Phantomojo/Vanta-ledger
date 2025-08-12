@@ -1,0 +1,32 @@
+[
+  {
+    "id": "660_1",
+    "doc_id": "660",
+    "type": "income",
+    "amount": 20.0,
+    "currency": "KES",
+    "description": "From document 660: Found in 660",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "660_2",
+    "doc_id": "660",
+    "type": "income",
+    "amount": 800.0,
+    "currency": "KES",
+    "description": "From document 660: Found in 660",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "660_3",
+    "doc_id": "660",
+    "type": "income",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 660: Found in 660",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

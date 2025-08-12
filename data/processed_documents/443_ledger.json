@@ -1,0 +1,22 @@
+[
+  {
+    "id": "443_1",
+    "doc_id": "443",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 443: Found in 443",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "443_2",
+    "doc_id": "443",
+    "type": "expense",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 443: Found in 443",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

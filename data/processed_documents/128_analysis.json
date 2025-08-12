@@ -1,0 +1,34 @@
+{
+  "doc_id": "128",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "22/02/2021",
+    "22/02/2021",
+    "22/02/2021",
+    "05/06/2023",
+    "04/06/2024",
+    "16/2/2022",
+    "16/2/2022",
+    "1/7/2021",
+    "30/6/2022",
+    "01/01/2022",
+    "01/01/2020",
+    "01/01/2020",
+    "19/12/1991"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

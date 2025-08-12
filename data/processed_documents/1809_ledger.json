@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1809_1",
+    "doc_id": "1809",
+    "type": "income",
+    "amount": 406600.0,
+    "currency": "KES",
+    "description": "From document 1809: Found in 1809",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1809_2",
+    "doc_id": "1809",
+    "type": "income",
+    "amount": 600.0,
+    "currency": "KES",
+    "description": "From document 1809: Found in 1809",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

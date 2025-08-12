@@ -1,0 +1,115 @@
+{
+  "doc_id": "352",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 250060.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 10000.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 7400000.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 30500.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 12294880.75,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 42294580.75,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 145260.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 145260.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 2021.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 6008203.08,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    },
+    {
+      "amount": 69.0,
+      "currency": "KES",
+      "context": "Found in 352",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "19/07/2024",
+    "18/07/2025",
+    "16/05/2019",
+    "14/05/2019",
+    "28/03/2018",
+    "12/04/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

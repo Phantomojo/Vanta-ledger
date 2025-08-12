@@ -1,0 +1,19 @@
+{
+  "doc_id": "845",
+  "type": "receipt",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 845",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "receipt",
+    "date"
+  ]
+}

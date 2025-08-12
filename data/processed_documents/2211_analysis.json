@@ -1,0 +1,37 @@
+{
+  "doc_id": "2211",
+  "type": "invoice",
+  "companies": [
+    "Solopride Contractors & General Supplies Ltd"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2211",
+      "type": "income"
+    },
+    {
+      "amount": 110.0,
+      "currency": "KES",
+      "context": "Found in 2211",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "8/11/2023"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "doc_id": "2353",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "39/25/2022",
+    "39/25/2022",
+    "39/25/2022"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

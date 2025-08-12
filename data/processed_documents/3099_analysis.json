@@ -1,0 +1,57 @@
+{
+  "doc_id": "3099",
+  "type": "invoice",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 3099",
+      "type": "income"
+    },
+    {
+      "amount": 3800000.0,
+      "currency": "KES",
+      "context": "Found in 3099",
+      "type": "income"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 3099",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2014-05-23",
+    "95/98/2000",
+    "03/12/2019",
+    "02/11/2019",
+    "04/09/2019",
+    "27/05/2014",
+    "25/11/2020",
+    "24/11/2021",
+    "25/19/2017",
+    "20/04/2020",
+    "12/2/2018",
+    "99/7/2018",
+    "07/02/2020",
+    "19/5/2015",
+    "19/05/2015",
+    "19/02/2013",
+    "8/85/8417"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

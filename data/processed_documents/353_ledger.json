@@ -1,0 +1,132 @@
+[
+  {
+    "id": "353_1",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_2",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_3",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_4",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_5",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_6",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_7",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_8",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_9",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 30500.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_10",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 12204.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_11",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_12",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "353_13",
+    "doc_id": "353",
+    "type": "income",
+    "amount": 6005203.05,
+    "currency": "KES",
+    "description": "From document 353: Found in 353",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

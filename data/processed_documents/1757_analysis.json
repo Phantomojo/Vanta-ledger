@@ -1,0 +1,26 @@
+{
+  "doc_id": "1757",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1757",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "04/11/2022",
+    "04/11/2022",
+    "04/11/2022"
+  ],
+  "keywords": [
+    "contract",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

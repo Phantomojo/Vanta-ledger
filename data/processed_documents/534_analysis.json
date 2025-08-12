@@ -1,0 +1,24 @@
+{
+  "doc_id": "534",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 534",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "24/05/2021",
+    "24/05/2021",
+    "24/05/2024",
+    "23/05/2025"
+  ],
+  "keywords": [
+    "construction",
+    "date"
+  ]
+}

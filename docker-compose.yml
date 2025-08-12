@@ -1,0 +1,161 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: vanta_ledger_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-vanta_ledger}
+      POSTGRES_USER: ${POSTGRES_USER:-vanta_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/postgresql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:7
+    container_name: vanta_ledger_mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${POSTGRES_DB:-vanta_ledger}
+    volumes:
+      - mongodb_data:/data/db
+      - ./database/mongodb/init:/docker-entrypoint-initdb.d
+    ports:
+      - "27017:27017"
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+  # Redis Cache (Optional)
+  redis:
+    image: redis:7-alpine
+    container_name: vanta_ledger_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+  # Vanta Ledger Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vanta_ledger_backend
+    environment:
+      - POSTGRES_URI=postgresql://${POSTGRES_USER:-vanta_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-vanta_ledger}
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME:-admin}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/${POSTGRES_DB:-vanta_ledger}?authSource=admin
+      - REDIS_URI=redis://:${REDIS_PASSWORD}@redis:6379
+      - SECRET_KEY=${SECRET_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    ports:
+      - "8500:8500"
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+  # Vanta Ledger Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vanta_ledger_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+  # Production AI System
+  ai_system:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    container_name: vanta_ledger_ai_system
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-vanta_ledger}
+      - POSTGRES_USER=${POSTGRES_USER:-vanta_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME:-admin}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/${POSTGRES_DB:-vanta_ledger}?authSource=admin
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - postgres
+      - mongodb
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+  # System Monitor
+  monitor:
+    build:
+      context: ./database
+      dockerfile: Dockerfile.monitor
+    container_name: vanta_ledger_monitor
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-vanta_ledger}
+      - POSTGRES_USER=${POSTGRES_USER:-vanta_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME:-admin}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/${POSTGRES_DB:-vanta_ledger}?authSource=admin
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - postgres
+      - mongodb
+      - ai_system
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: vanta_ledger_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - vanta_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  mongodb_data:
+  redis_data:
+
+networks:
+  vanta_network:
+    driver: bridge 

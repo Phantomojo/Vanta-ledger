@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1054_1",
+    "doc_id": "1054",
+    "type": "expense",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 1054: Found in 1054",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1054_2",
+    "doc_id": "1054",
+    "type": "expense",
+    "amount": 3860530.0,
+    "currency": "KES",
+    "description": "From document 1054: Found in 1054",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1054_3",
+    "doc_id": "1054",
+    "type": "expense",
+    "amount": 7067551.15,
+    "currency": "KES",
+    "description": "From document 1054: Found in 1054",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1054_4",
+    "doc_id": "1054",
+    "type": "expense",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 1054: Found in 1054",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

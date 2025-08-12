@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1523_1",
+    "doc_id": "1523",
+    "type": "income",
+    "amount": 1400537.0,
+    "currency": "KES",
+    "description": "From document 1523: Found in 1523",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1523_2",
+    "doc_id": "1523",
+    "type": "income",
+    "amount": 1400537.0,
+    "currency": "KES",
+    "description": "From document 1523: Found in 1523",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1523_3",
+    "doc_id": "1523",
+    "type": "income",
+    "amount": 1670.5,
+    "currency": "KES",
+    "description": "From document 1523: Found in 1523",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1523_4",
+    "doc_id": "1523",
+    "type": "income",
+    "amount": 25655.71,
+    "currency": "KES",
+    "description": "From document 1523: Found in 1523",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1523_5",
+    "doc_id": "1523",
+    "type": "income",
+    "amount": 51.0,
+    "currency": "KES",
+    "description": "From document 1523: Found in 1523",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1523_6",
+    "doc_id": "1523",
+    "type": "income",
+    "amount": 53.0,
+    "currency": "KES",
+    "description": "From document 1523: Found in 1523",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

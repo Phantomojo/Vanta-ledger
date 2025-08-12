@@ -1,0 +1,19 @@
+{
+  "doc_id": "1626",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1626",
+      "type": "expense"
+    }
+  ],
+  "dates": [
+    "2010-08-12"
+  ],
+  "keywords": [
+    "date"
+  ]
+}

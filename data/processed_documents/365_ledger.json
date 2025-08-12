@@ -1,0 +1,142 @@
+[
+  {
+    "id": "365_1",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_2",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_3",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_4",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_5",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_6",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_7",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_8",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_9",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 6294580.75,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_10",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 25754978.8,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_11",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 3860530.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_12",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 4266880.9,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_13",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "365_14",
+    "doc_id": "365",
+    "type": "income",
+    "amount": 2022.0,
+    "currency": "KES",
+    "description": "From document 365: Found in 365",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

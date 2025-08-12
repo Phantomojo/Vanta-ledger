@@ -1,0 +1,40 @@
+{
+  "doc_id": "1301",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 180000.0,
+      "currency": "KES",
+      "context": "Found in 1301",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1301",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "11/12/2023",
+    "10/12/2024",
+    "1/8/2023",
+    "31/7/2024",
+    "6/11/2023",
+    "18/04/2023"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "doc_id": "722",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1400897.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 14008371.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1400897.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1400837.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 4462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600080001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1452000080001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462000060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 4462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462000000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1482600000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 4462000060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462000000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462000000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600080001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 4462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 4462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462000060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462000000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600060001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600000001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600080001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 1462600080001.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 722",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "22/02/2021",
+    "22/02/2021",
+    "22/02/2022",
+    "21/02/2023",
+    "26/10/2022",
+    "30/06/2025",
+    "26/10/2022",
+    "26/10/2022",
+    "30/06/2023",
+    "30/06/2023",
+    "07/11/2022",
+    "30/06/2025",
+    "07/11/2022",
+    "07/11/2022",
+    "30/06/2023",
+    "30/06/2023",
+    "17/10/2019"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

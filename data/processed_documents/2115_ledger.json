@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2115_1",
+    "doc_id": "2115",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2115: Found in 2115",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2115_2",
+    "doc_id": "2115",
+    "type": "income",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 2115: Found in 2115",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2115_3",
+    "doc_id": "2115",
+    "type": "income",
+    "amount": 23506875.1,
+    "currency": "KES",
+    "description": "From document 2115: Found in 2115",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

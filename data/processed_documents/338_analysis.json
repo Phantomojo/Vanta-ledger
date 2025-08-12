@@ -1,0 +1,129 @@
+{
+  "doc_id": "338",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 7400000.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 42294580.75,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 145263.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 145260.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 146260.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 145260.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 145200.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 6009203.05,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    },
+    {
+      "amount": 60.0,
+      "currency": "KES",
+      "context": "Found in 338",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "19/07/2024",
+    "18/07/2025",
+    "46/05/2019",
+    "14/05/2019",
+    "28/03/2018",
+    "05/08/2026",
+    "12/04/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

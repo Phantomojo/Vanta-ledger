@@ -1,0 +1,42 @@
+{
+  "doc_id": "2018",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 270000.0,
+      "currency": "KES",
+      "context": "Found in 2018",
+      "type": "income"
+    },
+    {
+      "amount": 270000.0,
+      "currency": "KES",
+      "context": "Found in 2018",
+      "type": "income"
+    },
+    {
+      "amount": 270000.0,
+      "currency": "KES",
+      "context": "Found in 2018",
+      "type": "income"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 2018",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

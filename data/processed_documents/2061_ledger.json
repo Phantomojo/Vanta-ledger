@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2061_1",
+    "doc_id": "2061",
+    "type": "expense",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 2061: Found in 2061",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2061_2",
+    "doc_id": "2061",
+    "type": "expense",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 2061: Found in 2061",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2061_3",
+    "doc_id": "2061",
+    "type": "expense",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 2061: Found in 2061",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

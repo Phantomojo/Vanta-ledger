@@ -1,0 +1,122 @@
+[
+  {
+    "id": "331_1",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_2",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_3",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_4",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_5",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_6",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_7",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_8",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_9",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 25754978.8,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_10",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 3860530.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_11",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 4266880.9,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "331_12",
+    "doc_id": "331",
+    "type": "income",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 331: Found in 331",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

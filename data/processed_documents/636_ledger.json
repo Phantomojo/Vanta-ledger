@@ -1,0 +1,22 @@
+[
+  {
+    "id": "636_1",
+    "doc_id": "636",
+    "type": "expense",
+    "amount": 40000.0,
+    "currency": "KES",
+    "description": "From document 636: Found in 636",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "636_2",
+    "doc_id": "636",
+    "type": "expense",
+    "amount": 80000.0,
+    "currency": "KES",
+    "description": "From document 636: Found in 636",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

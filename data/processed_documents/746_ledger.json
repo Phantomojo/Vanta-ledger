@@ -1,0 +1,62 @@
+[
+  {
+    "id": "746_1",
+    "doc_id": "746",
+    "type": "income",
+    "amount": 5000000.0,
+    "currency": "KES",
+    "description": "From document 746: Found in 746",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "746_2",
+    "doc_id": "746",
+    "type": "income",
+    "amount": 210000.0,
+    "currency": "KES",
+    "description": "From document 746: Found in 746",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "746_3",
+    "doc_id": "746",
+    "type": "income",
+    "amount": 5000.0,
+    "currency": "KES",
+    "description": "From document 746: Found in 746",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "746_4",
+    "doc_id": "746",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 746: Found in 746",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "746_5",
+    "doc_id": "746",
+    "type": "income",
+    "amount": 10000000.0,
+    "currency": "KES",
+    "description": "From document 746: Found in 746",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "746_6",
+    "doc_id": "746",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 746: Found in 746",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

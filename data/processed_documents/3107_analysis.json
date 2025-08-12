@@ -1,0 +1,45 @@
+{
+  "doc_id": "3107",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 14200.0,
+      "currency": "KES",
+      "context": "Found in 3107",
+      "type": "income"
+    },
+    {
+      "amount": 300053000.0,
+      "currency": "KES",
+      "context": "Found in 3107",
+      "type": "income"
+    },
+    {
+      "amount": 134.0,
+      "currency": "KES",
+      "context": "Found in 3107",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "26/03/2020",
+    "01/05/2019",
+    "06/42/2019",
+    "05/12/2020",
+    "1/7/2020",
+    "2/7/2020",
+    "14/4/2018",
+    "2/10/2019"
+  ],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

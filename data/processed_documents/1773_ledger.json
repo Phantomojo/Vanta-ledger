@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1773_1",
+    "doc_id": "1773",
+    "type": "income",
+    "amount": 65900.0,
+    "currency": "KES",
+    "description": "From document 1773: Found in 1773",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1773_2",
+    "doc_id": "1773",
+    "type": "income",
+    "amount": 0.0,
+    "currency": "KES",
+    "description": "From document 1773: Found in 1773",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1773_3",
+    "doc_id": "1773",
+    "type": "income",
+    "amount": 65900.0,
+    "currency": "KES",
+    "description": "From document 1773: Found in 1773",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

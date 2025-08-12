@@ -1,0 +1,25 @@
+{
+  "doc_id": "1071",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 10000.0,
+      "currency": "KES",
+      "context": "Found in 1071",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2020-04-07",
+    "10/28/2020"
+  ],
+  "keywords": [
+    "contract",
+    "payment",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

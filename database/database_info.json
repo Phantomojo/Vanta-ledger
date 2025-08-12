@@ -1,0 +1,21 @@
+{
+  "database_name": "vanta_ledger_unified.db",
+  "location": "database/vanta_ledger_unified.db",
+  "created_at": "2025-07-29T01:38:32.781996+00:00",
+  "sections": {
+    "users": "User authentication and management",
+    "companies": "Company information and details",
+    "projects": "Project management and tracking",
+    "ledger_entries": "Financial transactions and records",
+    "documents": "Document storage and management",
+    "tenders": "Tender and bid management",
+    "subcontractors": "Subcontractor information",
+    "audit_logs": "System audit and activity logs",
+    "document_analyses": "AI document analysis results"
+  },
+  "admin_credentials": {
+    "username": "admin",
+    "password": "<SET_VIA_ADMIN_PASSWORD_ENV_VAR>",
+    "note": "Use create_secure_admin.py script or set ADMIN_PASSWORD environment variable"
+  }
+}

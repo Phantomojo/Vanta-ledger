@@ -1,0 +1,43 @@
+{
+  "doc_id": "1636",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 3560900.0,
+      "currency": "KES",
+      "context": "Found in 1636",
+      "type": "income"
+    },
+    {
+      "amount": 3560900.0,
+      "currency": "KES",
+      "context": "Found in 1636",
+      "type": "income"
+    },
+    {
+      "amount": 3560900.0,
+      "currency": "KES",
+      "context": "Found in 1636",
+      "type": "income"
+    },
+    {
+      "amount": 3560900.0,
+      "currency": "KES",
+      "context": "Found in 1636",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "29/12/2020"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

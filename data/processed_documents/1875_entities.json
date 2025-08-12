@@ -1,0 +1,60 @@
+{
+  "doc_id": "1875",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 14.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    },
+    {
+      "amount": 1485830650001.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    },
+    {
+      "amount": 1485830650001.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    },
+    {
+      "amount": 1485830650001.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    },
+    {
+      "amount": 1485830650001.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    },
+    {
+      "amount": 0.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    },
+    {
+      "amount": 2797948.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    },
+    {
+      "amount": 16.0,
+      "currency": "KES",
+      "context": "Found in 1875",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "amount",
+    "date"
+  ]
+}

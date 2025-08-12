@@ -1,0 +1,12 @@
+[
+  {
+    "id": "2320_1",
+    "doc_id": "2320",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2320: Found in 2320",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

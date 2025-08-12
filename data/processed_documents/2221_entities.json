@@ -1,0 +1,121 @@
+{
+  "doc_id": "2221",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 140053.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 140053.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 14005371.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 1718.7,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 2549934.35,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 21.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    },
+    {
+      "amount": 24.0,
+      "currency": "KES",
+      "context": "Found in 2221",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

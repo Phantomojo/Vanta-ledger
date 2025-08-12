@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1988_1",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 0.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1988_2",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 3.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1988_3",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1988_4",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 3.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1988_5",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 327888.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1988_6",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 327888.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1988_7",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 327888.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1988_8",
+    "doc_id": "1988",
+    "type": "expense",
+    "amount": 655776.0,
+    "currency": "KES",
+    "description": "From document 1988: Found in 1988",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

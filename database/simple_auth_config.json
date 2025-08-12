@@ -1,0 +1,14 @@
+{
+  "database": "database/simple_auth.db",
+  "admin_credentials": {
+    "username": "admin",
+    "password": "<SET_VIA_ADMIN_PASSWORD_ENV_VAR>",
+    "note": "Use create_secure_admin.py script or set ADMIN_PASSWORD environment variable"
+  },
+  "endpoints": {
+    "simple_auth": "/simple-auth",
+    "backend": "http://localhost:8500",
+    "frontend": "http://localhost:5173"
+  },
+  "created_at": "2025-07-29T01:43:57.690145+00:00"
+}

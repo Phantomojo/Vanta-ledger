@@ -1,0 +1,69 @@
+{
+  "doc_id": "2971",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 420.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 880.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 500.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 35.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    },
+    {
+      "amount": 40.0,
+      "currency": "KES",
+      "context": "Found in 2971",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "project",
+    "construction",
+    "date"
+  ]
+}

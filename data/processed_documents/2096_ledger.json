@@ -1,0 +1,22 @@
+[
+  {
+    "id": "2096_1",
+    "doc_id": "2096",
+    "type": "expense",
+    "amount": 35000.0,
+    "currency": "KES",
+    "description": "From document 2096: Found in 2096",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2096_2",
+    "doc_id": "2096",
+    "type": "expense",
+    "amount": 70000.0,
+    "currency": "KES",
+    "description": "From document 2096: Found in 2096",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

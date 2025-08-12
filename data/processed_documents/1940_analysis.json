@@ -1,0 +1,25 @@
+{
+  "doc_id": "1940",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "39/36/2023",
+    "39/36/2023",
+    "39/36/2023"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

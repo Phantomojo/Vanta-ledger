@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2565_1",
+    "doc_id": "2565",
+    "type": "income",
+    "amount": 50000.0,
+    "currency": "KES",
+    "description": "From document 2565: Found in 2565",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2565_2",
+    "doc_id": "2565",
+    "type": "income",
+    "amount": 50000.0,
+    "currency": "KES",
+    "description": "From document 2565: Found in 2565",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2565_3",
+    "doc_id": "2565",
+    "type": "income",
+    "amount": 3.0,
+    "currency": "KES",
+    "description": "From document 2565: Found in 2565",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

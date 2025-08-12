@@ -1,0 +1,21 @@
+{
+  "doc_id": "1864",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 49956.0,
+      "currency": "KES",
+      "context": "Found in 1864",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

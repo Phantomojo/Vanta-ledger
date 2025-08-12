@@ -1,0 +1,100 @@
+{
+  "doc_id": "3070",
+  "type": "invoice",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 420.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 880.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 500.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 35.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    },
+    {
+      "amount": 40.0,
+      "currency": "KES",
+      "context": "Found in 3070",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2014-05-23",
+    "03/12/2019",
+    "02/11/2019",
+    "04/09/2019",
+    "27/05/2014",
+    "25/11/2020",
+    "24/11/2021",
+    "25/19/2017",
+    "12/2/2018",
+    "07/02/2020",
+    "19/05/2015",
+    "19/05/2015"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

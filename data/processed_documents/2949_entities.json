@@ -1,0 +1,21 @@
+{
+  "doc_id": "2949",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2949",
+      "type": "expense"
+    }
+  ],
+  "dates": [
+    "2014-05-23"
+  ],
+  "keywords": [
+    "date"
+  ]
+}

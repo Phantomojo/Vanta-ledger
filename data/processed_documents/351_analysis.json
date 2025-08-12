@@ -1,0 +1,109 @@
+{
+  "doc_id": "351",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 7400000.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 12294980.75,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 42294580.75,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 2023.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 2021.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    },
+    {
+      "amount": 20508.0,
+      "currency": "KES",
+      "context": "Found in 351",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "19/07/2024",
+    "18/07/2025",
+    "16/05/2019",
+    "14/05/2019",
+    "28/03/2018",
+    "12/04/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

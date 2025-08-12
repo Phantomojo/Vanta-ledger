@@ -1,0 +1,24 @@
+{
+  "doc_id": "2321",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 56.0,
+      "currency": "KES",
+      "context": "Found in 2321",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "doc_id": "2446",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 2446",
+      "type": "income"
+    },
+    {
+      "amount": 520.0,
+      "currency": "KES",
+      "context": "Found in 2446",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "payment",
+    "project",
+    "construction",
+    "date"
+  ]
+}

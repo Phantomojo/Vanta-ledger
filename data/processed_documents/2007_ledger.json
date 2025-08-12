@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2007_1",
+    "doc_id": "2007",
+    "type": "income",
+    "amount": 1000000.0,
+    "currency": "KES",
+    "description": "From document 2007: Found in 2007",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2007_2",
+    "doc_id": "2007",
+    "type": "income",
+    "amount": 1000000.0,
+    "currency": "KES",
+    "description": "From document 2007: Found in 2007",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2007_3",
+    "doc_id": "2007",
+    "type": "income",
+    "amount": 1000000.0,
+    "currency": "KES",
+    "description": "From document 2007: Found in 2007",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

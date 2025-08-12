@@ -1,0 +1,82 @@
+[
+  {
+    "id": "213_1",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "213_2",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "213_3",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "213_4",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "213_5",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "213_6",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "213_7",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "213_8",
+    "doc_id": "213",
+    "type": "income",
+    "amount": 2019.0,
+    "currency": "KES",
+    "description": "From document 213: Found in 213",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "doc_id": "2952",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 3800000.0,
+      "currency": "KES",
+      "context": "Found in 2952",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "25/19/2017",
+    "23/7/2018"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

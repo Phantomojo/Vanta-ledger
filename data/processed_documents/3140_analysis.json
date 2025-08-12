@@ -1,0 +1,98 @@
+{
+  "doc_id": "3140",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 126.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 420.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 880.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 350.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 35.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    },
+    {
+      "amount": 40.0,
+      "currency": "KES",
+      "context": "Found in 3140",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "2013-03-27",
+    "2008-01-46",
+    "18/09/2014",
+    "27/03/2013",
+    "07/05/2013",
+    "05/06/2020",
+    "04/06/2021",
+    "26/09/2019",
+    "09/02/2019",
+    "12/09/2049",
+    "13/03/2020",
+    "01/03/2020",
+    "31/10/2020",
+    "44/06/2020",
+    "19/12/1991"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

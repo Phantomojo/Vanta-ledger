@@ -1,0 +1,32 @@
+[
+  {
+    "id": "862_1",
+    "doc_id": "862",
+    "type": "expense",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 862: Found in 862",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "862_2",
+    "doc_id": "862",
+    "type": "expense",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 862: Found in 862",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "862_3",
+    "doc_id": "862",
+    "type": "expense",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 862: Found in 862",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

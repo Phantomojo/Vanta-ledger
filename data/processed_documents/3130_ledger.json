@@ -1,0 +1,102 @@
+[
+  {
+    "id": "3130_1",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_2",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 420.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_3",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_4",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 880.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_5",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 350.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_6",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 250.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_7",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 350.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_8",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 35.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_9",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 40.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3130_10",
+    "doc_id": "3130",
+    "type": "income",
+    "amount": 2006.0,
+    "currency": "KES",
+    "description": "From document 3130: Found in 3130",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

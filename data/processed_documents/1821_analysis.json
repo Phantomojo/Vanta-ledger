@@ -1,0 +1,31 @@
+{
+  "doc_id": "1821",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 2022.0,
+      "currency": "KES",
+      "context": "Found in 1821",
+      "type": "expense"
+    },
+    {
+      "amount": 2022.0,
+      "currency": "KES",
+      "context": "Found in 1821",
+      "type": "expense"
+    },
+    {
+      "amount": 350000.0,
+      "currency": "KES",
+      "context": "Found in 1821",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "amount",
+    "date"
+  ]
+}

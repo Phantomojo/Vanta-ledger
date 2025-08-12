@@ -1,0 +1,92 @@
+[
+  {
+    "id": "2971_1",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 420.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_2",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_3",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 880.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_4",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 350.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_5",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 250.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_6",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 350.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_7",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 500.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_8",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 35.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2971_9",
+    "doc_id": "2971",
+    "type": "expense",
+    "amount": 40.0,
+    "currency": "KES",
+    "description": "From document 2971: Found in 2971",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

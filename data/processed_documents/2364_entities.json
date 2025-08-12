@@ -1,0 +1,35 @@
+{
+  "doc_id": "2364",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 120000.0,
+      "currency": "KES",
+      "context": "Found in 2364",
+      "type": "income"
+    },
+    {
+      "amount": 3000000.0,
+      "currency": "KES",
+      "context": "Found in 2364",
+      "type": "income"
+    },
+    {
+      "amount": 3000000.0,
+      "currency": "KES",
+      "context": "Found in 2364",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1973_1",
+    "doc_id": "1973",
+    "type": "income",
+    "amount": 10063157.89,
+    "currency": "KES",
+    "description": "From document 1973: Found in 1973",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1973_2",
+    "doc_id": "1973",
+    "type": "income",
+    "amount": 3010000.0,
+    "currency": "KES",
+    "description": "From document 1973: Found in 1973",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1973_3",
+    "doc_id": "1973",
+    "type": "income",
+    "amount": 2022.0,
+    "currency": "KES",
+    "description": "From document 1973: Found in 1973",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

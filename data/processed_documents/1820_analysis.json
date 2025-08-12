@@ -1,0 +1,36 @@
+{
+  "doc_id": "1820",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 1000.0,
+      "currency": "KES",
+      "context": "Found in 1820",
+      "type": "income"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 1820",
+      "type": "income"
+    },
+    {
+      "amount": 200.0,
+      "currency": "KES",
+      "context": "Found in 1820",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

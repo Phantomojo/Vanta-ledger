@@ -1,0 +1,152 @@
+[
+  {
+    "id": "1020_1",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_2",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 50.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_3",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 300.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_4",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 150.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_5",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_6",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 15.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_7",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 300.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_8",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 45.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_9",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 150.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_10",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 60.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_11",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 300.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_12",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 180.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_13",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_14",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1020_15",
+    "doc_id": "1020",
+    "type": "expense",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 1020: Found in 1020",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

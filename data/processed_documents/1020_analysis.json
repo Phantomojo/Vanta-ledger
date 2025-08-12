@@ -1,0 +1,105 @@
+{
+  "doc_id": "1020",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 50.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 300.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 150.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 15.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 300.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 45.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 150.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 60.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 300.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 180.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1020",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

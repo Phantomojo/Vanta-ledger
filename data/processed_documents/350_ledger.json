@@ -1,0 +1,112 @@
+[
+  {
+    "id": "350_1",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_2",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_3",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_4",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_5",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_6",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_7",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_8",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 400.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_9",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 400.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_10",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 90400.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "350_11",
+    "doc_id": "350",
+    "type": "income",
+    "amount": 7.0,
+    "currency": "KES",
+    "description": "From document 350: Found in 350",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]
