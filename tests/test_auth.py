@@ -1,9 +1,10 @@
 """Tests for authentication endpoints."""
+
 import pytest
 from fastapi import status
 from sqlalchemy.orm import Session
 
-from src.vanta_ledger import models, schemas, crud
+from src.vanta_ledger import crud, models, schemas
 from src.vanta_ledger.utils.password import get_password_hash
 
 
@@ -16,9 +17,9 @@ def test_login_success(client, test_user):
     response = client.post(
         "/api/v1/auth/token",
         data=login_data,
-        headers={"Content-Type": "application/x-www-form-urlencoded"}
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
-    
+
     assert response.status_code == status.HTTP_200_OK
     assert "access_token" in response.json()
     assert response.json()["token_type"] == "bearer"
@@ -33,9 +34,9 @@ def test_login_invalid_username(client):
     response = client.post(
         "/api/v1/auth/token",
         data=login_data,
-        headers={"Content-Type": "application/x-www-form-urlencoded"}
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
-    
+
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
     assert "detail" in response.json()
     assert "Incorrect username or password" in response.json()["detail"]
@@ -50,9 +51,9 @@ def test_login_invalid_password(client, test_user):
     response = client.post(
         "/api/v1/auth/token",
         data=login_data,
-        headers={"Content-Type": "application/x-www-form-urlencoded"}
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
-    
+
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
     assert "detail" in response.json()
     assert "Incorrect username or password" in response.json()["detail"]
@@ -65,24 +66,28 @@ def test_register_success(client, db_session):
         "password": "SecurePass123!",
         "full_name": "New User",
     }
-    
+
     # First, ensure registration is enabled
     settings.ENABLE_REGISTRATION = True
-    
+
     response = client.post(
         "/api/v1/auth/register",
         json=user_data,
     )
-    
+
     assert response.status_code == status.HTTP_201_CREATED
     data = response.json()
     assert data["email"] == user_data["email"]
     assert data["full_name"] == user_data["full_name"]
     assert "id" in data
     assert "hashed_password" not in data
-    
+
     # Verify user was created in the database
-    db_user = db_session.query(models.User).filter(models.User.email == user_data["email"]).first()
+    db_user = (
+        db_session.query(models.User)
+        .filter(models.User.email == user_data["email"])
+        .first()
+    )
     assert db_user is not None
     assert db_user.email == user_data["email"]
     assert db_user.full_name == user_data["full_name"]
@@ -97,14 +102,14 @@ def test_register_duplicate_email(client, test_user):
         "password": "SecurePass123!",
         "full_name": "Duplicate User",
     }
-    
+
     settings.ENABLE_REGISTRATION = True
-    
+
     response = client.post(
         "/api/v1/auth/register",
         json=user_data,
     )
-    
+
     assert response.status_code == status.HTTP_400_BAD_REQUEST
     assert "detail" in response.json()
     assert "Email already registered" in response.json()["detail"]
@@ -117,14 +122,14 @@ def test_register_weak_password(client):
         "password": "weak",  # Too short
         "full_name": "Weak Password User",
     }
-    
+
     settings.ENABLE_REGISTRATION = True
-    
+
     response = client.post(
         "/api/v1/auth/register",
         json=user_data,
     )
-    
+
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
     assert "detail" in response.json()
     assert "Password must be at least" in response.json()["detail"][0]["msg"]
@@ -133,18 +138,18 @@ def test_register_weak_password(client):
 def test_register_disabled(client, settings):
     """Test registration when it's disabled."""
     settings.ENABLE_REGISTRATION = False
-    
+
     user_data = {
         "email": "newuser@example.com",
         "password": "SecurePass123!",
         "full_name": "New User",
     }
-    
+
     response = client.post(
         "/api/v1/auth/register",
         json=user_data,
     )
-    
+
     assert response.status_code == status.HTTP_403_FORBIDDEN
     assert "detail" in response.json()
     assert "Registration is disabled" in response.json()["detail"]
@@ -156,7 +161,7 @@ def test_get_current_user(client, auth_headers):
         "/api/v1/users/me",
         headers=auth_headers,
     )
-    
+
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert "email" in data
@@ -178,5 +183,5 @@ def test_get_current_user_invalid_token(client):
         "/api/v1/users/me",
         headers={"Authorization": "Bearer invalidtoken"},
     )
-    
+
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
