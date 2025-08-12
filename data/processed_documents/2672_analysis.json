@@ -1,0 +1,37 @@
+{
+  "doc_id": "2672",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2672",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "27/07/2023",
+    "26/07/2024",
+    "26/01/2021",
+    "24/12/2020",
+    "05/01/2021",
+    "31/12/2022",
+    "31/12/2021",
+    "16/08/2023",
+    "16/08/2023",
+    "31/07/2024",
+    "31/07/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

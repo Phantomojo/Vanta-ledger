@@ -1,0 +1,110 @@
+{
+  "doc_id": "137",
+  "companies": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 833.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 1652100.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 1652100.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 1652100.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 280.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 250.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 174.36,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 1291114025.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 1291114025.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    },
+    {
+      "amount": 1291114025.0,
+      "currency": "KES",
+      "context": "Found in 137",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "2048-04-27",
+    "15/11/2018",
+    "18/11/2018",
+    "29/06/2022",
+    "28/06/2023",
+    "39/75/2018"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

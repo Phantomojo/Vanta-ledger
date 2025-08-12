@@ -1,0 +1,155 @@
+{
+  "doc_id": "564",
+  "companies": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000504.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000501.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000501.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1000502.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 933921.1,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 1708120.43,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 61.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 36.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    },
+    {
+      "amount": 79.0,
+      "currency": "KES",
+      "context": "Found in 564",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "05/12/2022",
+    "04/12/2023",
+    "05/09/2014",
+    "04/02/2013",
+    "34/07/2013",
+    "01/03/2023",
+    "29/04/2020",
+    "10/06/2016"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

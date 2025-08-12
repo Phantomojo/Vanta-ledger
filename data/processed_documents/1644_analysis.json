@@ -1,0 +1,21 @@
+{
+  "doc_id": "1644",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 1169550.5,
+      "currency": "KES",
+      "context": "Found in 1644",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "project",
+    "amount",
+    "date"
+  ]
+}

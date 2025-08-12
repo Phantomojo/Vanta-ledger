@@ -1,0 +1,22 @@
+[
+  {
+    "id": "3082_1",
+    "doc_id": "3082",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 3082: Found in 3082",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3082_2",
+    "doc_id": "3082",
+    "type": "income",
+    "amount": 15000.0,
+    "currency": "KES",
+    "description": "From document 3082: Found in 3082",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

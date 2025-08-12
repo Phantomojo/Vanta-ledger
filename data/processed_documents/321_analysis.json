@@ -1,0 +1,122 @@
+{
+  "doc_id": "321",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 7400000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 6000.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 12294580.75,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 145260.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 145260.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 20305.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 728478760.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    },
+    {
+      "amount": 8.0,
+      "currency": "KES",
+      "context": "Found in 321",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "19/07/2024",
+    "18/07/2025",
+    "16/05/2019",
+    "14/05/2019",
+    "28/03/2018",
+    "12/04/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

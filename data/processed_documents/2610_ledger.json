@@ -1,0 +1,582 @@
+[
+  {
+    "id": "2610_1",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 19.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_2",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 24.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_3",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 28.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_4",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 5.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_5",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 9.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_6",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 9.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_7",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 12.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_8",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 12.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_9",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 16.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_10",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 16.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_11",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 18.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_12",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 18.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_13",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 18.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_14",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 22.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_15",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 25.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_16",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 25.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_17",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 25.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_18",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_19",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_20",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 3.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_21",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 28.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_22",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 8.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_23",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 10.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_24",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 15.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_25",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 16.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_26",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 19.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_27",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 30.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_28",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 2.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_29",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 3.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_30",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 57.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_31",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 58.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_32",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 59.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_33",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 66.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_34",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 70.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_35",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 71.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_36",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 68.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_37",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 72.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_38",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 74.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_39",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 73.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_40",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 78.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_41",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 77.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_42",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 76.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_43",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 75.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_44",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 81.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_45",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 82.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_46",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 80.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_47",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 86.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_48",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 85.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_49",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 84.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_50",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 89.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_51",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 88.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_52",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 87.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_53",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 90.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_54",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 91.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_55",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 92.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_56",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 94.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_57",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 95.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2610_58",
+    "doc_id": "2610",
+    "type": "income",
+    "amount": 96.0,
+    "currency": "KES",
+    "description": "From document 2610: Found in 2610",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

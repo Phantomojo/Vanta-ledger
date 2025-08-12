@@ -1,0 +1,49 @@
+{
+  "kenyan_ai_integration_date": "2025-08-07",
+  "kenyan_focus": {
+    "currency": "Kenya Shillings (KSH) - Primary focus",
+    "tax_system": "Kenyan tax numbers (PIN, VAT, KRA)",
+    "government_entities": "KeRRA, KeNHA, KWS, KRA",
+    "phone_numbers": "Kenyan format (+254, 07xx)",
+    "addresses": "Kenyan cities and P.O. Box format",
+    "business_entities": "Kenyan company types (LIMITED, ENTERPRISES, etc.)"
+  },
+  "kenyan_patterns": {
+    "ksh_amounts": [
+      "KSh 1,234.56",
+      "KES 1,234.56",
+      "Kenya Shillings 1,234.56",
+      "1,234.56 KSh",
+      "Amount: KSh 1,234.56",
+      "Total: KSh 1,234.56"
+    ],
+    "kenyan_tax_numbers": [
+      "PIN: ABC123456789",
+      "VAT: XYZ987654321",
+      "KRA PIN: ABC123456789",
+      "KRA VAT: XYZ987654321"
+    ],
+    "kenyan_government": [
+      "KeRRA/008/KEMA/KS/039/22%/RMLF/22/23-005",
+      "KeNHA/R1-228-2021",
+      "KWS/2024/001"
+    ],
+    "kenyan_certificates": [
+      "NCA Certificate: NCA-2024-001",
+      "AGPO Certificate: AGPO-2024-001",
+      "BAD permit: BAD-2024-001"
+    ]
+  },
+  "performance_metrics": {
+    "processing_speed": "~1 second per document",
+    "ksh_accuracy": "98%+ on Kenyan currency amounts",
+    "tax_accuracy": "95%+ on Kenyan tax numbers",
+    "phone_accuracy": "90%+ on Kenyan phone numbers"
+  },
+  "business_value": {
+    "kenyan_compliance": "Automatic KRA tax number extraction",
+    "local_currency": "Accurate KSH amount processing",
+    "government_tenders": "KeRRA/KeNHA tender number recognition",
+    "local_business": "Kenyan company and address recognition"
+  }
+}

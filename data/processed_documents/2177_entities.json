@@ -1,0 +1,31 @@
+{
+  "doc_id": "2177",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 280754.0,
+      "currency": "KES",
+      "context": "Found in 2177",
+      "type": "income"
+    },
+    {
+      "amount": 104033637700.0,
+      "currency": "KES",
+      "context": "Found in 2177",
+      "type": "income"
+    },
+    {
+      "amount": 104033637700.0,
+      "currency": "KES",
+      "context": "Found in 2177",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

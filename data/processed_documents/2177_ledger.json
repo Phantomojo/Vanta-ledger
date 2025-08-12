@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2177_1",
+    "doc_id": "2177",
+    "type": "income",
+    "amount": 280754.0,
+    "currency": "KES",
+    "description": "From document 2177: Found in 2177",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2177_2",
+    "doc_id": "2177",
+    "type": "income",
+    "amount": 104033637700.0,
+    "currency": "KES",
+    "description": "From document 2177: Found in 2177",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2177_3",
+    "doc_id": "2177",
+    "type": "income",
+    "amount": 104033637700.0,
+    "currency": "KES",
+    "description": "From document 2177: Found in 2177",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

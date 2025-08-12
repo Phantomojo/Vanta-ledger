@@ -1,0 +1,102 @@
+[
+  {
+    "id": "3140_1",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 126.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_2",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_3",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 420.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_4",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_5",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 880.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_6",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 350.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_7",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 250.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_8",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 350.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_9",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 35.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "3140_10",
+    "doc_id": "3140",
+    "type": "income",
+    "amount": 40.0,
+    "currency": "KES",
+    "description": "From document 3140: Found in 3140",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

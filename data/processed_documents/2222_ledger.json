@@ -1,0 +1,22 @@
+[
+  {
+    "id": "2222_1",
+    "doc_id": "2222",
+    "type": "income",
+    "amount": 800.0,
+    "currency": "KES",
+    "description": "From document 2222: Found in 2222",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2222_2",
+    "doc_id": "2222",
+    "type": "income",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 2222: Found in 2222",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

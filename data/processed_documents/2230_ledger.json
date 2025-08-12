@@ -1,0 +1,42 @@
+[
+  {
+    "id": "2230_1",
+    "doc_id": "2230",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2230: Found in 2230",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2230_2",
+    "doc_id": "2230",
+    "type": "expense",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 2230: Found in 2230",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2230_3",
+    "doc_id": "2230",
+    "type": "expense",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 2230: Found in 2230",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2230_4",
+    "doc_id": "2230",
+    "type": "expense",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 2230: Found in 2230",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

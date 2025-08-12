@@ -1,0 +1,27 @@
+{
+  "doc_id": "1791",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 2000.0,
+      "currency": "KES",
+      "context": "Found in 1791",
+      "type": "expense"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 1791",
+      "type": "expense"
+    },
+    {
+      "amount": 1000.0,
+      "currency": "KES",
+      "context": "Found in 1791",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": []
+}

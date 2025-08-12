@@ -1,0 +1,340 @@
+{
+  "migration_date": "2025-07-29T02:18:54.964270+00:00",
+  "source": "sqlite",
+  "destination": "mongodb",
+  "data": {
+    "users": [
+      {
+        "username": "admin",
+        "name": "System Administrator",
+        "email": "admin@vantaledger.com",
+        "hashed_password": "$2b$12$5aEmefFcHPEeMwSFicSAmeFEUm3R.y4gc6pLDbbW1k4xPXnckcDzC",
+        "role": "admin",
+        "is_active": true,
+        "created_at": "2025-07-29 01:43:57",
+        "last_login": null
+      }
+    ],
+    "companies": [
+      {
+        "name": "HILLTOP DRILLERS & CONSTRUCTION LTD",
+        "registration_number": "REG001",
+        "address": "P.O BOX 1000, NAIROBI",
+        "phone": "+254700000001",
+        "email": "info@hilltopdrillersconstructionltd.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964192+00:00"
+      },
+      {
+        "name": "MASTERBUILD LIMITED",
+        "registration_number": "REG002",
+        "address": "P.O BOX 1001, NAIROBI",
+        "phone": "+254700000002",
+        "email": "info@masterbuildlimited.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964220+00:00"
+      },
+      {
+        "name": "Solopride Contractors & General Supplies Ltd",
+        "registration_number": "REG003",
+        "address": "P.O BOX 1002, NAIROBI",
+        "phone": "+254700000003",
+        "email": "info@solopridecontractorsgeneralsuppliesltd.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964223+00:00"
+      },
+      {
+        "name": "Nairobi Builders Co",
+        "registration_number": "REG004",
+        "address": "P.O BOX 1003, NAIROBI",
+        "phone": "+254700000004",
+        "email": "info@nairobibuildersco.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964225+00:00"
+      },
+      {
+        "name": "Mombasa Developers",
+        "registration_number": "REG005",
+        "address": "P.O BOX 1004, NAIROBI",
+        "phone": "+254700000005",
+        "email": "info@mombasadevelopers.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964227+00:00"
+      },
+      {
+        "name": "Kenya Construction Solutions",
+        "registration_number": "REG006",
+        "address": "P.O BOX 1005, NAIROBI",
+        "phone": "+254700000006",
+        "email": "info@kenyaconstructionsolutions.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964228+00:00"
+      },
+      {
+        "name": "East Africa Engineering Ltd",
+        "registration_number": "REG007",
+        "address": "P.O BOX 1006, NAIROBI",
+        "phone": "+254700000007",
+        "email": "info@eastafricaengineeringltd.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964230+00:00"
+      },
+      {
+        "name": "Coastal Builders Group",
+        "registration_number": "REG008",
+        "address": "P.O BOX 1007, NAIROBI",
+        "phone": "+254700000008",
+        "email": "info@coastalbuildersgroup.co.ke",
+        "is_active": true,
+        "created_at": "2025-07-29T02:18:54.964231+00:00"
+      }
+    ],
+    "projects": [
+      {
+        "company_id": null,
+        "name": "SITE CLEARANCE PROJECT",
+        "client": "",
+        "value": 0.0,
+        "status": "completed",
+        "created_at": "2025-07-29T02:18:54.964239+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "GRADING AND GRAVELLING WORKS",
+        "client": "",
+        "value": 0.0,
+        "status": "active",
+        "created_at": "2025-07-29T02:18:54.964245+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "CULVERT AND DRAINAGE WORKS",
+        "client": "",
+        "value": 0.0,
+        "status": "active",
+        "created_at": "2025-07-29T02:18:54.964250+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "ROAD CONSTRUCTION PHASE 1",
+        "client": "",
+        "value": 0.0,
+        "status": "completed",
+        "created_at": "2025-07-29T02:18:54.964252+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "BRIDGE REPAIR PROJECT",
+        "client": "",
+        "value": 0.0,
+        "status": "active",
+        "created_at": "2025-07-29T02:18:54.964253+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "BUILDING RENOVATION",
+        "client": "",
+        "value": 0.0,
+        "status": "active",
+        "created_at": "2025-07-29T02:18:54.964255+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "INFRASTRUCTURE DEVELOPMENT",
+        "client": "",
+        "value": 0.0,
+        "status": "completed",
+        "created_at": "2025-07-29T02:18:54.964257+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "MAINTENANCE WORKS",
+        "client": "",
+        "value": 0.0,
+        "status": "completed",
+        "created_at": "2025-07-29T02:18:54.964259+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "CONSTRUCTION OF OFFICE COMPLEX",
+        "client": "",
+        "value": 0.0,
+        "status": "active",
+        "created_at": "2025-07-29T02:18:54.964261+00:00"
+      },
+      {
+        "company_id": null,
+        "name": "RESIDENTIAL DEVELOPMENT",
+        "client": "",
+        "value": 0.0,
+        "status": "planned",
+        "created_at": "2025-07-29T02:18:54.964263+00:00"
+      }
+    ],
+    "ledger_entries": [],
+    "documents": []
+  },
+  "schemas": {
+    "users": {
+      "collection": "users",
+      "schema": {
+        "username": {
+          "type": "string",
+          "required": true,
+          "unique": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "hashed_password": {
+          "type": "string",
+          "required": true
+        },
+        "role": {
+          "type": "string",
+          "required": true
+        },
+        "is_active": {
+          "type": "boolean",
+          "default": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "required": true
+        },
+        "last_login": {
+          "type": "datetime"
+        }
+      }
+    },
+    "companies": {
+      "collection": "companies",
+      "schema": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "registration_number": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean",
+          "default": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "required": true
+        }
+      }
+    },
+    "projects": {
+      "collection": "projects",
+      "schema": {
+        "company_id": {
+          "type": "objectid",
+          "ref": "companies",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "client": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "default": "active"
+        },
+        "created_at": {
+          "type": "datetime",
+          "required": true
+        }
+      }
+    },
+    "ledger_entries": {
+      "collection": "ledger_entries",
+      "schema": {
+        "project_id": {
+          "type": "objectid",
+          "ref": "projects"
+        },
+        "company_id": {
+          "type": "objectid",
+          "ref": "companies"
+        },
+        "description": {
+          "type": "string",
+          "required": true
+        },
+        "amount": {
+          "type": "number",
+          "required": true
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "income",
+            "expense"
+          ]
+        },
+        "date": {
+          "type": "datetime",
+          "required": true
+        },
+        "created_at": {
+          "type": "datetime",
+          "required": true
+        }
+      }
+    },
+    "documents": {
+      "collection": "documents",
+      "schema": {
+        "project_id": {
+          "type": "objectid",
+          "ref": "projects"
+        },
+        "company_id": {
+          "type": "objectid",
+          "ref": "companies"
+        },
+        "filename": {
+          "type": "string",
+          "required": true
+        },
+        "file_path": {
+          "type": "string",
+          "required": true
+        },
+        "file_type": {
+          "type": "string"
+        },
+        "file_size": {
+          "type": "number"
+        },
+        "uploaded_at": {
+          "type": "datetime",
+          "required": true
+        }
+      }
+    }
+  }
+}

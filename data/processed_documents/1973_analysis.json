@@ -1,0 +1,36 @@
+{
+  "doc_id": "1973",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 10063157.89,
+      "currency": "KES",
+      "context": "Found in 1973",
+      "type": "income"
+    },
+    {
+      "amount": 3010000.0,
+      "currency": "KES",
+      "context": "Found in 1973",
+      "type": "income"
+    },
+    {
+      "amount": 2022.0,
+      "currency": "KES",
+      "context": "Found in 1973",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "16/01/2020"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "doc_id": "2415",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2415",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "date"
+  ]
+}

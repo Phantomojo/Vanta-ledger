@@ -1,0 +1,28 @@
+{
+  "doc_id": "2833",
+  "type": "invoice",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "financial_data": [],
+  "projects": [],
+  "dates": [
+    "03/12/2019",
+    "02/11/2019",
+    "04/09/2019",
+    "27/05/2014",
+    "04/11/2019",
+    "03/11/2020",
+    "15/1/2020",
+    "15/1/2020",
+    "1/7/2019",
+    "30/6/2020"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "project",
+    "construction",
+    "date"
+  ]
+}

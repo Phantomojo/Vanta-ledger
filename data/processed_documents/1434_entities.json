@@ -1,0 +1,27 @@
+{
+  "doc_id": "1434",
+  "companies": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 4600.0,
+      "currency": "KES",
+      "context": "Found in 1434",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

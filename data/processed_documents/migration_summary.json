@@ -1,0 +1,12 @@
+{
+  "migration_date": "2025-08-03T22:24:31.041517+00:00",
+  "migrated_documents": 3153,
+  "failed_migrations": 0,
+  "total_processed": 3153,
+  "success_rate": "100.00%",
+  "database_info": {
+    "postgresql": "vanta_ledger",
+    "mongodb": "vanta_ledger",
+    "redis": "vanta_ledger"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "doc_id": "311",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 311",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 311",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 311",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 311",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 311",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 311",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "760_1",
+    "doc_id": "760",
+    "type": "expense",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 760: Found in 760",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "760_2",
+    "doc_id": "760",
+    "type": "expense",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 760: Found in 760",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "760_3",
+    "doc_id": "760",
+    "type": "expense",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 760: Found in 760",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

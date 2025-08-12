@@ -1,0 +1,24 @@
+{
+  "doc_id": "2329",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2329",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "24/05/2024",
+    "23/05/2025",
+    "24/05/2024",
+    "24/05/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "date"
+  ]
+}

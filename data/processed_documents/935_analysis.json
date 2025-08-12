@@ -1,0 +1,44 @@
+{
+  "doc_id": "935",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 935",
+      "type": "expense"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 935",
+      "type": "expense"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 935",
+      "type": "expense"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 935",
+      "type": "expense"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 935",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "receipt",
+    "date"
+  ]
+}

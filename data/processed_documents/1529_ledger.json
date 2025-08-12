@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1529_1",
+    "doc_id": "1529",
+    "type": "expense",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 1529: Found in 1529",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1529_2",
+    "doc_id": "1529",
+    "type": "expense",
+    "amount": 3860530.0,
+    "currency": "KES",
+    "description": "From document 1529: Found in 1529",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1529_3",
+    "doc_id": "1529",
+    "type": "expense",
+    "amount": 7067551.15,
+    "currency": "KES",
+    "description": "From document 1529: Found in 1529",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1529_4",
+    "doc_id": "1529",
+    "type": "expense",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 1529: Found in 1529",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

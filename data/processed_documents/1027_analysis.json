@@ -1,0 +1,20 @@
+{
+  "doc_id": "1027",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1027",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2010-08-12"
+  ],
+  "keywords": [
+    "date"
+  ]
+}

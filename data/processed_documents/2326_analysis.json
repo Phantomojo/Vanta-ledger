@@ -1,0 +1,26 @@
+{
+  "doc_id": "2326",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 2022.0,
+      "currency": "KES",
+      "context": "Found in 2326",
+      "type": "income"
+    },
+    {
+      "amount": 1504376.8,
+      "currency": "KES",
+      "context": "Found in 2326",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

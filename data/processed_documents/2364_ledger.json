@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2364_1",
+    "doc_id": "2364",
+    "type": "income",
+    "amount": 120000.0,
+    "currency": "KES",
+    "description": "From document 2364: Found in 2364",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2364_2",
+    "doc_id": "2364",
+    "type": "income",
+    "amount": 3000000.0,
+    "currency": "KES",
+    "description": "From document 2364: Found in 2364",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2364_3",
+    "doc_id": "2364",
+    "type": "income",
+    "amount": 3000000.0,
+    "currency": "KES",
+    "description": "From document 2364: Found in 2364",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

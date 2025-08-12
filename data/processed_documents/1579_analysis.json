@@ -1,0 +1,97 @@
+{
+  "doc_id": "1579",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 100050.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 2023.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 3875719.6,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    },
+    {
+      "amount": 0.0,
+      "currency": "KES",
+      "context": "Found in 1579",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "322_1",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "322_2",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "322_3",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "322_4",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "322_5",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 10000.0,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "322_6",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 629310.66,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "322_7",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 100689.66,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "322_8",
+    "doc_id": "322",
+    "type": "income",
+    "amount": 730000.0,
+    "currency": "KES",
+    "description": "From document 322: Found in 322",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

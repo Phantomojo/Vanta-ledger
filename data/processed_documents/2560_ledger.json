@@ -1,0 +1,82 @@
+[
+  {
+    "id": "2560_1",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2560_2",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2560_3",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2560_4",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2560_5",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2560_6",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2560_7",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2560_8",
+    "doc_id": "2560",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2560: Found in 2560",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

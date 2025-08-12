@@ -1,0 +1,23 @@
+{
+  "doc_id": "1320",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 5000.0,
+      "currency": "KES",
+      "context": "Found in 1320",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "2021-01-25",
+    "1/25/2021"
+  ],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

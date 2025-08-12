@@ -1,0 +1,26 @@
+{
+  "doc_id": "3064",
+  "type": "contract",
+  "companies": [
+    "MASTERBUILD LIMITED"
+  ],
+  "financial_data": [
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 3064",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "07/02/2021"
+  ],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

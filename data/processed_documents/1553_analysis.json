@@ -1,0 +1,37 @@
+{
+  "doc_id": "1553",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1553",
+      "type": "expense"
+    },
+    {
+      "amount": 3860530.0,
+      "currency": "KES",
+      "context": "Found in 1553",
+      "type": "expense"
+    },
+    {
+      "amount": 17808199.35,
+      "currency": "KES",
+      "context": "Found in 1553",
+      "type": "expense"
+    },
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 1553",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "amount",
+    "date"
+  ]
+}

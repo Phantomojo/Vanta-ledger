@@ -1,0 +1,32 @@
+[
+  {
+    "id": "312_1",
+    "doc_id": "312",
+    "type": "income",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 312: Found in 312",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "312_2",
+    "doc_id": "312",
+    "type": "income",
+    "amount": 400.0,
+    "currency": "KES",
+    "description": "From document 312: Found in 312",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "312_3",
+    "doc_id": "312",
+    "type": "income",
+    "amount": 400.0,
+    "currency": "KES",
+    "description": "From document 312: Found in 312",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

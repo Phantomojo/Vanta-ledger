@@ -1,0 +1,47 @@
+{
+  "doc_id": "2712",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2712",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "22/02/2021",
+    "22/02/2021",
+    "22/02/2021",
+    "22/02/2022",
+    "21/02/2023",
+    "26/10/2022",
+    "30/06/2025",
+    "26/10/2022",
+    "26/10/2022",
+    "30/06/2023",
+    "30/06/2023",
+    "07/11/2022",
+    "07/11/2022",
+    "30/06/2023",
+    "07/11/2022",
+    "30/06/2025",
+    "39/92/2021",
+    "7/04/2021"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

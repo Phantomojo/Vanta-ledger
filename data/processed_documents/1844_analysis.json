@@ -1,0 +1,27 @@
+{
+  "doc_id": "1844",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 5000000.0,
+      "currency": "KES",
+      "context": "Found in 1844",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "10/05/2023"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

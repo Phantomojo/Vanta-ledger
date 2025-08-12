@@ -1,0 +1,85 @@
+{
+  "doc_id": "349",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 25754978.8,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 53000.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    },
+    {
+      "amount": 88090.0,
+      "currency": "KES",
+      "context": "Found in 349",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "16/09/2019",
+    "16/09/2019",
+    "07/11/2023",
+    "06/14/2024",
+    "28/02/2026",
+    "12/04/2022",
+    "14/04/2023"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

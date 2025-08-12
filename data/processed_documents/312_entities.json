@@ -1,0 +1,41 @@
+{
+  "doc_id": "312",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 1000.0,
+      "currency": "KES",
+      "context": "Found in 312",
+      "type": "income"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 312",
+      "type": "income"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 312",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "08/11/2023",
+    "07/11/2024",
+    "07/11/2021",
+    "07/11/2021"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

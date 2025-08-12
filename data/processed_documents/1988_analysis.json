@@ -1,0 +1,60 @@
+{
+  "doc_id": "1988",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 0.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    },
+    {
+      "amount": 3.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    },
+    {
+      "amount": 3.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    },
+    {
+      "amount": 327888.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    },
+    {
+      "amount": 327888.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    },
+    {
+      "amount": 327888.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    },
+    {
+      "amount": 655776.0,
+      "currency": "KES",
+      "context": "Found in 1988",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "date"
+  ]
+}

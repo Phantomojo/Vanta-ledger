@@ -1,0 +1,42 @@
+{
+  "doc_id": "2707",
+  "companies": [],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2707",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "11/12/2023",
+    "10/12/2024",
+    "11/08/2010",
+    "31/05/2014",
+    "25/7/2024",
+    "25/7/2024",
+    "1/8/2024",
+    "31/7/2025",
+    "24/2/2022",
+    "13/11/2020",
+    "13/11/2020",
+    "13/11/2020",
+    "13/11/2020",
+    "13/11/2020",
+    "18/04/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

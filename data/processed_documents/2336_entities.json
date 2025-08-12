@@ -1,0 +1,32 @@
+{
+  "doc_id": "2336",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2336",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "01/04/2024",
+    "31/03/2025",
+    "28/03/2024",
+    "28/03/2024",
+    "05/04/2026",
+    "27/01/2023",
+    "30/06/2025",
+    "8/11/2023",
+    "1/8/2023",
+    "31/7/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

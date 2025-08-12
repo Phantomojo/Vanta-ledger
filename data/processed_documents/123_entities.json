@@ -1,0 +1,38 @@
+{
+  "doc_id": "123",
+  "companies": [],
+  "projects": [
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 123",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "22/06/2022",
+    "21/06/2023",
+    "09/03/2021",
+    "08/03/2021",
+    "08/03/2021",
+    "06/12/2022",
+    "30/06/2025",
+    "06/12/2022",
+    "06/12/2022",
+    "30/06/2023",
+    "30/06/2023"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

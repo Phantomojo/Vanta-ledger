@@ -1,0 +1,49 @@
+{
+  "doc_id": "527",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 527",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 527",
+      "type": "income"
+    },
+    {
+      "amount": 1778.0,
+      "currency": "KES",
+      "context": "Found in 527",
+      "type": "income"
+    },
+    {
+      "amount": 730715.71,
+      "currency": "KES",
+      "context": "Found in 527",
+      "type": "income"
+    },
+    {
+      "amount": 51.0,
+      "currency": "KES",
+      "context": "Found in 527",
+      "type": "income"
+    },
+    {
+      "amount": 53.0,
+      "currency": "KES",
+      "context": "Found in 527",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

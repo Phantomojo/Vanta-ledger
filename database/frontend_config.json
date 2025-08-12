@@ -1,0 +1,14 @@
+{
+  "api_base_url": "http://localhost:8500",
+  "working_login_endpoint": "/working-login",
+  "fallback_login_endpoint": "/auth/login",
+  "admin_credentials": {
+    "username": "admin",
+    "password": "<SET_VIA_ADMIN_PASSWORD_ENV_VAR>",
+    "note": "Use create_secure_admin.py script or set ADMIN_PASSWORD environment variable"
+  },
+  "database_info": {
+    "location": "database/vanta_ledger_fixed.db",
+    "created_at": "2025-07-29T01:42:05.417657+00:00"
+  }
+}

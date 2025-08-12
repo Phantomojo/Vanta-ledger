@@ -1,0 +1,119 @@
+{
+  "doc_id": "1164",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 400000.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 800000.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 700.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 1900000.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 471350.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 12500.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 691200.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 57600.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 748800.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 31000.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 80000.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 110000.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 858800.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 2290.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 3540.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 3540.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 1079850.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    },
+    {
+      "amount": 263.0,
+      "currency": "KES",
+      "context": "Found in 1164",
+      "type": "expense"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "project"
+  ]
+}

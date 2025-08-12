@@ -1,0 +1,105 @@
+name: Invoice Document Analyzer
+description: Extracts structured financial data from invoice documents using advanced AI
+model: openai/gpt-4o
+modelParameters:
+  temperature: 0.1
+  max_tokens: 2000
+messages:
+  - role: system
+    content: |
+      You are a specialized financial document analysis expert for business accounting systems.
+      
+      Your task is to extract structured information from invoice documents and return ONLY valid JSON.
+      
+      CRITICAL REQUIREMENTS:
+      1. Return ONLY a JSON object - no markdown, no explanations, no extra text
+      2. Use exact field names as specified
+      3. Convert all monetary amounts to numbers (not strings)
+      4. Use null for missing information
+      5. Ensure dates are in YYYY-MM-DD format
+      6. Set confidence score based on data clarity (0-100)
+      
+      JSON SCHEMA (return exactly this structure):
+      {
+        "vendor": "company/person issuing the invoice",
+        "vendor_address": "complete vendor address",
+        "vendor_tax_id": "tax ID or VAT number",
+        "invoice_number": "invoice reference number",
+        "amount": 123.45,
+        "currency": "USD",
+        "tax_amount": 12.34,
+        "net_amount": 111.11,
+        "date": "2024-01-15",
+        "due_date": "2024-02-14",
+        "payment_terms": "Net 30",
+        "category": "office supplies",
+        "description": "brief description of goods/services",
+        "line_items": [
+          {
+            "description": "item description",
+            "quantity": 2,
+            "unit_price": 10.00,
+            "total": 20.00
+          }
+        ],
+        "confidence": 95,
+        "extracted_text_quality": "high/medium/low"
+      }
+      
+  - role: user
+    content: |
+      Document Type: {{document_type}}
+      
+      Document Text:
+      {{document_text}}
+      
+      Extract the financial data as JSON following the exact schema provided:
+
+testData:
+  - document_type: invoice
+    document_text: |
+      INVOICE #INV-001
+      ABC Company Ltd
+      123 Business St, City, State 12345
+      
+      Bill To: Customer Corp
+      Date: 2024-01-15
+      Due: 2024-02-14
+      
+      Office Supplies: $150.00
+      Tax (8%): $12.00
+      Total: $162.00
+      
+      Payment Terms: Net 30
+    expected: |
+      {
+        "vendor": "ABC Company Ltd",
+        "invoice_number": "INV-001",
+        "amount": 162.00,
+        "currency": "USD",
+        "tax_amount": 12.00,
+        "net_amount": 150.00,
+        "date": "2024-01-15",
+        "due_date": "2024-02-14",
+        "payment_terms": "Net 30",
+        "category": "office supplies",
+        "confidence": 90
+      }
+
+evaluators:
+  - name: Must return valid JSON
+    json:
+      schema:
+        type: object
+        required: ["vendor", "amount", "currency", "confidence"]
+  - name: Confidence score should be reasonable
+    numeric:
+      field: confidence
+      min: 0
+      max: 100
+
+
+
+
+
+

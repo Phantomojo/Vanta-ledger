@@ -1,0 +1,17 @@
+{
+  "settings": {
+    "currency": "KES",
+    "date_format": "MM/DD/YYYY",
+    "timezone": "UTC",
+    "language": "en",
+    "max_file_size": "10MB",
+    "allowed_file_types": [
+      "pdf",
+      "doc",
+      "docx",
+      "txt",
+      "jpg",
+      "png"
+    ]
+  }
+}

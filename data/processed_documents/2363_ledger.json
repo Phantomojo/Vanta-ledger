@@ -1,0 +1,92 @@
+[
+  {
+    "id": "2363_1",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_2",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_3",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_4",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_5",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_6",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_7",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 145260.0,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_8",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 203.03,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2363_9",
+    "doc_id": "2363",
+    "type": "income",
+    "amount": 4284737.59,
+    "currency": "KES",
+    "description": "From document 2363: Found in 2363",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

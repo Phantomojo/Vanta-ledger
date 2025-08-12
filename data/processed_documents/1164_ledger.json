@@ -1,0 +1,182 @@
+[
+  {
+    "id": "1164_1",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 400000.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_2",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 800000.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_3",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 700.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_4",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 1900000.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_5",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 471350.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_6",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 12500.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_7",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 691200.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_8",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 57600.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_9",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 748800.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_10",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 31000.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_11",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 80000.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_12",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 110000.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_13",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 858800.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_14",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 2290.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_15",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 3540.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_16",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 3540.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_17",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 1079850.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1164_18",
+    "doc_id": "1164",
+    "type": "expense",
+    "amount": 263.0,
+    "currency": "KES",
+    "description": "From document 1164: Found in 1164",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

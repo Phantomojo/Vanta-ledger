@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1609_1",
+    "doc_id": "1609",
+    "type": "expense",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 1609: Found in 1609",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1609_2",
+    "doc_id": "1609",
+    "type": "expense",
+    "amount": 3860530.0,
+    "currency": "KES",
+    "description": "From document 1609: Found in 1609",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1609_3",
+    "doc_id": "1609",
+    "type": "expense",
+    "amount": 7067551.15,
+    "currency": "KES",
+    "description": "From document 1609: Found in 1609",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1609_4",
+    "doc_id": "1609",
+    "type": "expense",
+    "amount": 4.0,
+    "currency": "KES",
+    "description": "From document 1609: Found in 1609",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

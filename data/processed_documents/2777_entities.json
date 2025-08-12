@@ -1,0 +1,64 @@
+{
+  "doc_id": "2777",
+  "companies": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2777",
+      "type": "income"
+    },
+    {
+      "amount": 454.65,
+      "currency": "KES",
+      "context": "Found in 2777",
+      "type": "income"
+    },
+    {
+      "amount": 791.75,
+      "currency": "KES",
+      "context": "Found in 2777",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "28/02/2023",
+    "28/02/2023",
+    "31/12/2023",
+    "05/08/2020",
+    "01/07/2020",
+    "06/06/2019",
+    "06/06/2019",
+    "20/09/2023",
+    "19/07/2024",
+    "31/07/2025",
+    "01/08/2022",
+    "01/08/2022",
+    "31/07/2023",
+    "26/09/2023",
+    "1/07/2017",
+    "31/08/2018",
+    "26/01/2015",
+    "30/06/2017",
+    "1/10/2011",
+    "31/12/2014",
+    "15/01/2011",
+    "30/8/2011",
+    "28/11/2008",
+    "7/12/2009",
+    "18/12/2020"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

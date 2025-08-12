@@ -1,0 +1,32 @@
+{
+  "doc_id": "54",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 54",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "01/04/2024",
+    "31/03/2025",
+    "28/03/2021",
+    "28/03/2021",
+    "2/8/2024",
+    "2/8/2024",
+    "1/8/2024",
+    "31/7/2025",
+    "05/04/2026"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,733 @@
+{
+  "doc_id": "1282",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 4.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 8.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 9.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 10.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 8.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 8.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 9.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 10.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 10.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 10.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 12.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 14.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 14.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 15.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 16.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 19.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 20.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 20.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 21.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 22.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 23.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 11.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 12.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 12.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 12.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 12.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 13.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 13.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 14.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 15.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 16.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1402500440001.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 22.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 22.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 22.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 23.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 23.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 24.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 25.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 25.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 25.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 25.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 25.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 29.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 31.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 31.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 2.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 3.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 3.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 6.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 7.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 7.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 7.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 8.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 8.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 9.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 9.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 10.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 10.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1402500440001.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 16.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 16.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 17.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 17.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 17.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 17.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 17.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 19.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 19.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 145553740.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 27.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 27.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 27.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 27.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 28.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 28.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 28.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 29.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 29.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 29.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 29.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 30.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 30.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 30.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 30.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 4839.9,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    },
+    {
+      "amount": 3278188.3,
+      "currency": "KES",
+      "context": "Found in 1282",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

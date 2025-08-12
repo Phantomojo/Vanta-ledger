@@ -1,0 +1,25 @@
+{
+  "doc_id": "1876",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1876",
+      "type": "income"
+    },
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 1876",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "construction",
+    "amount",
+    "date"
+  ]
+}

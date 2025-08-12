@@ -1,0 +1,40 @@
+{
+  "doc_id": "61",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "22/07/2022",
+    "05/08/2022",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/08/2024",
+    "09/07/2024",
+    "09/08/2024",
+    "09/08/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

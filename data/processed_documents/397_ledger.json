@@ -1,0 +1,102 @@
+[
+  {
+    "id": "397_1",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_2",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_3",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_4",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_5",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_6",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_7",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_8",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 0.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_9",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 400.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "397_10",
+    "doc_id": "397",
+    "type": "income",
+    "amount": 400.0,
+    "currency": "KES",
+    "description": "From document 397: Found in 397",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

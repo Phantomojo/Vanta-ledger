@@ -1,0 +1,62 @@
+[
+  {
+    "id": "344_1",
+    "doc_id": "344",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 344: Found in 344",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "344_2",
+    "doc_id": "344",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 344: Found in 344",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "344_3",
+    "doc_id": "344",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 344: Found in 344",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "344_4",
+    "doc_id": "344",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 344: Found in 344",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "344_5",
+    "doc_id": "344",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 344: Found in 344",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "344_6",
+    "doc_id": "344",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 344: Found in 344",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

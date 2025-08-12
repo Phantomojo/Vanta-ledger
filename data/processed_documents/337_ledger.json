@@ -1,0 +1,72 @@
+[
+  {
+    "id": "337_1",
+    "doc_id": "337",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 337: Found in 337",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "337_2",
+    "doc_id": "337",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 337: Found in 337",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "337_3",
+    "doc_id": "337",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 337: Found in 337",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "337_4",
+    "doc_id": "337",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 337: Found in 337",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "337_5",
+    "doc_id": "337",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 337: Found in 337",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "337_6",
+    "doc_id": "337",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 337: Found in 337",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "337_7",
+    "doc_id": "337",
+    "type": "income",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 337: Found in 337",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "doc_id": "179",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 179",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "01/12/2022",
+    "29/11/2022",
+    "01/12/2022",
+    "30/11/2023",
+    "13/12/2022",
+    "30/06/2025",
+    "13/12/2022",
+    "13/12/2022",
+    "30/06/2023",
+    "30/06/2023",
+    "4/06/2020"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

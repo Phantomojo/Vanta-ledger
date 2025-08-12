@@ -1,0 +1,22 @@
+[
+  {
+    "id": "2446_1",
+    "doc_id": "2446",
+    "type": "income",
+    "amount": 350.0,
+    "currency": "KES",
+    "description": "From document 2446: Found in 2446",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2446_2",
+    "doc_id": "2446",
+    "type": "income",
+    "amount": 520.0,
+    "currency": "KES",
+    "description": "From document 2446: Found in 2446",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

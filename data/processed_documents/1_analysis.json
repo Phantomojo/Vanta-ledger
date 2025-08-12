@@ -1,0 +1,46 @@
+{
+  "doc_id": "1",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [],
+  "projects": [],
+  "dates": [
+    "39/27/2022",
+    "39/27/2022"
+  ],
+  "keywords": [
+    "contract",
+    "construction",
+    "date"
+  ],
+  "document_id": "1",
+  "analysis_timestamp": "2025-08-06T01:04:20.433114",
+  "content_length": 48,
+  "extracted_data": {
+    "amounts": [],
+    "dates": [
+      "39/27/2022"
+    ],
+    "companies": [],
+    "keywords": [
+      "contract",
+      "date"
+    ],
+    "entities": {
+      "persons": [],
+      "organizations": [],
+      "locations": [],
+      "dates": [
+        "39/27/2022"
+      ],
+      "amounts": []
+    }
+  },
+  "confidence_scores": {
+    "amounts": 0.85,
+    "dates": 0.9,
+    "companies": 0.75,
+    "keywords": 0.8
+  },
+  "analysis_status": "completed"
+}

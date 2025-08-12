@@ -1,0 +1,73 @@
+{
+  "doc_id": "327",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    },
+    {
+      "amount": 500000.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    },
+    {
+      "amount": 250000.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    },
+    {
+      "amount": 100000.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    },
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    },
+    {
+      "amount": 400.0,
+      "currency": "KES",
+      "context": "Found in 327",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "30/60/1201",
+    "01/04/2024",
+    "31/03/2025",
+    "28/03/2021",
+    "28/03/2021"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1862_1",
+    "doc_id": "1862",
+    "type": "income",
+    "amount": 20.0,
+    "currency": "KES",
+    "description": "From document 1862: Found in 1862",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1862_2",
+    "doc_id": "1862",
+    "type": "income",
+    "amount": 800.0,
+    "currency": "KES",
+    "description": "From document 1862: Found in 1862",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1862_3",
+    "doc_id": "1862",
+    "type": "income",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 1862: Found in 1862",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1862_4",
+    "doc_id": "1862",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 1862: Found in 1862",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

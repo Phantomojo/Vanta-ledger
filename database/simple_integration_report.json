@@ -1,0 +1,137 @@
+{
+  "integration_date": "2025-08-07T01:45:30.442497",
+  "database_status": {
+    "postgresql": "connected",
+    "mongodb": "connected",
+    "companies_in_db": 10,
+    "documents_in_db": 3353
+  },
+  "organized_data": {
+    "path": "/home/phantomojo/vanta_companies_data_improved",
+    "exists": true,
+    "total_files": 1573,
+    "companies": [
+      [
+        "damagis_limited",
+        7
+      ],
+      [
+        "ructus_group",
+        21
+      ],
+      [
+        "nifty_ventures",
+        15
+      ],
+      [
+        "kicuna_limited",
+        7
+      ],
+      [
+        "netzach_agencies_limited",
+        97
+      ],
+      [
+        "nifty_ventures_limited",
+        0
+      ],
+      [
+        "cabera_solutions_limited",
+        75
+      ],
+      [
+        "amrolac_company",
+        3
+      ],
+      [
+        "willmat_limited",
+        7
+      ],
+      [
+        "brimmacs_investments_limited",
+        53
+      ],
+      [
+        "adimu_enterprises_limited",
+        5
+      ],
+      [
+        "arxane_limited",
+        5
+      ],
+      [
+        "masterbuild_limited",
+        21
+      ],
+      [
+        "wedocax_limited",
+        7
+      ],
+      [
+        "cadimo_limited",
+        119
+      ],
+      [
+        "pumunduma_limited",
+        32
+      ],
+      [
+        "dorden_ventures",
+        388
+      ],
+      [
+        "moateng_limited",
+        1
+      ],
+      [
+        "coleson_solutions_limited",
+        76
+      ],
+      [
+        "solopride_contractors",
+        24
+      ],
+      [
+        "starvels_enterprises_limited",
+        20
+      ],
+      [
+        "altan_enterprises",
+        315
+      ],
+      [
+        "dylene_enterprises_limited",
+        42
+      ],
+      [
+        "chajoruma_limited",
+        14
+      ],
+      [
+        "yumi_ventures",
+        13
+      ],
+      [
+        "pasakis_limited",
+        48
+      ],
+      [
+        "moremex_limited",
+        7
+      ],
+      [
+        "nkonge_solution_limited",
+        114
+      ],
+      [
+        "megumi_ventures",
+        31
+      ],
+      [
+        "twin_eight_limited",
+        6
+      ]
+    ]
+  },
+  "system_status": "ready_for_processing"
+}

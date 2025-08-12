@@ -1,0 +1,35 @@
+{
+  "doc_id": "740",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 1.0,
+      "currency": "KES",
+      "context": "Found in 740",
+      "type": "income"
+    },
+    {
+      "amount": 724466728.0,
+      "currency": "KES",
+      "context": "Found in 740",
+      "type": "income"
+    },
+    {
+      "amount": 50000000.0,
+      "currency": "KES",
+      "context": "Found in 740",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

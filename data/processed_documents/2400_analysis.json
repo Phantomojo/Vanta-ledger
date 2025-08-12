@@ -1,0 +1,39 @@
+{
+  "doc_id": "2400",
+  "type": "invoice",
+  "companies": [
+    "Solopride Contractors & General Supplies Ltd"
+  ],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2400",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "06/01/2023",
+    "05/01/2024",
+    "06/01/2019",
+    "06/01/2023",
+    "27/01/2023",
+    "30/06/2025",
+    "8/11/2023",
+    "1/8/2023",
+    "31/7/2024",
+    "27/01/2023",
+    "30/06/2025",
+    "8/11/2023",
+    "1/8/2023",
+    "31/7/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

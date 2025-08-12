@@ -1,0 +1,48 @@
+{
+  "doc_id": "2439",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 400000.0,
+      "currency": "KES",
+      "context": "Found in 2439",
+      "type": "income"
+    },
+    {
+      "amount": 400000.0,
+      "currency": "KES",
+      "context": "Found in 2439",
+      "type": "income"
+    },
+    {
+      "amount": 400000.0,
+      "currency": "KES",
+      "context": "Found in 2439",
+      "type": "income"
+    },
+    {
+      "amount": 2700.0,
+      "currency": "KES",
+      "context": "Found in 2439",
+      "type": "income"
+    },
+    {
+      "amount": 2400.0,
+      "currency": "KES",
+      "context": "Found in 2439",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "amount",
+    "date"
+  ]
+}

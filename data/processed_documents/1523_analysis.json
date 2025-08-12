@@ -1,0 +1,50 @@
+{
+  "doc_id": "1523",
+  "type": "unknown",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 1523",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 1523",
+      "type": "income"
+    },
+    {
+      "amount": 1670.5,
+      "currency": "KES",
+      "context": "Found in 1523",
+      "type": "income"
+    },
+    {
+      "amount": 25655.71,
+      "currency": "KES",
+      "context": "Found in 1523",
+      "type": "income"
+    },
+    {
+      "amount": 51.0,
+      "currency": "KES",
+      "context": "Found in 1523",
+      "type": "income"
+    },
+    {
+      "amount": 53.0,
+      "currency": "KES",
+      "context": "Found in 1523",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

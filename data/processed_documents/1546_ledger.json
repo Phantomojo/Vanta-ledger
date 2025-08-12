@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1546_1",
+    "doc_id": "1546",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 1546: Found in 1546",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1546_2",
+    "doc_id": "1546",
+    "type": "income",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 1546: Found in 1546",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1546_3",
+    "doc_id": "1546",
+    "type": "income",
+    "amount": 23506875.1,
+    "currency": "KES",
+    "description": "From document 1546: Found in 1546",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

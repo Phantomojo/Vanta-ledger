@@ -1,0 +1,20 @@
+{
+  "doc_id": "2071",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 30.0,
+      "currency": "KES",
+      "context": "Found in 2071",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "invoice",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

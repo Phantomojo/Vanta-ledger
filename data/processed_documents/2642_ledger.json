@@ -1,0 +1,42 @@
+[
+  {
+    "id": "2642_1",
+    "doc_id": "2642",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 2642: Found in 2642",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2642_2",
+    "doc_id": "2642",
+    "type": "income",
+    "amount": 2000.0,
+    "currency": "KES",
+    "description": "From document 2642: Found in 2642",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2642_3",
+    "doc_id": "2642",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 2642: Found in 2642",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "2642_4",
+    "doc_id": "2642",
+    "type": "income",
+    "amount": 1000.0,
+    "currency": "KES",
+    "description": "From document 2642: Found in 2642",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

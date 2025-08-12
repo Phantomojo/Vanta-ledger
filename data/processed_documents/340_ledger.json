@@ -1,0 +1,132 @@
+[
+  {
+    "id": "340_1",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_2",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_3",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_4",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_5",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 250000.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_6",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 100000.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_7",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_8",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_9",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 30500.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_10",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 4229458075.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_11",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 1.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_12",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 2024.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "340_13",
+    "doc_id": "340",
+    "type": "income",
+    "amount": 60.0,
+    "currency": "KES",
+    "description": "From document 340: Found in 340",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

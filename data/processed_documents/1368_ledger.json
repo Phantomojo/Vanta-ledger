@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1368_1",
+    "doc_id": "1368",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 1368: Found in 1368",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1368_2",
+    "doc_id": "1368",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 1368: Found in 1368",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1368_3",
+    "doc_id": "1368",
+    "type": "income",
+    "amount": 500000.0,
+    "currency": "KES",
+    "description": "From document 1368: Found in 1368",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

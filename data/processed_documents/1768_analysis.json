@@ -1,0 +1,54 @@
+{
+  "doc_id": "1768",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 1000.0,
+      "currency": "KES",
+      "context": "Found in 1768",
+      "type": "income"
+    },
+    {
+      "amount": 225.0,
+      "currency": "KES",
+      "context": "Found in 1768",
+      "type": "income"
+    },
+    {
+      "amount": 0.0,
+      "currency": "KES",
+      "context": "Found in 1768",
+      "type": "income"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "06/07/2023",
+    "31/08/2022",
+    "10/09/2021",
+    "13/09/2022",
+    "12/09/2023",
+    "30/04/2023",
+    "30/04/2023",
+    "31/12/2023",
+    "14/12/2022",
+    "31/07/2025",
+    "01/8/2022",
+    "1/8/2022",
+    "31/7/2023",
+    "26/09/2023",
+    "27/07/1987",
+    "14/5/2022"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "doc_id": "23",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 5.0,
+      "currency": "KES",
+      "context": "Found in 23",
+      "type": "expense"
+    }
+  ],
+  "projects": [],
+  "dates": [
+    "39/27/2022",
+    "39/27/2022"
+  ],
+  "keywords": [
+    "contract",
+    "construction",
+    "date"
+  ]
+}

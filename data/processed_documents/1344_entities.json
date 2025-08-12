@@ -1,0 +1,33 @@
+{
+  "doc_id": "1344",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 1344",
+      "type": "income"
+    }
+  ],
+  "dates": [
+    "2018-04-10",
+    "22/05/2020",
+    "11/04/2018",
+    "21/05/2020",
+    "04/10/2022",
+    "03/10/2023",
+    "15/08/2025",
+    "18/9/2023",
+    "18/9/2023",
+    "1/8/2023",
+    "31/7/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "payment",
+    "amount",
+    "date"
+  ]
+}

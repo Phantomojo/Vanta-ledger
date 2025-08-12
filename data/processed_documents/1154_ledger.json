@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1154_1",
+    "doc_id": "1154",
+    "type": "expense",
+    "amount": 100.0,
+    "currency": "KES",
+    "description": "From document 1154: Found in 1154",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1154_2",
+    "doc_id": "1154",
+    "type": "expense",
+    "amount": 7400000.0,
+    "currency": "KES",
+    "description": "From document 1154: Found in 1154",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]

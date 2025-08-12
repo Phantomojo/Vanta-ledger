@@ -1,0 +1,39 @@
+{
+  "doc_id": "2405",
+  "type": "invoice",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 100.0,
+      "currency": "KES",
+      "context": "Found in 2405",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [
+    "16/09/2019",
+    "16/09/2019",
+    "16/09/2019",
+    "07/11/2023",
+    "06/11/2024",
+    "30/06/2025",
+    "01/08/2023",
+    "01/08/2023",
+    "31/07/2024",
+    "31/07/2024"
+  ],
+  "keywords": [
+    "invoice",
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

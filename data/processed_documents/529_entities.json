@@ -1,0 +1,55 @@
+{
+  "doc_id": "529",
+  "companies": [],
+  "projects": [],
+  "financial_data": [
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 529",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 529",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 529",
+      "type": "income"
+    },
+    {
+      "amount": 14005371.0,
+      "currency": "KES",
+      "context": "Found in 529",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 529",
+      "type": "income"
+    },
+    {
+      "amount": 1400537.0,
+      "currency": "KES",
+      "context": "Found in 529",
+      "type": "income"
+    },
+    {
+      "amount": 24.0,
+      "currency": "KES",
+      "context": "Found in 529",
+      "type": "income"
+    }
+  ],
+  "dates": [],
+  "keywords": [
+    "payment",
+    "amount",
+    "date"
+  ]
+}

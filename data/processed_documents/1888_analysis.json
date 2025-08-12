@@ -1,0 +1,27 @@
+{
+  "doc_id": "1888",
+  "type": "contract",
+  "companies": [],
+  "financial_data": [
+    {
+      "amount": 50000.0,
+      "currency": "KES",
+      "context": "Found in 1888",
+      "type": "income"
+    }
+  ],
+  "projects": [
+    "GRADING AND GRAVELLING WORKS",
+    "CULVERT AND DRAINAGE WORKS"
+  ],
+  "dates": [],
+  "keywords": [
+    "contract",
+    "receipt",
+    "payment",
+    "project",
+    "construction",
+    "amount",
+    "date"
+  ]
+}

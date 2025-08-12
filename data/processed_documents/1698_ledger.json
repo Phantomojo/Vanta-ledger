@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1698_1",
+    "doc_id": "1698",
+    "type": "income",
+    "amount": 150000.0,
+    "currency": "KES",
+    "description": "From document 1698: Found in 1698",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1698_2",
+    "doc_id": "1698",
+    "type": "income",
+    "amount": 150000.0,
+    "currency": "KES",
+    "description": "From document 1698: Found in 1698",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  },
+  {
+    "id": "1698_3",
+    "doc_id": "1698",
+    "type": "income",
+    "amount": 0.2,
+    "currency": "KES",
+    "description": "From document 1698: Found in 1698",
+    "date": "2025-07-29",
+    "source": "auto_generated"
+  }
+]
