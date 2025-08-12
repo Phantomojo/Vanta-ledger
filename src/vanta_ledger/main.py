@@ -4,64 +4,73 @@ Vanta Ledger - Main FastAPI Application
 Advanced document processing and financial data management system
 """
 
+import logging
 import os
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Depends
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi.responses import JSONResponse
-from jose import jwt
-import pymongo
-import psycopg2
-import redis
 import prometheus_client
+import psycopg2
+import pymongo
+import redis
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import jwt
 from prometheus_client import Counter, Histogram
-import logging
-# Import settings and middleware
-from .config import settings
-from .middleware import LoggingMiddleware, SecurityHeadersMiddleware, RateLimitMiddleware
 
 # Import authentication
 from .auth import AuthService
 
-# Import enhanced document management
-from .routes.enhanced_documents import router as enhanced_documents_router
-
-# Import financial management
-from .routes.financial import router as financial_router
+# Import settings and middleware
+from .config import settings
+from .middleware import (
+    LoggingMiddleware,
+    RateLimitMiddleware,
+    SecurityHeadersMiddleware,
+)
 
 # Import AI analytics
 from .routes.ai_analytics import router as ai_analytics_router
+from .routes.analytics import router as analytics_router
+from .routes.auth import router as auth_router
+from .routes.companies import router as companies_router
+from .routes.config import router as config_router
+from .routes.documents import router as documents_router
+
+# Import enhanced document management
+from .routes.enhanced_documents import router as enhanced_documents_router
+from .routes.extracted_data import router as extracted_data_router
+
+# Import financial management
+from .routes.financial import router as financial_router
+from .routes.ledger import router as ledger_router
 
 # Import local LLM
 from .routes.local_llm import router as local_llm_router
-from .routes.auth import router as auth_router
-from .routes.documents import router as documents_router
-from .routes.companies import router as companies_router
-from .routes.projects import router as projects_router
-from .routes.ledger import router as ledger_router
-from .routes.analytics import router as analytics_router
-from .routes.users import router as users_router
-from .routes.config import router as config_router
 from .routes.notifications import router as notifications_router
-# from .routes.github_models import router as github_models_router  # Temporarily disabled due to import issues
+from .routes.paperless_integration import router as paperless_router
+from .routes.projects import router as projects_router
 
 # Import new frontend compatibility routes
 from .routes.simple_auth import router as simple_auth_router
-from .routes.extracted_data import router as extracted_data_router
-from .routes.paperless_integration import router as paperless_router
+from .routes.users import router as users_router
 
 # Import startup
-from .startup import initialize_services, health_check
+from .startup import health_check, initialize_services
+
+# from .routes.github_models import router as github_models_router  # Temporarily disabled due to import issues
+
+
 
 # Initialize FastAPI app
 app = FastAPI(
     title="Vanta Ledger API",
     description="Advanced document processing and financial data management system with AI analytics and local LLM",
-    version=settings.VERSION
+    version=settings.VERSION,
 )
+
 
 # Startup event
 @app.on_event("startup")
@@ -75,6 +84,7 @@ async def startup_event():
         # Defensive check: validate_required_config should have raised
         raise RuntimeError("SECRET_KEY must be configured in production")
     await initialize_services()
+
 
 # Add middleware
 app.add_middleware(LoggingMiddleware)
@@ -95,6 +105,7 @@ security = HTTPBearer()
 
 # Initialize document processor
 from .services.document_processor import DocumentProcessor
+
 document_processor = DocumentProcessor()
 
 # Include enhanced document management routes
@@ -125,27 +136,34 @@ app.include_router(extracted_data_router)
 app.include_router(paperless_router)
 
 # Prometheus metrics
-REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP requests', ['method', 'endpoint', 'status'])
-REQUEST_LATENCY = Histogram('http_request_duration_seconds', 'HTTP request latency')
+REQUEST_COUNT = Counter(
+    "http_requests_total", "Total HTTP requests", ["method", "endpoint", "status"]
+)
+REQUEST_LATENCY = Histogram("http_request_duration_seconds", "HTTP request latency")
+
 
 # Database connections
 def get_mongo_client():
     """
     Create and return a MongoDB client with a 5-second server selection and connection timeout.
-    
+
     Returns:
         MongoClient: A configured MongoDB client instance.
     """
-    return pymongo.MongoClient(settings.MONGO_URI, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000)
+    return pymongo.MongoClient(
+        settings.MONGO_URI, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000
+    )
+
 
 def get_postgres_connection():
     """
     Establish and return a new PostgreSQL database connection with a 5-second timeout.
-    
+
     Returns:
         connection: A psycopg2 connection object to the PostgreSQL database.
     """
     return psycopg2.connect(settings.POSTGRES_URI, connect_timeout=5)
+
 
 def get_redis_client():
     """
@@ -153,18 +171,20 @@ def get_redis_client():
     """
     return redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
 
+
 # Authentication - using the new AuthService
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """
     Verifies the provided HTTP Bearer token and returns the associated user or authentication context.
-    
+
     Parameters:
         credentials (HTTPAuthorizationCredentials): The HTTP Bearer credentials extracted from the request.
-    
+
     Returns:
         The result of token verification, typically user information or authentication context.
     """
     return AuthService.verify_token(credentials.credentials)
+
 
 # Health check
 @app.get("/health")
@@ -179,8 +199,10 @@ async def health_check_endpoint():
         logger.error("Health check endpoint failed: Internal server error")
         return JSONResponse(
             status_code=500,
-            content={"status": "unhealthy", "error": "Internal server error"}
+            content={"status": "unhealthy", "error": "Internal server error"},
         )
+
+
 # Metrics endpoint
 @app.get("/metrics")
 async def metrics():
@@ -188,20 +210,20 @@ async def metrics():
     Return the latest Prometheus metrics data for monitoring and observability systems.
     """
     from fastapi.responses import Response
+
     return Response(
-        content=prometheus_client.generate_latest(),
-        media_type="text/plain"
+        content=prometheus_client.generate_latest(), media_type="text/plain"
     )
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """
     Generate a JWT access token with an expiration time.
-    
+
     Parameters:
         data (dict): The payload to include in the token.
         expires_delta (Optional[timedelta]): Optional duration until the token expires. Defaults to 15 minutes if not provided.
-    
+
     Returns:
         str: The encoded JWT access token.
     """
@@ -211,18 +233,21 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM
+    )
     return encoded_jwt
+
 
 # Database test endpoints
 @app.get("/test-mongo")
 async def test_mongo():
     """
     Test MongoDB connectivity by inserting and deleting a test document.
-    
+
     Returns:
         dict: A status message indicating whether the MongoDB connection was successful.
-    
+
     Raises:
         HTTPException: If the MongoDB connection or operation fails.
     """
@@ -236,14 +261,15 @@ async def test_mongo():
         logger.error("MongoDB connection failed: Connection error")
         raise HTTPException(status_code=500, detail="Database connection failed")
 
+
 @app.get("/test-postgres")
 async def test_postgres():
     """
     Test connectivity to the PostgreSQL database and return the server version.
-    
+
     Returns:
         dict: A dictionary containing the connection status and PostgreSQL server version.
-    
+
     Raises:
         HTTPException: If the connection or query fails, returns a 500 error with details.
     """
@@ -259,14 +285,15 @@ async def test_postgres():
         logger.error("PostgreSQL connection failed: Connection error")
         raise HTTPException(status_code=500, detail="Database connection failed")
 
+
 @app.get("/test-redis")
 async def test_redis():
     """
     Test Redis connectivity by performing a set, get, and delete operation on a test key.
-    
+
     Returns:
         dict: A status message indicating success and the value retrieved from Redis.
-    
+
     Raises:
         HTTPException: If any Redis operation fails, returns a 500 error with details.
     """
@@ -285,4 +312,5 @@ async def test_redis():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8500) 
+
+    uvicorn.run(app, host="0.0.0.0", port=8500)
