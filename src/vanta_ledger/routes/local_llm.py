@@ -4,6 +4,7 @@ Local LLM API Routes
 Multi-company document processing with local LLM integration
 """
 
+import os
 import tempfile
 from datetime import datetime
 from typing import Any, Dict, List, Optional

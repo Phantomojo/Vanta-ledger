@@ -155,7 +155,8 @@ async def analyze_document_upload(
             # Clean up temporary file
             try:
                 os.unlink(temp_file_path)
-            except:
+            except OSError as e:
+                logger.debug(f"Failed to remove temporary file {temp_file_path}: {e}")
                 pass
 
     except Exception as e:

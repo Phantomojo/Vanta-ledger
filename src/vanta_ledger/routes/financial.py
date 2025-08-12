@@ -18,8 +18,10 @@ from ..models.financial_models import (
     Currency,
     Customer,
     Invoice,
+    InvoiceLine,
     InvoiceStatus,
     JournalEntry,
+    JournalEntryLine,
     PaymentStatus,
     Vendor,
 )
