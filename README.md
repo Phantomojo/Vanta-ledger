@@ -8,7 +8,7 @@
 
 ## 🎥 Quick Demo
 
-https://github.com/yourusername/vanta-ledger/assets/main/frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4
+![Deconstructing Vanta Ledger](videos/Deconstructing_Vanta_Ledger.mp4)
 
 *Watch the full demo above to see Vanta Ledger in action!*
 
@@ -21,12 +21,12 @@ https://github.com/yourusername/vanta-ledger/assets/main/frontend/frontend-web/p
 Watch these videos to see the power of Vanta Ledger:
 
 ### 🎬 Deconstructing Vanta Ledger
-[![Deconstructing Vanta Ledger](https://img.shields.io/badge/Video-Deconstructing_Vanta_Ledger-blue?style=for-the-badge&logo=video)](https://github.com/yourusername/vanta-ledger/blob/main/frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4)
+[![Deconstructing Vanta Ledger](https://img.shields.io/badge/Video-Deconstructing_Vanta_Ledger-blue?style=for-the-badge&logo=video)](https://github.com/yourusername/vanta-ledger/blob/main/videos/Deconstructing_Vanta_Ledger.mp4)
 
 **An in-depth look at the Vanta Ledger system architecture and features.**
 
 ### 🤖 AI-Powered Financial Document Management
-[![AI-Powered Financial Document Management](https://img.shields.io/badge/Video-AI_Powered_Financial_Management-green?style=for-the-badge&logo=robot)](https://github.com/yourusername/vanta-ledger/blob/main/frontend/frontend-web/public/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
+[![AI-Powered Financial Document Management](https://img.shields.io/badge/Video-AI_Powered_Financial_Management-green?style=for-the-badge&logo=robot)](https://github.com/yourusername/vanta-ledger/blob/main/videos/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
 
 **See how AI transforms financial document processing and management.**
 
@@ -35,10 +35,10 @@ Watch these videos to see the power of Vanta Ledger:
 ### 🎬 Watch the Videos
 
 #### Deconstructing Vanta Ledger
-![Deconstructing Vanta Ledger](frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4)
+![Deconstructing Vanta Ledger](videos/Deconstructing_Vanta_Ledger.mp4)
 
 #### AI-Powered Financial Document Management
-![AI-Powered Financial Document Management](frontend/frontend-web/public/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
+![AI-Powered Financial Document Management](videos/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
 
 > **📱 Note**: The videos above will display as embedded players on GitHub. If you're viewing this README elsewhere, use the video badge links above.
 
@@ -185,7 +185,7 @@ git clone https://github.com/yourusername/vanta-ledger.git
 cd vanta-ledger
 ```
 
-> **🎥 Videos Included**: This repository includes demo videos in `frontend/frontend-web/public/` that showcase Vanta Ledger in action. Watch them in the README above or navigate to the files directly.
+> **🎥 Videos Included**: This repository includes demo videos in the `videos/` folder that showcase Vanta Ledger in action. Watch them in the README above or navigate to the files directly.
 
 2. **Build and run the all-in-one container**
 ```bash
