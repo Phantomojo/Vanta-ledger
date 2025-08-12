@@ -33,7 +33,7 @@ def check_environment():
     health["environment"]["working_directory"] = str(Path.cwd())
     
     # Check if we're in the right directory
-    if Path("backend").exists() and Path("models").exists():
+    if Path("src").exists() and Path("frontend").exists():
         health["environment"]["project_structure"] = "correct"
     else:
         health["environment"]["project_structure"] = "incorrect"
