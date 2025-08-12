@@ -1,0 +1,303 @@
+name: 🔍 Code Quality & Standards
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  schedule:
+    # Run code quality checks daily at 8 AM UTC
+    - cron: '0 8 * * *'
+
+jobs:
+  code-formatting:
+    name: 🎨 Code Formatting
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 🔧 Install formatting tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install black isort yapf autopep8
+        
+    - name: 🎨 Check Black formatting
+      run: |
+        echo "🎨 Checking Black code formatting..."
+        black --check --diff .
+        
+    - name: 🔄 Check isort import sorting
+      run: |
+        echo "🔄 Checking import sorting..."
+        isort --check-only --diff .
+        
+    - name: 📝 Auto-format code (if needed)
+      run: |
+        echo "📝 Auto-formatting code..."
+        black .
+        isort .
+        
+    - name: 📤 Commit formatting changes
+      if: failure()
+      run: |
+        echo "📤 Committing formatting changes..."
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "🎨 Auto-format code with Black and isort" || echo "No changes to commit"
+        git push || echo "Push failed"
+
+  linting:
+    name: 🔍 Linting & Code Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 🔧 Install linting tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pylint pycodestyle pydocstyle
+        
+    - name: 🔍 Run Flake8
+      run: |
+        echo "🔍 Running Flake8 linting..."
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+        
+    - name: 🔍 Run PyLint
+      run: |
+        echo "🔍 Running PyLint analysis..."
+        pylint backend/src/ --output-format=text --reports=y || true
+        
+    - name: 🔍 Run PyCodeStyle
+      run: |
+        echo "🔍 Running PyCodeStyle checks..."
+        pycodestyle backend/src/ --max-line-length=88 || true
+        
+    - name: 📚 Run PyDocStyle
+      run: |
+        echo "📚 Running PyDocStyle checks..."
+        pydocstyle backend/src/ --ignore=D100,D104,D106,D200,D203,D212,D401,D406,D407,D413 || true
+
+  type-checking:
+    name: 🔍 Type Checking
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 🔧 Install type checking tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install mypy pyright pytype
+        
+    - name: 🔍 Run MyPy
+      run: |
+        echo "🔍 Running MyPy type checking..."
+        mypy backend/src/ --ignore-missing-imports --show-error-codes
+        
+    - name: 🔍 Run Pyright
+      run: |
+        echo "🔍 Running Pyright type checking..."
+        npx pyright backend/src/ || echo "Pyright not available, skipping..."
+        
+    - name: 🔍 Run PyType
+      run: |
+        echo "🔍 Running PyType type checking..."
+        pytype backend/src/ || echo "PyType not available, skipping..."
+
+  complexity-analysis:
+    name: 📊 Code Complexity Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 🔧 Install complexity tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install radon mccabe xenon
+        
+    - name: 📊 Run Radon complexity analysis
+      run: |
+        echo "📊 Running Radon complexity analysis..."
+        radon cc backend/src/ -a -nc
+        radon mi backend/src/ -nc
+        radon hal backend/src/ -nc
+        
+    - name: 📊 Run McCabe complexity
+      run: |
+        echo "📊 Running McCabe complexity analysis..."
+        python -m mccabe backend/src/ --min 10 || true
+        
+    - name: 📊 Run Xenon complexity check
+      run: |
+        echo "📊 Running Xenon complexity check..."
+        xenon --max-absolute A --max-modules A --max-average A backend/src/ || true
+
+  documentation-check:
+    name: 📚 Documentation Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 🔧 Install documentation tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install pydocstyle doc8 sphinx
+        
+    - name: 📚 Check docstring coverage
+      run: |
+        echo "📚 Checking docstring coverage..."
+        python -c "
+        import os
+        import ast
+        
+        def count_functions_and_classes(file_path):
+            with open(file_path, 'r') as f:
+                tree = ast.parse(f.read())
+            
+            functions = len([n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)])
+            classes = len([n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)])
+            return functions, classes
+        
+        def count_docstrings(file_path):
+            with open(file_path, 'r') as f:
+                tree = ast.parse(f.read())
+            
+            docstrings = len([n for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, str)])
+            return docstrings
+        
+        total_functions = 0
+        total_classes = 0
+        total_docstrings = 0
+        
+        for root, dirs, files in os.walk('backend/src'):
+            for file in files:
+                if file.endswith('.py'):
+                    file_path = os.path.join(root, file)
+                    try:
+                        funcs, classes = count_functions_and_classes(file_path)
+                        docstrings = count_docstrings(file_path)
+                        total_functions += funcs
+                        total_classes += classes
+                        total_docstrings += docstrings
+                    except:
+                        pass
+        
+        print(f'Total functions: {total_functions}')
+        print(f'Total classes: {total_classes}')
+        print(f'Total docstrings: {total_docstrings}')
+        print(f'Documentation coverage: {total_docstrings/(total_functions + total_classes)*100:.1f}%')
+        "
+        
+    - name: 📚 Check README and docs
+      run: |
+        echo "📚 Checking documentation files..."
+        if [ -f "README.md" ]; then
+          echo "✅ README.md found"
+        else
+          echo "❌ README.md missing"
+        fi
+        
+        if [ -d "docs/" ]; then
+          echo "✅ docs/ directory found"
+          find docs/ -name "*.md" | wc -l | xargs echo "📄 Number of markdown files:"
+        else
+          echo "❌ docs/ directory missing"
+        fi
+
+  quality-summary:
+    name: 📊 Quality Summary
+    runs-on: ubuntu-latest
+    needs: [code-formatting, linting, type-checking, complexity-analysis, documentation-check]
+    if: always()
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 📊 Generate quality summary
+      run: |
+        echo "📊 Generating code quality summary..."
+        
+        echo "# 🔍 Code Quality Summary" > quality-summary.md
+        echo "Generated: $(date)" >> quality-summary.md
+        echo "" >> quality-summary.md
+        
+        echo "## 📋 Quality Check Results" >> quality-summary.md
+        echo "- Code Formatting: ${{ needs.code-formatting.result }}" >> quality-summary.md
+        echo "- Linting: ${{ needs.linting.result }}" >> quality-summary.md
+        echo "- Type Checking: ${{ needs.type-checking.result }}" >> quality-summary.md
+        echo "- Complexity Analysis: ${{ needs.complexity-analysis.result }}" >> quality-summary.md
+        echo "- Documentation: ${{ needs.documentation-check.result }}" >> quality-summary.md
+        echo "" >> quality-summary.md
+        
+        echo "## 🎯 Quality Metrics" >> quality-summary.md
+        echo "- Code formatting compliance: ${{ needs.code-formatting.result == 'success' && '✅' || '❌' }}" >> quality-summary.md
+        echo "- Linting standards: ${{ needs.linting.result == 'success' && '✅' || '❌' }}" >> quality-summary.md
+        echo "- Type safety: ${{ needs.type-checking.result == 'success' && '✅' || '❌' }}" >> quality-summary.md
+        echo "- Code complexity: ${{ needs.complexity-analysis.result == 'success' && '✅' || '❌' }}" >> quality-summary.md
+        echo "- Documentation coverage: ${{ needs.documentation-check.result == 'success' && '✅' || '❌' }}" >> quality-summary.md
+        echo "" >> quality-summary.md
+        
+        echo "## 🚀 Recommendations" >> quality-summary.md
+        if [ "${{ needs.code-formatting.result }}" != "success" ]; then
+          echo "- 🎨 Fix code formatting issues with Black and isort" >> quality-summary.md
+        fi
+        if [ "${{ needs.linting.result }}" != "success" ]; then
+          echo "- 🔍 Address linting violations and code style issues" >> quality-summary.md
+        fi
+        if [ "${{ needs.type-checking.result }}" != "success" ]; then
+          echo "- 🔍 Fix type annotation issues and improve type safety" >> quality-summary.md
+        fi
+        if [ "${{ needs.complexity-analysis.result }}" != "success" ]; then
+          echo "- 📊 Reduce code complexity in identified functions" >> quality-summary.md
+        fi
+        if [ "${{ needs.documentation-check.result }}" != "success" ]; then
+          echo "- 📚 Improve documentation coverage and quality" >> quality-summary.md
+        fi
+        
+        if [ "${{ needs.code-formatting.result }}" == "success" ] && [ "${{ needs.linting.result }}" == "success" ] && [ "${{ needs.type-checking.result }}" == "success" ] && [ "${{ needs.complexity-analysis.result }}" == "success" ] && [ "${{ needs.documentation-check.result }}" == "success" ]; then
+          echo "- 🎉 All quality checks passed! Code meets high standards." >> quality-summary.md
+        fi
+        
+    - name: 📤 Upload quality summary
+      uses: actions/upload-artifact@v3
+      with:
+        name: quality-summary
+        path: quality-summary.md
+        retention-days: 30

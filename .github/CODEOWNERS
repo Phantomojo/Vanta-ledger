@@ -1,0 +1,32 @@
+# Code owners for Vanta Ledger
+# This file defines who is responsible for different parts of the codebase
+
+# Global owners
+* @Phantomojo
+
+# Backend code
+/backend/ @Phantomojo
+/src/vanta_ledger/ @Phantomojo
+
+# Frontend code
+/frontend/ @Phantomojo
+
+# Documentation
+/docs/ @Phantomojo
+*.md @Phantomojo
+
+# Configuration files
+/.github/ @Phantomojo
+/docker-compose*.yml @Phantomojo
+/Dockerfile* @Phantomojo
+
+# Tests
+/tests/ @Phantomojo
+
+# Scripts
+/scripts/ @Phantomojo
+
+# Dependencies
+/requirements.txt @Phantomojo
+/constraints.txt @Phantomojo
+/pyproject.toml @Phantomojo
