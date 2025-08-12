@@ -1,23 +1,24 @@
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
-from typing import List
 from datetime import datetime
+from typing import List
+
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 
 from ..auth import AuthService
-from ..utils.file_utils import secure_file_handler
-from ..services.document_processor import DocumentProcessor
 from ..config import settings
+from ..services.document_processor import DocumentProcessor
+from ..utils.file_utils import secure_file_handler
 
 router = APIRouter(prefix="/upload/documents", tags=["Documents"])
 document_processor = DocumentProcessor()
 
+
 @router.post("")
 async def upload_document(
-    file: UploadFile = File(...),
-    current_user: dict = Depends(AuthService.verify_token)
+    file: UploadFile = File(...), current_user: dict = Depends(AuthService.verify_token)
 ):
     """
     Handles secure upload and processing of a document file.
-    
+
     Accepts a file upload, saves it securely, processes the document, and returns metadata including analysis results and security information. Raises an HTTP 500 error if processing fails.
     """
     temp_file_path = None
@@ -35,16 +36,16 @@ async def upload_document(
             "secure_filename": secure_filename,
             "original_filename": file.filename,
             "file_size": file.size,
-            "upload_timestamp": datetime.now().isoformat()
+            "upload_timestamp": datetime.now().isoformat(),
         }
 
         return {
             "message": "Document uploaded and processed successfully",
-            "doc_id": result['doc_id'],
-            "original_filename": result['original_filename'],
-            "type": result['analysis']['type'],
-            "summary": result['analysis']['summary'],
-            "security": result["security"]
+            "doc_id": result["doc_id"],
+            "original_filename": result["original_filename"],
+            "type": result["analysis"]["type"],
+            "summary": result["analysis"]["summary"],
+            "security": result["security"],
         }
 
     except HTTPException as e:
@@ -55,19 +56,20 @@ async def upload_document(
         if temp_file_path:
             secure_file_handler.cleanup_temp_file(temp_file_path)
 
+
 @router.get("")
 async def list_documents(
     page: int = 1,
     limit: int = 20,
-    current_user: dict = Depends(AuthService.verify_token)
+    current_user: dict = Depends(AuthService.verify_token),
 ):
     """
     Retrieve a paginated list of all processed documents.
-    
+
     Parameters:
         page (int): The page number to retrieve.
         limit (int): The maximum number of documents per page.
-    
+
     Returns:
         dict: A dictionary containing the list of documents for the requested page and pagination metadata.
     """
@@ -83,21 +85,21 @@ async def list_documents(
             "page": page,
             "limit": limit,
             "total": len(documents),
-            "pages": (len(documents) + limit - 1) // limit
-        }
+            "pages": (len(documents) + limit - 1) // limit,
+        },
     }
+
 
 @router.get("/{document_id}")
 async def get_document_details(
-    document_id: str,
-    current_user: dict = Depends(AuthService.verify_token)
+    document_id: str, current_user: dict = Depends(AuthService.verify_token)
 ):
     """
     Retrieve detailed analysis and metadata for a specific document by its ID.
-    
+
     Returns:
         dict: A dictionary containing the document ID, content (or a placeholder if unavailable), analysis results, and metadata such as type, word count, and processing timestamp.
-    
+
     Raises:
         HTTPException: If the document is not found.
     """
@@ -114,23 +116,23 @@ async def get_document_details(
         "content": content,
         "analysis": analysis,
         "metadata": {
-            "type": analysis.get('type'),
-            "word_count": analysis.get('metadata', {}).get('word_count', 0),
-            "processed_at": analysis.get('processed_at')
-        }
+            "type": analysis.get("type"),
+            "word_count": analysis.get("metadata", {}).get("word_count", 0),
+            "processed_at": analysis.get("processed_at"),
+        },
     }
+
 
 @router.get("/{document_id}/content")
 async def get_document_content(
-    document_id: str,
-    current_user: dict = Depends(AuthService.verify_token)
+    document_id: str, current_user: dict = Depends(AuthService.verify_token)
 ):
     """
     Retrieve the raw text content of a document by its ID.
-    
+
     Raises:
         HTTPException: If the document content is not found.
-        
+
     Returns:
         dict: A dictionary containing the document's raw content under the "content" key.
     """
@@ -140,20 +142,20 @@ async def get_document_content(
 
     return {"content": content}
 
+
 @router.post("/{document_id}/analyze")
 async def reanalyze_document(
-    document_id: str,
-    current_user: dict = Depends(AuthService.verify_token)
+    document_id: str, current_user: dict = Depends(AuthService.verify_token)
 ):
     """
     Re-analyzes an existing document using updated AI processing and stores the new analysis.
-    
+
     Parameters:
         document_id (str): The unique identifier of the document to re-analyze.
-    
+
     Returns:
         dict: A message indicating success, the document ID, and the updated analysis results.
-    
+
     Raises:
         HTTPException: If the document content is not found.
     """
@@ -167,5 +169,5 @@ async def reanalyze_document(
     return {
         "message": "Document re-analyzed successfully",
         "doc_id": document_id,
-        "analysis": analysis
+        "analysis": analysis,
     }

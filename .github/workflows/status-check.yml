@@ -1,0 +1,277 @@
+name: 📊 Workflow Status Monitor
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_run:
+    workflows: ["Main CI/CD Pipeline", "Comprehensive Testing Suite", "Code Quality & Standards", "Deployment Pipeline"]
+    types: [completed]
+
+jobs:
+  workflow-status:
+    name: 📊 Workflow Status Report
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔍 Get workflow status
+      id: workflow-status
+      run: |
+        echo "🔍 Checking workflow statuses..."
+        
+        # Get recent workflow runs
+        WORKFLOW_STATUS=$(gh api repos/${{ github.repository }}/actions/runs --jq '.workflow_runs[0:10] | map({name: .name, status: .conclusion, created_at: .created_at, html_url: .html_url})')
+        
+        echo "workflow_status<<EOF" >> $GITHUB_OUTPUT
+        echo "$WORKFLOW_STATUS" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        
+        echo "✅ Workflow status retrieved"
+        
+    - name: 📊 Generate status report
+      run: |
+        echo "📊 Generating workflow status report..."
+        
+        echo "# 📊 Workflow Status Report" > workflow-status-report.md
+        echo "Generated: $(date)" >> workflow-status-report.md
+        echo "" >> workflow-status-report.md
+        
+        echo "## 🔄 Recent Workflow Runs" >> workflow-status-report.md
+        
+        # Parse workflow status and generate report
+        echo "${{ steps.workflow-status.outputs.workflow_status }}" | jq -r '.[] | "- **\(.name)**: \(.status // "running") - \(.created_at)"' >> workflow-status-report.md
+        
+        echo "" >> workflow-status-report.md
+        echo "## 📈 Status Summary" >> workflow-status-report.md
+        
+        # Count success/failure rates
+        TOTAL=$(echo "${{ steps.workflow-status.outputs.workflow_status }}" | jq 'length')
+        SUCCESS=$(echo "${{ steps.workflow-status.outputs.workflow_status }}" | jq '[.[] | select(.status == "success")] | length')
+        FAILURE=$(echo "${{ steps.workflow-status.outputs.workflow_status }}" | jq '[.[] | select(.status == "failure")] | length')
+        RUNNING=$(echo "${{ steps.workflow-status.outputs.workflow_status }}" | jq '[.[] | select(.status == null)] | length')
+        
+        echo "- Total Runs: $TOTAL" >> workflow-status-report.md
+        echo "- Successful: $SUCCESS" >> workflow-status-report.md
+        echo "- Failed: $FAILURE" >> workflow-status-report.md
+        echo "- Running: $RUNNING" >> workflow-status-report.md
+        
+        if [ "$TOTAL" -gt 0 ]; then
+          SUCCESS_RATE=$(echo "scale=1; $SUCCESS * 100 / $TOTAL" | bc -l 2>/dev/null || echo "0")
+          echo "- Success Rate: ${SUCCESS_RATE}%" >> workflow-status-report.md
+        fi
+        
+        echo "" >> workflow-status-report.md
+        echo "## 🎯 Recommendations" >> workflow-status-report.md
+        
+        if [ "$FAILURE" -gt 0 ]; then
+          echo "- ❌ Review failed workflows and fix issues" >> workflow-status-report.md
+        fi
+        
+        if [ "$SUCCESS_RATE" -lt 80 ]; then
+          echo "- ⚠️ Success rate below 80% - investigate workflow issues" >> workflow-status-report.md
+        fi
+        
+        if [ "$SUCCESS_RATE" -ge 90 ]; then
+          echo "- ✅ Excellent workflow success rate!" >> workflow-status-report.md
+        fi
+        
+    - name: 📤 Upload status report
+      uses: actions/upload-artifact@v3
+      with:
+        name: workflow-status-report
+        path: workflow-status-report.md
+        retention-days: 7
+
+  dependency-check:
+    name: 🔍 Dependency Health Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: 🔧 Install dependency tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install safety pip-audit
+        
+    - name: 🔍 Check dependencies
+      run: |
+        echo "🔍 Checking dependencies for vulnerabilities..."
+        
+        echo "# 🔍 Dependency Health Report" > dependency-health-report.md
+        echo "Generated: $(date)" >> dependency-health-report.md
+        echo "" >> dependency-health-report.md
+        
+        echo "## 🛡️ Safety Check" >> dependency-health-report.md
+        safety check --output dependency-health-report.md --append || echo "Safety check completed"
+        
+        echo "" >> dependency-health-report.md
+        echo "## 🔍 Pip Audit" >> dependency-health-report.md
+        pip-audit --format=markdown >> dependency-health-report.md || echo "Pip audit completed"
+        
+    - name: 📤 Upload dependency report
+      uses: actions/upload-artifact@v3
+      with:
+        name: dependency-health-report
+        path: dependency-health-report.md
+        retention-days: 7
+
+  repository-health:
+    name: 🏥 Repository Health Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔍 Repository analysis
+      run: |
+        echo "🔍 Analyzing repository health..."
+        
+        echo "# 🏥 Repository Health Report" > repository-health-report.md
+        echo "Generated: $(date)" >> repository-health-report.md
+        echo "" >> repository-health-report.md
+        
+        echo "## 📊 Repository Statistics" >> repository-health-report.md
+        
+        # Count files by type
+        PYTHON_FILES=$(find . -name "*.py" | wc -l)
+        MARKDOWN_FILES=$(find . -name "*.md" | wc -l)
+        YAML_FILES=$(find . -name "*.yml" -o -name "*.yaml" | wc -l)
+        TOTAL_FILES=$(find . -type f | wc -l)
+        
+        echo "- Python Files: $PYTHON_FILES" >> repository-health-report.md
+        echo "- Markdown Files: $MARKDOWN_FILES" >> repository-health-report.md
+        echo "- YAML Files: $YAML_FILES" >> repository-health-report.md
+        echo "- Total Files: $TOTAL_FILES" >> repository-health-report.md
+        
+        echo "" >> repository-health-report.md
+        echo "## 📁 Directory Structure" >> repository-health-report.md
+        
+        # Check for important directories
+        if [ -d ".github/workflows" ]; then
+          WORKFLOW_COUNT=$(find .github/workflows -name "*.yml" | wc -l)
+          echo "- ✅ GitHub Workflows: $WORKFLOW_COUNT workflows" >> repository-health-report.md
+        else
+          echo "- ❌ GitHub Workflows: Missing" >> repository-health-report.md
+        fi
+        
+        if [ -d "tests" ]; then
+          TEST_COUNT=$(find tests -name "*.py" | wc -l)
+          echo "- ✅ Tests: $TEST_COUNT test files" >> repository-health-report.md
+        else
+          echo "- ❌ Tests: Missing" >> repository-health-report.md
+        fi
+        
+        if [ -d "docs" ]; then
+          DOC_COUNT=$(find docs -name "*.md" | wc -l)
+          echo "- ✅ Documentation: $DOC_COUNT markdown files" >> repository-health-report.md
+        else
+          echo "- ⚠️ Documentation: Limited" >> repository-health-report.md
+        fi
+        
+        if [ -f "README.md" ]; then
+          echo "- ✅ README: Present" >> repository-health-report.md
+        else
+          echo "- ❌ README: Missing" >> repository-health-report.md
+        fi
+        
+        if [ -f "requirements.txt" ]; then
+          echo "- ✅ Requirements: Present" >> repository-health-report.md
+        else
+          echo "- ❌ Requirements: Missing" >> repository-health-report.md
+        fi
+        
+        echo "" >> repository-health-report.md
+        echo "## 🎯 Health Score" >> repository-health-report.md
+        
+        # Calculate health score
+        SCORE=0
+        if [ -d ".github/workflows" ]; then SCORE=$((SCORE + 25)); fi
+        if [ -d "tests" ]; then SCORE=$((SCORE + 25)); fi
+        if [ -f "README.md" ]; then SCORE=$((SCORE + 25)); fi
+        if [ -f "requirements.txt" ]; then SCORE=$((SCORE + 25)); fi
+        
+        if [ $SCORE -eq 100 ]; then
+          echo "🏆 **Excellent (100/100)** - Repository is well-structured and complete!" >> repository-health-report.md
+        elif [ $SCORE -ge 75 ]; then
+          echo "✅ **Good ($SCORE/100)** - Repository is mostly well-structured" >> repository-health-report.md
+        elif [ $SCORE -ge 50 ]; then
+          echo "⚠️ **Fair ($SCORE/100)** - Repository needs some improvements" >> repository-health-report.md
+        else
+          echo "❌ **Poor ($SCORE/100)** - Repository needs significant improvements" >> repository-health-report.md
+        fi
+        
+    - name: 📤 Upload health report
+      uses: actions/upload-artifact@v3
+      with:
+        name: repository-health-report
+        path: repository-health-report.md
+        retention-days: 7
+
+  summary:
+    name: 📋 Overall Status Summary
+    runs-on: ubuntu-latest
+    needs: [workflow-status, dependency-check, repository-health]
+    if: always()
+    
+    steps:
+    - name: 📊 Generate overall summary
+      run: |
+        echo "📊 Generating overall status summary..."
+        
+        echo "# 📋 Overall Repository Status Summary" > overall-status-summary.md
+        echo "Generated: $(date)" >> overall-status-summary.md
+        echo "" >> overall-status-summary.md
+        
+        echo "## 📊 Component Status" >> overall-status-summary.md
+        echo "- Workflow Status: ${{ needs.workflow-status.result }}" >> overall-status-summary.md
+        echo "- Dependency Check: ${{ needs.dependency-check.result }}" >> overall-status-summary.md
+        echo "- Repository Health: ${{ needs.repository-health.result }}" >> overall-status-summary.md
+        echo "" >> overall-status-summary.md
+        
+        echo "## 🎯 Overall Assessment" >> overall-status-summary.md
+        
+        SUCCESS_COUNT=0
+        if [ "${{ needs.workflow-status.result }}" == "success" ]; then SUCCESS_COUNT=$((SUCCESS_COUNT + 1)); fi
+        if [ "${{ needs.dependency-check.result }}" == "success" ]; then SUCCESS_COUNT=$((SUCCESS_COUNT + 1)); fi
+        if [ "${{ needs.repository-health.result }}" == "success" ]; then SUCCESS_COUNT=$((SUCCESS_COUNT + 1)); fi
+        
+        if [ $SUCCESS_COUNT -eq 3 ]; then
+          echo "🎉 **All systems operational** - Repository is in excellent health!" >> overall-status-summary.md
+        elif [ $SUCCESS_COUNT -eq 2 ]; then
+          echo "✅ **Mostly operational** - Repository is in good health with minor issues" >> overall-status-summary.md
+        elif [ $SUCCESS_COUNT -eq 1 ]; then
+          echo "⚠️ **Partially operational** - Repository has some issues that need attention" >> overall-status-summary.md
+        else
+          echo "❌ **Multiple issues detected** - Repository needs immediate attention" >> overall-status-summary.md
+        fi
+        
+        echo "" >> overall-status-summary.md
+        echo "## 🚀 Next Steps" >> overall-status-summary.md
+        
+        if [ $SUCCESS_COUNT -lt 3 ]; then
+          echo "- Review failed components and address issues" >> overall-status-summary.md
+          echo "- Check workflow logs for detailed error information" >> overall-status-summary.md
+          echo "- Update dependencies if security vulnerabilities are found" >> overall-status-summary.md
+        else
+          echo "- Continue monitoring repository health" >> overall-status-summary.md
+          echo "- Consider adding more comprehensive tests" >> overall-status-summary.md
+          echo "- Update documentation as needed" >> overall-status-summary.md
+        fi
+        
+    - name: 📤 Upload overall summary
+      uses: actions/upload-artifact@v3
+      with:
+        name: overall-status-summary
+        path: overall-status-summary.md
+        retention-days: 7
