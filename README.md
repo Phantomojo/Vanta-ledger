@@ -6,9 +6,41 @@
 [![Security](https://img.shields.io/badge/Security-NASA--Grade-red.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)]()
 
+## 🎥 Quick Demo
+
+https://github.com/yourusername/vanta-ledger/assets/main/frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4
+
+*Watch the full demo above to see Vanta Ledger in action!*
+
 ## 🎯 Overview
 
 **Vanta Ledger** is a NASA-grade, enterprise-level financial management platform designed to manage **10+ companies simultaneously** with AI-powered document processing, real-time analytics, and bulletproof security. Built for scalability, reliability, and zero-compromise performance.
+
+## 🎥 See Vanta Ledger in Action
+
+Watch these videos to see the power of Vanta Ledger:
+
+### 🎬 Deconstructing Vanta Ledger
+[![Deconstructing Vanta Ledger](https://img.shields.io/badge/Video-Deconstructing_Vanta_Ledger-blue?style=for-the-badge&logo=video)](https://github.com/yourusername/vanta-ledger/blob/main/frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4)
+
+**An in-depth look at the Vanta Ledger system architecture and features.**
+
+### 🤖 AI-Powered Financial Document Management
+[![AI-Powered Financial Document Management](https://img.shields.io/badge/Video-AI_Powered_Financial_Management-green?style=for-the-badge&logo=robot)](https://github.com/yourusername/vanta-ledger/blob/main/frontend/frontend-web/public/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
+
+**See how AI transforms financial document processing and management.**
+
+> **💡 Tip**: Click on the video badges above to watch the full videos directly in your browser!
+
+### 🎬 Watch the Videos
+
+#### Deconstructing Vanta Ledger
+![Deconstructing Vanta Ledger](frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4)
+
+#### AI-Powered Financial Document Management
+![AI-Powered Financial Document Management](frontend/frontend-web/public/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
+
+> **📱 Note**: The videos above will display as embedded players on GitHub. If you're viewing this README elsewhere, use the video badge links above.
 
 ## 🏢 Multi-Company Management
 
@@ -152,6 +184,8 @@ NASA-Grade Security
 git clone https://github.com/yourusername/vanta-ledger.git
 cd vanta-ledger
 ```
+
+> **🎥 Videos Included**: This repository includes demo videos in `frontend/frontend-web/public/` that showcase Vanta Ledger in action. Watch them in the README above or navigate to the files directly.
 
 2. **Build and run the all-in-one container**
 ```bash
