@@ -32,13 +32,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install -r constraints.txt
         pip install pytest pytest-cov pytest-xdist pytest-mock
         
     - name: 🧪 Run unit tests
       run: |
         echo "🧪 Running unit tests..."
-        pytest tests/ -v --cov=backend/src --cov-report=xml --cov-report=html --cov-report=term-missing
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=html --cov-report=term-missing
         
     - name: 📊 Upload coverage reports
       uses: codecov/codecov-action@v3
@@ -90,7 +89,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install -r constraints.txt
         pip install pytest pytest-cov pytest-docker
         
     - name: 🔧 Set up test environment
@@ -172,7 +170,7 @@ jobs:
         echo "🔒 Running security tests..."
         
         echo "🔍 Running Bandit security analysis..."
-        bandit -r backend/src/ -f json -o bandit-results.json || true
+        bandit -r src/ -f json -o bandit-results.json || true
         
         echo "🛡️ Running Safety vulnerability check..."
         safety check --json --output safety-results.json || true
