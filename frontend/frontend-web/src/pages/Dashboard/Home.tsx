@@ -4,6 +4,7 @@ import AccountBalancesWidget from './AccountBalancesWidget';
 import RecentTransactionsWidget from './RecentTransactionsWidget';
 import ProjectStatusWidget from './ProjectStatusWidget';
 import DocumentComplianceWidget from './DocumentComplianceWidget';
+import VantaLedgerVideosWidget from './VantaLedgerVideosWidget';
 
 export default function Home() {
   const title = "Dashboard | Vanta Ledger Dashboard";
@@ -92,7 +93,7 @@ export default function Home() {
         </div>
 
         {/* Company Overview Widget - Placeholder for now */}
-        <div className="col-span-1 sm:col-span-2 lg:col-span-12">
+        <div className="col-span-1 sm:col-span-2 lg:col-span-12 xl:col-span-6">
           <div className="bg-white dark:bg-gray-900 rounded-lg p-4 md:p-6 shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Company Overview</h2>
@@ -111,6 +112,13 @@ export default function Home() {
                 Summary of all companies, quick links
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Vanta Ledger Videos Widget */}
+        <div className="col-span-1 sm:col-span-2 lg:col-span-12 xl:col-span-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg p-4 md:p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <VantaLedgerVideosWidget />
           </div>
         </div>
       </div>
