@@ -297,7 +297,8 @@ class CompanyContextManager:
                             break
                         except ValueError:
                             continue
-                except:
+                except Exception as e:
+                    logger.debug(f"Error in entity validation loop: {e}")
                     pass
 
         except Exception as e:

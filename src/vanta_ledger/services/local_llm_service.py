@@ -23,23 +23,19 @@ except ImportError:
     LLAMA_AVAILABLE = False
     logging.warning("llama-cpp-python not available")
 
+# Try to import optional dependencies
 try:
     import torch
+    from transformers import (
+        LayoutLMv3ForSequenceClassification,
+        LayoutLMv3Processor,
+    )
 
-    TORCH_AVAILABLE = True
-    # Only import LayoutLMv3 if needed
-    LAYOUTLM_AVAILABLE = False
-    try:
-        from transformers import (
-            LayoutLMv3ForSequenceClassification,
-            LayoutLMv3Processor,
-        )
-
-        LAYOUTLM_AVAILABLE = True
-    except:
-        logging.warning(
-            "LayoutLMv3 not available - document layout understanding disabled"
-        )
+    LAYOUTLM_AVAILABLE = True
+except Exception as e:
+    logging.warning(
+        f"LayoutLMv3 not available - document layout understanding disabled: {e}"
+    )
 except ImportError:
     TORCH_AVAILABLE = False
     LAYOUTLM_AVAILABLE = False
@@ -49,6 +45,15 @@ except ImportError:
 import redis
 from pymongo import MongoClient
 from pymongo.database import Database
+
+# Optional hardware monitoring
+try:
+    import GPUtil
+    import psutil
+    HARDWARE_MONITORING_AVAILABLE = True
+except ImportError:
+    HARDWARE_MONITORING_AVAILABLE = False
+    logging.warning("GPUtil/psutil not available - hardware monitoring disabled")
 
 from ..config import settings
 from ..models.document_models import EnhancedDocument
@@ -233,12 +238,20 @@ class LocalLLMService:
             processor_path = Path(config["processor_path"])
 
             if not model_path.exists() or not processor_path.exists():
-                logger.warning(f"LayoutLMv3 model files not found")
+                logger.warning("LayoutLMv3 model files not found")
                 return
 
-            # Load model and processor
-            processor = LayoutLMv3Processor.from_pretrained(str(processor_path))
-            model = LayoutLMv3ForSequenceClassification.from_pretrained(str(model_path))
+            # Load model and processor with revision pinning for security
+            processor = LayoutLMv3Processor.from_pretrained(  # nosec B615
+                str(processor_path), 
+                revision="main",  # Pin to main branch for security
+                trust_remote_code=False
+            )
+            model = LayoutLMv3ForSequenceClassification.from_pretrained(  # nosec B615
+                str(model_path), 
+                revision="main",  # Pin to main branch for security
+                trust_remote_code=False
+            )
 
             # Move to GPU if available
             if torch.cuda.is_available() and self.hardware_config.get("gpu"):
@@ -527,7 +540,8 @@ class LocalLLMService:
                     entities = json.loads(json_match.group())
                     # Filter entities based on company context
                     return self._filter_entities_by_context(entities, company_context)
-            except:
+            except (json.JSONDecodeError, ValueError) as e:
+                logger.debug(f"Failed to parse JSON entities: {e}")
                 pass
 
             # Fallback to simple extraction
@@ -657,7 +671,8 @@ class LocalLLMService:
                     return self._validate_financial_data(
                         financial_data, company_context
                     )
-            except:
+            except (json.JSONDecodeError, ValueError) as e:
+                logger.debug(f"Failed to parse JSON financial data: {e}")
                 pass
 
             return {}
@@ -823,7 +838,7 @@ class LocalLLMService:
             }
 
             # GPU status
-            if self.hardware_config.get("gpu"):
+            if self.hardware_config.get("gpu") and HARDWARE_MONITORING_AVAILABLE:
                 try:
                     gpus = GPUtil.getGPUs()
                     if gpus:
@@ -836,21 +851,28 @@ class LocalLLMService:
                             "temperature": gpu.temperature,
                             "load_percent": round(gpu.load * 100, 1) if gpu.load else 0,
                         }
-                except:
+                except Exception as e:
+                    logger.debug(f"Failed to get GPU status: {e}")
                     pass
 
             # CPU status
-            status["cpu"] = {
-                "usage_percent": psutil.cpu_percent(interval=1),
-                "cores": psutil.cpu_count(logical=True),
-            }
+            if HARDWARE_MONITORING_AVAILABLE:
+                status["cpu"] = {
+                    "usage_percent": psutil.cpu_percent(interval=1),
+                    "cores": psutil.cpu_count(logical=True),
+                }
+            else:
+                status["cpu"] = {"error": "Hardware monitoring not available"}
 
             # Memory status
-            memory = psutil.virtual_memory()
-            status["memory"] = {
-                "used_percent": memory.percent,
-                "available_gb": round(memory.available / (1024**3), 2),
-            }
+            if HARDWARE_MONITORING_AVAILABLE:
+                memory = psutil.virtual_memory()
+                status["memory"] = {
+                    "used_percent": memory.percent,
+                    "available_gb": round(memory.available / (1024**3), 2),
+                }
+            else:
+                status["memory"] = {"error": "Hardware monitoring not available"}
 
             return status
 

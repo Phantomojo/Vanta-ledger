@@ -149,12 +149,14 @@ class AnalyticsDashboard:
 
             try:
                 mongo_client.admin.command("ping")
-            except:
+            except Exception as e:
+                logger.warning(f"MongoDB health check failed: {e}")
                 mongo_health = "unhealthy"
 
             try:
                 postgres_conn.cursor().execute("SELECT 1")
-            except:
+            except Exception as e:
+                logger.warning(f"PostgreSQL health check failed: {e}")
                 postgres_health = "unhealthy"
 
             # Get processing statistics
@@ -196,8 +198,9 @@ class AnalyticsDashboard:
                 for amt in amounts:
                     try:
                         mongo_amounts.append(float(str(amt).replace(",", "")))
-                    except:
-                        pass
+                    except (ValueError, TypeError) as e:
+                        logger.debug(f"Skipping invalid amount '{amt}': {e}")
+                        continue
 
             # Combine with PostgreSQL data
             postgres_amounts = postgres_data.get("financial_transactions", {})
@@ -350,8 +353,9 @@ class AnalyticsDashboard:
                         amount_val = float(str(amt).replace(",", ""))
                         if processing_date:
                             amount_trends[processing_date[:10]].append(amount_val)
-                    except:
-                        pass
+                    except (ValueError, TypeError) as e:
+                        logger.debug(f"Skipping invalid amount '{amt}' in trends: {e}")
+                        continue
 
             # Calculate trends
             sorted_dates = sorted(date_counts.keys())
@@ -416,8 +420,9 @@ class AnalyticsDashboard:
                     try:
                         if float(str(amt).replace(",", "")) > 10000000:  # 10M KSH
                             large_amounts.append(amt)
-                    except:
-                        pass
+                    except (ValueError, TypeError) as e:
+                        logger.debug(f"Skipping invalid amount '{amt}' in large transaction check: {e}")
+                        continue
 
             if large_amounts:
                 alerts.append(
@@ -475,8 +480,9 @@ class AnalyticsDashboard:
                 for amt in amounts:
                     try:
                         metrics["total_amount"] += float(str(amt).replace(",", ""))
-                    except:
-                        pass
+                    except (ValueError, TypeError) as e:
+                        logger.debug(f"Skipping invalid amount '{amt}' in company metrics: {e}")
+                        continue
 
                 # Calculate compliance
                 if doc.get("entities", {}).get("tax_numbers"):
@@ -558,8 +564,9 @@ class AnalyticsDashboard:
                             risk_score += 2
                         elif amount_val > 1000000:  # 1M KSH
                             risk_score += 1
-                    except:
-                        pass
+                    except (ValueError, TypeError) as e:
+                        logger.debug(f"Skipping invalid amount '{amt}' in risk analysis: {e}")
+                        continue
 
                 # Categorize by risk score
                 if risk_score >= 3:
@@ -646,8 +653,9 @@ class AnalyticsDashboard:
                     amount_val = float(str(amt).replace(",", ""))
                     total_amount += amount_val
                     amounts.append(amount_val)
-                except:
-                    pass
+                except (ValueError, TypeError) as e:
+                    logger.debug(f"Skipping invalid amount '{amt}' in company summary: {e}")
+                    continue
 
         return {
             "total_value": total_amount,

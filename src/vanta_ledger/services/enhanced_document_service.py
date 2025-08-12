@@ -21,6 +21,7 @@ from pymongo.database import Database
 from ..config import settings
 from ..models.document_models import (
     DocumentCategory,
+    DocumentMetadata,
     DocumentSearchCriteria,
     DocumentStatus,
     DocumentTag,

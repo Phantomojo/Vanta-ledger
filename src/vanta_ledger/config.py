@@ -10,7 +10,7 @@ class Settings:
     DEBUG: bool = os.getenv("DEBUG", "False").lower() == "true"
 
     # Server
-    HOST: str = os.getenv("HOST", "0.0.0.0")
+    HOST: str = os.getenv("HOST", "127.0.0.1")  # Default to localhost for security
     PORT: int = int(os.getenv("PORT", "8500"))
 
     # Database - Use environment variables only
