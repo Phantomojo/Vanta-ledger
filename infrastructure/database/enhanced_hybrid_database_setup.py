@@ -41,10 +41,10 @@ load_dotenv()
 
 # Get credentials from environment variables with defaults
 POSTGRES_USER = os.getenv('POSTGRES_USER', 'vanta_user')
-    POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 POSTGRES_DB = os.getenv('POSTGRES_DB', 'vanta_ledger')
 MONGO_USER = os.getenv('MONGO_ROOT_USERNAME', 'admin')
-    MONGO_PASSWORD = os.getenv('MONGO_ROOT_PASSWORD')
+MONGO_PASSWORD = os.getenv('MONGO_ROOT_PASSWORD')
 MONGO_DB = os.getenv('MONGO_DATABASE', 'vanta_ledger')
 
 # Debug: Print connection info (without password)

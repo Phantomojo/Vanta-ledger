@@ -5,6 +5,7 @@ from fastapi import status
 from sqlalchemy.orm import Session
 
 from src.vanta_ledger import models, schemas
+from tests.conftest import override_get_db
 
 
 def test_create_user(client, admin_auth_headers, db_session):

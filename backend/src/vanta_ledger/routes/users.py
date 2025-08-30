@@ -1,3 +1,8 @@
+"""
+Users API Routes
+REST endpoints for users management
+"""
+
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
