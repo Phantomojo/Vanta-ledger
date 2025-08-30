@@ -89,6 +89,7 @@ class AtomicTransactionService:
         Returns:
             Dictionary containing transaction group and transaction details
         """
+        atomic_transaction_id = None
         try:
             # Validate input
             if not transactions:
@@ -179,7 +180,8 @@ class AtomicTransactionService:
         except Exception as e:
             logger.error(f"Error creating atomic transaction: {str(e)}")
             # Attempt rollback if partial execution occurred
-            await self._rollback_partial_execution(atomic_transaction_id)
+            if atomic_transaction_id:
+                await self._rollback_partial_execution(atomic_transaction_id)
             raise
 
     async def _execute_atomic_transaction(
