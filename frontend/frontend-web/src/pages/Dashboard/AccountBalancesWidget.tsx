@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../api';
+import { vantaApi } from '../../api';
 
 interface Company {
   id: number;
@@ -22,19 +22,18 @@ const AccountBalancesWidget: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const companiesRes = await api.get<Company[]>('/companies');
-        const companies = companiesRes.data;
+        const companiesRes = await vantaApi.getCompanies();
+        const companies = companiesRes.data.companies;
         const balancesData: { company: Company; balance: number }[] = [];
         for (const company of companies) {
-          const ledgerRes = await api.get<LedgerEntry[]>(`/ledger/company/${company.id}`);
-          const ledger = ledgerRes.data;
-          let income = 0, expense = 0, withdrawal = 0;
+          const ledgerRes = await vantaApi.getLedgerEntries();
+          const ledger = ledgerRes.data.transactions;
+          let income = 0, expense = 0;
           for (const entry of ledger) {
-            if (entry.type === 'income') income += entry.amount;
-            else if (entry.type === 'expense') expense += entry.amount;
-            else if (entry.type === 'withdrawal') withdrawal += entry.amount;
+            if (entry.transaction_type === 'credit') income += entry.amount;
+            else if (entry.transaction_type === 'debit') expense += entry.amount;
           }
-          const balance = income - expense - withdrawal;
+          const balance = income - expense;
           balancesData.push({ company, balance });
         }
         setBalances(balancesData);
