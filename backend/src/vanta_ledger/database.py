@@ -17,6 +17,7 @@ def get_postgres_connection(timeout: int = 5):
     """
     try:
         import psycopg2  # Lazy import to avoid hard dependency at import time
+
         return psycopg2.connect(settings.POSTGRES_URI, connect_timeout=timeout)
     except Exception as e:
         raise RuntimeError(
@@ -33,6 +34,7 @@ def get_mongo_client(timeout_ms: int = 5000):
     """
     try:
         import pymongo  # Lazy import
+
         return pymongo.MongoClient(
             settings.MONGO_URI,
             serverSelectionTimeoutMS=timeout_ms,
@@ -53,6 +55,7 @@ def get_redis_client(connect_timeout: int = 5, socket_timeout: int = 5):
     """
     try:
         import redis  # Lazy import
+
         return redis.Redis.from_url(
             settings.REDIS_URI,
             decode_responses=True,
@@ -64,10 +67,13 @@ def get_redis_client(connect_timeout: int = 5, socket_timeout: int = 5):
         class _NullRedis:
             def setex(self, *args, **kwargs):
                 return True
+
             def exists(self, *args, **kwargs):
                 return 0
+
             def ping(self):
                 return False
+
         return _NullRedis()
 
 
@@ -79,6 +85,7 @@ def postgres_ping(timeout: int = 5) -> dict:
         return {"status": "skipped", "reason": "POSTGRES_URI not set"}
     try:
         import psycopg2
+
         conn = psycopg2.connect(settings.POSTGRES_URI, connect_timeout=timeout)
         cur = conn.cursor()
         cur.execute("SELECT version()")

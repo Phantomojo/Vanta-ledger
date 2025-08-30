@@ -171,7 +171,7 @@ def admin_auth_headers(client, test_superuser) -> Dict[str, str]:
 def pytest_configure(config):
     """Configure pytest for the test suite."""
     config.addinivalue_line(
-        "markers", "slow: marks tests as slow (deselect with '-m "not slow"')"
+        "markers", "slow: marks tests as slow (deselect with '-m \"not slow\"')"
     )
     config.addinivalue_line(
         "markers", "integration: marks tests as integration tests"
