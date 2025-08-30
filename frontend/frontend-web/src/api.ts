@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:8500'; // Vanta Ledger Backend
-const USE_TEST_ROUTES = ((import.meta as any).env?.VITE_USE_TEST_ROUTES || 'true').toLowerCase() === 'true';
+const USE_TEST_ROUTES = false; // Disable test routes for security
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -102,7 +102,7 @@ export const vantaApi = {
   getCurrentUser: () => api.get('/auth/me'),
 
   // Companies
-  getCompanies: () => api.get(USE_TEST_ROUTES ? '/test-companies' : '/companies'),
+  getCompanies: () => api.get('/companies'),
   createCompany: (companyData: any) => api.post('/companies/', companyData),
   updateCompany: (id: number, companyData: any) => api.put(`/companies/${id}`, companyData),
   deleteCompany: (id: number) => api.delete(`/companies/${id}`),
@@ -114,14 +114,18 @@ export const vantaApi = {
   deleteProject: (id: number) => api.delete(`/projects/${id}`),
 
   // Documents
-  getDocuments: () => api.get(USE_TEST_ROUTES ? '/test-documents' : '/upload/documents'),
-  uploadDocument: (formData: FormData) => USE_TEST_ROUTES
-    ? api.post('/test-upload-document', formData)
-    : api.post('/upload/documents', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  getDocuments: () => api.get('/upload/documents'),
+  uploadDocument: (formData: FormData) => api.post('/upload/documents', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
   deleteDocument: (id: number) => api.delete(`/documents/${id}`),
 
   // Ledger
-  getLedgerEntries: () => api.get(USE_TEST_ROUTES ? '/test-ledger' : '/ledger'),
+  getLedgerEntries: (params?: { companyId?: string | number }) => {
+    if (USE_TEST_ROUTES) {
+      return api.get('/test-ledger');
+    }
+    const queryParams = params?.companyId ? { company_id: params.companyId } : {};
+    return api.get('/ledger', { params: queryParams });
+  },
   createLedgerEntry: (entryData: any) => api.post('/ledger/', entryData),
   updateLedgerEntry: (id: number, entryData: any) => api.put(`/ledger/${id}`, entryData),
   deleteLedgerEntry: (id: number) => api.delete(`/ledger/${id}`),

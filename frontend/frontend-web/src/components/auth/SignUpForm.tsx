@@ -15,11 +15,23 @@ export default function SignUpForm() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    if (!email || !password) {
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!trimmedEmail || !trimmedPassword) {
       setError("Email and password are required.");
+      return;
+    }
+    if (!emailRegex.test(trimmedEmail)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    if (trimmedPassword.length < 8) {
+      setError("Password must be at least 8 characters.");
       return;
     }
     if (!isChecked) {
@@ -28,7 +40,7 @@ export default function SignUpForm() {
     }
     setLoading(true);
     try {
-      await vantaApi.register({ email, password });
+      await vantaApi.register({ email: trimmedEmail, password: trimmedPassword });
       navigate('/signin');
     } catch (err: any) {
       const msg = err?.response?.data?.detail || err?.message || 'Registration failed';

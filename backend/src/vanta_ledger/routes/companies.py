@@ -2,7 +2,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 
 from ..auth import AuthService
 from ..config import settings
@@ -15,10 +15,7 @@ executor = ThreadPoolExecutor(max_workers=10)
 router = APIRouter(prefix="/companies", tags=["Companies"])
 
 
-@router.get("/test")
-async def test_companies():
-    """Test endpoint without authentication to debug the 422 error"""
-    return {"message": "Companies test endpoint working", "status": "success"}
+
 
 
 def _get_companies_sync(page: int, limit: int):
@@ -60,8 +57,9 @@ def _get_companies_sync(page: int, limit: int):
 
 @router.get("")
 async def get_companies(
-    page: int = 1,
-    limit: int = 20,
+    page: int = Query(1, ge=1, description="Page number, starting from 1"),
+    limit: int = Query(20, ge=1, le=100, description="Number of companies per page, max 100"),
+    current_user: dict = Depends(AuthService.verify_token),
 ):
     """
     Retrieve a paginated list of companies with their details.
@@ -73,17 +71,13 @@ async def get_companies(
     Returns:
         dict: Contains a list of companies (each with id, name, industry, revenue), total count, current page, limit, and total pages.
     """
-    # For now, return static data to test if the endpoint works
-    return {
-        "companies": [
-            {"id": 1, "name": "Acme Corporation", "industry": "Technology", "revenue": 5000000.0},
-            {"id": 2, "name": "Global Industries Ltd", "industry": "Manufacturing", "revenue": 12000000.0},
-        ],
-        "total_count": 2,
-        "page": page,
-        "limit": limit,
-        "total_pages": 1,
-    }
+    # Validate pagination parameters
+    page = input_validator.validate_integer(page, min_value=1, field_name="page")
+    limit = input_validator.validate_integer(limit, min_value=1, max_value=100, field_name="limit")
+
+    # Run database operation in thread pool to avoid blocking
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(executor, _get_companies_sync, page, limit)
 
 
 def _get_company_sync(company_id: int):
