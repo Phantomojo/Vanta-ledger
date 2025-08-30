@@ -270,16 +270,16 @@ class AdvancedDocumentProcessor:
                 predictions = outputs.logits.argmax(-1)
 
                 # Analyze layout structure
-    confidence_tensor = torch.softmax(outputs.logits, dim=-1).max()
-    confidence = confidence_tensor.detach().float().cpu().item()
-    layout_analysis = {
-        "layout_type": self._classify_layout_type(predictions),
-        "regions": self._extract_layout_regions(encoding, predictions),
-        "confidence": confidence,
-        "processing_method": "layoutlmv3"
-    }
+                confidence_tensor = torch.softmax(outputs.logits, dim=-1).max()
+                confidence = confidence_tensor.detach().float().cpu().item()
+                layout_analysis = {
+                    "layout_type": self._classify_layout_type(predictions),
+                    "regions": self._extract_layout_regions(encoding, predictions),
+                    "confidence": confidence,
+                    "processing_method": "layoutlmv3"
+                }
 
-            return layout_analysis
+                return layout_analysis
 
         except Exception as e:
             logger.error(f"Error in layout analysis: {str(e)}")

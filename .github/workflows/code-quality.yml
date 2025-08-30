@@ -147,9 +147,9 @@ jobs:
     - name: 📊 Run Radon complexity analysis
       run: |
         echo "📊 Running Radon complexity analysis..."
-        radon cc backend/src/ -a -nc
-        radon mi backend/src/ -nc
-        radon hal backend/src/ -nc
+        radon cc backend/src/ -a
+        radon mi backend/src/
+        radon hal backend/src/
         
     - name: 📊 Run McCabe complexity
       run: |
