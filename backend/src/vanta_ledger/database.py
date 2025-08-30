@@ -1,55 +1,55 @@
 #!/usr/bin/env python3
 """
-Database connection utilities
-Handles connections to PostgreSQL, MongoDB, and Redis
+Database connection utilities.
+
+Handles connections to PostgreSQL, MongoDB, and Redis with proper error handling
+and fallback mechanisms for development environments.
 """
 
-
 import time
+from typing import Dict, Any, Optional
 
-
-from .config 
-
-import settings
-
+from .config import settings
 
 
 def get_postgres_connection(timeout: int = 5):
     """
-    Establish and return a new connection to the PostgreSQL database using the configured URI.
+    Establish and return a new connection to the PostgreSQL database.
+
+    Args:
+        timeout: Connection timeout in seconds
 
     Returns:
-        connection: A psycopg2 connection object to the PostgreSQL database.
+        psycopg2 connection object to the PostgreSQL database
+
+    Raises:
+        RuntimeError: If PostgreSQL driver is not available or connection fails
     """
     try:
-        
-import psycopg2  # Lazy 
-
-import to avoid hard dependency at 
-
-import time
-
+        import psycopg2  # Lazy import to avoid hard dependency
 
         return psycopg2.connect(settings.POSTGRES_URI, connect_timeout=timeout)
     except Exception as e:
         raise RuntimeError(
             "PostgreSQL driver not available or connection failed"
-        ) 
-from e
-
+        ) from e
 
 
 def get_mongo_client(timeout_ms: int = 5000):
     """
-    Create and return a MongoDB client instance using the configured connection URI.
+    Create and return a MongoDB client instance.
+
+    Args:
+        timeout_ms: Connection timeout in milliseconds
 
     Returns:
-        MongoClient: A client connected to the MongoDB server specified in the configuration.
+        MongoClient connected to the MongoDB server
+
+    Raises:
+        RuntimeError: If MongoDB driver is not available or connection fails
     """
     try:
-        
-import pymongo  # Lazy import
-
+        import pymongo  # Lazy import
 
         return pymongo.MongoClient(
             settings.MONGO_URI,
@@ -58,23 +58,22 @@ import pymongo  # Lazy import
             uuidRepresentation="standard",
         )
     except Exception as e:
-        raise RuntimeError("MongoDB driver not available or connection failed") 
-from e
-
+        raise RuntimeError("MongoDB driver not available or connection failed") from e
 
 
 def get_redis_client(connect_timeout: int = 5, socket_timeout: int = 5):
     """
-    Create and return a Redis client instance connected using the configured URI.
+    Create and return a Redis client instance.
 
-    The client is set to decode responses as strings.
+    Args:
+        connect_timeout: Connection timeout in seconds
+        socket_timeout: Socket timeout in seconds
+
     Returns:
-        Redis: A Redis client instance connected to the specified URI.
+        Redis client instance or NullRedis fallback
     """
     try:
-        
-import redis  # Lazy import
-
+        import redis  # Lazy import
 
         return redis.Redis.from_url(
             settings.REDIS_URI,
@@ -99,14 +98,22 @@ import redis  # Lazy import
 
 # Health ping helpers with latency and version info
 
-def postgres_ping(timeout: int = 5) -> dict:
+
+def postgres_ping(timeout: int = 5) -> Dict[str, Any]:
+    """
+    Test PostgreSQL connection and return health status.
+
+    Args:
+        timeout: Connection timeout in seconds
+
+    Returns:
+        Dictionary with connection status and metadata
+    """
     start = time.time()
     if not settings.POSTGRES_URI:
         return {"status": "skipped", "reason": "POSTGRES_URI not set"}
     try:
-        
-import psycopg2
-
+        import psycopg2
 
         conn = psycopg2.connect(settings.POSTGRES_URI, connect_timeout=timeout)
         cur = conn.cursor()
@@ -129,7 +136,16 @@ import psycopg2
         }
 
 
-def mongo_ping(timeout_ms: int = 5000) -> dict:
+def mongo_ping(timeout_ms: int = 5000) -> Dict[str, Any]:
+    """
+    Test MongoDB connection and return health status.
+
+    Args:
+        timeout_ms: Connection timeout in milliseconds
+
+    Returns:
+        Dictionary with connection status and metadata
+    """
     start = time.time()
     if not settings.MONGO_URI:
         return {"status": "skipped", "reason": "MONGO_URI not set"}
@@ -150,21 +166,25 @@ def mongo_ping(timeout_ms: int = 5000) -> dict:
         }
 
 
-def redis_ping(connect_timeout: int = 5, socket_timeout: int = 5) -> dict:
+def redis_ping(timeout: int = 5) -> Dict[str, Any]:
+    """
+    Test Redis connection and return health status.
+
+    Args:
+        timeout: Connection timeout in seconds
+
+    Returns:
+        Dictionary with connection status and metadata
+    """
     start = time.time()
+    if not settings.REDIS_URI:
+        return {"status": "skipped", "reason": "REDIS_URI not set"}
     try:
-        r = get_redis_client(connect_timeout=connect_timeout, socket_timeout=socket_timeout)
-        ok = r.ping()
-        version = None
-        try:
-            info = r.info()  # type: ignore[attr-defined]
-            version = info.get("redis_version") if isinstance(info, dict) else None
-        except Exception:
-            pass
+        client = get_redis_client(connect_timeout=timeout, socket_timeout=timeout)
+        result = client.ping()
         return {
-            "status": "ok" if ok else "error",
+            "status": "ok" if result else "error",
             "latency_ms": int((time.time() - start) * 1000),
-            "version": version,
         }
     except Exception as e:
         return {
