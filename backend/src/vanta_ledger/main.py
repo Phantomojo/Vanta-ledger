@@ -66,11 +66,14 @@ from .routes.documents import router as documents_router
 
 # Import enhanced document management
 from .routes.enhanced_documents import router as enhanced_documents_router
+from .routes.advanced_documents import router as advanced_documents_router
+from .routes.semantic_search import router as semantic_search_router
 from .routes.extracted_data import router as extracted_data_router
 
 # Import financial management
 from .routes.financial import router as financial_router
 from .routes.ledger import router as ledger_router
+from .routes.atomic_transactions import router as atomic_transactions_router
 
 # Import local LLM
 from .routes.local_llm import router as local_llm_router
@@ -141,9 +144,12 @@ security = HTTPBearer()
 
 # Include enhanced document management routes
 app.include_router(enhanced_documents_router)
+app.include_router(advanced_documents_router)
+app.include_router(semantic_search_router)
 
 # Include financial management routes
 app.include_router(financial_router)
+app.include_router(atomic_transactions_router)
 
 # Include AI analytics routes
 app.include_router(ai_analytics_router)
