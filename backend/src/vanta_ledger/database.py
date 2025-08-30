@@ -4,8 +4,14 @@ Database connection utilities
 Handles connections to PostgreSQL, MongoDB, and Redis
 """
 
+
 import time
-from .config import settings
+
+
+from .config 
+
+import settings
+
 
 
 def get_postgres_connection(timeout: int = 5):
@@ -16,13 +22,21 @@ def get_postgres_connection(timeout: int = 5):
         connection: A psycopg2 connection object to the PostgreSQL database.
     """
     try:
-        import psycopg2  # Lazy import to avoid hard dependency at import time
+        
+import psycopg2  # Lazy 
+
+import to avoid hard dependency at 
+
+import time
+
 
         return psycopg2.connect(settings.POSTGRES_URI, connect_timeout=timeout)
     except Exception as e:
         raise RuntimeError(
             "PostgreSQL driver not available or connection failed"
-        ) from e
+        ) 
+from e
+
 
 
 def get_mongo_client(timeout_ms: int = 5000):
@@ -33,7 +47,9 @@ def get_mongo_client(timeout_ms: int = 5000):
         MongoClient: A client connected to the MongoDB server specified in the configuration.
     """
     try:
-        import pymongo  # Lazy import
+        
+import pymongo  # Lazy import
+
 
         return pymongo.MongoClient(
             settings.MONGO_URI,
@@ -42,7 +58,9 @@ def get_mongo_client(timeout_ms: int = 5000):
             uuidRepresentation="standard",
         )
     except Exception as e:
-        raise RuntimeError("MongoDB driver not available or connection failed") from e
+        raise RuntimeError("MongoDB driver not available or connection failed") 
+from e
+
 
 
 def get_redis_client(connect_timeout: int = 5, socket_timeout: int = 5):
@@ -54,7 +72,9 @@ def get_redis_client(connect_timeout: int = 5, socket_timeout: int = 5):
         Redis: A Redis client instance connected to the specified URI.
     """
     try:
-        import redis  # Lazy import
+        
+import redis  # Lazy import
+
 
         return redis.Redis.from_url(
             settings.REDIS_URI,
@@ -84,7 +104,9 @@ def postgres_ping(timeout: int = 5) -> dict:
     if not settings.POSTGRES_URI:
         return {"status": "skipped", "reason": "POSTGRES_URI not set"}
     try:
-        import psycopg2
+        
+import psycopg2
+
 
         conn = psycopg2.connect(settings.POSTGRES_URI, connect_timeout=timeout)
         cur = conn.cursor()
