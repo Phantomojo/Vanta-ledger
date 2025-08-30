@@ -83,18 +83,18 @@ async def get_user(user_id: str, current_user: dict = Depends(verify_token)):
         )
 
 
-@router.put("/{user_id}")
-async def update_user(
+@router.patch("/{user_id}")
+async def update_user_partial(
     user_id: str,
     user_update: dict,
     current_user: dict = Depends(verify_token)
 ):
     """
-    Update a user's information.
+    Partially update a user's information.
 
     Parameters:
         user_id (str): The UUID of the user to update.
-        user_update (dict): The user data to update.
+        user_update (dict): The user data to update (partial).
 
     Returns:
         dict: Updated user information.
@@ -123,9 +123,13 @@ async def update_user(
         if "is_active" in user_update:
             existing_user.is_active = user_update["is_active"]
         
-        # Save changes
-        user_service.db.commit()
-        user_service.db.refresh(existing_user)
+        # Save changes with rollback on failure
+        try:
+            user_service.db.commit()
+            user_service.db.refresh(existing_user)
+        except Exception:
+            user_service.db.rollback()
+            raise
         
         return {
             "id": existing_user.id,

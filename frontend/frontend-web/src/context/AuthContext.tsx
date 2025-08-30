@@ -46,15 +46,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         try {
           const userData: any = await getCurrentUser();
           // Transform the user data to match our interface
-          if (userData && userData.username) {
+          if (userData && userData.username && userData.id) {
             setUser({
-              id: userData.id || 1,
+              id: userData.id,
               username: userData.username,
-              email: userData.email || `${userData.username}@example.com`,
-              name: userData.name || userData.username,
-              role: userData.role || 'user',
-              status: userData.status || 'active'
+              email: userData.email ?? "",
+              name: userData.name ?? userData.username,
+              role: userData.role ?? 'user',
+              status: userData.status ?? 'active'
             });
+          } else {
+            // Invalid user payload; clear auth
+            localStorage.removeItem('jwt_token');
+            setUser(null);
+            setError('Invalid user profile received. Please sign in again.');
           }
         } catch (err) {
           // Token is invalid, remove it
@@ -79,13 +84,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('jwt_token', access_token);
       
       // Transform and set user data
+      if (!userData.id) {
+        throw new Error('Invalid user data received from server');
+      }
       setUser({
-        id: (userData as any).id || 1,
+        id: userData.id,
         username: userData.username,
-        email: (userData as any).email || `${userData.username}@example.com`,
-        name: (userData as any).name || userData.username,
-        role: (userData as any).role || 'user',
-        status: (userData as any).status || 'active'
+        email: userData.email ?? "",
+        name: userData.name ?? userData.username,
+        role: userData.role ?? 'user',
+        status: userData.status ?? 'active'
       });
     } catch (err: any) {
       const errorMessage = err.response?.data?.error || err.message || 'Login failed. Please try again.';

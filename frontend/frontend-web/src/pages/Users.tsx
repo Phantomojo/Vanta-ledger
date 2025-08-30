@@ -94,11 +94,14 @@ const Users: React.FC = () => {
   };
 
   const handleStatusChange = async (userId: string, isActive: boolean) => {
+    // Optimistic update
+    setUsers(prev => prev.map(u => (u.id === userId ? { ...u, is_active: isActive } : u)));
     try {
-      await api.put(`/users/${userId}`, { is_active: isActive });
-      fetchUsers();
+      await api.patch(`/users/${userId}`, { is_active: isActive });
     } catch (error) {
       console.error('Error updating user status:', error);
+      // Revert on failure
+      setUsers(prev => prev.map(u => (u.id === userId ? { ...u, is_active: !isActive } : u)));
     }
   };
 

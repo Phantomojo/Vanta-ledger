@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from ..auth import AuthService
 from ..database import get_mongo_client
@@ -9,34 +9,34 @@ router = APIRouter(prefix="/ledger", tags=["Ledger"])
 
 
 @router.get("/")
-async def get_ledger_entries(current_user: dict = Depends(AuthService.verify_token)):
+async def get_ledger_entries(
+    company_id: str = Query(..., description="Company ID to filter ledger entries"),
+    limit: int = Query(50, ge=1, le=100, description="Maximum number of entries to return"),
+    current_user: dict = Depends(AuthService.verify_token)
+):
     """
-    Retrieve up to 50 ledger entries from the database for authenticated users.
+    Retrieve ledger entries from the database for authenticated users.
+
+    Parameters:
+        company_id (str): The company ID to filter entries by
+        limit (int): Maximum number of entries to return (1-100)
 
     Returns:
-        A list of ledger entry documents.
+        A list of ledger entry documents for the specified company.
     """
-    # For now, return sample data to test if the endpoint works
-    return [
-        {
-            "id": 1,
-            "transaction_date": "2025-08-13T22:30:00",
-            "description": "Office supplies purchase",
-            "amount": 1250.50,
-            "account_name": "Office Expenses",
-            "transaction_type": "debit",
-            "reference": "INV-001"
-        },
-        {
-            "id": 2,
-            "transaction_date": "2025-08-13T22:25:00",
-            "description": "Client payment received",
-            "amount": 5000.00,
-            "account_name": "Accounts Receivable",
-            "transaction_type": "credit",
-            "reference": "REC-001"
-        }
-    ]
+    client = get_mongo_client()
+    db = client.vanta_ledger
+    collection = db.ledger_entries
+    
+    # Get entries for the specified company, sorted by transaction date
+    entries = list(
+        collection.find(
+            {"company_id": company_id}, 
+            {"_id": 0}
+        ).sort("transaction_date", -1).limit(limit)
+    )
+    
+    return entries
 
 
 @router.get("/company/{company_id}")

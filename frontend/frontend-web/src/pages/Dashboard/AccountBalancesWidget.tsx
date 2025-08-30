@@ -8,8 +8,9 @@ interface Company {
 
 interface LedgerEntry {
   id: number;
-  type: string; // 'income' | 'expense' | 'withdrawal'
+  transaction_type: 'credit' | 'debit';
   amount: number;
+  company_id?: number;
 }
 
 const AccountBalancesWidget: React.FC = () => {
@@ -26,8 +27,9 @@ const AccountBalancesWidget: React.FC = () => {
         const companies = companiesRes.data.companies;
         const balancesData: { company: Company; balance: number }[] = [];
         for (const company of companies) {
-          const ledgerRes = await vantaApi.getLedgerEntries();
-          const ledger = ledgerRes.data.transactions;
+          // Fetch ledger entries scoped to this company
+          const ledgerRes = await vantaApi.getLedgerEntries({ companyId: company.id });
+          const ledger = ledgerRes.data.transactions || ledgerRes.data || [];
           let income = 0, expense = 0;
           for (const entry of ledger) {
             if (entry.transaction_type === 'credit') income += entry.amount;
