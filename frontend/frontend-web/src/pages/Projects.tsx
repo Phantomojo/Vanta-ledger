@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
+import { vantaApi } from '../api';
 
 interface Project {
   id: string;
@@ -51,12 +51,12 @@ const Projects: React.FC = () => {
     setError(null);
     try {
       const [projectsRes, companiesRes] = await Promise.all([
-        api.get<Project[]>('/projects/'),
-        api.get<Company[]>('/companies/')
+        vantaApi.getProjects(),
+        vantaApi.getCompanies()
       ]);
 
       setProjects(projectsRes.data);
-      setCompanies(companiesRes.data);
+      setCompanies(companiesRes.data.companies);
     } catch (err: any) {
       setError('Failed to load projects.');
       console.error('Error fetching projects:', err);
@@ -159,7 +159,9 @@ const Projects: React.FC = () => {
         budget: parseFloat(formData.budget)
       };
 
-      await api.post('/projects/', newProject);
+      // For now, just add to local state since we don't have create endpoint
+      const newProjectWithId = { ...newProject, id: Date.now().toString(), created_at: new Date().toISOString() };
+      setProjects(prev => [...prev, newProjectWithId]);
       setShowAddModal(false);
       resetForm();
       fetchData();
@@ -180,7 +182,8 @@ const Projects: React.FC = () => {
         budget: parseFloat(formData.budget)
       };
 
-      await api.put(`/projects/${editingProject.id}`, updatedProject);
+      // For now, just update local state since we don't have update endpoint
+      setProjects(prev => prev.map(p => p.id === editingProject.id ? { ...p, ...updatedProject } : p));
       setEditingProject(null);
       resetForm();
       fetchData();
@@ -194,7 +197,8 @@ const Projects: React.FC = () => {
     if (!confirm('Are you sure you want to delete this project?')) return;
 
     try {
-      await api.delete(`/projects/${projectId}`);
+      // For now, just remove from local state since we don't have delete endpoint
+      setProjects(prev => prev.filter(p => p.id !== projectId));
       fetchData();
     } catch (err: any) {
       console.error('Error deleting project:', err);

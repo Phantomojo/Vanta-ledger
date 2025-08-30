@@ -1,0 +1,23 @@
+{
+  "video_metadata": {
+    "title": "Vanta Ledger: AI-Powered Financial Document Management",
+    "duration": "15-20 minutes",
+    "target_audience": "Business owners, CFOs, accountants, financial managers, IT directors",
+    "style": "Professional, engaging, solution-focused, comprehensive",
+    "ai_host_personality": "Expert financial advisor with tech enthusiasm and deep industry knowledge"
+  },
+  "script_structure": {
+    "opening_hook": {
+      "duration": "0-45 seconds",
+      "hook_type": "Problem-solution with emotional impact",
+      "script": "Picture this: It's 5 PM on a Friday, and you're still manually sorting through a mountain of invoices, receipts, and financial documents. Your team is exhausted, errors are creeping in, and you're falling behind on compliance deadlines. Now imagine having an AI that does all of this automatically, understands your business context, and gives you insights in seconds - not hours. That's Vanta Ledger. The AI-powered financial document management system that transforms chaos into clarity, manual work into automated intelligence, and business challenges into competitive advantages.",
+      "visual_elements": [
+        "Split screen: stressed team with piles of documents vs. relaxed team with clean desk",
+        "Clock ticking to show time waste and stress",
+        "AI brain icon with document symbols and success metrics",
+        "Before/after transformation animation"
+      ],
+      "key_message": "Transform manual chaos into automated efficiency and business intelligence"
+    }
+  }
+}

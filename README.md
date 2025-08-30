@@ -8,7 +8,7 @@
 
 ## 🎥 Quick Demo
 
-https://github.com/yourusername/vanta-ledger/assets/main/frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4
+![Deconstructing Vanta Ledger](videos/Deconstructing_Vanta_Ledger.mp4)
 
 *Watch the full demo above to see Vanta Ledger in action!*
 
@@ -16,17 +16,32 @@ https://github.com/yourusername/vanta-ledger/assets/main/frontend/frontend-web/p
 
 **Vanta Ledger** is a NASA-grade, enterprise-level financial management platform designed to manage **10+ companies simultaneously** with AI-powered document processing, real-time analytics, and bulletproof security. Built for scalability, reliability, and zero-compromise performance.
 
+## 🔒 Open Source Code, Private Data
+
+**Vanta Ledger follows a clear separation principle:**
+- **✅ Code**: Open source and freely available for forking, modification, and commercial use
+- **🔒 Data**: Private and protected - your financial data never leaves your control
+- **🎯 Goal**: Enable community collaboration while maintaining absolute data privacy
+
+**This means:**
+- **Fork freely**: Use the code for your own projects
+- **Contribute back**: Help improve the platform for everyone
+- **Keep your data private**: Your financial information stays secure
+- **No data sharing**: We never access or share your data
+
+For more details, see our [Privacy Policy](docs/PRIVACY.md) and [Security Policy](docs/SECURITY.md).
+
 ## 🎥 See Vanta Ledger in Action
 
 Watch these videos to see the power of Vanta Ledger:
 
 ### 🎬 Deconstructing Vanta Ledger
-[![Deconstructing Vanta Ledger](https://img.shields.io/badge/Video-Deconstructing_Vanta_Ledger-blue?style=for-the-badge&logo=video)](https://github.com/yourusername/vanta-ledger/blob/main/frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4)
+[![Deconstructing Vanta Ledger](https://img.shields.io/badge/Video-Deconstructing_Vanta_Ledger-blue?style=for-the-badge&logo=video)](https://github.com/yourusername/vanta-ledger/blob/main/videos/Deconstructing_Vanta_Ledger.mp4)
 
 **An in-depth look at the Vanta Ledger system architecture and features.**
 
 ### 🤖 AI-Powered Financial Document Management
-[![AI-Powered Financial Document Management](https://img.shields.io/badge/Video-AI_Powered_Financial_Management-green?style=for-the-badge&logo=robot)](https://github.com/yourusername/vanta-ledger/blob/main/frontend/frontend-web/public/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
+[![AI-Powered Financial Document Management](https://img.shields.io/badge/Video-AI_Powered_Financial_Management-green?style=for-the-badge&logo=robot)](https://github.com/yourusername/vanta-ledger/blob/main/videos/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
 
 **See how AI transforms financial document processing and management.**
 
@@ -35,10 +50,10 @@ Watch these videos to see the power of Vanta Ledger:
 ### 🎬 Watch the Videos
 
 #### Deconstructing Vanta Ledger
-![Deconstructing Vanta Ledger](frontend/frontend-web/public/Deconstructing_Vanta_Ledger.mp4)
+![Deconstructing Vanta Ledger](videos/Deconstructing_Vanta_Ledger.mp4)
 
 #### AI-Powered Financial Document Management
-![AI-Powered Financial Document Management](frontend/frontend-web/public/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
+![AI-Powered Financial Document Management](videos/Vanta_Ledger__AI-Powered_Financial_Document_Management.mp4)
 
 > **📱 Note**: The videos above will display as embedded players on GitHub. If you're viewing this README elsewhere, use the video badge links above.
 
@@ -102,6 +117,51 @@ Vanta Ledger Platform
 - **Mongo Express**: MongoDB document management
 - **Custom Dashboard**: Unified system overview and monitoring
 - **Performance Analytics**: Real-time system performance tracking
+
+## 📁 Repository Structure
+
+```
+vanta-ledger/
+├── README.md                    # This file - main documentation
+├── LICENSE                      # Project license
+├── backend/                     # Backend application code
+│   ├── src/vanta_ledger/       # Main application source code
+│   │   ├── routes/             # API endpoints
+│   │   ├── services/           # Business logic
+│   │   ├── models/             # Data models
+│   │   └── utils/              # Utility functions
+│   └── tests/                  # Backend tests
+├── frontend/                   # Frontend web application
+│   └── frontend-web/           # React/TypeScript app
+├── infrastructure/             # Infrastructure & deployment
+│   ├── database/               # Database setup & migrations
+│   ├── monitoring/             # Monitoring configurations
+│   ├── nginx/                  # Web server configuration
+│   ├── models/                 # AI models storage
+│   └── prompts/                # AI prompts & templates
+├── config/                     # Configuration files
+│   ├── docker-compose.yml      # Container orchestration
+│   ├── Dockerfile              # Container build instructions
+│   ├── requirements.txt        # Python dependencies
+│   ├── pyproject.toml          # Python project configuration
+│   └── env.example             # Environment variables template
+├── docs/                       # Complete documentation
+│   ├── API_DOCUMENTATION.md    # API reference
+│   ├── SECURITY_GUIDE.md       # Security documentation
+│   ├── DEPLOYMENT_GUIDE.md     # Deployment instructions
+│   └── CONTRIBUTING.md         # Contribution guidelines
+├── scripts/                    # Utility & automation scripts
+│   ├── quick_start.sh          # Quick setup script
+│   ├── start_vanta.sh          # Application launcher
+│   └── test_all.sh             # Test runner
+├── tests/                      # Main test suite
+├── data/                       # Application data
+│   ├── processed_documents/    # Processed documents storage
+│   └── uploads/                # File upload storage
+├── logs/                       # Application logs
+├── videos/                     # Demo videos
+└── uploads/                    # User uploads
+```
 
 ## 🏗️ Architecture
 
@@ -185,14 +245,17 @@ git clone https://github.com/yourusername/vanta-ledger.git
 cd vanta-ledger
 ```
 
-> **🎥 Videos Included**: This repository includes demo videos in `frontend/frontend-web/public/` that showcase Vanta Ledger in action. Watch them in the README above or navigate to the files directly.
+> **🎥 Videos Included**: This repository includes demo videos in the `videos/` folder that showcase Vanta Ledger in action. Watch them in the README above or navigate to the files directly.
 
 2. **Build and run the all-in-one container**
 ```bash
-# Build the container
-docker build -t vanta-ledger-all-in-one .
+# Build the container (Dockerfile is in config/)
+docker build -f config/Dockerfile -t vanta-ledger-all-in-one .
 
-# Run the system
+# Or use docker-compose for easier setup
+docker-compose -f config/docker-compose.yml up -d
+
+# Manual run command
 docker run -d \
   --name vanta-ledger \
   -p 8000:8000 \
@@ -214,7 +277,16 @@ Mongo Express: http://localhost:8081
 API Documentation: http://localhost:8000/docs
 ```
 
-4. **Create Creator Account**
+4. **Quick Setup (Alternative)**
+```bash
+# Use the quick start script for automated setup
+./scripts/quick_start.sh
+
+# Or start manually
+./scripts/start_vanta.sh
+```
+
+5. **Create Creator Account**
 - Access the system for the first time
 - Master password will be displayed once
 - Create your GOD account with full system access
@@ -311,6 +383,19 @@ Viewer:
 - **Access Control**: Role-based access with company isolation
 - **Threat Detection**: Real-time security monitoring and response
 
+## 🤝 Contributing
+
+We welcome contributions from the community! Whether you're fixing bugs, adding features, or improving documentation, your help makes Vanta Ledger better for everyone.
+
+**Quick Start:**
+1. **Fork** the repository
+2. **Create** a feature branch
+3. **Make** your changes
+4. **Test** thoroughly
+5. **Submit** a pull request
+
+**For detailed guidelines, see our [Contributing Guide](docs/CONTRIBUTING.md).**
+
 ## 📞 Support
 
 - **Documentation**: Comprehensive guides and tutorials
@@ -323,7 +408,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🎉 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guide](docs/CONTRIBUTING.md) for details.
 
 ---
 

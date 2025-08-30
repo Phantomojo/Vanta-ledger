@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../api';
+import { vantaApi } from '../../api';
 
 interface LedgerEntry {
-  id: string;
-  project_id: string;
-  company_id: string;
-  type: 'income' | 'expense' | 'withdrawal';
-  amount: number;
+  id: number;
+  transaction_date: string;
   description: string;
-  date: string;
-  created_at: string;
+  amount: number;
+  account_name: string;
+  transaction_type: 'debit' | 'credit';
+  reference: string;
 }
 
 interface Project {
@@ -36,19 +35,19 @@ const RecentTransactionsWidget: React.FC = () => {
       setError(null);
       try {
         const [ledgerRes, projectsRes, companiesRes] = await Promise.all([
-          api.get<LedgerEntry[]>('/ledger/'),
-          api.get<Project[]>('/projects/'),
-          api.get<Company[]>('/companies/')
+          vantaApi.getLedgerEntries(),
+          vantaApi.getProjects(),
+          vantaApi.getCompanies()
         ]);
 
         // Sort transactions by date (most recent first)
-        const sortedTransactions = ledgerRes.data
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        const sortedTransactions = ledgerRes.data.transactions
+          .sort((a, b) => new Date(b.transaction_date).getTime() - new Date(a.transaction_date).getTime())
           .slice(0, 10); // Show only the 10 most recent
 
         setTransactions(sortedTransactions);
         setProjects(projectsRes.data);
-        setCompanies(companiesRes.data);
+        setCompanies(companiesRes.data.companies);
       } catch (err: any) {
         setError('Failed to load recent transactions.');
         console.error('Error fetching transactions:', err);
@@ -92,7 +91,7 @@ const RecentTransactionsWidget: React.FC = () => {
 
   const getTransactionIcon = (type: string) => {
     switch (type) {
-      case 'income':
+      case 'credit':
         return (
           <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
             <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,19 +99,11 @@ const RecentTransactionsWidget: React.FC = () => {
             </svg>
           </div>
         );
-      case 'expense':
+      case 'debit':
         return (
           <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
             <svg className="w-4 h-4 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 13l-5 5m0 0l-5-5m5 5V6" />
-            </svg>
-          </div>
-        );
-      case 'withdrawal':
-        return (
-          <div className="w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center">
-            <svg className="w-4 h-4 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
             </svg>
           </div>
         );
@@ -129,16 +120,16 @@ const RecentTransactionsWidget: React.FC = () => {
 
   const getTransactionColor = (type: string) => {
     switch (type) {
-      case 'income':
+      case 'credit':
         return 'text-green-600 dark:text-green-400';
-      case 'expense':
+      case 'debit':
         return 'text-red-600 dark:text-red-400';
-      case 'withdrawal':
-        return 'text-yellow-600 dark:text-yellow-400';
       default:
         return 'text-gray-600 dark:text-gray-400';
     }
   };
+
+
 
   if (loading) {
     return (
@@ -197,30 +188,30 @@ const RecentTransactionsWidget: React.FC = () => {
       <div className="space-y-3">
         {transactions.map((transaction) => (
           <div key={transaction.id} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-            {getTransactionIcon(transaction.type)}
+            {getTransactionIcon(transaction.transaction_type)}
             
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   {transaction.description}
                 </p>
-                <span className={`text-sm font-semibold ${getTransactionColor(transaction.type)}`}>
-                  {transaction.type === 'income' ? '+' : '-'}{formatAmount(transaction.amount)}
+                <span className={`text-sm font-semibold ${getTransactionColor(transaction.transaction_type)}`}>
+                  {transaction.transaction_type === 'credit' ? '+' : '-'}{formatAmount(transaction.amount)}
                 </span>
               </div>
               
               <div className="flex items-center justify-between mt-1">
                 <div className="flex items-center space-x-2">
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {getProjectName(transaction.project_id)}
+                    {transaction.account_name}
                   </span>
                   <span className="text-xs text-gray-400 dark:text-gray-500">•</span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {getCompanyName(transaction.project_id)}
+                    {transaction.reference}
                   </span>
                 </div>
                 <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {formatDate(transaction.date)}
+                  {formatDate(transaction.transaction_date)}
                 </span>
               </div>
             </div>

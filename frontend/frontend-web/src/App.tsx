@@ -32,6 +32,7 @@ import Notifications from "./pages/Notifications";
 import Paperless from "./pages/Paperless";
 import ReviewTools from "./pages/ReviewTools";
 import ExtractedData from "./pages/ExtractedData";
+import SystemHealth from "./pages/SystemHealth";
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -107,6 +108,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/paperless" element={<Paperless />} />
           <Route path="/review-tools" element={<ReviewTools />} />
           <Route path="/extracted-data" element={<ExtractedData />} />
+          <Route path="/system-health" element={<SystemHealth />} />
         </Route>
 
         {/* Fallback Route */}

@@ -96,6 +96,11 @@ const navItems: NavItem[] = [
     name: "Review Tools",
     path: "/review-tools",
   },
+  {
+    icon: <PieChartIcon />,
+    name: "System Health",
+    path: "/system-health",
+  },
 ];
 
 const othersItems: NavItem[] = [

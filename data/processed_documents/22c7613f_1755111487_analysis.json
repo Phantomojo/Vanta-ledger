@@ -1,0 +1,33 @@
+{
+  "doc_id": "22c7613f_1755111487",
+  "type": "invoice",
+  "keywords": [
+    "this",
+    "a test invoice"
+  ],
+  "dates": [
+    "2025-08-13"
+  ],
+  "companies": [],
+  "financial_data": [],
+  "projects": [],
+  "entities": {
+    "CARDINAL": [
+      "00.00"
+    ],
+    "DATE": [
+      "2025-08-13"
+    ]
+  },
+  "summary": "This is a test invoice for 00.00 dated 2025-08-13\n",
+  "metadata": {
+    "word_count": 9,
+    "character_count": 50,
+    "line_count": 2,
+    "has_numbers": true,
+    "has_emails": false,
+    "has_phones": false,
+    "has_urls": false
+  },
+  "processed_at": "2025-08-13T21:58:07.102359"
+}

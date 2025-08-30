@@ -79,7 +79,7 @@ export const Select: React.FC<SelectProps> = ({
             if (React.isValidElement(child) && child.type === SelectContent) {
               return React.cloneElement(child, {
                 onSelect: handleSelect
-              });
+              } as any);
             }
             return child;
           })}
@@ -104,7 +104,7 @@ export const SelectContent: React.FC<SelectContentProps & { onSelect?: (value: s
         if (React.isValidElement(child) && child.type === SelectItem) {
           return React.cloneElement(child, {
             onSelect
-          });
+          } as any);
         }
         return child;
       })}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../api';
+import { vantaApi } from '../../api';
 
 interface Document {
   id: string;
@@ -37,16 +37,16 @@ const DocumentComplianceWidget: React.FC = () => {
       setError(null);
       try {
         const [documentsRes, projectsRes, companiesRes] = await Promise.all([
-          api.get<any>('/upload/documents'),
-          api.get<Project[]>('/projects/'),
-          api.get<Company[]>('/companies/')
+          vantaApi.getDocuments(),
+          vantaApi.getProjects(),
+          vantaApi.getCompanies()
         ]);
 
         // Handle the response structure from the backend
         const documentsData = documentsRes.data.documents || documentsRes.data || [];
         setDocuments(documentsData);
         setProjects(projectsRes.data);
-        setCompanies(companiesRes.data);
+        setCompanies(companiesRes.data.companies);
       } catch (err: any) {
         setError('Failed to load document compliance data.');
         console.error('Error fetching documents:', err);

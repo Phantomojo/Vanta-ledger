@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../api';
+import { vantaApi } from '../../api';
 
 interface Project {
   id: string;
@@ -29,12 +29,12 @@ const ProjectStatusWidget: React.FC = () => {
       setError(null);
       try {
         const [projectsRes, companiesRes] = await Promise.all([
-          api.get<Project[]>('/projects/'),
-          api.get<Company[]>('/companies/')
+          vantaApi.getProjects(),
+          vantaApi.getCompanies()
         ]);
 
         setProjects(projectsRes.data);
-        setCompanies(companiesRes.data);
+        setCompanies(companiesRes.data.companies);
       } catch (err: any) {
         setError('Failed to load project status.');
         console.error('Error fetching projects:', err);

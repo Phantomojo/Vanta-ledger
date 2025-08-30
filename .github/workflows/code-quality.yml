@@ -81,12 +81,12 @@ jobs:
     - name: 🔍 Run PyLint
       run: |
         echo "🔍 Running PyLint analysis..."
-        pylint backend/src/ --output-format=text --reports=y || true
+        pylint backend/backend/src/ --output-format=text --reports=y || true
         
     - name: 🔍 Run PyCodeStyle
       run: |
         echo "🔍 Running PyCodeStyle checks..."
-        pycodestyle backend/src/ --max-line-length=88 || true
+        pycodestyle backend/backend/src/ --max-line-length=88 || true
         
     - name: 📚 Run PyDocStyle
       run: |
@@ -205,7 +205,7 @@ jobs:
         total_classes = 0
         total_docstrings = 0
         
-        for root, dirs, files in os.walk('backend/src'):
+        for root, dirs, files in os.walk('src'):
             for file in files:
                 if file.endswith('.py'):
                     file_path = os.path.join(root, file)

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = 'http://localhost:8500'; // Vanta Ledger Backend
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:8500'; // Vanta Ledger Backend
+const USE_TEST_ROUTES = ((import.meta as any).env?.VITE_USE_TEST_ROUTES || 'true').toLowerCase() === 'true';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -41,26 +42,48 @@ api.interceptors.response.use(
 // Authentication functions
 export const loginUser = async (username: string, password: string) => {
   try {
-    // Use simple auth endpoint with local MongoDB backend
-    const response = await api.post('/simple-auth', null, {
-      params: { username, password }
-    });
-    
-    if (response.data.access_token) {
-      return {
-        access_token: response.data.access_token,
-        user: { username: username }
-      };
+    if (USE_TEST_ROUTES) {
+      const response = await api.post('/simple-auth', null, {
+        params: { username, password }
+      });
+      if (response.data.access_token) {
+        return {
+          access_token: response.data.access_token,
+          user: { username }
+        };
+      }
+      throw new Error('Login failed - no token received');
     } else {
+      const form = new URLSearchParams();
+      form.append('username', username);
+      form.append('password', password);
+      const response = await api.post('/auth/login', form, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      });
+      if (response.data.access_token) {
+        return {
+          access_token: response.data.access_token,
+          user: response.data.user || { username }
+        };
+      }
       throw new Error('Login failed - no token received');
     }
   } catch (error: any) {
-    throw new Error("Authentication failed. Please check your credentials.");
+    throw new Error('Authentication failed. Please check your credentials.');
   }
 };
 
-export const registerUser = async (userData: any) => {
-  const response = await api.post('/auth/register', userData);
+export const registerUser = async (userData: { username?: string; email: string; password: string; role?: string }) => {
+  // Backend expects form-encoded fields via FastAPI Form(...)
+  const form = new URLSearchParams();
+  const username = userData.username || userData.email;
+  form.append('username', username);
+  form.append('email', userData.email);
+  form.append('password', userData.password);
+  if (userData.role) form.append('role', userData.role);
+  const response = await api.post('/auth/register', form, {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  });
   return response.data;
 };
 
@@ -70,15 +93,16 @@ export const getCurrentUser = async () => {
 };
 
 // Vanta Ledger API endpoints
+export const getApiBaseUrl = () => API_BASE_URL;
+
 export const vantaApi = {
   // Authentication
-  login: (credentials: { username: string; password: string }) =>
-    api.post('/simple-auth', null, { params: credentials }),
-  register: (userData: any) => api.post('/auth/register', userData),
+  login: (credentials: { username: string; password: string }) => loginUser(credentials.username, credentials.password),
+  register: (userData: any) => registerUser(userData),
   getCurrentUser: () => api.get('/auth/me'),
 
   // Companies
-  getCompanies: () => api.get('/companies/'),
+  getCompanies: () => api.get(USE_TEST_ROUTES ? '/test-companies' : '/companies'),
   createCompany: (companyData: any) => api.post('/companies/', companyData),
   updateCompany: (id: number, companyData: any) => api.put(`/companies/${id}`, companyData),
   deleteCompany: (id: number) => api.delete(`/companies/${id}`),
@@ -90,12 +114,14 @@ export const vantaApi = {
   deleteProject: (id: number) => api.delete(`/projects/${id}`),
 
   // Documents
-  getDocuments: () => api.get('/upload/documents'),
-  uploadDocument: (formData: FormData) => api.post('/upload/document', formData),
+  getDocuments: () => api.get(USE_TEST_ROUTES ? '/test-documents' : '/upload/documents'),
+  uploadDocument: (formData: FormData) => USE_TEST_ROUTES
+    ? api.post('/test-upload-document', formData)
+    : api.post('/upload/documents', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
   deleteDocument: (id: number) => api.delete(`/documents/${id}`),
 
   // Ledger
-  getLedgerEntries: () => api.get('/ledger/'),
+  getLedgerEntries: () => api.get(USE_TEST_ROUTES ? '/test-ledger' : '/ledger'),
   createLedgerEntry: (entryData: any) => api.post('/ledger/', entryData),
   updateLedgerEntry: (id: number, entryData: any) => api.put(`/ledger/${id}`, entryData),
   deleteLedgerEntry: (id: number) => api.delete(`/ledger/${id}`),
@@ -127,6 +153,16 @@ export const vantaApi = {
 
   // Health check
   healthCheck: () => api.get('/health'),
+
+  // System health
+  getSystemHealth: () => api.get('/health/system'),
+  getSystemHealthAI: () => api.get('/health/system/ai'),
 };
+
+export const buildSystemHealthWsUrl = (intervalSeconds: number = 2) => {
+  const base = getApiBaseUrl().replace(/^http/, 'ws');
+  const sep = base.endsWith('/') ? '' : '';
+  return `${base}/health/system/ws?interval_seconds=${intervalSeconds}`;
+}
 
 export default api; 

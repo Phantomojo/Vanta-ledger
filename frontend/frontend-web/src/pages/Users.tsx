@@ -2,29 +2,20 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 
 interface User {
-  id: number;
+  id: string; // Changed to string for UUID
   username: string;
   email: string;
-  full_name: string;
   role: 'admin' | 'manager' | 'user' | 'viewer';
-  status: 'active' | 'inactive' | 'suspended';
-  avatar?: string;
-  phone?: string;
-  department?: string;
-  position?: string;
+  is_active: boolean; // Changed to match backend
+  created_at?: string;
   last_login?: string;
-  created_at: string;
-  permissions: string[];
 }
 
 interface UserFormData {
   username: string;
   email: string;
-  full_name: string;
   role: string;
-  phone?: string;
-  department?: string;
-  position?: string;
+  is_active: boolean;
   password?: string;
 }
 
@@ -40,11 +31,8 @@ const Users: React.FC = () => {
   const [formData, setFormData] = useState<UserFormData>({
     username: '',
     email: '',
-    full_name: '',
     role: 'user',
-    phone: '',
-    department: '',
-    position: ''
+    is_active: true
   });
 
   useEffect(() => {
@@ -71,11 +59,8 @@ const Users: React.FC = () => {
       setFormData({
         username: '',
         email: '',
-        full_name: '',
         role: 'user',
-        phone: '',
-        department: '',
-        position: ''
+        is_active: true
       });
       fetchUsers();
     } catch (error) {
@@ -97,7 +82,7 @@ const Users: React.FC = () => {
     }
   };
 
-  const handleDeleteUser = async (userId: number) => {
+  const handleDeleteUser = async (userId: string) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         await api.delete(`/users/${userId}`);
@@ -108,9 +93,9 @@ const Users: React.FC = () => {
     }
   };
 
-  const handleStatusChange = async (userId: number, status: string) => {
+  const handleStatusChange = async (userId: string, isActive: boolean) => {
     try {
-      await api.patch(`/users/${userId}/status`, { status });
+      await api.put(`/users/${userId}`, { is_active: isActive });
       fetchUsers();
     } catch (error) {
       console.error('Error updating user status:', error);
@@ -120,10 +105,9 @@ const Users: React.FC = () => {
   const getFilteredUsers = () => {
     return users.filter(user => {
       const matchesSearch = user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           user.full_name.toLowerCase().includes(searchTerm.toLowerCase());
+                           user.email.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesRole = !roleFilter || user.role === roleFilter;
-      const matchesStatus = !statusFilter || user.status === statusFilter;
+      const matchesStatus = !statusFilter || (statusFilter === 'active' ? user.is_active : !user.is_active);
       
       return matchesSearch && matchesRole && matchesStatus;
     });
@@ -139,13 +123,8 @@ const Users: React.FC = () => {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
-      case 'suspended': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+  const getStatusColor = (isActive: boolean) => {
+    return isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800';
   };
 
   const filteredUsers = getFilteredUsers();
@@ -207,7 +186,6 @@ const Users: React.FC = () => {
               <option value="">All Status</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
-              <option value="suspended">Suspended</option>
             </select>
           </div>
           <div className="flex items-end">
@@ -234,7 +212,7 @@ const Users: React.FC = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Login</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
@@ -247,12 +225,12 @@ const Users: React.FC = () => {
                       <div className="flex-shrink-0 h-10 w-10">
                         <img
                           className="h-10 w-10 rounded-full"
-                          src={user.avatar || `https://ui-avatars.com/api/?name=${user.full_name}&background=random`}
+                          src={`https://ui-avatars.com/api/?name=${user.username}&background=random`}
                           alt=""
                         />
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">{user.full_name}</div>
+                        <div className="text-sm font-medium text-gray-900">{user.username}</div>
                         <div className="text-sm text-gray-500">{user.email}</div>
                       </div>
                     </div>
@@ -264,17 +242,16 @@ const Users: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <select
-                      value={user.status}
-                      onChange={(e) => handleStatusChange(user.id, e.target.value)}
-                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(user.status)} border-0`}
+                      value={user.is_active ? 'active' : 'inactive'}
+                      onChange={(e) => handleStatusChange(user.id, e.target.value === 'active')}
+                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(user.is_active)} border-0`}
                     >
                       <option value="active">Active</option>
                       <option value="inactive">Inactive</option>
-                      <option value="suspended">Suspended</option>
                     </select>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {user.department || 'N/A'}
+                    {user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {user.last_login ? new Date(user.last_login).toLocaleDateString() : 'Never'}
@@ -287,11 +264,8 @@ const Users: React.FC = () => {
                           setFormData({
                             username: user.username,
                             email: user.email,
-                            full_name: user.full_name,
                             role: user.role,
-                            phone: user.phone || '',
-                            department: user.department || '',
-                            position: user.position || ''
+                            is_active: user.is_active
                           });
                           setShowEditModal(true);
                         }}
@@ -343,14 +317,15 @@ const Users: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.full_name}
-                      onChange={(e) => setFormData({...formData, full_name: e.target.value})}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={formData.is_active}
+                        onChange={(e) => setFormData({...formData, is_active: e.target.checked})}
+                        className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                      />
+                      <span className="ml-2 text-sm text-gray-700">Active User</span>
+                    </label>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Role</label>
@@ -376,33 +351,7 @@ const Users: React.FC = () => {
                       className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Phone</label>
-                    <input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Department</label>
-                    <input
-                      type="text"
-                      value={formData.department}
-                      onChange={(e) => setFormData({...formData, department: e.target.value})}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Position</label>
-                    <input
-                      type="text"
-                      value={formData.position}
-                      onChange={(e) => setFormData({...formData, position: e.target.value})}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
+
                 </div>
                 <div className="flex justify-end space-x-3 mt-6">
                   <button
@@ -454,14 +403,15 @@ const Users: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.full_name}
-                      onChange={(e) => setFormData({...formData, full_name: e.target.value})}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={formData.is_active}
+                        onChange={(e) => setFormData({...formData, is_active: e.target.checked})}
+                        className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                      />
+                      <span className="ml-2 text-sm text-gray-700">Active User</span>
+                    </label>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Role</label>

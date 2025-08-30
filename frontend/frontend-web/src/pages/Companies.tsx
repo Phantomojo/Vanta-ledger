@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
+import { vantaApi } from '../api';
 
 interface Company {
   id: number;
@@ -19,8 +19,8 @@ const Companies: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await api.get<Company[]>('/companies');
-        setCompanies(res.data);
+        const res = await vantaApi.getCompanies();
+        setCompanies(res.data.companies);
       } catch (err: any) {
         setError('Failed to load companies.');
       } finally {
