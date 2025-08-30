@@ -185,7 +185,7 @@ jobs:
           echo "- ❌ README: Missing" >> repository-health-report.md
         fi
         
-        if [ -f "requirements.txt" ]; then
+        if [ -f "config/requirements.txt" ]; then
           echo "- ✅ Requirements: Present" >> repository-health-report.md
         else
           echo "- ❌ Requirements: Missing" >> repository-health-report.md
@@ -199,7 +199,7 @@ jobs:
         if [ -d ".github/workflows" ]; then SCORE=$((SCORE + 25)); fi
         if [ -d "tests" ]; then SCORE=$((SCORE + 25)); fi
         if [ -f "README.md" ]; then SCORE=$((SCORE + 25)); fi
-        if [ -f "requirements.txt" ]; then SCORE=$((SCORE + 25)); fi
+        if [ -f "config/requirements.txt" ]; then SCORE=$((SCORE + 25)); fi
         
         if [ $SCORE -eq 100 ]; then
           echo "🏆 **Excellent (100/100)** - Repository is well-structured and complete!" >> repository-health-report.md
