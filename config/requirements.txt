@@ -13,7 +13,7 @@
 # CORE FRAMEWORK & API
 # =============================================================================
 fastapi==0.104.1>=0.116.1
-uvicorn[standard]>=0.35.0
+uvicorn==0.24.0[standard]>=0.35.0
 pydantic==2.5.0>=2.11.7
 pydantic==2.5.0-settings>=2.10.1
 pydantic==2.5.0-core>=2.33.2

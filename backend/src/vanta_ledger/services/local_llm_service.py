@@ -244,12 +244,12 @@ class LocalLLMService:
 
             # Load model and processor from local paths (not from Hugging Face Hub)
             # These are local file paths, not remote downloads
-            processor = LayoutLMv3Processor.from_pretrained(  # nosec B615 - Local file path, not remote download  # nosec B615
+            processor = LayoutLMv3Processor.from_pretrained(  # nosec B615 - Local files only  # nosec B615 - Local file path, not remote download  # nosec B615
                 str(processor_path), 
                 local_files_only=True,  # Ensure only local files are used
                 trust_remote_code=False
             )
-            model = LayoutLMv3ForSequenceClassification.from_pretrained(  # nosec B615 - Local file path, not remote download  # nosec B615
+            model = LayoutLMv3ForSequenceClassification.from_pretrained(  # nosec B615 - Local files only  # nosec B615 - Local file path, not remote download  # nosec B615
                 str(model_path), 
                 local_files_only=True,  # Ensure only local files are used
                 trust_remote_code=False
