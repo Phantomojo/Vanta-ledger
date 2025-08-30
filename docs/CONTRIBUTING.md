@@ -59,6 +59,26 @@ Thank you for your interest in contributing to **Vanta Ledger**! This guide expl
 - Virtual environment
 ```
 
+### **Repository Structure**
+Understanding the project structure will help you contribute effectively:
+```
+vanta-ledger/
+├── backend/src/vanta_ledger/    # Main application code
+│   ├── routes/                  # API endpoints
+│   ├── services/                # Business logic
+│   ├── models/                  # Data models
+│   └── utils/                   # Utility functions
+├── frontend/frontend-web/       # React/TypeScript frontend
+├── config/                      # Configuration files
+│   ├── requirements.txt         # Python dependencies
+│   ├── docker-compose.yml       # Container setup
+│   └── pyproject.toml          # Project configuration
+├── docs/                        # Documentation
+├── scripts/                     # Utility scripts
+├── infrastructure/              # Infrastructure components
+└── tests/                       # Test suites
+```
+
 ### **Local Setup**
 ```bash
 # 1. Fork and clone
@@ -72,8 +92,8 @@ source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 
 # 3. Install dependencies
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
+pip install -r config/requirements.txt
+pip install -r config/requirements-dev.txt
 
 # 4. Setup pre-commit hooks
 pre-commit install
