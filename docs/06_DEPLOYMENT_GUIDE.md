@@ -41,8 +41,8 @@ Deployment Options
 git clone https://github.com/yourusername/vanta-ledger.git
 cd vanta-ledger
 
-# Build container
-docker build -t vanta-ledger-all-in-one .
+# Build container (Dockerfile is now in config/)
+docker build -f config/Dockerfile -t vanta-ledger-all-in-one .
 
 # Run container
 docker run -d \
@@ -872,7 +872,7 @@ deploy_application() {
     docker build -t vanta-ledger:$ENVIRONMENT .
     
     # Deploy with docker-compose
-    docker-compose -f docker-compose.$ENVIRONMENT.yml up -d
+    docker-compose -f config/docker-compose.$ENVIRONMENT.yml up -d
     
     log_info "Application deployed successfully"
 }
@@ -973,10 +973,10 @@ rollback_version() {
     log_info "Rolling back to version: $PREVIOUS_VERSION"
     
     # Update docker-compose to use previous version
-    sed -i "s/image: vanta-ledger:.*/image: vanta-ledger:$PREVIOUS_VERSION/" docker-compose.yml
+    sed -i "s/image: vanta-ledger:.*/image: vanta-ledger:$PREVIOUS_VERSION/" config/docker-compose.yml
     
     # Start previous version
-    docker-compose up -d
+    docker-compose -f config/docker-compose.yml up -d
     
     log_info "Rollback completed"
 }
