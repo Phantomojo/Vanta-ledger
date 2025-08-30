@@ -81,17 +81,17 @@ jobs:
     - name: 🔍 Run PyLint
       run: |
         echo "🔍 Running PyLint analysis..."
-        pylint src/ --output-format=text --reports=y || true
+        pylint backend/backend/src/ --output-format=text --reports=y || true
         
     - name: 🔍 Run PyCodeStyle
       run: |
         echo "🔍 Running PyCodeStyle checks..."
-        pycodestyle src/ --max-line-length=88 || true
+        pycodestyle backend/backend/src/ --max-line-length=88 || true
         
     - name: 📚 Run PyDocStyle
       run: |
         echo "📚 Running PyDocStyle checks..."
-        pydocstyle src/ --ignore=D100,D104,D106,D200,D203,D212,D401,D406,D407,D413 || true
+        pydocstyle backend/src/ --ignore=D100,D104,D106,D200,D203,D212,D401,D406,D407,D413 || true
 
   type-checking:
     name: 🔍 Type Checking
@@ -114,17 +114,17 @@ jobs:
     - name: 🔍 Run MyPy
       run: |
         echo "🔍 Running MyPy type checking..."
-        mypy src/ --ignore-missing-imports --show-error-codes
+        mypy backend/src/ --ignore-missing-imports --show-error-codes
         
     - name: 🔍 Run Pyright
       run: |
         echo "🔍 Running Pyright type checking..."
-        npx pyright src/ || echo "Pyright not available, skipping..."
+        npx pyright backend/src/ || echo "Pyright not available, skipping..."
         
     - name: 🔍 Run PyType
       run: |
         echo "🔍 Running PyType type checking..."
-        pytype src/ || echo "PyType not available, skipping..."
+        pytype backend/src/ || echo "PyType not available, skipping..."
 
   complexity-analysis:
     name: 📊 Code Complexity Analysis
@@ -147,19 +147,19 @@ jobs:
     - name: 📊 Run Radon complexity analysis
       run: |
         echo "📊 Running Radon complexity analysis..."
-        radon cc src/ -a -nc
-        radon mi src/ -nc
-        radon hal src/ -nc
+        radon cc backend/src/ -a -nc
+        radon mi backend/src/ -nc
+        radon hal backend/src/ -nc
         
     - name: 📊 Run McCabe complexity
       run: |
         echo "📊 Running McCabe complexity analysis..."
-        python -m mccabe src/ --min 10 || true
+        python -m mccabe backend/src/ --min 10 || true
         
     - name: 📊 Run Xenon complexity check
       run: |
         echo "📊 Running Xenon complexity check..."
-        xenon --max-absolute A --max-modules A --max-average A src/ || true
+        xenon --max-absolute A --max-modules A --max-average A backend/src/ || true
 
   documentation-check:
     name: 📚 Documentation Quality
