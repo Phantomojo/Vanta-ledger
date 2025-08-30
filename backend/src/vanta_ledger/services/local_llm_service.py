@@ -242,15 +242,16 @@ class LocalLLMService:
                 logger.warning("LayoutLMv3 model files not found")
                 return
 
-            # Load model and processor with revision pinning for security
+            # Load model and processor from local paths (not from Hugging Face Hub)
+            # These are local file paths, not remote downloads
             processor = LayoutLMv3Processor.from_pretrained(  # nosec B615
                 str(processor_path), 
-                revision="main",  # Pin to main branch for security
+                local_files_only=True,  # Ensure only local files are used
                 trust_remote_code=False
             )
             model = LayoutLMv3ForSequenceClassification.from_pretrained(  # nosec B615
                 str(model_path), 
-                revision="main",  # Pin to main branch for security
+                local_files_only=True,  # Ensure only local files are used
                 trust_remote_code=False
             )
 
