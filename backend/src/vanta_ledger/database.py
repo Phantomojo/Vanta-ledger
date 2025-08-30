@@ -19,7 +19,9 @@ def get_postgres_connection(timeout: int = 5):
         import psycopg2  # Lazy import to avoid hard dependency at import time
         return psycopg2.connect(settings.POSTGRES_URI, connect_timeout=timeout)
     except Exception as e:
-        raise RuntimeError("PostgreSQL driver not available or connection failed") from e
+        raise RuntimeError(
+            "PostgreSQL driver not available or connection failed"
+        ) from e
 
 
 def get_mongo_client(timeout_ms: int = 5000):

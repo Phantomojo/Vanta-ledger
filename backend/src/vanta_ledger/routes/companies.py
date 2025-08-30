@@ -1,3 +1,8 @@
+"""
+Companies API Routes
+REST endpoints for companies management
+"""
+
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import List

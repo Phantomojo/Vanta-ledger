@@ -3,6 +3,7 @@
 Test Database Connection Script
 """
 
+import os
 import psycopg2
 from pymongo import MongoClient
 import logging
