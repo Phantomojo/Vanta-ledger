@@ -272,7 +272,11 @@ async def test_agent_communication():
     print("\n🧹 Cleaning up...")
     await communication.stop_message_processor()
     await llm.close()
-    comm_task.cancel()
+    # Ensure clean shutdown of the background task
+    try:
+        await comm_task
+    except asyncio.CancelledError:
+        pass
     
     print("\n🎉 Agent communication test completed successfully!")
     return True
