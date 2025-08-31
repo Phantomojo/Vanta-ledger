@@ -44,8 +44,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const token = localStorage.getItem('jwt_token');
       if (token) {
         try {
-          const userData = await getCurrentUser();
-          setUser(userData);
+          const userData: any = await getCurrentUser();
+          // Transform the user data to match our interface
+          if (userData && userData.username && userData.id) {
+            setUser({
+              id: userData.id,
+              username: userData.username,
+              email: userData.email ?? "",
+              name: userData.name ?? userData.username,
+              role: userData.role ?? 'user',
+              status: userData.status ?? 'active'
+            });
+          } else {
+            // Invalid user payload; clear auth
+            localStorage.removeItem('jwt_token');
+            setUser(null);
+            setError('Invalid user profile received. Please sign in again.');
+          }
         } catch (err) {
           // Token is invalid, remove it
           localStorage.removeItem('jwt_token');
@@ -68,8 +83,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Store the token
       localStorage.setItem('jwt_token', access_token);
       
-      // Set user data
-      setUser(userData);
+      // Transform and set user data
+      if (!userData.id) {
+        throw new Error('Invalid user data received from server');
+      }
+      setUser({
+        id: userData.id,
+        username: userData.username,
+        email: userData.email ?? "",
+        name: userData.name ?? userData.username,
+        role: userData.role ?? 'user',
+        status: userData.status ?? 'active'
+      });
     } catch (err: any) {
       const errorMessage = err.response?.data?.error || err.message || 'Login failed. Please try again.';
       setError(errorMessage);

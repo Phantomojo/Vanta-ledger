@@ -1,1 +1,0 @@
-# Vanta Ledger Backend Application

@@ -42,15 +42,15 @@ jobs:
       if: matrix.tool == 'bandit'
       run: |
         echo "🔍 Running Bandit security analysis..."
-        bandit -r src/ -f json -o bandit-results.json || true
-        bandit -r src/ -f txt > bandit-summary.txt || true
+        bandit -r backend/src/ -f json -o bandit-results.json || true
+        bandit -r backend/src/ -f txt > bandit-summary.txt || true
         
     - name: Run Semgrep Security Scan
       if: matrix.tool == 'semgrep'
       run: |
         echo "🔍 Running Semgrep security analysis..."
-        semgrep --config=auto src/ --json --output=semgrep-results.json || true
-        semgrep --config=auto src/ --text --output=semgrep-summary.txt || true
+        semgrep --config=auto backend/src/ --json --output=semgrep-results.json || true
+        semgrep --config=auto backend/src/ --text --output=semgrep-summary.txt || true
         
     - name: Upload Bandit Results
       if: matrix.tool == 'bandit'

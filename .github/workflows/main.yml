@@ -27,8 +27,7 @@ jobs:
     - name: 🔧 Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r constraints.txt
+        pip install -r config/requirements.txt
         pip install pytest pytest-cov flake8 black isort mypy
         
     - name: 🧹 Code formatting check
@@ -149,7 +148,7 @@ jobs:
     - name: 🔧 Install dependencies
       run: |
         pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r config/requirements.txt
         
     - name: 🧪 Run integration tests
       run: |
@@ -181,7 +180,7 @@ jobs:
     - name: 🔧 Install dependencies
       run: |
         pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r config/requirements.txt
         
     - name: 🧪 Run production tests
       run: |

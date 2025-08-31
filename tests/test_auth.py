@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from src.vanta_ledger import crud, models, schemas
 from src.vanta_ledger.utils.password import get_password_hash
+from src.vanta_ledger.config import settings
 
 
 def test_login_success(client, test_user):
