@@ -93,6 +93,7 @@ from .startup import health_check, initialize_services
 
 from .routes.github_models import router as github_models_router  # Enabled after adding safe service shim
 from .routes.hrm import router as hrm_router  # HRM (Hierarchical Reasoning Model)
+from .routes.multi_github_models import router as multi_github_models_router  # Multi-GitHub Models
 
 
 
@@ -172,6 +173,9 @@ if settings.ENABLE_GITHUB_MODELS:
 
 # Include HRM (Hierarchical Reasoning Model) routes
 app.include_router(hrm_router)
+
+# Include Multi-GitHub Models routes
+app.include_router(multi_github_models_router)
 
 # Include frontend compatibility routes
 if settings.DEBUG:

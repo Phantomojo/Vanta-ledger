@@ -12,6 +12,10 @@ from typing import Any, Dict, List, Optional, Type
 
 from .base_agent import BaseAgent, AgentType, AgentResult
 from .communication import AgentCommunication, AgentMessage, MessageType
+from .compliance_agent import ComplianceMonitoringAgent
+from .forecasting_agent import FinancialForecastingAgent
+from .fraud_detection_agent import FraudDetectionAgent
+from .reporting_agent import AutomatedReportingAgent
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +36,20 @@ class AgentManager:
         self._running = False
         self._task_queue: asyncio.Queue = asyncio.Queue()
         
+        # Register default agent types
+        self._register_default_agents()
+        
         logger.info("Initialized Agent Manager")
+
+    def _register_default_agents(self):
+        """Register default agent types."""
+        self._agent_types.update({
+            AgentType.COMPLIANCE.value: ComplianceMonitoringAgent,
+            AgentType.FRAUD_DETECTION.value: FraudDetectionAgent,
+            AgentType.FORECASTING.value: FinancialForecastingAgent,
+            AgentType.REPORTING.value: AutomatedReportingAgent,
+        })
+        logger.info("Registered default agent types")
 
     async def register_agent_type(self, agent_type: AgentType, agent_class: Type[BaseAgent]) -> None:
         """
