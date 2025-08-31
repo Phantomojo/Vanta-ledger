@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 Company Context Manager for Multi-Company LLM Processing

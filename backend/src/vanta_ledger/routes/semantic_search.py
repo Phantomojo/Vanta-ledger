@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 Semantic Search API Routes

@@ -1,3 +1,4 @@
+import os
 """
 Ollama Integration Module
 
