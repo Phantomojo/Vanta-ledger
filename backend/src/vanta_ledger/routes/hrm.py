@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 HRM (Hierarchical Reasoning Model) API Routes

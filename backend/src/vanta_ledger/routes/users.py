@@ -1,3 +1,4 @@
+import os
 """
 Users API Routes
 

@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 Atomic Transactions API Routes
