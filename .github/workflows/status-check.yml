@@ -79,7 +79,7 @@ jobs:
         fi
         
     - name: 📤 Upload status report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: workflow-status-report
         path: workflow-status-report.md
@@ -119,7 +119,7 @@ jobs:
         pip-audit --format=markdown >> dependency-health-report.md || echo "Pip audit completed"
         
     - name: 📤 Upload dependency report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dependency-health-report
         path: dependency-health-report.md
@@ -212,7 +212,7 @@ jobs:
         fi
         
     - name: 📤 Upload health report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: repository-health-report
         path: repository-health-report.md
@@ -270,7 +270,7 @@ jobs:
         fi
         
     - name: 📤 Upload overall summary
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: overall-status-summary
         path: overall-status-summary.md
