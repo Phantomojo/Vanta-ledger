@@ -9,6 +9,8 @@ import threading
 import sys
 from pathlib import Path
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 # Ensure project root on sys.path so `src.vanta_ledger` is importable when running from scripts/
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -45,30 +47,30 @@ def wait_for_health(timeout=20):
 
 
 def main():
-    print("🔎 Starting server and probing endpoints...\n")
+    logger.info("🔎 Starting server and probing endpoints...\n")
     t = threading.Thread(target=start_server, daemon=True)
     t.start()
 
     ok = wait_for_health()
     if not ok:
-        print("❌ Server did not become healthy in time")
+        logger.info("❌ Server did not become healthy in time")
         return 1
-    print("✅ /health OK")
+    logger.info("✅ /health OK")
 
     def get(path, expect=None):
         url = f"{BASE}{path}"
         try:
             resp = requests.get(url, timeout=5)
             status = resp.status_code
-            print(f"GET {path} -> {status}")
+            logger.info(f"GET {path} -> {status}")
             if expect is not None and status != expect:
-                print(f"   ⚠️ Expected {expect}, got {status}")
+                logger.info(f"   ⚠️ Expected {expect}, got {status}")
             else:
                 # print small payload excerpt
                 text = resp.text
-                print(f"   Body: {text[:180]}{'…' if len(text)>180 else ''}")
+                logger.info(f"   Body: {text[:180]}{")
         except Exception as e:
-            print(f"GET {path} -> ERROR: {e}")
+            logger.error(f"GET {path} -> ERROR: {e}")
 
     # readiness
     get("/ready")
@@ -84,12 +86,12 @@ def main():
     # simple-auth (DEBUG only)
     try:
         r = requests.post(f"{BASE}/simple-auth", params={"username": "demo", "password": "demo"}, timeout=5)
-        print(f"POST /simple-auth -> {r.status_code}")
-        print(f"   Body: {r.text[:200]}{'…' if len(r.text)>200 else ''}")
+        logger.info(f"POST /simple-auth -> {r.status_code}")
+        logger.info(f"   Body: {r.text[:200]}{")
     except Exception as e:
-        print(f"POST /simple-auth -> ERROR: {e}")
+        logger.error(f"POST /simple-auth -> ERROR: {e}")
 
-    print("\n🎯 Probe completed.")
+    logger.info("\n🎯 Probe completed.")
     return 0
 
 

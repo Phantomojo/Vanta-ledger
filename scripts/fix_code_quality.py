@@ -10,7 +10,7 @@ from pathlib import Path
 
 def fix_imports():
     """Fix missing imports in various files"""
-    print("🔧 Fixing missing imports...")
+    logger.info("🔧 Fixing missing imports...")
     
     # Fix test_db_connection.py
     db_test_file = Path("infrastructure/database/test_db_connection.py")
@@ -22,7 +22,7 @@ def fix_imports():
                 "import os\nimport psycopg2"
             )
             db_test_file.write_text(content)
-            print("  ✅ Fixed imports in test_db_connection.py")
+            logger.info("  ✅ Fixed imports in test_db_connection.py")
     
     # Fix test_auth.py
     auth_test_file = Path("tests/test_auth.py")
@@ -34,7 +34,7 @@ def fix_imports():
                 "from src.vanta_ledger.utils.password import get_password_hash\nfrom src.vanta_ledger.config import settings"
             )
             auth_test_file.write_text(content)
-            print("  ✅ Fixed imports in test_auth.py")
+            logger.info("  ✅ Fixed imports in test_auth.py")
     
     # Fix test_users.py
     users_test_file = Path("tests/test_users.py")
@@ -46,11 +46,11 @@ def fix_imports():
                 "from src.vanta_ledger import models, schemas\nfrom tests.conftest import override_get_db"
             )
             users_test_file.write_text(content)
-            print("  ✅ Fixed imports in test_users.py")
+            logger.info("  ✅ Fixed imports in test_users.py")
 
 def fix_indentation():
     """Fix indentation issues"""
-    print("🔧 Fixing indentation issues...")
+    logger.info("🔧 Fixing indentation issues...")
     
     # Fix enhanced_hybrid_database_setup.py
     db_setup_file = Path("infrastructure/database/enhanced_hybrid_database_setup.py")
@@ -60,11 +60,11 @@ def fix_indentation():
         content = content.replace("    POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')", "POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')")
         content = content.replace("    MONGO_PASSWORD = os.getenv('MONGO_ROOT_PASSWORD')", "MONGO_PASSWORD = os.getenv('MONGO_ROOT_PASSWORD')")
         db_setup_file.write_text(content)
-        print("  ✅ Fixed indentation in enhanced_hybrid_database_setup.py")
+        logger.info("  ✅ Fixed indentation in enhanced_hybrid_database_setup.py")
 
 def fix_formatting():
     """Fix code formatting issues"""
-    print("🔧 Fixing code formatting...")
+    logger.info("🔧 Fixing code formatting...")
     
     # Fix database.py formatting
     db_file = Path("backend/src/vanta_ledger/database.py")
@@ -76,11 +76,11 @@ def fix_formatting():
             'raise RuntimeError(\n            "PostgreSQL driver not available or connection failed"\n        ) from e'
         )
         db_file.write_text(content)
-        print("  ✅ Fixed formatting in database.py")
+        logger.info("  ✅ Fixed formatting in database.py")
 
 def add_missing_docstrings():
     """Add missing docstrings to improve documentation quality"""
-    print("📚 Adding missing docstrings...")
+    logger.info("📚 Adding missing docstrings...")
     
     # Add docstrings to key functions
     files_to_check = [
@@ -97,11 +97,11 @@ def add_missing_docstrings():
             if not content.startswith('"""'):
                 content = f'"""\n{path.stem.title()} API Routes\nREST endpoints for {path.stem.replace("_", " ")} management\n"""\n\n{content}'
                 path.write_text(content)
-                print(f"  ✅ Added docstring to {file_path}")
+                logger.info(f"  ✅ Added docstring to {file_path}")
 
 def create_test_files():
     """Create missing test files to improve test coverage"""
-    print("🧪 Creating missing test files...")
+    logger.info("🧪 Creating missing test files...")
     
     # Create basic test files for new routes
     test_files = {
@@ -158,6 +158,8 @@ def test_semantic_search(client, auth_headers):
 
 import pytest
 from fastapi import status
+import logging
+logger = logging.getLogger(__name__)
 
 def test_process_document_advanced(client, auth_headers):
     """Test advanced document processing."""
@@ -187,12 +189,12 @@ def test_process_document_advanced(client, auth_headers):
         if not path.exists():
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content)
-            print(f"  ✅ Created {file_path}")
+            logger.info(f"  ✅ Created {file_path}")
 
 def main():
     """Run all code quality fixes"""
-    print("🔧 Vanta Ledger Code Quality Fix Script")
-    print("=" * 50)
+    logger.info("🔧 Vanta Ledger Code Quality Fix Script")
+    logger.info("=")
     
     try:
         fix_imports()
@@ -201,12 +203,12 @@ def main():
         add_missing_docstrings()
         create_test_files()
         
-        print("\n" + "=" * 50)
-        print("🎉 All code quality fixes completed!")
-        print("✅ Ready to run tests and checks")
+        logger.info("\n")
+        logger.info("🎉 All code quality fixes completed!")
+        logger.info("✅ Ready to run tests and checks")
         
     except Exception as e:
-        print(f"❌ Error during fixes: {e}")
+        logger.error(f"❌ Error during fixes: {e}")
         return 1
     
     return 0

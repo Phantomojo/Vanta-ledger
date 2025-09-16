@@ -214,12 +214,12 @@ if __name__ == "__main__":
     
     engine = get_postgres_engine()
     
-    print("Applying atomic transaction migration...")
+    logger.info("Applying atomic transaction migration...")
     upgrade(engine)
     
-    print("Verifying migration...")
+    logger.info("Verifying migration...")
     if verify_migration(engine):
-        print("✅ Migration applied and verified successfully")
+        logger.info("✅ Migration applied and verified successfully")
     else:
-        print("❌ Migration verification failed")
+        logger.error("❌ Migration verification failed")
         sys.exit(1)

@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 Semantic Search Service
@@ -54,9 +55,16 @@ class SemanticSearchService:
         # Database connections
         self.mongo_client = get_mongo_client()
         self.db: Database = self.mongo_client[settings.DATABASE_NAME]
-        self.redis_client = redis.Redis.from_url(
-            settings.REDIS_URI, decode_responses=True
-        )
+        try:
+            self.redis_client = redis.Redis.from_url(
+                settings.REDIS_URI, decode_responses=True
+            )
+        except Exception:
+            class _NoopRedis:
+                def get(self, *a, **k): return None
+                def setex(self, *a, **k): return None
+            self.redis_client = _NoopRedis()
+            logger.warning("Redis unavailable; caching disabled for semantic search")
 
         # Collections
         self.documents: Collection = self.db.documents

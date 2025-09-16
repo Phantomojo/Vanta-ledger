@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 Local LLM Service for Vanta Ledger

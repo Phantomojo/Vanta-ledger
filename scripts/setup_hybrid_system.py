@@ -20,11 +20,13 @@ import time
 import requests
 import json
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 def run_command(command: str, cwd: str = None) -> bool:
     """Run a shell command and return success status"""
     try:
-        print(f"🔄 Running: {command}")
+        logger.info(f"🔄 Running: {command}")
         result = subprocess.run(
             command, 
             shell=True, 
@@ -34,34 +36,34 @@ def run_command(command: str, cwd: str = None) -> bool:
         )
         
         if result.returncode == 0:
-            print(f"✅ Success: {command}")
+            logger.info(f"✅ Success: {command}")
             return True
         else:
-            print(f"❌ Failed: {command}")
-            print(f"Error: {result.stderr}")
+            logger.error(f"❌ Failed: {command}")
+            logger.error(f"Error: {result.stderr}")
             return False
             
     except Exception as e:
-        print(f"❌ Exception running {command}: {e}")
+        logger.error(f"❌ Exception running {command}: {e}")
         return False
 
 def wait_for_service(url: str, service_name: str, max_attempts: int = 30) -> bool:
     """Wait for a service to be ready"""
-    print(f"⏳ Waiting for {service_name} to be ready...")
+    logger.info(f"⏳ Waiting for {service_name} to be ready...")
     
     for attempt in range(max_attempts):
         try:
             response = requests.get(url, timeout=5)
             if response.status_code == 200:
-                print(f"✅ {service_name} is ready!")
+                logger.info(f"✅ {service_name} is ready!")
                 return True
         except requests.exceptions.RequestException:
             pass
         
-        print(f"   Attempt {attempt + 1}/{max_attempts}...")
+        logger.info(f"   Attempt {attempt + 1}/{max_attempts}...")
         time.sleep(2)
     
-    print(f"❌ {service_name} failed to start")
+    logger.error(f"❌ {service_name} failed to start")
     return False
 
 def setup_directories():
@@ -76,7 +78,7 @@ def setup_directories():
     
     for directory in directories:
         Path(directory).mkdir(parents=True, exist_ok=True)
-        print(f"✅ Created directory: {directory}")
+        logger.info(f"✅ Created directory: {directory}")
 
 def create_postgresql_init_script():
     """Create PostgreSQL initialization script"""
@@ -114,7 +116,7 @@ END $$;
     with open("database/postgresql/init/01-init.sql", "w") as f:
         f.write(init_script)
     
-    print("✅ Created PostgreSQL initialization script")
+    logger.info("✅ Created PostgreSQL initialization script")
 
 def create_mongodb_init_script():
     """Create MongoDB initialization script"""
@@ -173,17 +175,17 @@ db.documents.createIndex({ "postgres_id": 1 }, { unique: true });
 // Text search index for OCR content
 db.documents.createIndex({ "ai_analysis.ocr_text": "text" });
 
-print("MongoDB database initialized successfully for Vanta Ledger");
+logger.info("MongoDB database initialized successfully for Vanta Ledger");
 """
     
     with open("database/mongodb/init/01-init.js", "w") as f:
         f.write(init_script)
     
-    print("✅ Created MongoDB initialization script")
+    logger.info("✅ Created MongoDB initialization script")
 
 def start_database_containers():
     """Start the database containers using Docker Compose"""
-    print("🚀 Starting database containers...")
+    logger.info("🚀 Starting database containers...")
     
     # Stop any existing containers
     run_command("docker-compose -f database/docker-compose-hybrid.yml down")
@@ -192,11 +194,11 @@ def start_database_containers():
     success = run_command("docker-compose -f database/docker-compose-hybrid.yml up -d")
     
     if not success:
-        print("❌ Failed to start database containers")
+        logger.error("❌ Failed to start database containers")
         return False
     
     # Wait for services to be ready
-    print("⏳ Waiting for database services to be ready...")
+    logger.info("⏳ Waiting for database services to be ready...")
     time.sleep(10)
     
     # Check PostgreSQL
@@ -212,32 +214,32 @@ def start_database_containers():
     pgadmin_ready = wait_for_service("http://localhost:8080", "pgAdmin", 20)
     
     if all([postgres_ready, mongo_ready, mongo_express_ready, pgadmin_ready]):
-        print("✅ All database services are ready!")
+        logger.info("✅ All database services are ready!")
         return True
     else:
-        print("❌ Some database services failed to start")
+        logger.error("❌ Some database services failed to start")
         return False
 
 def run_hybrid_database_setup():
     """Run the hybrid database setup script"""
-    print("🔧 Running hybrid database setup...")
+    logger.info("🔧 Running hybrid database setup...")
     
     # Install required Python packages
-    print("📦 Installing Python dependencies...")
+    logger.info("📦 Installing Python dependencies...")
     success = run_command("pip install -r backend/requirements-hybrid.txt")
     
     if not success:
-        print("❌ Failed to install Python dependencies")
+        logger.error("❌ Failed to install Python dependencies")
         return False
     
     # Run the hybrid database setup
     success = run_command("python database/hybrid_database_setup.py")
     
     if not success:
-        print("❌ Failed to run hybrid database setup")
+        logger.error("❌ Failed to run hybrid database setup")
         return False
     
-    print("✅ Hybrid database setup completed successfully!")
+    logger.info("✅ Hybrid database setup completed successfully!")
     return True
 
 def create_environment_file():
@@ -275,22 +277,22 @@ REDIS_URL=redis://localhost:6379
     with open(".env", "w") as f:
         f.write(env_content)
     
-    print("✅ Created environment configuration file")
+    logger.info("✅ Created environment configuration file")
 
 def display_setup_summary():
     """Display setup summary and next steps"""
-    print("\n" + "="*60)
-    print("🎉 HYBRID DATABASE SYSTEM SETUP COMPLETE!")
-    print("="*60)
+    logger.info("\n")
+    logger.info("🎉 HYBRID DATABASE SYSTEM SETUP COMPLETE!")
+    logger.info("=")
     
-    print("\n📊 Database Services:")
-    print("   ✅ PostgreSQL: localhost:5432/vanta_ledger")
-    print("   ✅ MongoDB: localhost:27017/vanta_ledger")
-    print("   ✅ Mongo Express: http://localhost:8081")
-    print("   ✅ pgAdmin: http://localhost:8080")
-    print("   ✅ Redis: localhost:6379")
+    logger.info("\n📊 Database Services:")
+    logger.info("   ✅ PostgreSQL: localhost:5432/vanta_ledger")
+    logger.info("   ✅ MongoDB: localhost:27017/vanta_ledger")
+    logger.info("   ✅ Mongo Express: http://localhost:8081")
+    logger.info("   ✅ pgAdmin: http://localhost:8080")
+    logger.info("   ✅ Redis: localhost:6379")
     
-    print("\n👥 The 10 Family Companies:")
+    logger.info("\n👥 The 10 Family Companies:")
     companies = [
         "1. ALTAN ENTERPRISES LIMITED",
         "2. DORDEN VENTURES LIMITED", 
@@ -305,66 +307,66 @@ def display_setup_summary():
     ]
     
     for company in companies:
-        print(f"   {company}")
+        logger.info(f"   {company}")
     
-    print("\n🔐 Admin Access:")
-    print("   Username: admin")
-    print("   Password: Check your .env file or use create_secure_admin.py")
+    logger.info("\n🔐 Admin Access:")
+    logger.info("   Username: admin")
+    logger.info("   Password: Check your .env file or use create_secure_admin.py")
     
-    print("\n🚀 Next Steps:")
-    print("   1. Start the backend: python backend/app/main.py")
-    print("   2. Start the frontend: cd frontend/frontend-web && npm run dev")
-    print("   3. Access the application: http://localhost:5173")
-    print("   4. View database management:")
-    print("      - MongoDB: http://localhost:8081")
-    print("      - PostgreSQL: http://localhost:8080")
+    logger.info("\n🚀 Next Steps:")
+    logger.info("   1. Start the backend: python backend/app/main.py")
+    logger.info("   2. Start the frontend: cd frontend/frontend-web && npm run dev")
+    logger.info("   3. Access the application: http://localhost:5173")
+    logger.info("   4. View database management:")
+    logger.info("      - MongoDB: http://localhost:8081")
+    logger.info("      - PostgreSQL: http://localhost:8080")
     
-    print("\n📚 Documentation:")
-    print("   - API Documentation: http://localhost:8500/docs")
-    print("   - Database Schema: database/hybrid_database_setup.py")
-    print("   - Configuration: .env")
+    logger.info("\n📚 Documentation:")
+    logger.info("   - API Documentation: http://localhost:8500/docs")
+    logger.info("   - Database Schema: database/hybrid_database_setup.py")
+    logger.info("   - Configuration: .env")
     
-    print("\n" + "="*60)
+    logger.info("\n")
 
 def main():
     """Main setup function"""
-    print("🚀 Vanta Ledger Hybrid Database System Setup")
-    print("="*50)
+    logger.info("🚀 Vanta Ledger Hybrid Database System Setup")
+    logger.info("=")
     
     try:
         # 1. Setup directories
-        print("\n📁 Setting up directories...")
+        logger.info("\n📁 Setting up directories...")
         setup_directories()
         
         # 2. Create initialization scripts
-        print("\n📝 Creating database initialization scripts...")
+        logger.info("\n📝 Creating database initialization scripts...")
         create_postgresql_init_script()
         create_mongodb_init_script()
         
         # 3. Start database containers
-        print("\n🐳 Starting database containers...")
+        logger.info("\n🐳 Starting database containers...")
         if not start_database_containers():
-            print("❌ Failed to start database containers")
+            logger.error("❌ Failed to start database containers")
             sys.exit(1)
         
         # 4. Run hybrid database setup
-        print("\n🔧 Running hybrid database setup...")
+        logger.info("\n🔧 Running hybrid database setup...")
         if not run_hybrid_database_setup():
-            print("❌ Failed to run hybrid database setup")
+            logger.error("❌ Failed to run hybrid database setup")
             sys.exit(1)
         
         # 5. Create environment file
-        print("\n⚙️ Creating environment configuration...")
+        logger.info("\n⚙️ Creating environment configuration...")
         create_environment_file()
         
         # 6. Display summary
         display_setup_summary()
         
     except KeyboardInterrupt:
-        print("\n❌ Setup interrupted by user")
+        logger.info("\n❌ Setup interrupted by user")
         sys.exit(1)
     except Exception as e:
-        print(f"\n❌ Setup failed: {e}")
+        logger.error(f"\n❌ Setup failed: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

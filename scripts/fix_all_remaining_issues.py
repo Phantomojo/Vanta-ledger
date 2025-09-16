@@ -7,10 +7,12 @@ Addresses all failing checks in PR #23
 import os
 import sys
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 def fix_all_formatting_issues():
     """Fix all Black formatting issues"""
-    print("🎨 Fixing all Black formatting issues...")
+    logger.info("🎨 Fixing all Black formatting issues...")
     
     # Fix database.py formatting completely
     db_file = Path("backend/src/vanta_ledger/database.py")
@@ -40,11 +42,11 @@ def fix_all_formatting_issues():
             content = content.replace(old, new)
         
         db_file.write_text(content)
-        print("  ✅ Fixed database.py formatting")
+        logger.info("  ✅ Fixed database.py formatting")
 
 def fix_type_checking_issues():
     """Fix type checking issues"""
-    print("🔍 Fixing type checking issues...")
+    logger.info("🔍 Fixing type checking issues...")
     
     # Add type hints to key functions
     files_to_fix = [
@@ -72,11 +74,11 @@ def fix_type_checking_issues():
             )
             
             path.write_text(content)
-            print(f"  ✅ Fixed type hints in {file_path}")
+            logger.info(f"  ✅ Fixed type hints in {file_path}")
 
 def fix_documentation_issues():
     """Fix documentation quality issues"""
-    print("📚 Fixing documentation issues...")
+    logger.info("📚 Fixing documentation issues...")
     
     # Add comprehensive docstrings to all route files
     route_files = [
@@ -109,11 +111,11 @@ Features:
 '''
                 content = docstring + content
                 path.write_text(content)
-                print(f"  ✅ Added comprehensive docstring to {file_path}")
+                logger.info(f"  ✅ Added comprehensive docstring to {file_path}")
 
 def fix_test_issues():
     """Fix test-related issues"""
-    print("🧪 Fixing test issues...")
+    logger.info("🧪 Fixing test issues...")
     
     # Create a basic test configuration
     test_config = Path("tests/conftest.py")
@@ -134,11 +136,11 @@ def pytest_configure(config):
     )
 '''
             test_config.write_text(content)
-            print("  ✅ Enhanced test configuration")
+            logger.info("  ✅ Enhanced test configuration")
 
 def fix_security_issues():
     """Fix security analysis issues"""
-    print("🔒 Fixing security issues...")
+    logger.info("🔒 Fixing security issues...")
     
     # Add security comments to suppress false positives
     security_files = [
@@ -158,11 +160,11 @@ def fix_security_issues():
             )
             
             path.write_text(content)
-            print(f"  ✅ Added security comments to {file_path}")
+            logger.info(f"  ✅ Added security comments to {file_path}")
 
 def create_missing_files():
     """Create any missing files that might be causing issues"""
-    print("📁 Creating missing files...")
+    logger.info("📁 Creating missing files...")
     
     # Create __init__.py files if missing
     init_dirs = [
@@ -176,11 +178,11 @@ def create_missing_files():
         path = Path(dir_path)
         if path.exists() and not (path / "__init__.py").exists():
             (path / "__init__.py").write_text('"""Package initialization."""\n')
-            print(f"  ✅ Created __init__.py in {dir_path}")
+            logger.info(f"  ✅ Created __init__.py in {dir_path}")
 
 def fix_dependency_issues():
     """Fix dependency-related issues"""
-    print("📦 Fixing dependency issues...")
+    logger.info("📦 Fixing dependency issues...")
     
     # Update requirements.txt with proper versions
     req_file = Path("config/requirements.txt")
@@ -194,12 +196,12 @@ def fix_dependency_issues():
             content = content.replace("pydantic", "pydantic==2.5.0")
         
         req_file.write_text(content)
-        print("  ✅ Updated dependency versions")
+        logger.info("  ✅ Updated dependency versions")
 
 def main():
     """Run all fixes"""
-    print("🔧 Comprehensive Fix Script for PR #23")
-    print("=" * 60)
+    logger.info("🔧 Comprehensive Fix Script for PR #23")
+    logger.info("=")
     
     try:
         fix_all_formatting_issues()
@@ -210,17 +212,17 @@ def main():
         create_missing_files()
         fix_dependency_issues()
         
-        print("\n" + "=" * 60)
-        print("🎉 All fixes completed!")
-        print("✅ Ready to commit and push changes")
-        print("📋 Next steps:")
-        print("   1. git add .")
-        print("   2. git commit -m 'Fix all remaining PR issues'")
-        print("   3. git push origin main")
-        print("   4. Run monitoring script to verify fixes")
+        logger.info("\n")
+        logger.info("🎉 All fixes completed!")
+        logger.info("✅ Ready to commit and push changes")
+        logger.info("📋 Next steps:")
+        logger.info("   1. git add .")
+        logger.info("   2. git commit -m ")
+        logger.info("   3. git push origin main")
+        logger.info("   4. Run monitoring script to verify fixes")
         
     except Exception as e:
-        print(f"❌ Error during fixes: {e}")
+        logger.error(f"❌ Error during fixes: {e}")
         return 1
     
     return 0

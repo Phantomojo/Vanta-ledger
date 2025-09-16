@@ -8,13 +8,15 @@ import sys
 import subprocess
 import signal
 import time
+import logging
+logger = logging.getLogger(__name__)
 
 def setup_environment():
     """Set up environment variables"""
     # Use environment variables or set defaults for development
     if not os.environ.get("GITHUB_TOKEN"):
-        print("⚠️  Warning: GITHUB_TOKEN environment variable not set")
-        print("   Set it with: export GITHUB_TOKEN='your_token_here'")
+        logger.warning("⚠️  Warning: GITHUB_TOKEN environment variable not set")
+        logger.info("   Set it with: export GITHUB_TOKEN=")
     if not os.environ.get("SECRET_KEY"):
         os.environ["SECRET_KEY"] = "dev-secret-key-change-in-production"
     if not os.environ.get("DEBUG"):
@@ -30,18 +32,18 @@ def test_import():
     """Test if the application can be imported"""
     try:
         from src.vanta_ledger.main import app
-        print("✅ Backend application imports successfully!")
+        logger.info("✅ Backend application imports successfully!")
         return True
     except Exception as e:
-        print(f"❌ Backend import failed: {e}")
+        logger.error(f"❌ Backend import failed: {e}")
         return False
 
 def start_server():
     """Start the FastAPI server"""
-    print("🚀 Starting Vanta Ledger Backend Server...")
-    print("📡 Server will be available at: http://localhost:8500")
-    print("📚 API Documentation: http://localhost:8500/docs")
-    print("🔄 Press Ctrl+C to stop the server")
+    logger.info("🚀 Starting Vanta Ledger Backend Server...")
+    logger.info("📡 Server will be available at: http://localhost:8500")
+    logger.info("📚 API Documentation: http://localhost:8500/docs")
+    logger.info("🔄 Press Ctrl+C to stop the server")
     
     try:
         # Start uvicorn server
@@ -59,20 +61,20 @@ def start_server():
         process.wait()
         
     except KeyboardInterrupt:
-        print("\n🛑 Stopping server...")
+        logger.info("\n🛑 Stopping server...")
         process.terminate()
         process.wait()
-        print("✅ Server stopped successfully!")
+        logger.info("✅ Server stopped successfully!")
 
 if __name__ == "__main__":
-    print("🔧 Setting up environment...")
+    logger.info("🔧 Setting up environment...")
     setup_environment()
     
-    print("🧪 Testing application import...")
+    logger.info("🧪 Testing application import...")
     if not test_import():
-        print("❌ Cannot start server due to import errors")
+        logger.error("❌ Cannot start server due to import errors")
         sys.exit(1)
     
-    print("🌟 All checks passed! Starting server...")
+    logger.info("🌟 All checks passed! Starting server...")
     start_server()
 

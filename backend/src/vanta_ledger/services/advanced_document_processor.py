@@ -90,9 +90,20 @@ class AdvancedDocumentProcessor:
 
         try:
             # Initialize LayoutLMv3 for layout understanding
+            # SECURITY: Use specific commit hash instead of branch name
             model_name = "microsoft/layoutlmv3-base"
-            self.layout_model = LayoutLMv3ForSequenceClassification.from_pretrained(model_name)
-            self.processor = LayoutLMv3Processor.from_pretrained(model_name)
+            # Current commit hash: cfbbbff0762e6aab37086fdd4739ad14fe7d5db4
+            commit_hash = "cfbbbff0762e6aab37086fdd4739ad14fe7d5db4"
+            
+            logger.info(f"Loading LayoutLMv3 model with commit hash: {commit_hash}")
+            self.layout_model = LayoutLMv3ForSequenceClassification.from_pretrained(  # nosec B615 - Using specific commit hash for security
+                model_name, 
+                revision=commit_hash
+            )
+            self.processor = LayoutLMv3Processor.from_pretrained(  # nosec B615 - Using specific commit hash for security
+                model_name, 
+                revision=commit_hash
+            )
             
             # Move to GPU if available
             if torch.cuda.is_available():
@@ -269,15 +280,17 @@ class AdvancedDocumentProcessor:
                 outputs = self.layout_model(**encoding)
                 predictions = outputs.logits.argmax(-1)
 
-            # Analyze layout structure
-            layout_analysis = {
-                "layout_type": self._classify_layout_type(predictions),
-                "regions": self._extract_layout_regions(encoding, predictions),
-                "confidence": float(torch.softmax(outputs.logits, dim=-1).max()),
-                "processing_method": "layoutlmv3"
-            }
+                # Analyze layout structure
+                confidence_tensor = torch.softmax(outputs.logits, dim=-1).max()
+                confidence = confidence_tensor.detach().float().cpu().item()
+                layout_analysis = {
+                    "layout_type": self._classify_layout_type(predictions),
+                    "regions": self._extract_layout_regions(encoding, predictions),
+                    "confidence": confidence,
+                    "processing_method": "layoutlmv3"
+                }
 
-            return layout_analysis
+                return layout_analysis
 
         except Exception as e:
             logger.error(f"Error in layout analysis: {str(e)}")

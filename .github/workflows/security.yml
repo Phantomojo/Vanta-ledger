@@ -1,31 +1,18 @@
-name: "🔒 Security Analysis"
+name: Security Checks
 
 on:
   push:
-    branches: [ "master", "main", "develop" ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ "master", "main", "develop" ]
-  schedule:
-    # Run weekly security scan on Saturdays at 2 AM UTC
-    - cron: '0 2 * * 6'
+    branches: [ main, develop ]
 
 jobs:
   security-scan:
-    name: "Security Analysis"
     runs-on: ubuntu-latest
-    
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        tool: [bandit, semgrep]
+    name: Security Vulnerability Scan
     
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
       
     - name: Set up Python
@@ -36,48 +23,111 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install bandit[toml] semgrep
+        pip install bandit safety pyup-safety
         
-    - name: Run Bandit Security Scan
-      if: matrix.tool == 'bandit'
+    - name: Run Bandit security scan
       run: |
-        echo "🔍 Running Bandit security analysis..."
-        bandit -r backend/src/ -f json -o bandit-results.json || true
-        bandit -r backend/src/ -f txt > bandit-summary.txt || true
+        bandit -r backend/src/ -f json -o bandit-report.json || true
+        bandit -r backend/src/ -f txt -o bandit-report.txt
         
-    - name: Run Semgrep Security Scan
-      if: matrix.tool == 'semgrep'
+    - name: Run Safety check
       run: |
-        echo "🔍 Running Semgrep security analysis..."
-        semgrep --config=auto backend/src/ --json --output=semgrep-results.json || true
-        semgrep --config=auto backend/src/ --text --output=semgrep-summary.txt || true
+        safety check --json --output safety-report.json || true
+        safety check --output safety-report.txt
         
-    - name: Upload Bandit Results
-      if: matrix.tool == 'bandit'
+    - name: Upload security reports
       uses: actions/upload-artifact@v3
       with:
-        name: bandit-security-results
+        name: security-reports
         path: |
-          bandit-results.json
-          bandit-summary.txt
-        retention-days: 30
-        
-    - name: Upload Semgrep Results
-      if: matrix.tool == 'semgrep'
-      uses: actions/upload-artifact@v3
+          bandit-report.json
+          bandit-report.txt
+          safety-report.json
+          safety-report.txt
+          
+    - name: Comment PR with security results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
       with:
-        name: semgrep-security-results
-        path: |
-          semgrep-results.json
-          semgrep-summary.txt
-        retention-days: 30
+        script: |
+          const fs = require('fs');
+          let banditOutput = '';
+          let safetyOutput = '';
+          
+          try {
+            banditOutput = fs.readFileSync('bandit-report.txt', 'utf8');
+          } catch (e) {
+            banditOutput = 'No Bandit issues found';
+          }
+          
+          try {
+            safetyOutput = fs.readFileSync('safety-report.txt', 'utf8');
+          } catch (e) {
+            safetyOutput = 'No Safety issues found';
+          }
+          
+          const comment = `## 🔒 Security Scan Results
+          
+          ### Bandit Security Scan
+          \`\`\`
+          ${banditOutput}
+          \`\`\`
+          
+          ### Dependency Security Scan
+          \`\`\`
+          ${safetyOutput}
+          \`\`\`
+          
+          **Security Status**: ${banditOutput.includes('No issues identified') && safetyOutput.includes('No known security vulnerabilities') ? '✅ PASSED' : '⚠️ ISSUES FOUND'}
+          `;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
 
-  dependency-scan:
-    name: "Dependency Security Check"
+  secret-scan:
     runs-on: ubuntu-latest
+    name: Secret Detection
     
     steps:
-    - name: Checkout repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Run TruffleHog
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: ${{ github.event.repository.default_branch }}
+        head: HEAD
+        extra_args: --only-verified --format json --output trufflehog-report.json
+        
+    - name: Upload secret scan report
+      uses: actions/upload-artifact@v3
+      with:
+        name: secret-scan-report
+        path: trufflehog-report.json
+        
+    - name: Fail if secrets found
+      run: |
+        if [ -s trufflehog-report.json ]; then
+          echo "🚨 SECRETS DETECTED! Please remove any hardcoded secrets."
+          cat trufflehog-report.json
+          exit 1
+        else
+          echo "✅ No secrets detected"
+        fi
+
+  code-quality:
+    runs-on: ubuntu-latest
+    name: Code Quality & Security
+    
+    steps:
+    - name: Checkout code
       uses: actions/checkout@v4
       
     - name: Set up Python
@@ -85,113 +135,110 @@ jobs:
       with:
         python-version: '3.12'
         
-    - name: Install safety
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install safety
+        pip install flake8 black mypy pylint
         
-    - name: Run Safety Check
+    - name: Run Flake8
       run: |
-        echo "🔍 Checking dependencies for vulnerabilities..."
-        safety check --json --output safety-results.json || true
-        safety check --output safety-summary.txt || true
+        flake8 backend/src/ --max-line-length=88 --extend-ignore=E203,W503
         
-    - name: Upload Safety Results
+    - name: Run Black check
+      run: |
+        black --check --diff backend/src/
+        
+    - name: Run MyPy
+      run: |
+        mypy backend/src/ --ignore-missing-imports
+        
+    - name: Run Pylint
+      run: |
+        pylint backend/src/ --disable=C0114,C0115,C0116
+
+  dependency-check:
+    runs-on: ubuntu-latest
+    name: Dependency Vulnerability Check
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run pip-audit
+      run: |
+        pip install pip-audit
+        pip-audit --format json --output pip-audit-report.json || true
+        pip-audit --output pip-audit-report.txt
+        
+    - name: Upload dependency audit report
       uses: actions/upload-artifact@v3
       with:
-        name: dependency-security-results
+        name: dependency-audit-report
         path: |
-          safety-results.json
-          safety-summary.txt
-        retention-days: 30
+          pip-audit-report.json
+          pip-audit-report.txt
 
-  secrets-scan:
-    name: "Secrets Detection"
+  file-upload-check:
     runs-on: ubuntu-latest
+    name: File Upload Security Check
     
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Run TruffleHog OSS
-      uses: trufflesecurity/trufflehog@main
-      with:
-        path: ./
-        base: ${{ github.event.repository.default_branch }}
-        head: HEAD
-        extra_args: --debug --only-verified
-
-  security-report:
-    name: "Generate Security Report"
-    runs-on: ubuntu-latest
-    needs: [security-scan, dependency-scan]
-    if: always()
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      
-    - name: Download all artifacts
-      uses: actions/download-artifact@v3
-      
-    - name: Generate Security Summary
+    - name: Check for large files
       run: |
-        echo "# 🔒 Security Analysis Report" > security-report.md
-        echo "" >> security-report.md
-        echo "**Date:** $(date)" >> security-report.md
-        echo "**Branch:** ${{ github.ref_name }}" >> security-report.md
-        echo "**Commit:** ${{ github.sha }}" >> security-report.md
-        echo "" >> security-report.md
-        
-        echo "## 📊 Scan Results" >> security-report.md
-        echo "" >> security-report.md
-        
-        if [ -f bandit-security-results/bandit-summary.txt ]; then
-          echo "### Bandit Results" >> security-report.md
-          echo '```' >> security-report.md
-          head -20 bandit-security-results/bandit-summary.txt >> security-report.md
-          echo '```' >> security-report.md
-          echo "" >> security-report.md
+        find . -type f -size +50M | head -10 > large-files.txt
+        if [ -s large-files.txt ]; then
+          echo "🚨 Large files detected:"
+          cat large-files.txt
+          exit 1
+        else
+          echo "✅ No large files detected"
         fi
         
-        if [ -f semgrep-security-results/semgrep-summary.txt ]; then
-          echo "### Semgrep Results" >> security-report.md
-          echo '```' >> security-report.md
-          head -20 semgrep-security-results/semgrep-summary.txt >> security-report.md
-          echo '```' >> security-report.md
-          echo "" >> security-report.md
+    - name: Check for sensitive file types
+      run: |
+        find . -name "*.key" -o -name "*.pem" -o -name "*.p12" -o -name "*.pfx" > sensitive-files.txt
+        if [ -s sensitive-files.txt ]; then
+          echo "🚨 Sensitive files detected:"
+          cat sensitive-files.txt
+          exit 1
+        else
+          echo "✅ No sensitive files detected"
+        fi
+
+  branch-protection:
+    runs-on: ubuntu-latest
+    name: Branch Protection Check
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check branch protection
+      run: |
+        if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          echo "🔒 Main branch detected - enforcing protection rules"
+          # Additional main branch checks can be added here
         fi
         
-        if [ -f dependency-security-results/safety-summary.txt ]; then
-          echo "### Dependency Check Results" >> security-report.md
-          echo '```' >> security-report.md
-          head -20 dependency-security-results/safety-summary.txt >> security-report.md
-          echo '```' >> security-report.md
-          echo "" >> security-report.md
-        fi
-        
-    - name: Upload Security Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: security-analysis-report
-        path: security-report.md
-        retention-days: 30
-        
-    - name: Comment PR with Security Results
-      if: github.event_name == 'pull_request'
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const fs = require('fs');
-          
-          if (fs.existsSync('security-report.md')) {
-            const report = fs.readFileSync('security-report.md', 'utf8');
-            
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: report
-            });
-          }
+    - name: Validate commit messages
+      run: |
+        # Check if commit messages follow conventional commits
+        git log --oneline -10 | while read line; do
+          if ! echo "$line" | grep -qE "^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+"; then
+            echo "⚠️ Commit message doesn't follow conventional commits: $line"
+          fi
+        done
 

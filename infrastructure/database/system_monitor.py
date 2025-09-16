@@ -243,9 +243,9 @@ class SystemMonitor:
             logger.warning(f"🚨 Alert created: {alert_file}")
             
             # Print alert to console
-            print(f"\n🚨 SYSTEM ALERT: {alert_type.upper()}")
-            print(f"📝 Message: {message}")
-            print(f"📁 Alert saved: {alert_file}")
+            logger.info(f"\n🚨 SYSTEM ALERT: {alert_type.upper()}")
+            logger.info(f"📝 Message: {message}")
+            logger.info(f"📁 Alert saved: {alert_file}")
             
         except Exception as e:
             logger.error(f"❌ Failed to send alert: {e}")
@@ -413,8 +413,8 @@ class SystemMonitor:
 
 def main():
     """Main monitoring system"""
-    print("🚀 Vanta Ledger System Monitor")
-    print("=" * 50)
+    logger.info("🚀 Vanta Ledger System Monitor")
+    logger.info("=")
     
     # Initialize monitor
     monitor = SystemMonitor(check_interval=60, max_restarts=3)
@@ -424,7 +424,7 @@ def main():
         monitor.start_monitoring()
         
     except Exception as e:
-        print(f"❌ Monitoring system error: {e}")
+        logger.error(f"❌ Monitoring system error: {e}")
         logger.error(f"Monitoring system error: {e}")
 
 if __name__ == "__main__":

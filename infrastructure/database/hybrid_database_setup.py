@@ -834,13 +834,13 @@ def main():
         manager = EnhancedHybridDatabaseManager()
         manager.setup_enhanced_system()
         
-        print("\n🎉 Enhanced Vanta Ledger Database Setup Complete!")
-        print("=" * 60)
-        print(f"📊 Companies: {len(ALL_COMPANIES)} total")
-        print("🔗 Network Analysis: Ready")
-        print("📄 Document Processing: Ready")
-        print("📈 Analytics: Ready")
-        print("=" * 60)
+        logger.info("\n🎉 Enhanced Vanta Ledger Database Setup Complete!")
+        logger.info("=")
+        logger.info(f"📊 Companies: {len(ALL_COMPANIES)} total")
+        logger.info("🔗 Network Analysis: Ready")
+        logger.info("📄 Document Processing: Ready")
+        logger.info("📈 Analytics: Ready")
+        logger.info("=")
         
     except Exception as e:
         logger.error(f"Setup failed: {e}")

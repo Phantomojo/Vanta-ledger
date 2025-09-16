@@ -307,16 +307,16 @@ def main():
         success = master.run_complete_integration()
         
         if success:
-            print("\n🎉 Vanta Ledger Integration Successful!")
-            print("Your complete business intelligence system is ready.")
-            print("\nNext steps:")
-            print("1. Review the integration report")
-            print("2. Explore the analytics dashboard")
-            print("3. Analyze network insights")
-            print("4. Process additional documents as needed")
+            logger.info("\n🎉 Vanta Ledger Integration Successful!")
+            logger.info("Your complete business intelligence system is ready.")
+            logger.info("\nNext steps:")
+            logger.info("1. Review the integration report")
+            logger.info("2. Explore the analytics dashboard")
+            logger.info("3. Analyze network insights")
+            logger.info("4. Process additional documents as needed")
         else:
-            print("\n❌ Vanta Ledger Integration Failed!")
-            print("Check the logs for detailed error information.")
+            logger.error("\n❌ Vanta Ledger Integration Failed!")
+            logger.error("Check the logs for detailed error information.")
         
         return 0 if success else 1
         

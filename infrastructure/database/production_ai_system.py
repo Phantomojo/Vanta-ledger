@@ -390,16 +390,16 @@ class ProductionAISystem:
         logger.info(f"📋 Production report saved to: {report_path}")
         
         # Print summary
-        print("\n🎉 Production AI System - Final Report")
-        print("=" * 60)
-        print(f"📊 Documents Processed: {self.metrics['documents_processed']}")
-        print(f"❌ Documents Failed: {self.metrics['documents_failed']}")
-        print(f"⏱️  Total Duration: {duration}")
-        print(f"🚀 Processing Speed: {report['performance']['documents_per_second']:.2f} docs/sec")
-        print(f"✅ Success Rate: {report['performance']['success_rate']:.1f}%")
-        print(f"⏱️  Average Processing Time: {report['performance']['average_processing_time']:.2f}s")
-        print(f"💾 Database Connected: {report['system_info']['database_connected']}")
-        print(f"📁 Report Saved: {report_path}")
+        logger.info("\n🎉 Production AI System - Final Report")
+        logger.info("=")
+        logger.info(f"📊 Documents Processed: {self.metrics[")
+        logger.error(f"❌ Documents Failed: {self.metrics[")
+        logger.info(f"⏱️  Total Duration: {duration}")
+        logger.info(f"🚀 Processing Speed: {report[")
+        logger.info(f"✅ Success Rate: {report[")
+        logger.info(f"⏱️  Average Processing Time: {report[")
+        logger.info(f"💾 Database Connected: {report[")
+        logger.info(f"📁 Report Saved: {report_path}")
 
     def signal_handler(self, signum, frame):
         """Handle shutdown signals gracefully"""
@@ -420,8 +420,8 @@ class ProductionAISystem:
 
 def main():
     """Main production AI system"""
-    print("🚀 Vanta Ledger Production AI System")
-    print("=" * 60)
+    logger.info("🚀 Vanta Ledger Production AI System")
+    logger.info("=")
     
     # Initialize production system
     production_system = ProductionAISystem(max_workers=4, batch_size=10)
@@ -431,17 +431,17 @@ def main():
         success = production_system.process_company_documents()
         
         if success:
-            print("\n🎉 Production AI System completed successfully!")
-            print("✅ All documents processed and saved to database")
-            print("✅ Performance metrics collected")
-            print("✅ System monitoring active")
+            logger.info("\n🎉 Production AI System completed successfully!")
+            logger.info("✅ All documents processed and saved to database")
+            logger.info("✅ Performance metrics collected")
+            logger.info("✅ System monitoring active")
         else:
-            print("\n❌ Production AI System failed!")
+            logger.error("\n❌ Production AI System failed!")
             
     except KeyboardInterrupt:
-        print("\n🛑 Production system interrupted by user")
+        logger.info("\n🛑 Production system interrupted by user")
     except Exception as e:
-        print(f"\n❌ Production system error: {e}")
+        logger.error(f"\n❌ Production system error: {e}")
         logger.error(f"Production system error: {e}")
         logger.error(traceback.format_exc())
     finally:

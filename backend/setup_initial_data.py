@@ -10,6 +10,8 @@ from sqlalchemy.orm import Session
 from src.vanta_ledger.models.user import UserDB
 from src.vanta_ledger.utils.auth import get_password_hash
 from src.vanta_ledger.database import SessionLocal, create_tables
+import logging
+logger = logging.getLogger(__name__)
 
 
 def get_initial_passwords():
@@ -23,10 +25,10 @@ def setup_initial_data():
     """Setup initial data for the system"""
 
     admin_password, auntie_password = get_initial_passwords()
-    print("✅ Initial passwords loaded from environment.")
+    logger.info("✅ Initial passwords loaded from environment.")
 
     # Create database tables
-    print("📊 Creating database tables...")
+    logger.info("📊 Creating database tables...")
     create_tables()
 
     db = SessionLocal()
@@ -46,7 +48,7 @@ def setup_initial_data():
                     role="admin",
                 )
                 db.add(admin_user)
-                print("✅ Admin user created successfully.")
+                logger.info("✅ Admin user created successfully.")
 
             # Check if auntie user already exists
             auntie_user = db.query(UserDB).filter(UserDB.username == "auntie").first()
@@ -61,12 +63,12 @@ def setup_initial_data():
                     role="user",
                 )
                 db.add(auntie_user)
-                print("✅ Auntie user created successfully.")
+                logger.info("✅ Auntie user created successfully.")
 
-            print("🎉 Initial data setup completed successfully!")
+            logger.info("🎉 Initial data setup completed successfully!")
 
     except Exception as e:
-        print(f"❌ Error setting up initial data: {e}")
+        logger.error(f"❌ Error setting up initial data: {e}")
         db.rollback()
         raise
     finally:

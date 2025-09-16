@@ -16,31 +16,33 @@ src_path = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_path))
 
 from vanta_ledger.database import SessionLocal, Document, Company, DocumentAnalysis
+import logging
+logger = logging.getLogger(__name__)
 
 def analyze_document_landscape():
     """Analyze the overall document landscape"""
     db = SessionLocal()
     
-    print("📊 Vanta Ledger Document Analysis Dashboard")
-    print("=" * 60)
+    logger.info("📊 Vanta Ledger Document Analysis Dashboard")
+    logger.info("=")
     
     try:
         # Basic statistics
         total_docs = db.query(Document).count()
         total_companies = db.query(Company).count()
         
-        print(f"\n📈 Basic Statistics:")
-        print(f"   Total Documents: {total_docs:,}")
-        print(f"   Total Companies: {total_companies}")
+        logger.info(f"\n📈 Basic Statistics:")
+        logger.info(f"   Total Documents: {total_docs:,}")
+        logger.info(f"   Total Companies: {total_companies}")
         
         if total_docs == 0:
-            print("\n⚠️  No documents found in database.")
-            print("   Run the Paperless-ngx integration first:")
-            print("   cd src && python -m vanta_ledger.paperless_integration")
+            logger.info("\n⚠️  No documents found in database.")
+            logger.info("   Run the Paperless-ngx integration first:")
+            logger.info("   cd src && python -m vanta_ledger.paperless_integration")
             return
         
         # Document categories
-        print(f"\n📁 Document Categories:")
+        logger.info(f"\n📁 Document Categories:")
         categories = db.query(
             Document.doc_category,
             func.count(Document.id).label('count')
@@ -48,10 +50,10 @@ def analyze_document_landscape():
         
         for category, count in categories:
             percentage = (count / total_docs) * 100
-            print(f"   {category.title()}: {count:,} ({percentage:.1f}%)")
+            logger.info(f"   {category.title()}: {count:,} ({percentage:.1f}%)")
         
         # Document types
-        print(f"\n📄 Document Types:")
+        logger.info(f"\n📄 Document Types:")
         doc_types = db.query(
             Document.doc_type,
             func.count(Document.id).label('count')
@@ -59,10 +61,10 @@ def analyze_document_landscape():
         
         for doc_type, count in doc_types:
             percentage = (count / total_docs) * 100
-            print(f"   {doc_type}: {count:,} ({percentage:.1f}%)")
+            logger.info(f"   {doc_type}: {count:,} ({percentage:.1f}%)")
         
         # Companies with most documents
-        print(f"\n🏢 Companies by Document Count:")
+        logger.info(f"\n🏢 Companies by Document Count:")
         company_docs = db.query(
             Company.name,
             func.count(Document.id).label('count')
@@ -70,10 +72,10 @@ def analyze_document_landscape():
         
         for company, count in company_docs:
             percentage = (count / total_docs) * 100
-            print(f"   {company}: {count:,} ({percentage:.1f}%)")
+            logger.info(f"   {company}: {count:,} ({percentage:.1f}%)")
         
         # Financial analysis
-        print(f"\n💰 Financial Analysis:")
+        logger.info(f"\n💰 Financial Analysis:")
         financial_docs = db.query(Document).filter(
             Document.doc_category == 'financial'
         ).count()
@@ -86,20 +88,20 @@ def analyze_document_landscape():
             Document.amount.isnot(None)
         ).scalar() or 0
         
-        print(f"   Financial Documents: {financial_docs:,}")
-        print(f"   Total Amount Tracked: KES {total_amount:,.2f}")
-        print(f"   Average Document Amount: KES {avg_amount:,.2f}")
+        logger.info(f"   Financial Documents: {financial_docs:,}")
+        logger.info(f"   Total Amount Tracked: KES {total_amount:,.2f}")
+        logger.info(f"   Average Document Amount: KES {avg_amount:,.2f}")
         
         # Document processing timeline
-        print(f"\n📅 Document Processing Timeline:")
+        logger.info(f"\n📅 Document Processing Timeline:")
         recent_docs = db.query(Document).order_by(desc(Document.created_at)).limit(5).all()
         
         for doc in recent_docs:
             days_ago = (datetime.now() - doc.created_at).days
-            print(f"   {doc.filename} - {days_ago} days ago")
+            logger.info(f"   {doc.filename} - {days_ago} days ago")
         
         # Analysis quality
-        print(f"\n🔍 Analysis Quality:")
+        logger.info(f"\n🔍 Analysis Quality:")
         high_confidence = db.query(DocumentAnalysis).filter(
             DocumentAnalysis.confidence_score >= 0.7
         ).count()
@@ -108,11 +110,11 @@ def analyze_document_landscape():
         
         if total_analysis > 0:
             quality_percentage = (high_confidence / total_analysis) * 100
-            print(f"   High Confidence Analysis: {high_confidence:,} ({quality_percentage:.1f}%)")
-            print(f"   Total Analyzed: {total_analysis:,}")
+            logger.info(f"   High Confidence Analysis: {high_confidence:,} ({quality_percentage:.1f}%)")
+            logger.info(f"   Total Analyzed: {total_analysis:,}")
         
         # Recommendations
-        print(f"\n💡 Recommendations:")
+        logger.info(f"\n💡 Recommendations:")
         
         # Check for missing company assignments
         unassigned_docs = db.query(Document).filter(
@@ -120,7 +122,7 @@ def analyze_document_landscape():
         ).count()
         
         if unassigned_docs > 0:
-            print(f"   ⚠️  {unassigned_docs:,} documents need company assignment")
+            logger.info(f"   ⚠️  {unassigned_docs:,} documents need company assignment")
         
         # Check for expired documents
         expired_docs = db.query(Document).filter(
@@ -128,7 +130,7 @@ def analyze_document_landscape():
         ).count()
         
         if expired_docs > 0:
-            print(f"   ⚠️  {expired_docs:,} documents have expired")
+            logger.info(f"   ⚠️  {expired_docs:,} documents have expired")
         
         # Check for documents without amounts
         docs_without_amounts = db.query(Document).filter(
@@ -137,12 +139,12 @@ def analyze_document_landscape():
         ).count()
         
         if docs_without_amounts > 0:
-            print(f"   ⚠️  {docs_without_amounts:,} financial documents need amount extraction")
+            logger.info(f"   ⚠️  {docs_without_amounts:,} financial documents need amount extraction")
         
-        print(f"\n✅ Analysis complete!")
+        logger.info(f"\n✅ Analysis complete!")
         
     except Exception as e:
-        print(f"❌ Error during analysis: {e}")
+        logger.error(f"❌ Error during analysis: {e}")
     finally:
         db.close()
 
@@ -150,26 +152,26 @@ def show_document_details():
     """Show detailed information about specific documents"""
     db = SessionLocal()
     
-    print(f"\n📋 Recent Document Details:")
-    print("-" * 60)
+    logger.info(f"\n📋 Recent Document Details:")
+    logger.info("-")
     
     try:
         recent_docs = db.query(Document).order_by(desc(Document.created_at)).limit(10).all()
         
         for doc in recent_docs:
-            print(f"\n📄 {doc.filename}")
-            print(f"   Type: {doc.doc_type}")
-            print(f"   Category: {doc.doc_category}")
-            print(f"   Company: {doc.company.name if doc.company else 'Unassigned'}")
-            print(f"   Amount: KES {doc.amount:,.2f}" if doc.amount else "   Amount: Not extracted")
-            print(f"   Created: {doc.created_at.strftime('%Y-%m-%d %H:%M')}")
+            logger.info(f"\n📄 {doc.filename}")
+            logger.info(f"   Type: {doc.doc_type}")
+            logger.info(f"   Category: {doc.doc_category}")
+            logger.info(f"   Company: {doc.company.name if doc.company else ")
+            logger.info(f"   Amount: KES {doc.amount:,.2f}")
+            logger.info(f"   Created: {doc.created_at.strftime(")}")
             
             if doc.ocr_text:
                 preview = doc.ocr_text[:100].replace('\n', ' ') + "..."
-                print(f"   Preview: {preview}")
+                logger.info(f"   Preview: {preview}")
     
     except Exception as e:
-        print(f"❌ Error showing document details: {e}")
+        logger.error(f"❌ Error showing document details: {e}")
     finally:
         db.close()
 
@@ -178,11 +180,11 @@ def main():
     analyze_document_landscape()
     show_document_details()
     
-    print(f"\n🎯 Next Steps:")
-    print("1. Assign companies to unassigned documents")
-    print("2. Extract amounts from financial documents")
-    print("3. Review and update expired documents")
-    print("4. Set up automated tagging and categorization")
+    logger.info(f"\n🎯 Next Steps:")
+    logger.info("1. Assign companies to unassigned documents")
+    logger.info("2. Extract amounts from financial documents")
+    logger.info("3. Review and update expired documents")
+    logger.info("4. Set up automated tagging and categorization")
 
 if __name__ == "__main__":
     main() 

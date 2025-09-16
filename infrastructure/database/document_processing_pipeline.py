@@ -562,8 +562,8 @@ def main():
     try:
         # This would be called from the main application
         # For now, we'll just show the structure
-        print("Document Processing Pipeline Ready")
-        print("Use this class to process all organized company documents")
+        logger.info("Document Processing Pipeline Ready")
+        logger.info("Use this class to process all organized company documents")
         
     except Exception as e:
         logger.error(f"Document processing failed: {e}")

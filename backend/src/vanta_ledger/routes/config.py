@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends
 
 from ..auth import verify_token

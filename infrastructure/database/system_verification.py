@@ -283,8 +283,8 @@ def main():
     try:
         verifier = SystemVerifier()
         
-        print("\n🔍 Vanta Ledger System Verification & Cleanup")
-        print("=" * 50)
+        logger.info("\n🔍 Vanta Ledger System Verification & Cleanup")
+        logger.info("=")
         
         # Generate comprehensive report
         report = verifier.generate_verification_report()
@@ -294,44 +294,44 @@ def main():
         
         # Display summary
         health = report.get("system_health", {})
-        print(f"\n📊 System Health Summary:")
-        print(f"   Overall Status: {health.get('overall_status', 'unknown').upper()}")
-        print(f"   Health Score: {health.get('health_score', 0):.1f}%")
-        print(f"   Healthy Components: {', '.join(health.get('healthy_components', []))}")
+        logger.info(f"\n📊 System Health Summary:")
+        logger.info(f"   Overall Status: {health.get(").upper()}")
+        logger.info(f"   Health Score: {health.get(")
+        logger.info(f"   Healthy Components: {")
         
         # Docker status
         docker = report.get("docker_containers", {})
-        print(f"\n🐳 Docker Status:")
-        print(f"   Containers: {docker.get('healthy_containers', 0)}/{docker.get('total_containers', 0)} healthy")
+        logger.info(f"\n🐳 Docker Status:")
+        logger.info(f"   Containers: {docker.get(")
         
         # Database status
         db = report.get("database_connections", {})
-        print(f"\n🗄️ Database Status:")
-        print(f"   PostgreSQL: {'✅ Connected' if db.get('postgresql', {}).get('connected') else '❌ Failed'}")
-        print(f"   MongoDB: {'✅ Connected' if db.get('mongodb', {}).get('connected') else '❌ Failed'}")
+        logger.info(f"\n🗄️ Database Status:")
+        logger.info(f"   PostgreSQL: {") else '❌ Failed'}")
+        logger.info(f"   MongoDB: {") else '❌ Failed'}")
         
         # API status
         api = report.get("api_endpoints", {})
-        print(f"\n🌐 API Status:")
-        print(f"   Health Endpoint: {'✅ Accessible' if api.get('health', {}).get('accessible') else '❌ Failed'}")
-        print(f"   Documentation: {'✅ Accessible' if api.get('docs', {}).get('accessible') else '❌ Failed'}")
+        logger.info(f"\n🌐 API Status:")
+        logger.info(f"   Health Endpoint: {") else '❌ Failed'}")
+        logger.info(f"   Documentation: {") else '❌ Failed'}")
         
         # Migration status
         migration = report.get("migration_data", {})
-        print(f"\n📊 Migration Status:")
-        print(f"   Documents Migrated: {migration.get('total_migrated', 0)}")
-        print(f"   Success Rate: {migration.get('success_rate', '0%')}")
+        logger.info(f"\n📊 Migration Status:")
+        logger.info(f"   Documents Migrated: {migration.get(")
+        logger.info(f"   Success Rate: {migration.get(")}")
         
         # Cleanup results
         cleanup = report.get("cleanup_results", {})
-        print(f"\n🧹 Cleanup Results:")
-        print(f"   Log Files Cleaned: {cleanup.get('log_files_cleaned', 0)}")
-        print(f"   Temp Files Cleaned: {cleanup.get('temp_files_cleaned', 0)}")
+        logger.info(f"\n🧹 Cleanup Results:")
+        logger.info(f"   Log Files Cleaned: {cleanup.get(")
+        logger.info(f"   Temp Files Cleaned: {cleanup.get(")
         
         if health.get("overall_status") == "healthy":
-            print(f"\n🎉 SYSTEM VERIFICATION COMPLETE - ALL SYSTEMS OPERATIONAL!")
+            logger.info(f"\n🎉 SYSTEM VERIFICATION COMPLETE - ALL SYSTEMS OPERATIONAL!")
         else:
-            print(f"\n⚠️ SYSTEM VERIFICATION COMPLETE - SOME ISSUES DETECTED")
+            logger.info(f"\n⚠️ SYSTEM VERIFICATION COMPLETE - SOME ISSUES DETECTED")
         
     except Exception as e:
         logger.error(f"Verification failed: {e}")

@@ -573,8 +573,8 @@ def main():
     try:
         # This would be called from the main application
         # For now, we'll just show the structure
-        print("Analytics Dashboard Engine Ready")
-        print("Use this class to generate comprehensive business analytics")
+        logger.info("Analytics Dashboard Engine Ready")
+        logger.info("Use this class to generate comprehensive business analytics")
         
     except Exception as e:
         logger.error(f"Analytics dashboard failed: {e}")

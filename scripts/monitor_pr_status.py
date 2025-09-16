@@ -9,6 +9,8 @@ import subprocess
 import sys
 from datetime import datetime
 from typing import Dict, List, Any
+import logging
+logger = logging.getLogger(__name__)
 
 def run_gh_command(command: str) -> Dict[str, Any]:
     """Run a GitHub CLI command and return JSON result"""
@@ -22,17 +24,17 @@ def run_gh_command(command: str) -> Dict[str, Any]:
         )
         return json.loads(result.stdout)
     except subprocess.CalledProcessError as e:
-        print(f"❌ Error running command: gh {command}")
-        print(f"Error: {e.stderr}")
+        logger.error(f"❌ Error running command: gh {command}")
+        logger.error(f"Error: {e.stderr}")
         return {}
     except json.JSONDecodeError as e:
-        print(f"❌ Error parsing JSON from: gh {command}")
+        logger.error(f"❌ Error parsing JSON from: gh {command}")
         return {}
 
 def analyze_pr_status(pr_number: int = 23) -> Dict[str, Any]:
     """Analyze PR status and return detailed report"""
-    print(f"🔍 Analyzing PR #{pr_number} Status...")
-    print("=" * 60)
+    logger.info(f"🔍 Analyzing PR #{pr_number} Status...")
+    logger.info("=")
     
     # Get PR details
     pr_data = run_gh_command(f"pr view {pr_number} --json statusCheckRollup,state,title,reviews")
@@ -97,10 +99,10 @@ def analyze_pr_status(pr_number: int = 23) -> Dict[str, Any]:
 
 def print_status_report(summary: Dict[str, Any]):
     """Print a formatted status report"""
-    print(f"📋 PR #{summary['pr_number']} Status Report")
-    print(f"📝 Title: {summary['title']}")
-    print(f"🔗 State: {summary['state']}")
-    print(f"⏰ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"📋 PR #{summary[")
+    logger.info(f"📝 Title: {summary[")
+    logger.info(f"🔗 State: {summary[")
+    logger.info(f"⏰ Generated: {datetime.now().strftime(")}")
     print()
     
     # Overall status
@@ -108,40 +110,40 @@ def print_status_report(summary: Dict[str, Any]):
     failed = summary['failed']
     successful = summary['successful']
     
-    print("📊 Overall Status:")
-    print(f"   Total Checks: {total}")
-    print(f"   ✅ Successful: {successful}")
-    print(f"   ❌ Failed: {failed}")
-    print(f"   ⏸️  Cancelled: {summary['cancelled']}")
-    print(f"   ⏭️  Skipped: {summary['skipped']}")
-    print(f"   🔄 In Progress: {summary['in_progress']}")
+    logger.info("📊 Overall Status:")
+    logger.info(f"   Total Checks: {total}")
+    logger.info(f"   ✅ Successful: {successful}")
+    logger.error(f"   ❌ Failed: {failed}")
+    logger.info(f"   ⏸️  Cancelled: {summary[")
+    logger.info(f"   ⏭️  Skipped: {summary[")
+    logger.info(f"   🔄 In Progress: {summary[")
     print()
     
     # Success rate
     if total > 0:
         success_rate = (successful / total) * 100
-        print(f"📈 Success Rate: {success_rate:.1f}%")
+        logger.info(f"📈 Success Rate: {success_rate:.1f}%")
         
         if success_rate == 100:
-            print("🎉 All checks are passing!")
+            logger.info("🎉 All checks are passing!")
         elif success_rate >= 80:
-            print("⚠️  Most checks are passing, but some issues remain")
+            logger.info("⚠️  Most checks are passing, but some issues remain")
         else:
-            print("🚨 Many checks are failing - immediate attention needed")
+            logger.error("🚨 Many checks are failing - immediate attention needed")
         print()
     
     # Failed checks details
     if summary['failed_checks']:
-        print("❌ Failed Checks:")
+        logger.error("❌ Failed Checks:")
         for check in summary['failed_checks']:
-            print(f"   • {check['name']} ({check['workflow']})")
+            logger.info(f"   • {check[")
             if check['details_url']:
-                print(f"     🔗 {check['details_url']}")
+                logger.info(f"     🔗 {check[")
         print()
     
     # Successful checks
     if summary['successful_checks']:
-        print("✅ Successful Checks:")
+        logger.info("✅ Successful Checks:")
         workflows = {}
         for check in summary['successful_checks']:
             workflow = check['workflow']
@@ -150,21 +152,21 @@ def print_status_report(summary: Dict[str, Any]):
             workflows[workflow].append(check['name'])
         
         for workflow, checks in workflows.items():
-            print(f"   📁 {workflow}:")
+            logger.info(f"   📁 {workflow}:")
             for check in checks:
-                print(f"     • {check}")
+                logger.info(f"     • {check}")
         print()
     
     # Recommendations
-    print("💡 Recommendations:")
+    logger.info("💡 Recommendations:")
     if failed > 0:
-        print("   🔧 Fix the failing checks before merging")
-        print("   📋 Review the failed check details for specific issues")
+        logger.error("   🔧 Fix the failing checks before merging")
+        logger.error("   📋 Review the failed check details for specific issues")
     else:
-        print("   ✅ PR is ready for review and potential merge")
+        logger.info("   ✅ PR is ready for review and potential merge")
     
     if summary['in_progress'] > 0:
-        print("   ⏳ Wait for in-progress checks to complete")
+        logger.info("   ⏳ Wait for in-progress checks to complete")
     
     print()
 
@@ -173,35 +175,35 @@ def get_detailed_failure_info(summary: Dict[str, Any]):
     if not summary['failed_checks']:
         return
     
-    print("🔍 Detailed Failure Analysis:")
-    print("=" * 60)
+    logger.error("🔍 Detailed Failure Analysis:")
+    logger.info("=")
     
     for check in summary['failed_checks']:
-        print(f"\n📋 {check['name']}")
-        print(f"   Workflow: {check['workflow']}")
-        print(f"   Status: {check['status']}")
-        print(f"   Conclusion: {check['conclusion']}")
+        logger.info(f"\n📋 {check[")
+        logger.info(f"   Workflow: {check[")
+        logger.info(f"   Status: {check[")
+        logger.info(f"   Conclusion: {check[")
         
         # Try to get more details if available
         if check['details_url']:
-            print(f"   🔗 Details: {check['details_url']}")
+            logger.info(f"   🔗 Details: {check[")
             
             # Extract run ID from URL for potential log access
             if "actions/runs/" in check['details_url']:
                 run_id = check['details_url'].split("actions/runs/")[1].split("/")[0]
-                print(f"   🆔 Run ID: {run_id}")
-                print(f"   📝 To view logs: gh run view {run_id} --log-failed")
+                logger.info(f"   🆔 Run ID: {run_id}")
+                logger.error(f"   📝 To view logs: gh run view {run_id} --log-failed")
 
 def main():
     """Main monitoring function"""
-    print("🚀 Vanta Ledger PR Status Monitor")
-    print("=" * 60)
+    logger.info("🚀 Vanta Ledger PR Status Monitor")
+    logger.info("=")
     
     # Analyze PR status
     summary = analyze_pr_status(23)
     
     if "error" in summary:
-        print(f"❌ {summary['error']}")
+        logger.error(f"❌ {summary[")
         return 1
     
     # Print status report
@@ -211,14 +213,14 @@ def main():
     get_detailed_failure_info(summary)
     
     # Final assessment
-    print("🎯 Final Assessment:")
+    logger.info("🎯 Final Assessment:")
     if summary['failed'] == 0:
-        print("   ✅ PR #23 is READY TO MERGE")
-        print("   🎉 All checks are passing")
+        logger.info("   ✅ PR #23 is READY TO MERGE")
+        logger.info("   🎉 All checks are passing")
         return 0
     else:
-        print("   ❌ PR #23 is NOT READY TO MERGE")
-        print(f"   🔧 {summary['failed']} checks need to be fixed")
+        logger.info("   ❌ PR #23 is NOT READY TO MERGE")
+        logger.error(f"   🔧 {summary[")
         return 1
 
 if __name__ == "__main__":

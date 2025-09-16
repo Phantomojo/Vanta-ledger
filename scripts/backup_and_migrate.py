@@ -406,91 +406,91 @@ class BackupAndMigrationManager:
     
     def display_migration_summary(self):
         """Display migration summary"""
-        print("\n" + "="*60)
-        print("🎉 BACKUP AND MIGRATION COMPLETED!")
-        print("="*60)
+        logger.info("\n")
+        logger.info("🎉 BACKUP AND MIGRATION COMPLETED!")
+        logger.info("=")
         
-        print(f"\n📁 Backup Location: {self.backup_dir}")
-        print(f"📁 Old Data Backup: {self.old_data_dir}")
+        logger.info(f"\n📁 Backup Location: {self.backup_dir}")
+        logger.info(f"📁 Old Data Backup: {self.old_data_dir}")
         
-        print("\n✅ What was backed up:")
-        print("   • MongoDB JSON data files")
-        print("   • SQLite databases (vanta_ledger_unified.db, vanta_ledger_fixed.db)")
-        print("   • Application files and configuration")
-        print("   • Docker containers and volumes (if running)")
+        logger.info("\n✅ What was backed up:")
+        logger.info("   • MongoDB JSON data files")
+        logger.info("   • SQLite databases (vanta_ledger_unified.db, vanta_ledger_fixed.db)")
+        logger.info("   • Application files and configuration")
+        logger.info("   • Docker containers and volumes (if running)")
         
-        print("\n✅ What was cleared:")
-        print("   • Old MongoDB data directories")
-        print("   • Old PostgreSQL data directories")
-        print("   • Old Docker containers and volumes")
-        print("   • SQLite databases (moved to backup)")
+        logger.info("\n✅ What was cleared:")
+        logger.info("   • Old MongoDB data directories")
+        logger.info("   • Old PostgreSQL data directories")
+        logger.info("   • Old Docker containers and volumes")
+        logger.info("   • SQLite databases (moved to backup)")
         
-        print("\n✅ What was set up:")
-        print("   • New hybrid PostgreSQL + MongoDB system")
-        print("   • 10 family companies populated")
-        print("   • Sample projects created")
-        print("   • Admin user configured")
+        logger.info("\n✅ What was set up:")
+        logger.info("   • New hybrid PostgreSQL + MongoDB system")
+        logger.info("   • 10 family companies populated")
+        logger.info("   • Sample projects created")
+        logger.info("   • Admin user configured")
         
-        print("\n🔐 Admin Access:")
-        print("   Username: admin")
-        print("   Password: Check your .env file or use create_secure_admin.py")
+        logger.info("\n🔐 Admin Access:")
+        logger.info("   Username: admin")
+        logger.info("   Password: Check your .env file or use create_secure_admin.py")
         
-        print("\n📊 Database Access:")
-        print("   • PostgreSQL: localhost:5432/vanta_ledger")
-        print("   • MongoDB: localhost:27017/vanta_ledger")
-        print("   • Mongo Express: http://localhost:8081")
-        print("   • pgAdmin: http://localhost:8080")
+        logger.info("\n📊 Database Access:")
+        logger.info("   • PostgreSQL: localhost:5432/vanta_ledger")
+        logger.info("   • MongoDB: localhost:27017/vanta_ledger")
+        logger.info("   • Mongo Express: http://localhost:8081")
+        logger.info("   • pgAdmin: http://localhost:8080")
         
-        print("\n📚 Backup Files:")
+        logger.info("\n📚 Backup Files:")
         if os.path.exists(self.backup_dir):
             for item in os.listdir(self.backup_dir):
-                print(f"   • {item}")
+                logger.info(f"   • {item}")
         
-        print("\n" + "="*60)
+        logger.info("\n")
     
     def display_rollback_instructions(self):
         """Display rollback instructions in case of failure"""
-        print("\n" + "="*60)
-        print("🔄 ROLLBACK INSTRUCTIONS")
-        print("="*60)
+        logger.info("\n")
+        logger.info("🔄 ROLLBACK INSTRUCTIONS")
+        logger.info("=")
         
-        print(f"\n📁 Your backup is located at: {self.backup_dir}")
-        print(f"📁 Old data backup: {self.old_data_dir}")
-        print("\nTo rollback to the previous system:")
-        print("1. Stop any running containers")
-        print("2. Restore from backup directory")
-        print("3. Restart the old system")
+        logger.info(f"\n📁 Your backup is located at: {self.backup_dir}")
+        logger.info(f"📁 Old data backup: {self.old_data_dir}")
+        logger.info("\nTo rollback to the previous system:")
+        logger.info("1. Stop any running containers")
+        logger.info("2. Restore from backup directory")
+        logger.info("3. Restart the old system")
         
-        print("\nBackup contents:")
+        logger.info("\nBackup contents:")
         if os.path.exists(self.backup_dir):
             for item in os.listdir(self.backup_dir):
-                print(f"   • {item}")
+                logger.info(f"   • {item}")
         
-        print("\n" + "="*60)
+        logger.info("\n")
 
 def main():
     """Main function"""
-    print("🚀 Vanta Ledger Backup and Migration")
-    print("="*50)
+    logger.info("🚀 Vanta Ledger Backup and Migration")
+    logger.info("=")
     
     # Show current state
-    print("\n📊 Current System State:")
-    print("   • MongoDB JSON files found in database/mongodb/")
-    print("   • SQLite databases: vanta_ledger_unified.db, vanta_ledger_fixed.db")
-    print("   • Docker containers: Not running")
+    logger.info("\n📊 Current System State:")
+    logger.info("   • MongoDB JSON files found in database/mongodb/")
+    logger.info("   • SQLite databases: vanta_ledger_unified.db, vanta_ledger_fixed.db")
+    logger.info("   • Docker containers: Not running")
     
     # Confirm with user
-    print("\n⚠️  WARNING: This will backup and then clear all existing databases!")
-    print("This process will:")
-    print("1. Backup all existing data (JSON files, SQLite DBs, config files)")
-    print("2. Stop and remove old containers (if Docker is running)")
-    print("3. Clear old database data")
-    print("4. Set up new hybrid PostgreSQL + MongoDB system")
-    print("5. Populate with 10 family companies")
+    logger.warning("\n⚠️  WARNING: This will backup and then clear all existing databases!")
+    logger.info("This process will:")
+    logger.info("1. Backup all existing data (JSON files, SQLite DBs, config files)")
+    logger.info("2. Stop and remove old containers (if Docker is running)")
+    logger.info("3. Clear old database data")
+    logger.info("4. Set up new hybrid PostgreSQL + MongoDB system")
+    logger.info("5. Populate with 10 family companies")
     
     response = input("\nDo you want to continue? (yes/no): ")
     if response.lower() != 'yes':
-        print("❌ Migration cancelled by user")
+        logger.info("❌ Migration cancelled by user")
         sys.exit(0)
     
     # Run migration

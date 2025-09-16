@@ -303,15 +303,15 @@ def main():
         # Create summary
         summary = migrator.create_migration_summary(migrated_count, failed_count)
         
-        print("\n🎉 Document Migration Complete!")
-        print("=" * 50)
-        print(f"✅ Successfully migrated: {migrated_count} documents")
-        print(f"❌ Failed migrations: {failed_count} documents")
-        print(f"📊 Success rate: {summary['success_rate']}")
-        print("\n📊 Database Status:")
-        print("   PostgreSQL: Documents metadata and ledger entries")
-        print("   MongoDB: Document analysis and entities data")
-        print("   Redis: Caching and session management")
+        logger.info("\n🎉 Document Migration Complete!")
+        logger.info("=")
+        logger.info(f"✅ Successfully migrated: {migrated_count} documents")
+        logger.error(f"❌ Failed migrations: {failed_count} documents")
+        logger.info(f"📊 Success rate: {summary[")
+        logger.info("\n📊 Database Status:")
+        logger.info("   PostgreSQL: Documents metadata and ledger entries")
+        logger.info("   MongoDB: Document analysis and entities data")
+        logger.info("   Redis: Caching and session management")
         
     except Exception as e:
         logger.error(f"Migration failed: {e}")

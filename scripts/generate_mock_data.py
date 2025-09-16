@@ -9,6 +9,8 @@ import json
 import random
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
+import logging
+logger = logging.getLogger(__name__)
 
 DATABASE_PATH = "vanta_ledger.db"
 
@@ -217,7 +219,7 @@ class MockDataGenerator:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
-        print("🗄️ Generating and populating database with mock data...")
+        logger.info("🗄️ Generating and populating database with mock data...")
         
         # Clear existing data
         cursor.execute("DELETE FROM ai_insights")
@@ -226,11 +228,11 @@ class MockDataGenerator:
         
         # Generate documents
         documents = self.generate_documents(document_count)
-        print(f"📄 Generated {len(documents)} documents")
+        logger.info(f"📄 Generated {len(documents)} documents")
         
         # Generate AI insights
         insights = self.generate_ai_insights(documents)
-        print(f"🤖 Generated {len(insights)} AI insights")
+        logger.info(f"🤖 Generated {len(insights)} AI insights")
         
         # Insert AI insights
         for insight in insights:
@@ -270,12 +272,12 @@ class MockDataGenerator:
         conn.commit()
         conn.close()
         
-        print("✅ Database populated successfully!")
-        print(f"📊 Summary:")
-        print(f"   - Documents: {len(documents)}")
-        print(f"   - AI Insights: {len(insights)}")
-        print(f"   - Projects: {len(projects)}")
-        print(f"   - Analytics: {len(analytics)} metrics")
+        logger.info("✅ Database populated successfully!")
+        logger.info(f"📊 Summary:")
+        logger.info(f"   - Documents: {len(documents)}")
+        logger.info(f"   - AI Insights: {len(insights)}")
+        logger.info(f"   - Projects: {len(projects)}")
+        logger.info(f"   - Analytics: {len(analytics)} metrics")
         
         return documents, insights, projects, analytics
 
@@ -283,5 +285,5 @@ if __name__ == '__main__':
     generator = MockDataGenerator()
     documents, insights, projects, analytics = generator.populate_database(100)
     
-    print("\n🎉 Mock data generation complete!")
-    print("🌐 Your Vanta Ledger dashboard is now ready with realistic data!") 
+    logger.info("\n🎉 Mock data generation complete!")
+    logger.info("🌐 Your Vanta Ledger dashboard is now ready with realistic data!") 

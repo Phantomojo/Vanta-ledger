@@ -328,30 +328,30 @@ def main():
     This is a profitable Kenyan construction project with excellent financial terms.
     """
     
-    print("🧪 Testing Kenyan Financial Processor...")
-    print("=" * 60)
+    logger.info("🧪 Testing Kenyan Financial Processor...")
+    logger.info("=")
     
     # Analyze the document
     analysis = processor.analyze_kenyan_financial_document(sample_text)
     
-    print("📊 Kenyan Entities Found:")
+    logger.info("📊 Kenyan Entities Found:")
     for entity_type, values in analysis['kenyan_entities'].items():
         if values:
-            print(f"  {entity_type}: {values}")
+            logger.info(f"  {entity_type}: {values}")
     
-    print(f"\n💰 KSH Amounts Found:")
+    logger.info(f"\n💰 KSH Amounts Found:")
     for amount in analysis['ksh_amounts']:
-        print(f"  {amount['text']} = KSh {amount['value']:,.2f}")
+        logger.info(f"  {amount[")
     
-    print(f"\n📄 Document Type: {analysis['document_type']}")
-    print(f"   Scores: {analysis['document_type_scores']}")
+    logger.info(f"\n📄 Document Type: {analysis[")
+    logger.info(f"   Scores: {analysis[")
     
-    print(f"\n💵 Total KSH Value: KSh {analysis['total_ksh_value']:,.2f}")
+    logger.info(f"\n💵 Total KSH Value: KSh {analysis[")
     
     if analysis['largest_amount']:
-        print(f"🏆 Largest Amount: {analysis['largest_amount']['text']} = KSh {analysis['largest_amount']['value']:,.2f}")
+        logger.info(f"🏆 Largest Amount: {analysis[")
     
-    print("\n✅ Kenyan Financial Processor is working perfectly!")
+    logger.info("\n✅ Kenyan Financial Processor is working perfectly!")
 
 if __name__ == "__main__":
     main() 

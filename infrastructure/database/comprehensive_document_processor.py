@@ -638,30 +638,30 @@ def main():
     This is a comprehensive business contract with excellent terms and conditions.
     """
     
-    print("🧪 Testing Comprehensive Document Processor...")
-    print("=" * 70)
+    logger.info("🧪 Testing Comprehensive Document Processor...")
+    logger.info("=")
     
     # Test entity extraction
     entities = processor.extract_comprehensive_entities(sample_text)
-    print("📊 Extracted Entities:")
+    logger.info("📊 Extracted Entities:")
     for entity_type, values in entities.items():
         if values:
-            print(f"  {entity_type}: {values}")
+            logger.info(f"  {entity_type}: {values}")
     
     # Test document classification
     doc_type = processor.classify_document_type(sample_text)
-    print(f"\n📄 Document Type: {max(doc_type, key=doc_type.get)}")
-    print(f"   Scores: {doc_type}")
+    logger.info(f"\n📄 Document Type: {max(doc_type, key=doc_type.get)}")
+    logger.info(f"   Scores: {doc_type}")
     
     # Test sentiment analysis
     sentiment = processor.analyze_sentiment(sample_text)
-    print(f"\n😊 Sentiment: {sentiment['sentiment']} (confidence: {sentiment['confidence']:.2f})")
+    logger.info(f"\n😊 Sentiment: {sentiment[")
     
     # Test key phrases
     phrases = processor.extract_key_phrases(sample_text)
-    print(f"\n🔑 Key Phrases: {phrases}")
+    logger.info(f"\n🔑 Key Phrases: {phrases}")
     
-    print("\n✅ Comprehensive Document Processor is working perfectly!")
+    logger.info("\n✅ Comprehensive Document Processor is working perfectly!")
 
 if __name__ == "__main__":
     main() 

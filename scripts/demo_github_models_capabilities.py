@@ -9,8 +9,8 @@ from pathlib import Path
 
 def show_project_structure():
     """Show the GitHub Models integration structure"""
-    print("🏗️  GitHub Models Integration Structure")
-    print("=" * 50)
+    logger.info("🏗️  GitHub Models Integration Structure")
+    logger.info("=")
     
     structure = {
         "📁 prompts/": {
@@ -42,19 +42,19 @@ def show_project_structure():
     
     def print_structure(items, indent=0):
         for key, value in items.items():
-            print("  " * indent + key)
+            logger.info("  ")
             if isinstance(value, dict):
                 print_structure(value, indent + 1)
             elif isinstance(value, list):
                 for item in value:
-                    print("  " * (indent + 1) + "• " + item)
+                    logger.info("  ") + "• " + item)
     
     print_structure(structure)
 
 def show_prompt_templates():
     """Show available YAML prompt templates"""
-    print("\n📝 YAML Prompt Templates")
-    print("=" * 50)
+    logger.info("\n📝 YAML Prompt Templates")
+    logger.info("=")
     
     prompt_dir = Path("prompts")
     if prompt_dir.exists():
@@ -77,20 +77,20 @@ def show_prompt_templates():
                     elif line.startswith('model:'):
                         model = line.split(':', 1)[1].strip()
                 
-                print(f"\n✅ {prompt_file.name}")
-                print(f"   Name: {name}")
-                print(f"   Description: {description}")
-                print(f"   Model: {model}")
+                logger.info(f"\n✅ {prompt_file.name}")
+                logger.info(f"   Name: {name}")
+                logger.info(f"   Description: {description}")
+                logger.info(f"   Model: {model}")
                 
             except Exception as e:
-                print(f"❌ Error reading {prompt_file}: {e}")
+                logger.error(f"❌ Error reading {prompt_file}: {e}")
     else:
-        print("❌ Prompts directory not found")
+        logger.info("❌ Prompts directory not found")
 
 def show_api_endpoints():
     """Show available API endpoints"""
-    print("\n🌐 GitHub Models API Endpoints")
-    print("=" * 50)
+    logger.info("\n🌐 GitHub Models API Endpoints")
+    logger.info("=")
     
     endpoints = {
         "Health & Status": [
@@ -116,14 +116,14 @@ def show_api_endpoints():
     }
     
     for category, endpoint_list in endpoints.items():
-        print(f"\n📂 {category}:")
+        logger.info(f"\n📂 {category}:")
         for endpoint in endpoint_list:
-            print(f"   • {endpoint}")
+            logger.info(f"   • {endpoint}")
 
 def show_usage_examples():
     """Show usage examples"""
-    print("\n💡 Usage Examples")
-    print("=" * 50)
+    logger.info("\n💡 Usage Examples")
+    logger.info("=")
     
     examples = {
         "Environment Setup": '''
@@ -180,6 +180,8 @@ curl -X POST http://localhost:8500/github-models/analyze-document-upload \\
         
         "System Analysis": '''
 from src.vanta_ledger.services.system_analysis_service import system_analysis_service
+import logging
+logger = logging.getLogger(__name__)
 
 # Analyze system health
 health = await system_analysis_service.analyze_system_health()
@@ -200,15 +202,15 @@ project_analysis = await system_analysis_service.analyze_project_codebase(
     }
     
     for category, example in examples.items():
-        print(f"\n📋 {category}:")
-        print("```")
-        print(example.strip())
-        print("```")
+        logger.info(f"\n📋 {category}:")
+        logger.info("```")
+        logger.info(example.strip())
+        logger.info("```")
 
 def show_capabilities():
     """Show AI capabilities and features"""
-    print("\n🤖 AI Capabilities")
-    print("=" * 50)
+    logger.info("\n🤖 AI Capabilities")
+    logger.info("=")
     
     capabilities = {
         "Financial Document Processing": [
@@ -244,14 +246,14 @@ def show_capabilities():
     }
     
     for category, feature_list in capabilities.items():
-        print(f"\n🎯 {category}:")
+        logger.info(f"\n🎯 {category}:")
         for feature in feature_list:
-            print(f"   {feature}")
+            logger.info(f"   {feature}")
 
 def show_security_features():
     """Show security and best practices"""
-    print("\n🔒 Security & Best Practices")
-    print("=" * 50)
+    logger.info("\n🔒 Security & Best Practices")
+    logger.info("=")
     
     security_features = [
         "✅ No hardcoded secrets - uses environment variables only",
@@ -264,22 +266,22 @@ def show_security_features():
         "✅ Template-based prompts prevent injection attacks"
     ]
     
-    print("🛡️  Security Features:")
+    logger.info("🛡️  Security Features:")
     for feature in security_features:
-        print(f"   {feature}")
+        logger.info(f"   {feature}")
     
-    print(f"\n⚠️  Important Notes:")
-    print(f"   • Never commit GITHUB_TOKEN to version control")
-    print(f"   • Use environment variables or secure secret management")
-    print(f"   • Monitor API usage and costs")
-    print(f"   • Review AI responses before acting on recommendations")
-    print(f"   • Implement proper access controls for sensitive endpoints")
+    logger.info(f"\n⚠️  Important Notes:")
+    logger.info(f"   • Never commit GITHUB_TOKEN to version control")
+    logger.info(f"   • Use environment variables or secure secret management")
+    logger.info(f"   • Monitor API usage and costs")
+    logger.info(f"   • Review AI responses before acting on recommendations")
+    logger.info(f"   • Implement proper access controls for sensitive endpoints")
 
 def main():
     """Run the complete demo"""
-    print("🚀 GitHub Models Integration Demo")
-    print("Vanta Ledger - Advanced AI-Powered Financial Analysis")
-    print("=" * 80)
+    logger.info("🚀 GitHub Models Integration Demo")
+    logger.info("Vanta Ledger - Advanced AI-Powered Financial Analysis")
+    logger.info("=")
     
     show_project_structure()
     show_prompt_templates()
@@ -288,20 +290,20 @@ def main():
     show_usage_examples()
     show_security_features()
     
-    print(f"\n🎉 GitHub Models Integration Complete!")
-    print("=" * 80)
-    print(f"📚 Next Steps:")
-    print(f"   1. Set your GITHUB_TOKEN environment variable")
-    print(f"   2. Run: python test_github_models_integration.py")
-    print(f"   3. Start the server: python -m uvicorn src.vanta_ledger.main:app --reload")
-    print(f"   4. Test API endpoints at: http://localhost:8500/docs")
-    print(f"   5. Upload documents via: /github-models/analyze-document-upload")
+    logger.info(f"\n🎉 GitHub Models Integration Complete!")
+    logger.info("=")
+    logger.info(f"📚 Next Steps:")
+    logger.info(f"   1. Set your GITHUB_TOKEN environment variable")
+    logger.info(f"   2. Run: python test_github_models_integration.py")
+    logger.info(f"   3. Start the server: python -m uvicorn src.vanta_ledger.main:app --reload")
+    logger.info(f"   4. Test API endpoints at: http://localhost:8500/docs")
+    logger.info(f"   5. Upload documents via: /github-models/analyze-document-upload")
     
-    print(f"\n📖 Documentation:")
-    print(f"   • API Docs: http://localhost:8500/docs")
-    print(f"   • GitHub Models: https://github.com/marketplace/models")
-    print(f"   • Prompts: ./prompts/ directory")
-    print(f"   • Services: ./src/vanta_ledger/services/")
+    logger.info(f"\n📖 Documentation:")
+    logger.info(f"   • API Docs: http://localhost:8500/docs")
+    logger.info(f"   • GitHub Models: https://github.com/marketplace/models")
+    logger.info(f"   • Prompts: ./prompts/ directory")
+    logger.info(f"   • Services: ./src/vanta_ledger/services/")
 
 if __name__ == "__main__":
     main()

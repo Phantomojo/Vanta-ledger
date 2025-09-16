@@ -1,3 +1,4 @@
+import os
 """
 Users API Routes
 
@@ -26,10 +27,10 @@ async def update_user_partial(
         user_id: ID of the user to update
         user_update: Dictionary containing fields to update
         current_user: Authenticated user information
-        
+
     Returns:
         Updated user information
-        
+
     Raises:
         HTTPException: If user not found or update fails
     """

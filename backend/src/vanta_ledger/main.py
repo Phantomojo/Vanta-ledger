@@ -55,6 +55,12 @@ from .middleware import (
     RateLimitMiddleware,
     SecurityHeadersMiddleware,
 )
+from .security_middleware import (
+    EnhancedSecurityHeadersMiddleware,
+    RequestValidationMiddleware,
+    SecurityMonitoringMiddleware,
+    CORSSecurityMiddleware,
+)
 
 # Import AI analytics
 from .routes.ai_analytics import router as ai_analytics_router
@@ -92,6 +98,8 @@ from .routes.users import router as users_router
 from .startup import health_check, initialize_services
 
 from .routes.github_models import router as github_models_router  # Enabled after adding safe service shim
+from .routes.hrm import router as hrm_router  # HRM (Hierarchical Reasoning Model)
+from .routes.multi_github_models import router as multi_github_models_router  # Multi-GitHub Models
 
 
 
@@ -111,6 +119,18 @@ app = FastAPI(
 
 # Startup event
 @app.on_event("startup")
+
+# Security Configuration
+@app.on_event("startup")
+async def configure_security():
+    """Configure security settings on startup."""
+    logger.info("🔒 Enhanced security middleware configured")
+    logger.info("🛡️  Security headers enabled")
+    logger.info("🔍 Request validation enabled")
+    logger.info("📊 Security monitoring enabled")
+    logger.info("🌐 Enhanced CORS security enabled")
+
+
 async def startup_event():
     """
     Initializes required services asynchronously when the application starts.
@@ -123,10 +143,13 @@ async def startup_event():
     await initialize_services()
 
 
-# Add middleware
+# Add enhanced security middleware
 app.add_middleware(LoggingMiddleware)
-app.add_middleware(SecurityHeadersMiddleware)
-app.add_middleware(RateLimitMiddleware)
+app.add_middleware(SecurityMonitoringMiddleware)  # Monitor for attacks
+app.add_middleware(RequestValidationMiddleware)  # Validate requests
+app.add_middleware(EnhancedSecurityHeadersMiddleware)  # Enhanced security headers
+app.add_middleware(RateLimitMiddleware)  # Rate limiting
+app.add_middleware(CORSSecurityMiddleware)  # Enhanced CORS security
 
 # CORS middleware
 app.add_middleware(
@@ -168,6 +191,12 @@ app.include_router(notifications_router)
 app.include_router(system_health_router)
 if settings.ENABLE_GITHUB_MODELS:
     app.include_router(github_models_router)
+
+# Include HRM (Hierarchical Reasoning Model) routes
+app.include_router(hrm_router)
+
+# Include Multi-GitHub Models routes
+app.include_router(multi_github_models_router)
 
 # Include frontend compatibility routes
 if settings.DEBUG:
