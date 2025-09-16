@@ -20,30 +20,30 @@ sys.path.insert(0, str(project_root))
 
 def check_system():
     """Check if system is ready"""
-    print("🔍 Checking Local LLM System...")
+    logger.info("🔍 Checking Local LLM System...")
     
     # Check model
     model_path = "models/tinyllama/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
     if not os.path.exists(model_path):
-        print("❌ TinyLlama model not found!")
+        logger.info("❌ TinyLlama model not found!")
         return False
     
-    print("✅ TinyLlama model ready")
+    logger.info("✅ TinyLlama model ready")
     
     # Check dependencies
     try:
         from llama_cpp import Llama
         import torch
         import transformers
-        print("✅ All dependencies available")
+        logger.info("✅ All dependencies available")
         return True
     except ImportError as e:
-        print(f"❌ Missing dependency: {e}")
+        logger.info(f"❌ Missing dependency: {e}")
         return False
 
 def start_llm_service():
     """Start the local LLM service"""
-    print("\n🚀 Starting Local LLM Service...")
+    logger.info("\n🚀 Starting Local LLM Service...")
     
     try:
         # Import the service
@@ -55,18 +55,18 @@ def start_llm_service():
         # Initialize models
         asyncio.run(service.initialize_models())
         
-        print("✅ Local LLM Service started successfully!")
-        print("📝 Ready for document processing")
+        logger.info("✅ Local LLM Service started successfully!")
+        logger.info("📝 Ready for document processing")
         
         return service
         
     except Exception as e:
-        print(f"❌ Failed to start service: {e}")
+        logger.error(f"❌ Failed to start service: {e}")
         return None
 
 def test_document_processing(service):
     """Test document processing"""
-    print("\n📄 Testing Document Processing...")
+    logger.info("\n📄 Testing Document Processing...")
     
     # Sample document text
     sample_text = """
@@ -94,7 +94,7 @@ def test_document_processing(service):
     
     try:
         # Test classification
-        print("🔄 Testing document classification...")
+        logger.info("🔄 Testing document classification...")
         from backend.app.models.document_models import EnhancedDocument
         
         # Create a mock document
@@ -111,50 +111,50 @@ def test_document_processing(service):
         
         results = asyncio.run(service.process_document_for_company(doc, company_id))
         
-        print("✅ Document processing completed!")
-        print(f"📊 Results: {len(results)} analysis components")
+        logger.info("✅ Document processing completed!")
+        logger.info(f"📊 Results: {len(results)} analysis components")
         
         # Show some results
         if 'classification' in results:
-            print(f"📋 Classification: {results['classification']}")
+            logger.info(f"📋 Classification: {results[")
         
         if 'summary' in results:
-            print(f"📝 Summary: {results['summary'][:100]}...")
+            logger.info(f"📝 Summary: {results[")
         
         return True
         
     except Exception as e:
-        print(f"❌ Document processing failed: {e}")
+        logger.error(f"❌ Document processing failed: {e}")
         return False
 
 def main():
     """Main function"""
-    print("🎯 Vanta Ledger - Local LLM System")
-    print("=" * 50)
+    logger.info("🎯 Vanta Ledger - Local LLM System")
+    logger.info("=")
     
     # Check system
     if not check_system():
-        print("\n❌ System check failed. Please fix the issues above.")
+        logger.error("\n❌ System check failed. Please fix the issues above.")
         return
     
     # Start service
     service = start_llm_service()
     if not service:
-        print("\n❌ Failed to start LLM service.")
+        logger.error("\n❌ Failed to start LLM service.")
         return
     
     # Test processing
     if test_document_processing(service):
-        print("\n🎉 All tests passed! Your local LLM system is fully operational!")
-        print("\n💡 You can now:")
-        print("   - Process documents with AI analysis")
-        print("   - Extract financial data automatically")
-        print("   - Generate summaries and classifications")
-        print("   - Use company-specific context for processing")
+        logger.info("\n🎉 All tests passed! Your local LLM system is fully operational!")
+        logger.info("\n💡 You can now:")
+        logger.info("   - Process documents with AI analysis")
+        logger.info("   - Extract financial data automatically")
+        logger.info("   - Generate summaries and classifications")
+        logger.info("   - Use company-specific context for processing")
     else:
-        print("\n⚠️  Some tests failed, but the core system is working.")
+        logger.error("\n⚠️  Some tests failed, but the core system is working.")
     
-    print("\n" + "=" * 50)
+    logger.info("\n")
 
 if __name__ == "__main__":
     main() 

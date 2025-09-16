@@ -6,6 +6,8 @@ Specific usage limits for cloud AI models and their impact on Vanta Ledger.
 import sys
 import asyncio
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 # Add backend to path
 backend_path = Path("backend/src")
@@ -14,8 +16,8 @@ if backend_path.exists():
 
 def analyze_usage_limits():
     """Analyze specific usage limits for each model"""
-    print("📊 Detailed Usage Limits Analysis")
-    print("=" * 60)
+    logger.info("📊 Detailed Usage Limits Analysis")
+    logger.info("=")
     
     usage_limits = {
         "GPT-4o-mini": {
@@ -86,25 +88,25 @@ def analyze_usage_limits():
         }
     }
     
-    print("🚦 Usage Limits by Model:")
+    logger.info("🚦 Usage Limits by Model:")
     for model, limits in usage_limits.items():
-        print(f"\n📋 {model}:")
-        print(f"   Rate Limit: {limits['rate_limit']}")
-        print(f"   Token Limit: {limits['token_limit']}")
-        print(f"   Concurrent: {limits['concurrent_limit']}")
-        print(f"   Context: {limits['context_limit']}")
-        print(f"   Daily Limit: {limits['daily_limit']}")
-        print(f"   Cost Limit: {limits['monthly_cost_limit']}")
-        print(f"   Geographic: {limits['geographic_restrictions']}")
-        print(f"   API Version: {limits['api_version']}")
-        print(f"   Deprecation Risk: {limits['deprecation_risk']}")
+        logger.info(f"\n📋 {model}:")
+        logger.info(f"   Rate Limit: {limits[")
+        logger.info(f"   Token Limit: {limits[")
+        logger.info(f"   Concurrent: {limits[")
+        logger.info(f"   Context: {limits[")
+        logger.info(f"   Daily Limit: {limits[")
+        logger.info(f"   Cost Limit: {limits[")
+        logger.info(f"   Geographic: {limits[")
+        logger.info(f"   API Version: {limits[")
+        logger.info(f"   Deprecation Risk: {limits[")
     
-    print("\n" + "=" * 60)
+    logger.info("\n")
 
 def analyze_impact_on_vanta_ledger():
     """Analyze how usage limits impact Vanta Ledger operations"""
-    print("🎯 Impact on Vanta Ledger Operations")
-    print("=" * 60)
+    logger.info("🎯 Impact on Vanta Ledger Operations")
+    logger.info("=")
     
     scenarios = [
         {
@@ -149,22 +151,22 @@ def analyze_impact_on_vanta_ledger():
         }
     ]
     
-    print("📊 Operational Impact Analysis:")
+    logger.info("📊 Operational Impact Analysis:")
     for scenario in scenarios:
-        print(f"\n🔍 {scenario['operation']}:")
-        print(f"   Volume: {scenario['volume']}")
-        print(f"   Tokens: {scenario['total_tokens']:,}")
-        print(f"   Models: {', '.join(scenario['models_used'])}")
-        print(f"   Rate Limit: {scenario['rate_limit_impact']}")
-        print(f"   Token Limit: {scenario['token_limit_impact']}")
-        print(f"   Cost Impact: {scenario['cost_impact']}")
+        logger.info(f"\n🔍 {scenario[")
+        logger.info(f"   Volume: {scenario[")
+        logger.info(f"   Tokens: {scenario[")
+        logger.info(f"   Models: {")
+        logger.info(f"   Rate Limit: {scenario[")
+        logger.info(f"   Token Limit: {scenario[")
+        logger.info(f"   Cost Impact: {scenario[")
     
-    print("\n" + "=" * 60)
+    logger.info("\n")
 
 def analyze_limit_mitigation_strategies():
     """Show how Vanta Ledger mitigates usage limits"""
-    print("🛡️ Limit Mitigation Strategies")
-    print("=" * 60)
+    logger.info("🛡️ Limit Mitigation Strategies")
+    logger.info("=")
     
     strategies = {
         "Rate Limit Mitigation": {
@@ -204,21 +206,21 @@ def analyze_limit_mitigation_strategies():
         }
     }
     
-    print("🔧 Mitigation Strategies:")
+    logger.info("🔧 Mitigation Strategies:")
     for strategy, details in strategies.items():
-        print(f"\n📋 {strategy}:")
-        print(f"   Problem: {details['problem']}")
-        print(f"   Solution: {details['solution']}")
-        print(f"   Implementation: {details['implementation']}")
-        print(f"   Benefit: {details['benefit']}")
-        print(f"   Example: {details['example']}")
+        logger.info(f"\n📋 {strategy}:")
+        logger.info(f"   Problem: {details[")
+        logger.info(f"   Solution: {details[")
+        logger.info(f"   Implementation: {details[")
+        logger.info(f"   Benefit: {details[")
+        logger.info(f"   Example: {details[")
     
-    print("\n" + "=" * 60)
+    logger.info("\n")
 
 def analyze_practical_limits():
     """Show practical limits in real-world usage"""
-    print("🌍 Practical Usage Limits")
-    print("=" * 60)
+    logger.info("🌍 Practical Usage Limits")
+    logger.info("=")
     
     practical_scenarios = [
         {
@@ -259,22 +261,22 @@ def analyze_practical_limits():
         }
     ]
     
-    print("📊 Business Size Impact:")
+    logger.info("📊 Business Size Impact:")
     for scenario in practical_scenarios:
-        print(f"\n🏢 {scenario['scenario']}:")
-        print(f"   Daily Invoices: {scenario['daily_invoices']}")
-        print(f"   Monthly Reports: {scenario['monthly_reports']}")
-        print(f"   Daily Transactions: {scenario['daily_transactions']}")
-        print(f"   Rate Limit Usage: {scenario['rate_limit_usage']}")
-        print(f"   Monthly Cost: ${scenario['cost_per_month']}")
-        print(f"   Limit Concern: {scenario['limit_concern']}")
+        logger.info(f"\n🏢 {scenario[")
+        logger.info(f"   Daily Invoices: {scenario[")
+        logger.info(f"   Monthly Reports: {scenario[")
+        logger.info(f"   Daily Transactions: {scenario[")
+        logger.info(f"   Rate Limit Usage: {scenario[")
+        logger.info(f"   Monthly Cost: ${scenario[")
+        logger.info(f"   Limit Concern: {scenario[")
     
-    print("\n" + "=" * 60)
+    logger.info("\n")
 
 def analyze_future_proofing():
     """Show how Vanta Ledger is future-proofed against limits"""
-    print("🚀 Future-Proofing Against Limits")
-    print("=" * 60)
+    logger.info("🚀 Future-Proofing Against Limits")
+    logger.info("=")
     
     future_proofing = {
         "Scalability": {
@@ -303,20 +305,20 @@ def analyze_future_proofing():
         }
     }
     
-    print("🔮 Future-Proofing Strategies:")
+    logger.info("🔮 Future-Proofing Strategies:")
     for aspect, details in future_proofing.items():
-        print(f"\n📋 {aspect}:")
-        print(f"   Current: {details['current_capacity'] if 'current_capacity' in details else details['current_models'] if 'current_models' in details else details['current_optimization'] if 'current_optimization' in details else details['current_handling']}")
-        print(f"   Strategy: {details['scalability_strategy'] if 'scalability_strategy' in details else details['future_strategy']}")
-        print(f"   Implementation: {details['implementation']}")
-        print(f"   Benefit: {details['benefit']}")
+        logger.info(f"\n📋 {aspect}:")
+        logger.info(f"   Current: {details[")
+        logger.info(f"   Strategy: {details[")
+        logger.info(f"   Implementation: {details[")
+        logger.info(f"   Benefit: {details[")
     
-    print("\n" + "=" * 60)
+    logger.info("\n")
 
 async def main():
     """Main analysis function"""
-    print("🚀 Cloud Model Usage Limits Analysis")
-    print("=" * 70)
+    logger.info("🚀 Cloud Model Usage Limits Analysis")
+    logger.info("=")
     print()
     
     analyze_usage_limits()
@@ -325,26 +327,26 @@ async def main():
     analyze_practical_limits()
     analyze_future_proofing()
     
-    print("🎉 Summary: Usage Limits & Solutions")
-    print("=" * 50)
-    print("✅ Rate Limits: Handled by load balancing (1,650 req/min total)")
-    print("✅ Token Limits: Handled by chunking (up to 1M tokens per model)")
-    print("✅ Cost Limits: Handled by smart routing (70% cost reduction)")
-    print("✅ Concurrent Limits: Handled by parallel processing (42 concurrent)")
-    print("✅ Availability Limits: Handled by redundancy (99.99% uptime)")
+    logger.info("🎉 Summary: Usage Limits & Solutions")
+    logger.info("=")
+    logger.info("✅ Rate Limits: Handled by load balancing (1,650 req/min total)")
+    logger.info("✅ Token Limits: Handled by chunking (up to 1M tokens per model)")
+    logger.info("✅ Cost Limits: Handled by smart routing (70% cost reduction)")
+    logger.info("✅ Concurrent Limits: Handled by parallel processing (42 concurrent)")
+    logger.info("✅ Availability Limits: Handled by redundancy (99.99% uptime)")
     print()
-    print("🛡️ Vanta Ledger provides unlimited scalability through:")
-    print("   • Intelligent model routing and load balancing")
-    print("   • Smart document chunking for any size")
-    print("   • Cost optimization and prediction")
-    print("   • Multi-provider redundancy")
-    print("   • Future-proof architecture")
+    logger.info("🛡️ Vanta Ledger provides unlimited scalability through:")
+    logger.info("   • Intelligent model routing and load balancing")
+    logger.info("   • Smart document chunking for any size")
+    logger.info("   • Cost optimization and prediction")
+    logger.info("   • Multi-provider redundancy")
+    logger.info("   • Future-proof architecture")
     print()
-    print("📊 Practical Impact:")
-    print("   • Small Business: No limits, $15/month")
-    print("   • Medium Business: Low limits, $150/month")
-    print("   • Large Business: Medium limits, $1,500/month")
-    print("   • Enterprise: High limits, $15,000/month (requires optimization)")
+    logger.info("📊 Practical Impact:")
+    logger.info("   • Small Business: No limits, $15/month")
+    logger.info("   • Medium Business: Low limits, $150/month")
+    logger.info("   • Large Business: Medium limits, $1,500/month")
+    logger.info("   • Enterprise: High limits, $15,000/month (requires optimization)")
 
 if __name__ == "__main__":
     asyncio.run(main())

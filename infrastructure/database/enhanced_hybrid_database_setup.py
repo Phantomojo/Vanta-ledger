@@ -48,8 +48,8 @@ MONGO_PASSWORD = os.getenv('MONGO_ROOT_PASSWORD')
 MONGO_DB = os.getenv('MONGO_DATABASE', 'vanta_ledger')
 
 # Debug: Print connection info (without password)
-print(f"PostgreSQL: {POSTGRES_USER}@{POSTGRES_DB}")
-print(f"MongoDB: {MONGO_USER}@{MONGO_DB}")
+logger.info(f"PostgreSQL: {POSTGRES_USER}@{POSTGRES_DB}")
+logger.info(f"MongoDB: {MONGO_USER}@{MONGO_DB}")
 
 POSTGRES_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost/{POSTGRES_DB}"
 MONGO_URI = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@localhost:27017/{MONGO_DB}?authSource=admin"
@@ -832,13 +832,13 @@ def main():
         manager = EnhancedHybridDatabaseManager()
         manager.setup_enhanced_system()
         
-        print("\n🎉 Enhanced Vanta Ledger Database Setup Complete!")
-        print("=" * 60)
-        print(f"📊 Companies: {len(ALL_COMPANIES)} total")
-        print("🔗 Network Analysis: Ready")
-        print("📄 Document Processing: Ready")
-        print("📈 Analytics: Ready")
-        print("=" * 60)
+        logger.info("\n🎉 Enhanced Vanta Ledger Database Setup Complete!")
+        logger.info("=")
+        logger.info(f"📊 Companies: {len(ALL_COMPANIES)} total")
+        logger.info("🔗 Network Analysis: Ready")
+        logger.info("📄 Document Processing: Ready")
+        logger.info("📈 Analytics: Ready")
+        logger.info("=")
         
     except Exception as e:
         logger.error(f"Setup failed: {e}")

@@ -8,6 +8,8 @@ import asyncio
 import json
 from datetime import datetime
 from src.vanta_ledger.services.system_analysis_service import SystemAnalysisService
+import logging
+logger = logging.getLogger(__name__)
 
 
 class SystemMonitor:
@@ -20,59 +22,59 @@ class SystemMonitor:
     async def start_monitoring(self, interval_seconds: int = 60):
         """Start continuous system monitoring"""
         if not self.analysis_service.enabled:
-            print("⚠️  AI features not available - running basic monitoring only")
+            logger.info("⚠️  AI features not available - running basic monitoring only")
         
         self.monitoring_active = True
-        print(f"🚀 Starting system monitoring (interval: {interval_seconds}s)")
+        logger.info(f"🚀 Starting system monitoring (interval: {interval_seconds}s)")
         
         while self.monitoring_active:
             try:
                 await self._run_monitoring_cycle()
                 await asyncio.sleep(interval_seconds)
             except KeyboardInterrupt:
-                print("\n🛑 Monitoring stopped by user")
+                logger.info("\n🛑 Monitoring stopped by user")
                 break
             except Exception as e:
-                print(f"❌ Monitoring error: {e}")
+                logger.error(f"❌ Monitoring error: {e}")
                 await asyncio.sleep(10)  # Wait before retrying
     
     async def _run_monitoring_cycle(self):
         """Run one monitoring cycle"""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"\n📊 Monitoring Cycle - {timestamp}")
-        print("-" * 40)
+        logger.info(f"\n📊 Monitoring Cycle - {timestamp}")
+        logger.info("-")
         
         # Collect basic metrics
         metrics = self.analysis_service._collect_system_metrics()
         
         # Display key metrics
-        print(f"💻 CPU Usage: {metrics['cpu_percent']:.1f}%")
-        print(f"🧠 Memory Usage: {metrics['memory_percent']:.1f}%")
-        print(f"💾 Available Memory: {metrics['memory_available_gb']:.1f} GB")
-        print(f"💿 Disk Usage: {metrics['disk_percent']:.1f}%")
-        print(f"🌐 Network Sent: {metrics['network_bytes_sent'] / (1024**2):.1f} MB")
-        print(f"🌐 Network Received: {metrics['network_bytes_recv'] / (1024**2):.1f} MB")
+        logger.info(f"💻 CPU Usage: {metrics[")
+        logger.info(f"🧠 Memory Usage: {metrics[")
+        logger.info(f"💾 Available Memory: {metrics[")
+        logger.info(f"💿 Disk Usage: {metrics[")
+        logger.info(f"🌐 Network Sent: {metrics[")
+        logger.info(f"🌐 Network Received: {metrics[")
         
         # Check for critical thresholds
         alerts = self._check_thresholds(metrics)
         if alerts:
-            print("\n🚨 ALERTS:")
+            logger.info("\n🚨 ALERTS:")
             for alert in alerts:
-                print(f"   ⚠️  {alert}")
+                logger.info(f"   ⚠️  {alert}")
         
         # Try AI analysis if available
         if self.analysis_service.enabled:
-            print("\n🤖 Running AI analysis...")
+            logger.info("\n🤖 Running AI analysis...")
             try:
                 analysis = await self.analysis_service.analyze_system_health(include_logs=False)
                 if "system_status" in analysis:
-                    print(f"   Status: {analysis['system_status']}")
+                    logger.info(f"   Status: {analysis[")
                 if "recommendations" in analysis:
-                    print(f"   Recommendations: {len(analysis['recommendations'])} items")
+                    logger.info(f"   Recommendations: {len(analysis[")
             except Exception as e:
-                print(f"   ❌ AI analysis failed: {e}")
+                logger.error(f"   ❌ AI analysis failed: {e}")
         
-        print("-" * 40)
+        logger.info("-")
     
     def _check_thresholds(self, metrics: dict) -> list:
         """Check metrics against critical thresholds"""
@@ -95,46 +97,46 @@ class SystemMonitor:
     def stop_monitoring(self):
         """Stop continuous monitoring"""
         self.monitoring_active = False
-        print("🛑 Monitoring stopped")
+        logger.info("🛑 Monitoring stopped")
 
 
 async def main():
     """Main demonstration function"""
-    print("🔍 System Analysis Service Demonstration")
-    print("=" * 50)
+    logger.info("🔍 System Analysis Service Demonstration")
+    logger.info("=")
     
     # Create monitoring instance
     monitor = SystemMonitor()
     
     # Show service status
-    print(f"🔧 AI Features Available: {monitor.analysis_service.enabled}")
-    print(f"📁 Log Directory: {monitor.analysis_service.log_dir}")
+    logger.info(f"🔧 AI Features Available: {monitor.analysis_service.enabled}")
+    logger.info(f"📁 Log Directory: {monitor.analysis_service.log_dir}")
     print()
     
     # Run a single monitoring cycle
-    print("📊 Running Single Monitoring Cycle...")
+    logger.info("📊 Running Single Monitoring Cycle...")
     await monitor._run_monitoring_cycle()
     
-    print("\n" + "=" * 50)
-    print("🎯 Demonstration Complete!")
-    print("\n💡 Usage Examples:")
-    print("   • Continuous monitoring: await monitor.start_monitoring(30)")
-    print("   • Single analysis: await monitor.analysis_service.analyze_system_health()")
-    print("   • Code review: await monitor.analysis_service.analyze_code_quality('file.py')")
-    print("   • Project analysis: await monitor.analysis_service.analyze_project_codebase()")
+    logger.info("\n")
+    logger.info("🎯 Demonstration Complete!")
+    logger.info("\n💡 Usage Examples:")
+    logger.info("   • Continuous monitoring: await monitor.start_monitoring(30)")
+    logger.info("   • Single analysis: await monitor.analysis_service.analyze_system_health()")
+    logger.info("   • Code review: await monitor.analysis_service.analyze_code_quality(")")
+    logger.info("   • Project analysis: await monitor.analysis_service.analyze_project_codebase()")
     
     # Ask if user wants to start continuous monitoring
     try:
         response = input("\n🚀 Start continuous monitoring? (y/n): ").lower().strip()
         if response in ['y', 'yes']:
-            print("\n🔄 Starting continuous monitoring (Press Ctrl+C to stop)...")
+            logger.info("\n🔄 Starting continuous monitoring (Press Ctrl+C to stop)...")
             await monitor.start_monitoring(30)
     except KeyboardInterrupt:
-        print("\n👋 Goodbye!")
+        logger.info("\n👋 Goodbye!")
 
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("\n👋 Demonstration interrupted")
+        logger.info("\n👋 Demonstration interrupted")

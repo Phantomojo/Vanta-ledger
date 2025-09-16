@@ -13,12 +13,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "backend" / "src"))
 
 from vanta_ledger.agents.ollama_integration import OllamaConfig, OllamaIntegration
+import logging
+logger = logging.getLogger(__name__)
 
 
 async def main():
     """Simple test function."""
-    print("🤖 Simple Ollama Test")
-    print("=" * 30)
+    logger.info("🤖 Simple Ollama Test")
+    logger.info("=")
     
     # Create config
     config = OllamaConfig(
@@ -32,29 +34,29 @@ async def main():
     ollama = OllamaIntegration(config)
     
     # Test connection
-    print("🔍 Testing connection...")
+    logger.info("🔍 Testing connection...")
     connected = await ollama.check_connection()
     if connected:
-        print("✅ Connected to Ollama!")
+        logger.info("✅ Connected to Ollama!")
     else:
-        print("❌ Failed to connect")
+        logger.error("❌ Failed to connect")
         return
     
     # Test simple generation
-    print("\n📝 Testing generation...")
+    logger.info("\n📝 Testing generation...")
     response = await ollama.generate_text(
         "Say hello in one sentence.",
         max_tokens=20,
         temperature=0.7
     )
     
-    print(f"✅ Response: {response.text}")
-    print(f"   Tokens: {response.tokens_used}")
-    print(f"   Time: {response.generation_time:.2f}s")
+    logger.info(f"✅ Response: {response.text}")
+    logger.info(f"   Tokens: {response.tokens_used}")
+    logger.info(f"   Time: {response.generation_time:.2f}s")
     
     # Cleanup
     await ollama.close()
-    print("\n🎉 Test completed!")
+    logger.info("\n🎉 Test completed!")
 
 
 if __name__ == "__main__":

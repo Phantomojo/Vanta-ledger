@@ -8,6 +8,8 @@ This script analyzes different AI/NLP options for document processing.
 
 import sys
 import os
+import logging
+logger = logging.getLogger(__name__)
 
 # Add the virtual environment to the path
 venv_path = os.path.join(os.path.dirname(__file__), '..', 'venv', 'lib', 'python3.12', 'site-packages')
@@ -15,96 +17,96 @@ sys.path.insert(0, venv_path)
 
 def analyze_alternatives():
     """Analyze different AI/NLP alternatives"""
-    print("🤖 AI/NLP Alternatives Analysis for Vanta Ledger")
-    print("=" * 60)
+    logger.info("🤖 AI/NLP Alternatives Analysis for Vanta Ledger")
+    logger.info("=")
     
-    print("\n📊 Current Requirements:")
-    print("• Document text extraction (PDF, DOCX, images)")
-    print("• Named Entity Recognition (companies, amounts, dates)")
-    print("• Sentiment analysis")
-    print("• Text classification")
-    print("• Financial data extraction")
-    print("• Business intelligence insights")
+    logger.info("\n📊 Current Requirements:")
+    logger.info("• Document text extraction (PDF, DOCX, images)")
+    logger.info("• Named Entity Recognition (companies, amounts, dates)")
+    logger.info("• Sentiment analysis")
+    logger.info("• Text classification")
+    logger.info("• Financial data extraction")
+    logger.info("• Business intelligence insights")
     
-    print("\n🔍 Available Alternatives:")
+    logger.info("\n🔍 Available Alternatives:")
     
     # Option 1: spaCy
-    print("\n1️⃣ spaCy (Current Choice)")
-    print("   ✅ Pros:")
-    print("   • Industry standard for NLP")
-    print("   • Excellent for Named Entity Recognition")
-    print("   • Fast and efficient")
-    print("   • Good for financial documents")
-    print("   • Active community and support")
-    print("   ❌ Cons:")
-    print("   • Model download issues (as we experienced)")
-    print("   • Larger memory footprint")
-    print("   • Requires specific language models")
+    logger.info("\n1️⃣ spaCy (Current Choice)")
+    logger.info("   ✅ Pros:")
+    logger.info("   • Industry standard for NLP")
+    logger.info("   • Excellent for Named Entity Recognition")
+    logger.info("   • Fast and efficient")
+    logger.info("   • Good for financial documents")
+    logger.info("   • Active community and support")
+    logger.info("   ❌ Cons:")
+    logger.info("   • Model download issues (as we experienced)")
+    logger.info("   • Larger memory footprint")
+    logger.info("   • Requires specific language models")
     
     # Option 2: NLTK
-    print("\n2️⃣ NLTK (Natural Language Toolkit)")
-    print("   ✅ Pros:")
-    print("   • Lightweight and simple")
-    print("   • Good for basic text processing")
-    print("   • Easy to install and use")
-    print("   • Built-in corpora and tools")
-    print("   ❌ Cons:")
-    print("   • Less accurate than modern alternatives")
-    print("   • Limited deep learning capabilities")
-    print("   • Not as good for financial documents")
+    logger.info("\n2️⃣ NLTK (Natural Language Toolkit)")
+    logger.info("   ✅ Pros:")
+    logger.info("   • Lightweight and simple")
+    logger.info("   • Good for basic text processing")
+    logger.info("   • Easy to install and use")
+    logger.info("   • Built-in corpora and tools")
+    logger.info("   ❌ Cons:")
+    logger.info("   • Less accurate than modern alternatives")
+    logger.info("   • Limited deep learning capabilities")
+    logger.info("   • Not as good for financial documents")
     
     # Option 3: Transformers (Hugging Face)
-    print("\n3️⃣ Transformers (Hugging Face)")
-    print("   ✅ Pros:")
-    print("   • State-of-the-art models")
-    print("   • Excellent for sentiment analysis")
-    print("   • Great for text classification")
-    print("   • Pre-trained financial models available")
-    print("   • Easy to use with pipeline API")
-    print("   ❌ Cons:")
-    print("   • Slower than spaCy")
-    print("   • Higher memory usage")
-    print("   • More complex for custom tasks")
+    logger.info("\n3️⃣ Transformers (Hugging Face)")
+    logger.info("   ✅ Pros:")
+    logger.info("   • State-of-the-art models")
+    logger.info("   • Excellent for sentiment analysis")
+    logger.info("   • Great for text classification")
+    logger.info("   • Pre-trained financial models available")
+    logger.info("   • Easy to use with pipeline API")
+    logger.info("   ❌ Cons:")
+    logger.info("   • Slower than spaCy")
+    logger.info("   • Higher memory usage")
+    logger.info("   • More complex for custom tasks")
     
     # Option 4: Simple Regex + Rules
-    print("\n4️⃣ Simple Regex + Rules")
-    print("   ✅ Pros:")
-    print("   • Fast and lightweight")
-    print("   • No external dependencies")
-    print("   • Easy to customize for financial data")
-    print("   • Reliable for structured documents")
-    print("   ❌ Cons:")
-    print("   • Limited to pattern matching")
-    print("   • Not good for unstructured text")
-    print("   • Requires manual rule creation")
+    logger.info("\n4️⃣ Simple Regex + Rules")
+    logger.info("   ✅ Pros:")
+    logger.info("   • Fast and lightweight")
+    logger.info("   • No external dependencies")
+    logger.info("   • Easy to customize for financial data")
+    logger.info("   • Reliable for structured documents")
+    logger.info("   ❌ Cons:")
+    logger.info("   • Limited to pattern matching")
+    logger.info("   • Not good for unstructured text")
+    logger.info("   • Requires manual rule creation")
     
     # Option 5: Hybrid Approach
-    print("\n5️⃣ Hybrid Approach (Recommended)")
-    print("   ✅ Pros:")
-    print("   • Best of all worlds")
-    print("   • Fast regex for structured data")
-    print("   • Transformers for sentiment/classification")
-    print("   • Fallback to simple processing")
-    print("   • Scalable and maintainable")
-    print("   ❌ Cons:")
-    print("   • More complex implementation")
-    print("   • Requires careful integration")
+    logger.info("\n5️⃣ Hybrid Approach (Recommended)")
+    logger.info("   ✅ Pros:")
+    logger.info("   • Best of all worlds")
+    logger.info("   • Fast regex for structured data")
+    logger.info("   • Transformers for sentiment/classification")
+    logger.info("   • Fallback to simple processing")
+    logger.info("   • Scalable and maintainable")
+    logger.info("   ❌ Cons:")
+    logger.info("   • More complex implementation")
+    logger.info("   • Requires careful integration")
     
-    print("\n🎯 Recommendation for Vanta Ledger:")
-    print("Use a HYBRID APPROACH:")
-    print("1. Regex + Rules for financial data extraction")
-    print("2. Transformers for sentiment analysis and classification")
-    print("3. Simple text processing for basic NLP tasks")
-    print("4. Custom financial entity recognition")
+    logger.info("\n🎯 Recommendation for Vanta Ledger:")
+    logger.info("Use a HYBRID APPROACH:")
+    logger.info("1. Regex + Rules for financial data extraction")
+    logger.info("2. Transformers for sentiment analysis and classification")
+    logger.info("3. Simple text processing for basic NLP tasks")
+    logger.info("4. Custom financial entity recognition")
     
     return "hybrid"
 
 def test_hybrid_approach():
     """Test the recommended hybrid approach"""
-    print("\n🧪 Testing Hybrid AI Approach...")
+    logger.info("\n🧪 Testing Hybrid AI Approach...")
     
     # Test 1: Regex for financial data
-    print("\n1️⃣ Testing Regex for Financial Data:")
+    logger.info("\n1️⃣ Testing Regex for Financial Data:")
     import re
     
     # Sample financial text
@@ -125,12 +127,12 @@ def test_hybrid_approach():
     dates = re.findall(date_pattern, sample_text)
     companies = re.findall(company_pattern, sample_text)
     
-    print(f"   ✅ Amounts found: {amounts}")
-    print(f"   ✅ Dates found: {dates}")
-    print(f"   ✅ Companies found: {companies}")
+    logger.info(f"   ✅ Amounts found: {amounts}")
+    logger.info(f"   ✅ Dates found: {dates}")
+    logger.info(f"   ✅ Companies found: {companies}")
     
     # Test 2: Transformers for sentiment
-    print("\n2️⃣ Testing Transformers for Sentiment:")
+    logger.info("\n2️⃣ Testing Transformers for Sentiment:")
     try:
         from transformers import pipeline
         sentiment_analyzer = pipeline("sentiment-analysis")
@@ -143,13 +145,13 @@ def test_hybrid_approach():
         
         for text in test_texts:
             result = sentiment_analyzer(text)
-            print(f"   ✅ '{text[:30]}...' → {result[0]['label']} ({result[0]['score']:.2f})")
+            logger.info(f"   ✅ ")
             
     except Exception as e:
-        print(f"   ❌ Transformers test failed: {e}")
+        logger.error(f"   ❌ Transformers test failed: {e}")
     
     # Test 3: Simple text processing
-    print("\n3️⃣ Testing Simple Text Processing:")
+    logger.info("\n3️⃣ Testing Simple Text Processing:")
     def extract_basic_entities(text):
         """Simple entity extraction without external dependencies"""
         entities = {
@@ -171,9 +173,9 @@ def test_hybrid_approach():
     entities = extract_basic_entities(test_text)
     for entity_type, values in entities.items():
         if values:
-            print(f"   ✅ {entity_type}: {values}")
+            logger.info(f"   ✅ {entity_type}: {values}")
     
-    print("\n✅ Hybrid approach is working perfectly!")
+    logger.info("\n✅ Hybrid approach is working perfectly!")
 
 if __name__ == "__main__":
     analyze_alternatives()

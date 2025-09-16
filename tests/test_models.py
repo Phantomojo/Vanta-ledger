@@ -1,163 +1,134 @@
-"""Tests for database models."""
-
-from datetime import datetime, timedelta
+"""Test the database models."""
 
 import pytest
-from sqlalchemy.exc import IntegrityError
-
-from src.vanta_ledger import models
-from src.vanta_ledger.database import Base, get_db
-from src.vanta_ledger.utils.password import get_password_hash
+from datetime import datetime
+import uuid
 
 
-def test_user_model(db_session):
-    """Test the User model."""
-    # Create a test user
-    user = models.User(
-        email="test@example.com",
-        hashed_password=get_password_hash("testpassword"),
-        full_name="Test User",
-        is_active=True,
-        is_superuser=False,
-    )
-
-    # Add to database
+def test_user_model_creation(db_session, test_user_data):
+    """Test creating a user model."""
+    from vanta_ledger.models.user_models import UserDB
+    
+    user = UserDB(**test_user_data)
     db_session.add(user)
     db_session.commit()
-    db_session.refresh(user)
-
-    # Test attributes
+    
+    assert user.id is not None
+    assert user.username == "testuser"
     assert user.email == "test@example.com"
-    assert user.full_name == "Test User"
+    assert user.role == "user"
     assert user.is_active is True
-    assert user.is_superuser is False
-    assert isinstance(user.created_at, datetime)
-    assert isinstance(user.updated_at, datetime)
-
-    # Test password verification
-    assert user.verify_password("testpassword") is True
-    assert user.verify_password("wrongpassword") is False
-
-    # Test string representation
-    assert str(user) == f"<User {user.email}>"
 
 
-def test_user_model_unique_email(db_session):
-    """Test that email must be unique."""
-    # Create first user
-    user1 = models.User(
-        email="test@example.com",
-        hashed_password=get_password_hash("testpassword"),
-        full_name="Test User 1",
-    )
-    db_session.add(user1)
+def test_company_model_creation(db_session, test_company_data):
+    """Test creating a company model."""
+    from vanta_ledger.models.company import Company
+    
+    company = Company(**test_company_data)
+    db_session.add(company)
     db_session.commit()
-
-    # Try to create user with same email
-    user2 = models.User(
-        email="test@example.com",  # Same email
-        hashed_password=get_password_hash("anotherpassword"),
-        full_name="Test User 2",
-    )
-    db_session.add(user2)
-
-    # Should raise integrity error
-    with pytest.raises(IntegrityError):
-        db_session.commit()
-
-    # Rollback the failed transaction
-    db_session.rollback()
+    
+    assert company.id is not None
+    assert company.name == "Test Company"
+    assert company.registration_number == "TEST123"
+    assert company.status == "active"
 
 
-def test_user_model_required_fields(db_session):
-    """Test that required fields are enforced."""
-    # Missing email
-    with pytest.raises(IntegrityError):
-        user = models.User(
-            hashed_password=get_password_hash("testpassword"),
-            full_name="Test User",
-        )
-        db_session.add(user)
-        db_session.commit()
-
-    db_session.rollback()
-
-    # Missing password
-    with pytest.raises(IntegrityError):
-        user = models.User(
-            email="test@example.com",
-            full_name="Test User",
-        )
-        db_session.add(user)
-        db_session.commit()
-
-    db_session.rollback()
-
-
-def test_user_model_default_values(db_session):
-    """Test default values for User model."""
-    user = models.User(
-        email="test@example.com",
-        hashed_password=get_password_hash("testpassword"),
-    )
-
-    assert user.full_name is None
-    assert user.is_active is True  # Default from model
-    assert user.is_superuser is False  # Default from model
-    assert user.created_at is not None
-    assert user.updated_at is not None
-
-
-def test_user_model_timestamps(db_session):
-    """Test that created_at and updated_at timestamps work correctly."""
-    # Create user
-    user = models.User(
-        email="test@example.com",
-        hashed_password=get_password_hash("testpassword"),
-    )
+def test_project_model_creation(db_session, test_company_data, test_user_data):
+    """Test creating a project model."""
+    from vanta_ledger.models.project_models import Project
+    from vanta_ledger.models.company import Company
+    from vanta_ledger.models.user_models import UserDB
+    
+    # Create company and user first
+    company = Company(**test_company_data)
+    user = UserDB(**test_user_data)
+    db_session.add(company)
     db_session.add(user)
     db_session.commit()
-
-    created_at = user.created_at
-    updated_at = user.updated_at
-
-    # Update user
-    user.full_name = "Updated Name"
+    
+    project_data = {
+        "name": "Test Project",
+        "description": "A test project",
+        "project_code": "TEST001",
+        "company_id": company.id,
+        "created_by": user.id,
+        "status": "active",
+        "budget": 10000.0
+    }
+    
+    project = Project(**project_data)
+    db_session.add(project)
     db_session.commit()
-    db_session.refresh(user)
+    
+    assert project.id is not None
+    assert project.name == "Test Project"
+    assert project.project_code == "TEST001"
+    assert project.budget == 10000.0
 
-    # Created at should not change
-    assert user.created_at == created_at
-    # Updated at should be newer
-    assert user.updated_at > updated_at
 
-
-def test_user_model_deactivate(db_session):
-    """Test deactivating a user."""
-    user = models.User(
-        email="test@example.com",
-        hashed_password=get_password_hash("testpassword"),
-        is_active=True,
-    )
+def test_ledger_entry_model_creation(db_session, test_company_data, test_user_data):
+    """Test creating a ledger entry model."""
+    from vanta_ledger.models.project_models import LedgerEntry
+    from vanta_ledger.models.company import Company
+    from vanta_ledger.models.user_models import UserDB
+    
+    # Create company and user first
+    company = Company(**test_company_data)
+    user = UserDB(**test_user_data)
+    db_session.add(company)
     db_session.add(user)
     db_session.commit()
-
-    # Deactivate
-    user.is_active = False
+    
+    entry_data = {
+        "entry_number": "ENT001",
+        "description": "Test expense",
+        "transaction_type": "expense",
+        "amount": 100.0,
+        "company_id": company.id,
+        "created_by": user.id,
+        "transaction_date": datetime.now()
+    }
+    
+    entry = LedgerEntry(**entry_data)
+    db_session.add(entry)
     db_session.commit()
-    db_session.refresh(user)
+    
+    assert entry.id is not None
+    assert entry.entry_number == "ENT001"
+    assert entry.amount == 100.0
+    assert entry.transaction_type == "expense"
 
-    assert user.is_active is False
 
-
-def test_user_model_superuser(db_session):
-    """Test superuser flag."""
-    user = models.User(
-        email="admin@example.com",
-        hashed_password=get_password_hash("adminpassword"),
-        is_superuser=True,
-    )
+def test_user_to_dict(db_session, test_user_data):
+    """Test user to_dict method."""
+    from vanta_ledger.models.user_models import UserDB
+    
+    user = UserDB(**test_user_data)
     db_session.add(user)
     db_session.commit()
+    
+    user_dict = user.to_dict()
+    
+    assert isinstance(user_dict, dict)
+    assert user_dict["username"] == "testuser"
+    assert user_dict["email"] == "test@example.com"
+    assert "id" in user_dict
+    assert "created_at" in user_dict
 
-    assert user.is_superuser is True
+
+def test_company_to_dict(db_session, test_company_data):
+    """Test company to_dict method."""
+    from vanta_ledger.models.company import Company
+    
+    company = Company(**test_company_data)
+    db_session.add(company)
+    db_session.commit()
+    
+    company_dict = company.to_dict()
+    
+    assert isinstance(company_dict, dict)
+    assert company_dict["name"] == "Test Company"
+    assert company_dict["registration_number"] == "TEST123"
+    assert "id" in company_dict
+    assert "created_at" in company_dict

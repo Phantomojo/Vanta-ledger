@@ -36,15 +36,15 @@ def run_command(command: str, cwd: str = None) -> Dict[str, Any]:
 
 def fix_black_formatting():
     """Fix all Black formatting issues"""
-    print("🎨 Fixing Black formatting issues...")
+    logger.info("🎨 Fixing Black formatting issues...")
     
     # Run Black to format all Python files
     result = run_command("python3 -m black . --line-length=88 --skip-string-normalization")
     
     if result["success"]:
-        print("  ✅ Black formatting applied successfully")
+        logger.info("  ✅ Black formatting applied successfully")
     else:
-        print(f"  ⚠️ Black formatting issues: {result['stderr']}")
+        logger.info(f"  ⚠️ Black formatting issues: {result[")
         
         # Manual fixes for specific files
         files_to_fix = [
@@ -86,11 +86,11 @@ def fix_black_formatting():
                         formatted_lines.append(line)
                 
                 path.write_text('\n'.join(formatted_lines))
-                print(f"  ✅ Manually formatted {file_path}")
+                logger.info(f"  ✅ Manually formatted {file_path}")
 
 def fix_type_checking():
     """Fix type checking issues"""
-    print("🔍 Fixing type checking issues...")
+    logger.info("🔍 Fixing type checking issues...")
     
     # Add proper type hints to all route files
     route_files = [
@@ -132,11 +132,11 @@ def fix_type_checking():
             )
             
             path.write_text(content)
-            print(f"  ✅ Fixed type hints in {file_path}")
+            logger.info(f"  ✅ Fixed type hints in {file_path}")
 
 def fix_documentation_quality():
     """Fix documentation quality issues"""
-    print("📚 Fixing documentation quality issues...")
+    logger.info("📚 Fixing documentation quality issues...")
     
     # Add comprehensive docstrings to all Python files
     python_files = [
@@ -176,11 +176,11 @@ Version: 1.0.0
 '''
                 content = docstring + content
                 path.write_text(content)
-                print(f"  ✅ Added comprehensive docstring to {file_path}")
+                logger.info(f"  ✅ Added comprehensive docstring to {file_path}")
 
 def fix_security_issues():
     """Fix security analysis issues"""
-    print("🔒 Fixing security issues...")
+    logger.info("🔒 Fixing security issues...")
     
     # Add security comments to suppress false positives
     security_files = [
@@ -210,11 +210,11 @@ No remote code execution or unsafe operations are performed.
             if not content.startswith('"""Security Note'):
                 content = security_header + content
                 path.write_text(content)
-                print(f"  ✅ Added security headers to {file_path}")
+                logger.info(f"  ✅ Added security headers to {file_path}")
 
 def fix_test_issues():
     """Fix test-related issues"""
-    print("🧪 Fixing test issues...")
+    logger.info("🧪 Fixing test issues...")
     
     # Create comprehensive test files
     test_files = [
@@ -277,11 +277,11 @@ def test_security_headers(client: TestClient):
     assert "X-XSS-Protection" in headers
 '''
             path.write_text(test_content)
-            print(f"  ✅ Created comprehensive test file {test_file}")
+            logger.info(f"  ✅ Created comprehensive test file {test_file}")
 
 def fix_dependency_issues():
     """Fix dependency-related issues"""
-    print("📦 Fixing dependency issues...")
+    logger.info("📦 Fixing dependency issues...")
     
     # Update requirements.txt with proper versions
     req_file = Path("config/requirements.txt")
@@ -309,11 +309,11 @@ def fix_dependency_issues():
                 content = content.replace(dep, version)
         
         req_file.write_text(content)
-        print("  ✅ Updated dependency versions")
+        logger.info("  ✅ Updated dependency versions")
 
 def fix_code_complexity():
     """Fix code complexity issues"""
-    print("📊 Fixing code complexity issues...")
+    logger.info("📊 Fixing code complexity issues...")
     
     # Simplify complex functions
     complex_files = [
@@ -373,11 +373,11 @@ def _handle_database_error(error: Exception) -> Dict[str, Any]:
                 )
                 content += helper_functions
                 path.write_text(content)
-                print(f"  ✅ Added helper functions to {file_path}")
+                logger.info(f"  ✅ Added helper functions to {file_path}")
 
 def create_missing_files():
     """Create any missing files that might be causing issues"""
-    print("📁 Creating missing files...")
+    logger.info("📁 Creating missing files...")
     
     # Create __init__.py files if missing
     init_dirs = [
@@ -392,7 +392,7 @@ def create_missing_files():
         path = Path(dir_path)
         if path.exists() and not (path / "__init__.py").exists():
             (path / "__init__.py").write_text('"""Package initialization."""\n')
-            print(f"  ✅ Created __init__.py in {dir_path}")
+            logger.info(f"  ✅ Created __init__.py in {dir_path}")
     
     # Create missing configuration files
     config_files = {
@@ -408,11 +408,11 @@ def create_missing_files():
         if not path.exists():
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content)
-            print(f"  ✅ Created {file_path}")
+            logger.info(f"  ✅ Created {file_path}")
 
 def fix_build_issues():
     """Fix build application issues"""
-    print("🏗️ Fixing build issues...")
+    logger.info("🏗️ Fixing build issues...")
     
     # Create proper setup.py
     setup_content = '''"""
@@ -469,12 +469,12 @@ setup(
     
     setup_path = Path("setup.py")
     setup_path.write_text(setup_content)
-    print("  ✅ Created setup.py")
+    logger.info("  ✅ Created setup.py")
 
 def main():
     """Run all fixes"""
-    print("🔧 Comprehensive Fix Script for All 33 Remaining PR Issues")
-    print("=" * 70)
+    logger.info("🔧 Comprehensive Fix Script for All 33 Remaining PR Issues")
+    logger.info("=")
     
     try:
         fix_black_formatting()
@@ -487,18 +487,18 @@ def main():
         create_missing_files()
         fix_build_issues()
         
-        print("\n" + "=" * 70)
-        print("🎉 All 33 issues have been addressed!")
-        print("✅ Ready to commit and push changes")
-        print("📋 Next steps:")
-        print("   1. git add .")
-        print("   2. git commit -m 'Fix all 33 remaining PR issues'")
-        print("   3. git push origin main")
-        print("   4. Run monitoring script to verify all fixes")
-        print("   5. PR #23 should now be ready to merge!")
+        logger.info("\n")
+        logger.info("🎉 All 33 issues have been addressed!")
+        logger.info("✅ Ready to commit and push changes")
+        logger.info("📋 Next steps:")
+        logger.info("   1. git add .")
+        logger.info("   2. git commit -m ")
+        logger.info("   3. git push origin main")
+        logger.info("   4. Run monitoring script to verify all fixes")
+        logger.info("   5. PR #23 should now be ready to merge!")
         
     except Exception as e:
-        print(f"❌ Error during fixes: {e}")
+        logger.error(f"❌ Error during fixes: {e}")
         return 1
     
     return 0

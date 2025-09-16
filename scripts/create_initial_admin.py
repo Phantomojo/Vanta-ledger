@@ -17,6 +17,8 @@ from sqlalchemy.orm import Session
 from src.vanta_ledger.database import SessionLocal, engine
 from src.vanta_ledger import models, schemas, crud
 from src.vanta_ledger.config import settings
+import logging
+logger = logging.getLogger(__name__)
 
 def init_db(db: Session) -> None:
     """Initialize the database with the first admin user."""
@@ -26,7 +28,7 @@ def init_db(db: Session) -> None:
     # Check if admin user already exists
     admin = crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER)
     if admin:
-        print(f"Admin user {settings.FIRST_SUPERUSER} already exists.")
+        logger.info(f"Admin user {settings.FIRST_SUPERUSER} already exists.")
         return
     
     # Prompt for admin password
@@ -35,19 +37,19 @@ def init_db(db: Session) -> None:
         password_confirm = getpass.getpass("Confirm admin password: ")
         
         if password != password_confirm:
-            print("Passwords do not match. Please try again.")
+            logger.info("Passwords do not match. Please try again.")
             continue
             
         # Validate password strength
         from src.vanta_ledger.utils.password import validate_password_strength
         is_valid, message = validate_password_strength(password)
         if not is_valid:
-            print(f"Password is not strong enough: {message}")
-            print(f"Password must be at least {settings.MIN_PASSWORD_LENGTH} characters long and include:")
-            print("- Uppercase letters")
-            print("- Lowercase letters")
-            print("- Numbers")
-            print("- Special characters")
+            logger.info(f"Password is not strong enough: {message}")
+            logger.info(f"Password must be at least {settings.MIN_PASSWORD_LENGTH} characters long and include:")
+            logger.info("- Uppercase letters")
+            logger.info("- Lowercase letters")
+            logger.info("- Numbers")
+            logger.info("- Special characters")
             continue
             
         break
@@ -62,16 +64,16 @@ def init_db(db: Session) -> None:
     
     # Create the user
     user = crud.user.create(db, obj_in=user_in)
-    print(f"Admin user {user.email} created successfully!")
+    logger.info(f"Admin user {user.email} created successfully!")
 
 def main():
     """Main entry point."""
-    print("Setting up initial admin user...")
+    logger.info("Setting up initial admin user...")
     db = SessionLocal()
     try:
         init_db(db)
     except Exception as e:
-        print(f"Error setting up admin user: {e}")
+        logger.error(f"Error setting up admin user: {e}")
         sys.exit(1)
     finally:
         db.close()

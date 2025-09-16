@@ -13,44 +13,46 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend', 'src'))
 
 from vanta_ledger.services.github_models_service import github_models_service
+import logging
+logger = logging.getLogger(__name__)
 
 
 async def setup_github_models():
     """Set up GitHub Models with token configuration"""
-    print("🚀 Setting up GitHub Models Service")
-    print("=" * 50)
+    logger.info("🚀 Setting up GitHub Models Service")
+    logger.info("=")
     
     # Check current status
-    print(f"Current status: {'✅ Enabled' if github_models_service.enabled else '❌ Disabled'}")
-    print(f"Default model: {github_models_service.default_model}")
+    logger.info(f"Current status: {")
+    logger.info(f"Default model: {github_models_service.default_model}")
     
     # Check for existing tokens
     github_token = os.getenv("GITHUB_TOKEN")
     github_models_token = os.getenv("GITHUB_MODELS_TOKEN")
     
-    print(f"\n📋 Token Status:")
-    print(f"GITHUB_TOKEN: {'✅ Set' if github_token else '❌ Not set'}")
-    print(f"GITHUB_MODELS_TOKEN: {'✅ Set' if github_models_token else '❌ Not set'}")
+    logger.info(f"\n📋 Token Status:")
+    logger.info(f"GITHUB_TOKEN: {")
+    logger.info(f"GITHUB_MODELS_TOKEN: {")
     
     if github_token or github_models_token:
-        print(f"\n🎉 GitHub Models will be enabled with existing token!")
+        logger.info(f"\n🎉 GitHub Models will be enabled with existing token!")
         return True
     
     # Interactive setup
-    print(f"\n🔧 Interactive Setup:")
-    print("To enable GitHub Models, you need to set one of these environment variables:")
-    print("1. GITHUB_TOKEN - Your GitHub personal access token")
-    print("2. GITHUB_MODELS_TOKEN - Specific token for GitHub Models")
+    logger.info(f"\n🔧 Interactive Setup:")
+    logger.info("To enable GitHub Models, you need to set one of these environment variables:")
+    logger.info("1. GITHUB_TOKEN - Your GitHub personal access token")
+    logger.info("2. GITHUB_MODELS_TOKEN - Specific token for GitHub Models")
     
     choice = input("\nWould you like to set up a token now? (y/n): ").lower().strip()
     
     if choice == 'y':
-        print("\n📝 Token Setup Instructions:")
-        print("1. Go to https://github.com/settings/tokens")
-        print("2. Click 'Generate new token (classic)'")
-        print("3. Give it a name like 'Vanta Ledger GitHub Models'")
-        print("4. Select scopes: 'repo' and 'read:user'")
-        print("5. Copy the generated token")
+        logger.info("\n📝 Token Setup Instructions:")
+        logger.info("1. Go to https://github.com/settings/tokens")
+        logger.info("2. Click ")
+        logger.info("3. Give it a name like ")
+        logger.info("4. Select scopes: ")
+        logger.info("5. Copy the generated token")
         
         token = input("\nEnter your GitHub token (or press Enter to skip): ").strip()
         
@@ -66,24 +68,24 @@ async def setup_github_models():
                 f.write(f"GITHUB_TOKEN={token}\n")
                 f.write(f"ENABLE_GITHUB_MODELS=True\n")
             
-            print("✅ Token saved to .env file")
-            print("🔄 Please restart the application to load the new configuration")
+            logger.info("✅ Token saved to .env file")
+            logger.info("🔄 Please restart the application to load the new configuration")
             return True
         else:
-            print("⏭️ Skipping token setup")
+            logger.info("⏭️ Skipping token setup")
             return False
     else:
-        print("⏭️ Skipping token setup")
+        logger.info("⏭️ Skipping token setup")
         return False
 
 
 async def test_enhanced_capabilities():
     """Test enhanced GitHub Models capabilities"""
-    print(f"\n🧪 Testing Enhanced GitHub Models Capabilities")
-    print("=" * 50)
+    logger.info(f"\n🧪 Testing Enhanced GitHub Models Capabilities")
+    logger.info("=")
     
     # Test document analysis
-    print("\n📄 Testing Document Analysis...")
+    logger.info("\n📄 Testing Document Analysis...")
     test_document = """
     INVOICE
     From: TechCorp Solutions
@@ -101,17 +103,17 @@ async def test_enhanced_capabilities():
             document_type="invoice"
         )
         
-        print(f"✅ Document Analysis:")
-        print(f"   Confidence: {analysis.get('confidence', 0.0):.2f}")
-        print(f"   Quality: {analysis.get('analysis_quality', 'unknown')}")
-        print(f"   Entities found: {analysis.get('extraction_metadata', {}).get('entities_found', 0)}")
-        print(f"   Amounts detected: {len(analysis.get('entities', {}).get('amounts_detected', []))}")
+        logger.info(f"✅ Document Analysis:")
+        logger.info(f"   Confidence: {analysis.get(")
+        logger.info(f"   Quality: {analysis.get(")}")
+        logger.info(f"   Entities found: {analysis.get(")
+        logger.info(f"   Amounts detected: {len(analysis.get(")
         
     except Exception as e:
-        print(f"❌ Document analysis failed: {e}")
+        logger.error(f"❌ Document analysis failed: {e}")
     
     # Test expense categorization
-    print("\n🏷️ Testing Expense Categorization...")
+    logger.info("\n🏷️ Testing Expense Categorization...")
     test_expenses = [
         {"description": "AWS Cloud Services", "amount": 150.00, "vendor": "Amazon Web Services"},
         {"description": "Uber ride to office", "amount": 25.50, "vendor": "Uber"},
@@ -126,13 +128,13 @@ async def test_enhanced_capabilities():
                 vendor=expense["vendor"]
             )
             
-            print(f"✅ Expense {i+1}: {categorization.get('category', 'Unknown')} (Confidence: {categorization.get('confidence', 0.0):.2f})")
+            logger.info(f"✅ Expense {i+1}: {categorization.get(")} (Confidence: {categorization.get('confidence', 0.0):.2f})")
             
         except Exception as e:
-            print(f"❌ Expense categorization {i+1} failed: {e}")
+            logger.error(f"❌ Expense categorization {i+1} failed: {e}")
     
     # Test financial insights
-    print("\n💡 Testing Financial Insights...")
+    logger.info("\n💡 Testing Financial Insights...")
     test_data = {
         "Q1_revenue": 50000,
         "Q2_revenue": 55000,
@@ -150,17 +152,17 @@ async def test_enhanced_capabilities():
             industry="technology"
         )
         
-        print(f"✅ Financial Insights:")
-        print(f"   Metrics analyzed: {insights.get('metrics', {}).get('count', 0)}")
-        print(f"   Trends detected: {len(insights.get('trends', []))}")
-        print(f"   Insights generated: {len(insights.get('insights', []))}")
-        print(f"   Recommendations: {len(insights.get('recommendations', []))}")
+        logger.info(f"✅ Financial Insights:")
+        logger.info(f"   Metrics analyzed: {insights.get(")
+        logger.info(f"   Trends detected: {len(insights.get(")
+        logger.info(f"   Insights generated: {len(insights.get(")
+        logger.info(f"   Recommendations: {len(insights.get(")
         
     except Exception as e:
-        print(f"❌ Financial insights failed: {e}")
+        logger.error(f"❌ Financial insights failed: {e}")
     
     # Test fraud detection
-    print("\n🚨 Testing Fraud Detection...")
+    logger.info("\n🚨 Testing Fraud Detection...")
     test_transactions = [
         {"amount": 100, "vendor": "Office Supplies Inc."},
         {"amount": 150, "vendor": "Cloud Services Ltd."},
@@ -173,16 +175,16 @@ async def test_enhanced_capabilities():
             transactions=test_transactions
         )
         
-        print(f"✅ Fraud Detection:")
-        print(f"   Risk level: {fraud_analysis.get('risk_level', 'unknown')}")
-        print(f"   Risk score: {fraud_analysis.get('risk_score', 0)}")
-        print(f"   Fraud indicators: {len(fraud_analysis.get('fraud_indicators', []))}")
+        logger.info(f"✅ Fraud Detection:")
+        logger.info(f"   Risk level: {fraud_analysis.get(")}")
+        logger.info(f"   Risk score: {fraud_analysis.get(")
+        logger.info(f"   Fraud indicators: {len(fraud_analysis.get(")
         
     except Exception as e:
-        print(f"❌ Fraud detection failed: {e}")
+        logger.error(f"❌ Fraud detection failed: {e}")
     
     # Test compliance checking
-    print("\n📋 Testing Compliance Checking...")
+    logger.info("\n📋 Testing Compliance Checking...")
     test_financial_data = {
         "balance_sheet": 100000,
         "income_statement": 50000,
@@ -197,19 +199,19 @@ async def test_enhanced_capabilities():
             regulations=["basic_accounting", "tax_compliance", "audit_standards"]
         )
         
-        print(f"✅ Compliance Checking:")
-        print(f"   Overall compliance: {compliance_analysis.get('overall_compliance', False)}")
-        print(f"   Compliance score: {compliance_analysis.get('compliance_score', 0.0):.2f}")
-        print(f"   Regulations checked: {len(compliance_analysis.get('regulation_results', {}))}")
+        logger.info(f"✅ Compliance Checking:")
+        logger.info(f"   Overall compliance: {compliance_analysis.get(")
+        logger.info(f"   Compliance score: {compliance_analysis.get(")
+        logger.info(f"   Regulations checked: {len(compliance_analysis.get(")
         
     except Exception as e:
-        print(f"❌ Compliance checking failed: {e}")
+        logger.error(f"❌ Compliance checking failed: {e}")
 
 
 async def main():
     """Main setup function"""
-    print("🤖 GitHub Models Setup and Testing")
-    print("=" * 60)
+    logger.info("🤖 GitHub Models Setup and Testing")
+    logger.info("=")
     
     # Set up GitHub Models
     setup_success = await setup_github_models()
@@ -217,28 +219,28 @@ async def main():
     # Test enhanced capabilities
     await test_enhanced_capabilities()
     
-    print(f"\n" + "=" * 60)
-    print("📊 Setup Summary")
-    print("=" * 60)
+    logger.info(f"\n")
+    logger.info("📊 Setup Summary")
+    logger.info("=")
     
     if setup_success:
-        print("✅ GitHub Models configured successfully")
-        print("✅ Enhanced capabilities tested")
-        print("✅ All ML libraries installed")
-        print("✅ Tesseract OCR installed")
-        print("\n🎉 Your Vanta Ledger now has full AI capabilities!")
+        logger.info("✅ GitHub Models configured successfully")
+        logger.info("✅ Enhanced capabilities tested")
+        logger.info("✅ All ML libraries installed")
+        logger.info("✅ Tesseract OCR installed")
+        logger.info("\n🎉 Your Vanta Ledger now has full AI capabilities!")
     else:
-        print("⚠️ GitHub Models not configured (using enhanced heuristics)")
-        print("✅ Enhanced capabilities working")
-        print("✅ All ML libraries installed")
-        print("✅ Tesseract OCR installed")
-        print("\n💡 To enable cloud models, set GITHUB_TOKEN environment variable")
+        logger.info("⚠️ GitHub Models not configured (using enhanced heuristics)")
+        logger.info("✅ Enhanced capabilities working")
+        logger.info("✅ All ML libraries installed")
+        logger.info("✅ Tesseract OCR installed")
+        logger.info("\n💡 To enable cloud models, set GITHUB_TOKEN environment variable")
     
-    print(f"\n🚀 Next steps:")
-    print("1. Restart the application to load new configurations")
-    print("2. Test the enhanced document processing")
-    print("3. Try semantic search capabilities")
-    print("4. Explore AI agent coordination")
+    logger.info(f"\n🚀 Next steps:")
+    logger.info("1. Restart the application to load new configurations")
+    logger.info("2. Test the enhanced document processing")
+    logger.info("3. Try semantic search capabilities")
+    logger.info("4. Explore AI agent coordination")
 
 
 if __name__ == "__main__":

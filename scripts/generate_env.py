@@ -7,6 +7,8 @@ import os
 import secrets
 import string
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 def generate_random_password(length=24):
     """Generate a secure random password."""
@@ -25,7 +27,7 @@ def generate_env_file():
     env_path = Path(".env")
     
     if env_path.exists():
-        print("Warning: .env file already exists. Backing up to .env.bak")
+        logger.warning("Warning: .env file already exists. Backing up to .env.bak")
         env_path.rename(".env.bak")
     
     # Generate secure secrets
@@ -55,10 +57,10 @@ def generate_env_file():
     # Set secure permissions (read/write for user only)
     os.chmod(".env", 0o600)
     
-    print("Generated new .env file with secure secrets")
-    print(f"Admin password: {admin_password}")
-    print("\nIMPORTANT: Save this password in a secure password manager!")
-    print("You will need it to log in to the application for the first time.")
+    logger.info("Generated new .env file with secure secrets")
+    logger.info(f"Admin password: {admin_password}")
+    logger.info("\nIMPORTANT: Save this password in a secure password manager!")
+    logger.info("You will need it to log in to the application for the first time.")
 
 if __name__ == "__main__":
     generate_env_file()

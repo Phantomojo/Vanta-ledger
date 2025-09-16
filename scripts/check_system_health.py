@@ -11,10 +11,12 @@ import time
 import subprocess
 from pathlib import Path
 from datetime import datetime
+import logging
+logger = logging.getLogger(__name__)
 
 def check_environment():
     """Check environment setup"""
-    print("🔍 Checking Environment Setup...")
+    logger.info("🔍 Checking Environment Setup...")
     
     health = {
         "environment": {},
@@ -38,15 +40,15 @@ def check_environment():
     else:
         health["environment"]["project_structure"] = "incorrect"
     
-    print(f"   ✅ Python: {health['environment']['python_version']}")
-    print(f"   ✅ Working Directory: {health['environment']['working_directory']}")
-    print(f"   ✅ Project Structure: {health['environment']['project_structure']}")
+    logger.info(f"   ✅ Python: {health[")
+    logger.info(f"   ✅ Working Directory: {health[")
+    logger.info(f"   ✅ Project Structure: {health[")
     
     return health
 
 def check_dependencies():
     """Check if all dependencies are installed"""
-    print("\n📦 Checking Dependencies...")
+    logger.info("\n📦 Checking Dependencies...")
     
     dependencies = {
         "torch": "PyTorch for ML",
@@ -69,16 +71,16 @@ def check_dependencies():
             else:
                 __import__(dep)
             health[dep] = "installed"
-            print(f"   ✅ {dep}: {description}")
+            logger.info(f"   ✅ {dep}: {description}")
         except ImportError:
             health[dep] = "missing"
-            print(f"   ❌ {dep}: {description} - MISSING")
+            logger.info(f"   ❌ {dep}: {description} - MISSING")
     
     return health
 
 def check_models():
     """Check model files"""
-    print("\n🤖 Checking Model Files...")
+    logger.info("\n🤖 Checking Model Files...")
     
     health = {}
     
@@ -86,7 +88,7 @@ def check_models():
     models_dir = Path("models")
     if models_dir.exists():
         health["models_directory"] = "exists"
-        print(f"   ✅ Models directory: {models_dir}")
+        logger.info(f"   ✅ Models directory: {models_dir}")
         
         # Check TinyLlama
         tinyllama_path = models_dir / "tinyllama" / "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
@@ -96,10 +98,10 @@ def check_models():
                 "status": "ready",
                 "size_mb": round(size_mb, 1)
             }
-            print(f"   ✅ TinyLlama: {size_mb:.1f}MB")
+            logger.info(f"   ✅ TinyLlama: {size_mb:.1f}MB")
         else:
             health["tinyllama"] = {"status": "missing"}
-            print("   ❌ TinyLlama: missing")
+            logger.info("   ❌ TinyLlama: missing")
         
         # Check Mistral
         mistral_dir = models_dir / "mistral"
@@ -112,22 +114,22 @@ def check_models():
                     "files": len(files),
                     "size_mb": round(total_size, 1)
                 }
-                print(f"   ⚠️  Mistral: {len(files)} files, {total_size:.1f}MB")
+                logger.info(f"   ⚠️  Mistral: {len(files)} files, {total_size:.1f}MB")
             else:
                 health["mistral"] = {"status": "empty"}
-                print("   ❌ Mistral: empty directory")
+                logger.info("   ❌ Mistral: empty directory")
         else:
             health["mistral"] = {"status": "missing"}
-            print("   ❌ Mistral: missing")
+            logger.info("   ❌ Mistral: missing")
     else:
         health["models_directory"] = "missing"
-        print("   ❌ Models directory: missing")
+        logger.info("   ❌ Models directory: missing")
     
     return health
 
 def check_hardware():
     """Check hardware configuration"""
-    print("\n🖥️  Checking Hardware...")
+    logger.info("\n🖥️  Checking Hardware...")
     
     health = {}
     
@@ -144,12 +146,12 @@ def check_hardware():
             "memory_gb": round(memory.total / (1024**3), 1)
         }
         
-        print(f"   ✅ CPU: {cpu_cores} cores, {cpu_percent}% usage")
-        print(f"   ✅ Memory: {health['cpu']['memory_gb']}GB total")
+        logger.info(f"   ✅ CPU: {cpu_cores} cores, {cpu_percent}% usage")
+        logger.info(f"   ✅ Memory: {health[")
         
     except Exception as e:
         health["cpu"] = {"error": str(e)}
-        print(f"   ❌ CPU check failed: {e}")
+        logger.error(f"   ❌ CPU check failed: {e}")
     
     # Check GPU
     try:
@@ -172,21 +174,21 @@ def check_hardware():
                 "memory_usage_percent": gpu_memory_percent
             }
             
-            print(f"   ✅ GPU: {gpu_name}")
-            print(f"   ✅ GPU Memory: {gpu_memory_used}MB / {gpu_memory_total}MB ({gpu_memory_percent}%)")
+            logger.info(f"   ✅ GPU: {gpu_name}")
+            logger.info(f"   ✅ GPU Memory: {gpu_memory_used}MB / {gpu_memory_total}MB ({gpu_memory_percent}%)")
         else:
             health["gpu"] = {"status": "not_detected"}
-            print("   ❌ GPU: not detected")
+            logger.info("   ❌ GPU: not detected")
             
     except Exception as e:
         health["gpu"] = {"error": str(e)}
-        print(f"   ❌ GPU check failed: {e}")
+        logger.error(f"   ❌ GPU check failed: {e}")
     
     return health
 
 def check_databases():
     """Check database connections"""
-    print("\n🗄️  Checking Database Connections...")
+    logger.info("\n🗄️  Checking Database Connections...")
     
     health = {}
     
@@ -198,12 +200,12 @@ def check_databases():
         mongo_client = pymongo.MongoClient(settings.MONGO_URI, serverSelectionTimeoutMS=5000)
         mongo_client.admin.command('ping')
         health["mongodb"] = "connected"
-        print("   ✅ MongoDB: connected")
+        logger.info("   ✅ MongoDB: connected")
         mongo_client.close()
         
     except Exception as e:
         health["mongodb"] = f"error: {str(e)}"
-        print(f"   ❌ MongoDB: {e}")
+        logger.info(f"   ❌ MongoDB: {e}")
     
     # Check Redis
     try:
@@ -213,18 +215,18 @@ def check_databases():
         redis_client = redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
         redis_client.ping()
         health["redis"] = "connected"
-        print("   ✅ Redis: connected")
+        logger.info("   ✅ Redis: connected")
         redis_client.close()
         
     except Exception as e:
         health["redis"] = f"error: {str(e)}"
-        print(f"   ❌ Redis: {e}")
+        logger.info(f"   ❌ Redis: {e}")
     
     return health
 
 def check_services():
     """Check service initialization"""
-    print("\n⚙️  Checking Services...")
+    logger.info("\n⚙️  Checking Services...")
     
     health = {}
     
@@ -234,14 +236,14 @@ def check_services():
         
         if hasattr(local_llm_service, 'hardware_detector'):
             health["local_llm_service"] = "initialized"
-            print("   ✅ Local LLM Service: initialized")
+            logger.info("   ✅ Local LLM Service: initialized")
         else:
             health["local_llm_service"] = "not_initialized"
-            print("   ❌ Local LLM Service: not initialized")
+            logger.info("   ❌ Local LLM Service: not initialized")
             
     except Exception as e:
         health["local_llm_service"] = f"error: {str(e)}"
-        print(f"   ❌ Local LLM Service: {e}")
+        logger.info(f"   ❌ Local LLM Service: {e}")
     
     # Check Enhanced Document Service
     try:
@@ -249,20 +251,20 @@ def check_services():
         
         if hasattr(enhanced_document_service, 'documents'):
             health["enhanced_document_service"] = "initialized"
-            print("   ✅ Enhanced Document Service: initialized")
+            logger.info("   ✅ Enhanced Document Service: initialized")
         else:
             health["enhanced_document_service"] = "not_initialized"
-            print("   ❌ Enhanced Document Service: not initialized")
+            logger.info("   ❌ Enhanced Document Service: not initialized")
             
     except Exception as e:
         health["enhanced_document_service"] = f"error: {str(e)}"
-        print(f"   ❌ Enhanced Document Service: {e}")
+        logger.info(f"   ❌ Enhanced Document Service: {e}")
     
     return health
 
 def generate_report(health_data):
     """Generate health report"""
-    print("\n📊 Generating Health Report...")
+    logger.info("\n📊 Generating Health Report...")
     
     # Calculate overall health
     all_checks = []
@@ -299,10 +301,10 @@ def generate_report(health_data):
     # Overall health
     if all(all_checks):
         health_data["overall"] = "healthy"
-        print("🎉 Overall Health: HEALTHY - All systems operational!")
+        logger.info("🎉 Overall Health: HEALTHY - All systems operational!")
     else:
         health_data["overall"] = "unhealthy"
-        print("⚠️  Overall Health: UNHEALTHY - Some issues detected")
+        logger.info("⚠️  Overall Health: UNHEALTHY - Some issues detected")
     
     # Save report
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -311,14 +313,14 @@ def generate_report(health_data):
     with open(report_file, 'w') as f:
         json.dump(health_data, f, indent=2, default=str)
     
-    print(f"📄 Health report saved to: {report_file}")
+    logger.info(f"📄 Health report saved to: {report_file}")
     
     return health_data
 
 def main():
     """Main health check function"""
-    print("🏥 Vanta Ledger System Health Check")
-    print("=" * 50)
+    logger.info("🏥 Vanta Ledger System Health Check")
+    logger.info("=")
     
     # Run all health checks
     health_data = {
@@ -334,14 +336,14 @@ def main():
     # Generate report
     final_report = generate_report(health_data)
     
-    print("\n" + "=" * 50)
-    print("🏥 Health Check Complete!")
+    logger.info("\n")
+    logger.info("🏥 Health Check Complete!")
     
     if final_report["overall"] == "healthy":
-        print("✅ System is ready for testing and operation!")
+        logger.info("✅ System is ready for testing and operation!")
         return True
     else:
-        print("⚠️  System has issues that need to be addressed.")
+        logger.info("⚠️  System has issues that need to be addressed.")
         return False
 
 if __name__ == "__main__":

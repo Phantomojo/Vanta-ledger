@@ -7,6 +7,8 @@ Helps users set up their GitHub token for the GitHub Models Service
 import os
 import sys
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 def check_github_cli():
     """Check if GitHub CLI is available"""
@@ -26,7 +28,7 @@ def get_token_from_gh():
             return result.stdout.strip()
         return None
     except Exception as e:
-        print(f"Error getting token from GitHub CLI: {e}")
+        logger.error(f"Error getting token from GitHub CLI: {e}")
         return None
 
 def setup_env_file():
@@ -36,14 +38,14 @@ def setup_env_file():
     
     if not env_file.exists():
         if env_template.exists():
-            print("📝 Creating .env file from template...")
+            logger.info("📝 Creating .env file from template...")
             with open(env_template, 'r') as f:
                 content = f.read()
             
             with open(env_file, 'w') as f:
                 f.write(content)
         else:
-            print("📝 Creating new .env file...")
+            logger.info("📝 Creating new .env file...")
             with open(env_file, 'w') as f:
                 f.write("# Vanta Ledger Environment Configuration\n")
                 f.write("# Copy to .env and fill in secure values\n\n")
@@ -91,11 +93,11 @@ def update_env_file(env_file, token):
         with open(env_file, 'w') as f:
             f.write(content)
         
-        print(f"✅ Updated {env_file} with GitHub token")
+        logger.info(f"✅ Updated {env_file} with GitHub token")
         return True
         
     except Exception as e:
-        print(f"❌ Error updating .env file: {e}")
+        logger.error(f"❌ Error updating .env file: {e}")
         return False
 
 def test_github_models():
@@ -110,57 +112,57 @@ def test_github_models():
         
         service = GitHubModelsService()
         
-        print(f"🔧 GitHub Models Service Status:")
-        print(f"   Enabled: {service.enabled}")
-        print(f"   Token Available: {bool(service.token)}")
-        print(f"   Default Model: {service.default_model}")
+        logger.info(f"🔧 GitHub Models Service Status:")
+        logger.info(f"   Enabled: {service.enabled}")
+        logger.info(f"   Token Available: {bool(service.token)}")
+        logger.info(f"   Default Model: {service.default_model}")
         
         if service.enabled:
-            print("✅ GitHub Models Service is ready!")
+            logger.info("✅ GitHub Models Service is ready!")
             return True
         else:
-            print("❌ GitHub Models Service is not enabled")
+            logger.info("❌ GitHub Models Service is not enabled")
             return False
             
     except ImportError as e:
-        print(f"❌ Error importing GitHub Models Service: {e}")
+        logger.error(f"❌ Error importing GitHub Models Service: {e}")
         return False
     except Exception as e:
-        print(f"❌ Error testing GitHub Models Service: {e}")
+        logger.error(f"❌ Error testing GitHub Models Service: {e}")
         return False
 
 def main():
     """Main setup function"""
-    print("🔑 GitHub Token Setup for Vanta Ledger")
-    print("=" * 50)
+    logger.info("🔑 GitHub Token Setup for Vanta Ledger")
+    logger.info("=")
     
     # Check if GitHub CLI is available
     if check_github_cli():
-        print("🖥️ GitHub CLI detected!")
+        logger.info("🖥️ GitHub CLI detected!")
         
         # Try to get token from GitHub CLI
         token = get_token_from_gh()
         if token:
-            print("✅ Retrieved token from GitHub CLI")
+            logger.info("✅ Retrieved token from GitHub CLI")
         else:
-            print("⚠️ Could not get token from GitHub CLI")
+            logger.info("⚠️ Could not get token from GitHub CLI")
             token = None
     else:
-        print("⚠️ GitHub CLI not found")
+        logger.info("⚠️ GitHub CLI not found")
         token = None
     
     # If no token from CLI, ask user
     if not token:
-        print("\n📝 Manual Token Setup:")
-        print("1. Go to GitHub.com → Settings → Developer settings → Personal access tokens")
-        print("2. Generate a new token with 'repo' permissions")
-        print("3. Copy the token and paste it below")
+        logger.info("\n📝 Manual Token Setup:")
+        logger.info("1. Go to GitHub.com → Settings → Developer settings → Personal access tokens")
+        logger.info("2. Generate a new token with ")
+        logger.info("3. Copy the token and paste it below")
         print()
         
         token = input("Enter your GitHub token: ").strip()
         
         if not token:
-            print("❌ No token provided. Setup cancelled.")
+            logger.info("❌ No token provided. Setup cancelled.")
             return
     
     # Set up .env file
@@ -168,22 +170,22 @@ def main():
     
     # Update .env file with token
     if update_env_file(env_file, token):
-        print(f"✅ Token saved to {env_file}")
+        logger.info(f"✅ Token saved to {env_file}")
     else:
-        print("❌ Failed to save token")
+        logger.error("❌ Failed to save token")
         return
     
     # Test the setup
-    print("\n🧪 Testing GitHub Models Service...")
+    logger.info("\n🧪 Testing GitHub Models Service...")
     if test_github_models():
-        print("\n🎉 Setup completed successfully!")
-        print("\n📋 Next steps:")
-        print("1. Test the service: python scripts/test_core_models.py")
-        print("2. Start the application: python -m vanta_ledger.main")
-        print("3. Access GitHub Models API at: /github-models/health")
+        logger.info("\n🎉 Setup completed successfully!")
+        logger.info("\n📋 Next steps:")
+        logger.info("1. Test the service: python scripts/test_core_models.py")
+        logger.info("2. Start the application: python -m vanta_ledger.main")
+        logger.info("3. Access GitHub Models API at: /github-models/health")
     else:
-        print("\n❌ Setup completed but service test failed")
-        print("Please check your token and try again")
+        logger.error("\n❌ Setup completed but service test failed")
+        logger.info("Please check your token and try again")
 
 if __name__ == "__main__":
     main()

@@ -490,8 +490,8 @@ def main():
     try:
         # This would be called from the main application
         # For now, we'll just show the structure
-        print("Network Analysis Engine Ready")
-        print("Use this class to analyze the business network of all 29 companies")
+        logger.info("Network Analysis Engine Ready")
+        logger.info("Use this class to analyze the business network of all 29 companies")
         
     except Exception as e:
         logger.error(f"Network analysis failed: {e}")

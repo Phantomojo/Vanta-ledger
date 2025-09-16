@@ -6,6 +6,8 @@ Real-world scenarios showing the benefits of multiple AI models.
 import sys
 import asyncio
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 # Add backend to path
 backend_path = Path("backend/src")
@@ -14,8 +16,8 @@ if backend_path.exists():
 
 async def example_invoice_processing():
     """Example: Processing a complex invoice with multiple models"""
-    print("📄 Example 1: Complex Invoice Processing")
-    print("=" * 50)
+    logger.info("📄 Example 1: Complex Invoice Processing")
+    logger.info("=")
     
     invoice_text = """
     INVOICE #INV-2024-001
@@ -37,8 +39,8 @@ async def example_invoice_processing():
     Due Date: December 15, 2024
     """
     
-    print("📋 Invoice Content:")
-    print(invoice_text)
+    logger.info("📋 Invoice Content:")
+    logger.info(invoice_text)
     print()
     
     # Simulate different model analyses
@@ -66,29 +68,29 @@ async def example_invoice_processing():
         }
     }
     
-    print("🤖 Individual Model Results:")
+    logger.info("🤖 Individual Model Results:")
     for model, result in analyses.items():
-        print(f"   {model}:")
-        print(f"     Amount: ${result['total_amount']}")
-        print(f"     Vendor: {result['vendor']}")
-        print(f"     Category: {result['category']}")
-        print(f"     Speed: {result['processing_time']}")
-        print(f"     Cost: {result['cost']}")
+        logger.info(f"   {model}:")
+        logger.info(f"     Amount: ${result[")
+        logger.info(f"     Vendor: {result[")
+        logger.info(f"     Category: {result[")
+        logger.info(f"     Speed: {result[")
+        logger.info(f"     Cost: {result[")
         print()
     
     # Consensus result
-    print("🤝 Consensus Result:")
-    print("   ✅ Amount: $9,873.50 (All models agree)")
-    print("   ✅ Vendor: TechSolutions Inc. (All models agree)")
-    print("   📊 Category: Professional Services (Majority consensus)")
-    print("   ⚡ Average Speed: 0.53s")
-    print("   💰 Total Cost: $0.000475 (Very low)")
+    logger.info("🤝 Consensus Result:")
+    logger.info("   ✅ Amount: $9,873.50 (All models agree)")
+    logger.info("   ✅ Vendor: TechSolutions Inc. (All models agree)")
+    logger.info("   📊 Category: Professional Services (Majority consensus)")
+    logger.info("   ⚡ Average Speed: 0.53s")
+    logger.info("   💰 Total Cost: $0.000475 (Very low)")
     print()
 
 async def example_fraud_detection():
     """Example: Fraud detection using multiple models"""
-    print("🔍 Example 2: Fraud Detection")
-    print("=" * 50)
+    logger.info("🔍 Example 2: Fraud Detection")
+    logger.info("=")
     
     transactions = [
         {"amount": 5000, "vendor": "Unknown Vendor", "date": "2024-12-01", "type": "suspicious"},
@@ -97,10 +99,10 @@ async def example_fraud_detection():
         {"amount": 1200, "vendor": "AWS", "date": "2024-12-01", "type": "normal"}
     ]
     
-    print("📊 Transaction Analysis:")
+    logger.info("📊 Transaction Analysis:")
     for tx in transactions:
         status = "🚨" if tx["type"] == "suspicious" else "✅"
-        print(f"   {status} ${tx['amount']} - {tx['vendor']}")
+        logger.info(f"   {status} ${tx[")
     print()
     
     # Different models detect different patterns
@@ -122,28 +124,28 @@ async def example_fraud_detection():
         }
     }
     
-    print("🔍 Fraud Detection Results:")
+    logger.info("🔍 Fraud Detection Results:")
     for model, result in fraud_analysis.items():
-        print(f"   {model}:")
-        print(f"     Suspicious: Transactions {result['suspicious_transactions']}")
-        print(f"     Reasoning: {result['reasoning']}")
-        print(f"     Confidence: {result['confidence']}")
+        logger.info(f"   {model}:")
+        logger.info(f"     Suspicious: Transactions {result[")
+        logger.info(f"     Reasoning: {result[")
+        logger.info(f"     Confidence: {result[")
         print()
     
-    print("🤝 Combined Fraud Detection:")
-    print("   🚨 High Risk: Transactions 0, 2 (All models agree)")
-    print("   ⚠️ Medium Risk: Transaction 3 (One model flagged)")
-    print("   ✅ Low Risk: Transaction 1 (All models clear)")
+    logger.info("🤝 Combined Fraud Detection:")
+    logger.info("   🚨 High Risk: Transactions 0, 2 (All models agree)")
+    logger.info("   ⚠️ Medium Risk: Transaction 3 (One model flagged)")
+    logger.info("   ✅ Low Risk: Transaction 1 (All models clear)")
     print()
 
 async def example_code_generation():
     """Example: Generating financial calculation code"""
-    print("💻 Example 3: Code Generation for Financial Calculations")
-    print("=" * 50)
+    logger.info("💻 Example 3: Code Generation for Financial Calculations")
+    logger.info("=")
     
     requirement = "Generate Python code to calculate tax deductions for business expenses"
     
-    print(f"📋 Requirement: {requirement}")
+    logger.info(f"📋 Requirement: {requirement}")
     print()
     
     # Different models generate different code approaches
@@ -168,26 +170,26 @@ async def example_code_generation():
         }
     }
     
-    print("💻 Code Generation Results:")
+    logger.info("💻 Code Generation Results:")
     for model, result in code_examples.items():
-        print(f"   {model}:")
-        print(f"     Approach: {result['approach']}")
-        print(f"     Features: {', '.join(result['features'])}")
-        print(f"     Lines: {result['lines']}")
-        print(f"     Quality: {result['quality']}")
+        logger.info(f"   {model}:")
+        logger.info(f"     Approach: {result[")
+        logger.info(f"     Features: {")
+        logger.info(f"     Lines: {result[")
+        logger.info(f"     Quality: {result[")
         print()
     
-    print("🤝 Combined Code Solution:")
-    print("   ✅ Best practices from all models")
-    print("   ✅ Comprehensive error handling")
-    print("   ✅ Well-documented and tested")
-    print("   ✅ Multiple implementation approaches")
+    logger.info("🤝 Combined Code Solution:")
+    logger.info("   ✅ Best practices from all models")
+    logger.error("   ✅ Comprehensive error handling")
+    logger.info("   ✅ Well-documented and tested")
+    logger.info("   ✅ Multiple implementation approaches")
     print()
 
 async def example_financial_analysis():
     """Example: Complex financial analysis"""
-    print("📊 Example 4: Quarterly Financial Analysis")
-    print("=" * 50)
+    logger.info("📊 Example 4: Quarterly Financial Analysis")
+    logger.info("=")
     
     financial_data = """
     Q4 2024 Financial Summary:
@@ -203,8 +205,8 @@ async def example_financial_analysis():
     - Cash Flow: $650,000
     """
     
-    print("📈 Financial Data:")
-    print(financial_data)
+    logger.info("📈 Financial Data:")
+    logger.info(financial_data)
     print()
     
     # Different models provide different insights
@@ -247,28 +249,28 @@ async def example_financial_analysis():
         }
     }
     
-    print("🧠 Analysis Results:")
+    logger.info("🧠 Analysis Results:")
     for model, result in insights.items():
-        print(f"   {model}:")
-        print("     Key Insights:")
+        logger.info(f"   {model}:")
+        logger.info("     Key Insights:")
         for insight in result["key_insights"]:
-            print(f"       • {insight}")
-        print("     Recommendations:")
+            logger.info(f"       • {insight}")
+        logger.info("     Recommendations:")
         for rec in result["recommendations"]:
-            print(f"       • {rec}")
+            logger.info(f"       • {rec}")
         print()
     
-    print("🤝 Combined Analysis:")
-    print("   📊 Comprehensive financial health assessment")
-    print("   🎯 Strategic recommendations from multiple perspectives")
-    print("   🔍 Risk analysis and opportunity identification")
-    print("   📈 Growth strategy and operational insights")
+    logger.info("🤝 Combined Analysis:")
+    logger.info("   📊 Comprehensive financial health assessment")
+    logger.info("   🎯 Strategic recommendations from multiple perspectives")
+    logger.info("   🔍 Risk analysis and opportunity identification")
+    logger.info("   📈 Growth strategy and operational insights")
     print()
 
 async def main():
     """Main example function"""
-    print("🚀 Practical Examples: How Multiple Models Help Vanta Ledger")
-    print("=" * 70)
+    logger.info("🚀 Practical Examples: How Multiple Models Help Vanta Ledger")
+    logger.info("=")
     print()
     
     await example_invoice_processing()
@@ -276,15 +278,15 @@ async def main():
     await example_code_generation()
     await example_financial_analysis()
     
-    print("🎉 Key Takeaways:")
-    print("=" * 30)
-    print("✅ Multiple models provide redundancy and reliability")
-    print("✅ Different models excel at different tasks")
-    print("✅ Consensus improves accuracy and confidence")
-    print("✅ Cost-effective by using right model for each task")
-    print("✅ Faster processing through parallel execution")
-    print("✅ Comprehensive analysis from multiple perspectives")
-    print("✅ Future-proof system that can easily add new models")
+    logger.info("🎉 Key Takeaways:")
+    logger.info("=")
+    logger.info("✅ Multiple models provide redundancy and reliability")
+    logger.info("✅ Different models excel at different tasks")
+    logger.info("✅ Consensus improves accuracy and confidence")
+    logger.info("✅ Cost-effective by using right model for each task")
+    logger.info("✅ Faster processing through parallel execution")
+    logger.info("✅ Comprehensive analysis from multiple perspectives")
+    logger.info("✅ Future-proof system that can easily add new models")
 
 if __name__ == "__main__":
     asyncio.run(main())

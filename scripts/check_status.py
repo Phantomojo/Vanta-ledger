@@ -5,6 +5,8 @@ Status check for Local LLM setup
 
 import os
 import json
+import logging
+logger = logging.getLogger(__name__)
 
 def check_status():
     status = {
@@ -15,7 +17,7 @@ def check_status():
     }
     
     # Check models
-    print("📁 Checking models...")
+    logger.info("📁 Checking models...")
     
     # TinyLlama
     tinyllama_path = "models/tinyllama/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
@@ -25,10 +27,10 @@ def check_status():
             "status": "ready",
             "size_mb": round(size_mb, 1)
         }
-        print(f"   ✅ TinyLlama: {size_mb:.1f}MB")
+        logger.info(f"   ✅ TinyLlama: {size_mb:.1f}MB")
     else:
         status["models"]["tinyllama"] = {"status": "missing"}
-        print("   ❌ TinyLlama: missing")
+        logger.info("   ❌ TinyLlama: missing")
     
     # Mistral
     mistral_path = "models/mistral"
@@ -42,16 +44,16 @@ def check_status():
                 "files": len(files),
                 "size_mb": round(size_mb, 1)
             }
-            print(f"   ⚠️  Mistral: {len(files)} files, {size_mb:.1f}MB")
+            logger.info(f"   ⚠️  Mistral: {len(files)} files, {size_mb:.1f}MB")
         else:
             status["models"]["mistral"] = {"status": "empty"}
-            print("   ❌ Mistral: empty directory")
+            logger.info("   ❌ Mistral: empty directory")
     else:
         status["models"]["mistral"] = {"status": "missing"}
-        print("   ❌ Mistral: missing")
+        logger.info("   ❌ Mistral: missing")
     
     # Check dependencies
-    print("\n📦 Checking dependencies...")
+    logger.info("\n📦 Checking dependencies...")
     
     deps = ["torch", "transformers", "llama_cpp", "redis", "pymongo"]
     for dep in deps:
@@ -61,13 +63,13 @@ def check_status():
             else:
                 __import__(dep)
             status["dependencies"][dep] = "installed"
-            print(f"   ✅ {dep}")
+            logger.info(f"   ✅ {dep}")
         except ImportError:
             status["dependencies"][dep] = "missing"
-            print(f"   ❌ {dep}")
+            logger.info(f"   ❌ {dep}")
     
     # Check hardware
-    print("\n🖥️  Checking hardware...")
+    logger.info("\n🖥️  Checking hardware...")
     
     try:
         import psutil
@@ -75,12 +77,12 @@ def check_status():
         memory_gb = psutil.virtual_memory().total / (1024**3)
         status["hardware"]["cpu_cores"] = cpu_cores
         status["hardware"]["memory_gb"] = round(memory_gb, 1)
-        print(f"   ✅ CPU: {cpu_cores} cores")
-        print(f"   ✅ Memory: {memory_gb:.1f}GB")
+        logger.info(f"   ✅ CPU: {cpu_cores} cores")
+        logger.info(f"   ✅ Memory: {memory_gb:.1f}GB")
     except:
         status["hardware"]["cpu_cores"] = "unknown"
         status["hardware"]["memory_gb"] = "unknown"
-        print("   ❌ Hardware info unavailable")
+        logger.info("   ❌ Hardware info unavailable")
     
     # GPU check
     try:
@@ -93,13 +95,13 @@ def check_status():
                 "name": gpu_info[0],
                 "memory_mb": int(gpu_info[1])
             }
-            print(f"   ✅ GPU: {gpu_info[0]} ({gpu_info[1]}MB)")
+            logger.info(f"   ✅ GPU: {gpu_info[0]} ({gpu_info[1]}MB)")
         else:
             status["hardware"]["gpu"] = "none"
-            print("   ❌ GPU: not detected")
+            logger.info("   ❌ GPU: not detected")
     except:
         status["hardware"]["gpu"] = "unknown"
-        print("   ❌ GPU: check failed")
+        logger.error("   ❌ GPU: check failed")
     
     # Overall status
     ready_models = sum(1 for m in status["models"].values() if m.get("status") == "ready")
@@ -107,13 +109,13 @@ def check_status():
     
     if ready_models >= 1 and installed_deps >= 4:
         status["overall"] = "ready"
-        print("\n🎉 System is ready for local LLM processing!")
+        logger.info("\n🎉 System is ready for local LLM processing!")
     elif ready_models >= 1:
         status["overall"] = "partial"
-        print("\n⚠️  System partially ready - missing some dependencies")
+        logger.info("\n⚠️  System partially ready - missing some dependencies")
     else:
         status["overall"] = "not_ready"
-        print("\n❌ System not ready - missing models and/or dependencies")
+        logger.info("\n❌ System not ready - missing models and/or dependencies")
     
     return status
 
@@ -124,5 +126,5 @@ if __name__ == "__main__":
     with open("llm_status.json", "w") as f:
         json.dump(status, f, indent=2)
     
-    print(f"\n📄 Status saved to llm_status.json")
-    print(f"Overall status: {status['overall']}") 
+    logger.info(f"\n📄 Status saved to llm_status.json")
+    logger.info(f"Overall status: {status[") 

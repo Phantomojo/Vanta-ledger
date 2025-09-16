@@ -45,6 +45,25 @@ class LocalLLMIntegration:
     and optimization for agent testing scenarios.
     """
 
+    def _validate_model_path(self, model_path: str) -> tuple[str, bool]:
+        """
+        Validate model path for security.
+        Returns (safe_path, is_huggingface_model)
+        """
+        # Check if it's a local path
+        if model_path.startswith(('./', '/', '../')) or os.path.exists(model_path):
+            return model_path, False
+        
+        # Check if it's a Hugging Face model (contains /)
+        if '/' in model_path and not model_path.startswith('http'):
+            # This is a Hugging Face model - we need a commit hash
+            logger.warning(f"Hugging Face model detected: {model_path}")
+            logger.warning("For security, use a specific commit hash instead of branch names")
+            logger.warning("Example: revision='abc1234' instead of revision='main'")
+            return model_path, True
+        
+        return model_path, False
+
     def __init__(self, config: LLMConfig):
         """
         Initialize the local LLM integration.
@@ -112,13 +131,28 @@ class LocalLLMIntegration:
                 bnb_4bit_use_double_quant=True
             )
             
+            # Validate model path for security
+            safe_path, is_hf_model = self._validate_model_path(self.config.model_path)
+            
+            if is_hf_model:
+                # For Hugging Face models, we need a specific commit hash
+                # TODO: Replace with actual commit hash for the model
+                logger.warning(f"Using Hugging Face model {safe_path} - ensure you have a specific commit hash")
+                # For now, we'll use a placeholder - this should be replaced with actual commit hash
+                revision = "main"  # SECURITY WARNING: Replace with actual commit hash
+            else:
+                # Local model - no revision needed
+                revision = None
+            
             self._tokenizer = AutoTokenizer.from_pretrained(
-                self.config.model_path,
+                safe_path,
+                revision=revision,
                 trust_remote_code=True
             )
             
             self._model = AutoModelForCausalLM.from_pretrained(
-                self.config.model_path,
+                safe_path,
+                revision=revision,
                 quantization_config=quantization_config,
                 device_map="auto",
                 trust_remote_code=True
@@ -141,13 +175,28 @@ class LocalLLMIntegration:
                 llm_int8_threshold=6.0
             )
             
+            # Validate model path for security
+            safe_path, is_hf_model = self._validate_model_path(self.config.model_path)
+            
+            if is_hf_model:
+                # For Hugging Face models, we need a specific commit hash
+                # TODO: Replace with actual commit hash for the model
+                logger.warning(f"Using Hugging Face model {safe_path} - ensure you have a specific commit hash")
+                # For now, we'll use a placeholder - this should be replaced with actual commit hash
+                revision = "main"  # SECURITY WARNING: Replace with actual commit hash
+            else:
+                # Local model - no revision needed
+                revision = None
+            
             self._tokenizer = AutoTokenizer.from_pretrained(
-                self.config.model_path,
+                safe_path,
+                revision=revision,
                 trust_remote_code=True
             )
             
             self._model = AutoModelForCausalLM.from_pretrained(
-                self.config.model_path,
+                safe_path,
+                revision=revision,
                 quantization_config=quantization_config,
                 device_map="auto",
                 trust_remote_code=True
@@ -164,13 +213,28 @@ class LocalLLMIntegration:
         try:
             from transformers import AutoTokenizer, AutoModelForCausalLM
             
+            # Validate model path for security
+            safe_path, is_hf_model = self._validate_model_path(self.config.model_path)
+            
+            if is_hf_model:
+                # For Hugging Face models, we need a specific commit hash
+                # TODO: Replace with actual commit hash for the model
+                logger.warning(f"Using Hugging Face model {safe_path} - ensure you have a specific commit hash")
+                # For now, we'll use a placeholder - this should be replaced with actual commit hash
+                revision = "main"  # SECURITY WARNING: Replace with actual commit hash
+            else:
+                # Local model - no revision needed
+                revision = None
+            
             self._tokenizer = AutoTokenizer.from_pretrained(
-                self.config.model_path,
+                safe_path,
+                revision=revision,
                 trust_remote_code=True
             )
             
             self._model = AutoModelForCausalLM.from_pretrained(
-                self.config.model_path,
+                safe_path,
+                revision=revision,
                 device_map="auto",
                 trust_remote_code=True
             )

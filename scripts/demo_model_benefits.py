@@ -6,6 +6,8 @@ Shows the benefits of using multiple AI models for better accuracy and reliabili
 import sys
 import asyncio
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 # Add backend to path
 backend_path = Path("backend/src")
@@ -14,13 +16,13 @@ if backend_path.exists():
 
 async def demo_accuracy_improvement():
     """Demo how multiple models improve accuracy"""
-    print("🎯 Accuracy Improvement Demo")
-    print("=" * 50)
+    logger.info("🎯 Accuracy Improvement Demo")
+    logger.info("=")
     
     # Simulate different model responses for the same financial document
     document = "Invoice for $1,250 from ABC Consulting for Q4 2024 services"
     
-    print(f"📄 Document: {document}")
+    logger.info(f"📄 Document: {document}")
     print()
     
     # Simulate responses from different models
@@ -45,13 +47,13 @@ async def demo_accuracy_improvement():
         }
     }
     
-    print("📊 Individual Model Responses:")
+    logger.info("📊 Individual Model Responses:")
     for model, response in model_responses.items():
-        print(f"   {model}:")
-        print(f"     Amount: ${response['amount']}")
-        print(f"     Vendor: {response['vendor']}")
-        print(f"     Category: {response['category']}")
-        print(f"     Confidence: {response['confidence']}")
+        logger.info(f"   {model}:")
+        logger.info(f"     Amount: ${response[")
+        logger.info(f"     Vendor: {response[")
+        logger.info(f"     Category: {response[")
+        logger.info(f"     Confidence: {response[")
         print()
     
     # Calculate consensus
@@ -60,18 +62,18 @@ async def demo_accuracy_improvement():
     categories = [r['category'] for r in model_responses.values()]
     confidences = [r['confidence'] for r in model_responses.values()]
     
-    print("🤝 Consensus Analysis:")
-    print(f"   Amount Agreement: {len(set(amounts)) == 1} (All models agree: ${amounts[0]})")
-    print(f"   Vendor Agreement: {len(set(vendors)) == 1} (All models agree: {vendors[0]})")
-    print(f"   Category Agreement: {len(set(categories)) == 1} (Partial agreement)")
-    print(f"   Average Confidence: {sum(confidences)/len(confidences):.2f}")
-    print(f"   Highest Confidence: {max(confidences):.2f}")
+    logger.info("🤝 Consensus Analysis:")
+    logger.info(f"   Amount Agreement: {len(set(amounts)) == 1} (All models agree: ${amounts[0]})")
+    logger.info(f"   Vendor Agreement: {len(set(vendors)) == 1} (All models agree: {vendors[0]})")
+    logger.info(f"   Category Agreement: {len(set(categories)) == 1} (Partial agreement)")
+    logger.info(f"   Average Confidence: {sum(confidences)/len(confidences):.2f}")
+    logger.info(f"   Highest Confidence: {max(confidences):.2f}")
     print()
 
 async def demo_specialization():
     """Demo how different models specialize in different tasks"""
-    print("🎨 Model Specialization Demo")
-    print("=" * 50)
+    logger.info("🎨 Model Specialization Demo")
+    logger.info("=")
     
     tasks = {
         "Financial Analysis": {
@@ -97,16 +99,16 @@ async def demo_specialization():
     }
     
     for task, details in tasks.items():
-        print(f"📋 {task}:")
-        print(f"   Description: {details['description']}")
-        print(f"   Best Models: {', '.join(details['best_models'])}")
-        print(f"   Reason: {details['reason']}")
+        logger.info(f"📋 {task}:")
+        logger.info(f"   Description: {details[")
+        logger.info(f"   Best Models: {")
+        logger.info(f"   Reason: {details[")
         print()
 
 async def demo_cost_efficiency():
     """Demo how multiple models provide cost efficiency"""
-    print("💰 Cost Efficiency Demo")
-    print("=" * 50)
+    logger.info("💰 Cost Efficiency Demo")
+    logger.info("=")
     
     model_costs = {
         "gpt-4o-mini": {"cost_per_1k_tokens": 0.00015, "speed": "fast", "accuracy": "good"},
@@ -117,24 +119,24 @@ async def demo_cost_efficiency():
         "codellama-34b": {"cost_per_1k_tokens": 0.0001, "speed": "fast", "accuracy": "good"}
     }
     
-    print("📊 Model Cost Comparison:")
+    logger.info("📊 Model Cost Comparison:")
     for model, specs in model_costs.items():
-        print(f"   {model}:")
-        print(f"     Cost: ${specs['cost_per_1k_tokens']:.6f}/1K tokens")
-        print(f"     Speed: {specs['speed']}")
-        print(f"     Accuracy: {specs['accuracy']}")
+        logger.info(f"   {model}:")
+        logger.info(f"     Cost: ${specs[")
+        logger.info(f"     Speed: {specs[")
+        logger.info(f"     Accuracy: {specs[")
         print()
     
-    print("🎯 Smart Routing Strategy:")
-    print("   Simple tasks → Use cheaper models (gpt-4o-mini, gemini-1.5-flash)")
-    print("   Complex tasks → Use expensive models (gpt-4o, claude-3-5-sonnet)")
-    print("   Code tasks → Use specialized models (codellama-70b, codellama-34b)")
+    logger.info("🎯 Smart Routing Strategy:")
+    logger.info("   Simple tasks → Use cheaper models (gpt-4o-mini, gemini-1.5-flash)")
+    logger.info("   Complex tasks → Use expensive models (gpt-4o, claude-3-5-sonnet)")
+    logger.info("   Code tasks → Use specialized models (codellama-70b, codellama-34b)")
     print()
 
 async def demo_real_world_scenarios():
     """Demo real-world scenarios where multiple models help"""
-    print("🌍 Real-World Scenarios")
-    print("=" * 50)
+    logger.info("🌍 Real-World Scenarios")
+    logger.info("=")
     
     scenarios = [
         {
@@ -164,16 +166,16 @@ async def demo_real_world_scenarios():
     ]
     
     for scenario in scenarios:
-        print(f"📋 {scenario['scenario']}:")
-        print(f"   Challenge: {scenario['challenge']}")
-        print(f"   Models: {', '.join(scenario['models_used'])}")
-        print(f"   Benefit: {scenario['benefit']}")
+        logger.info(f"📋 {scenario[")
+        logger.info(f"   Challenge: {scenario[")
+        logger.info(f"   Models: {")
+        logger.info(f"   Benefit: {scenario[")
         print()
 
 async def main():
     """Main demo function"""
-    print("🚀 How Multiple Models Help Vanta Ledger")
-    print("=" * 60)
+    logger.info("🚀 How Multiple Models Help Vanta Ledger")
+    logger.info("=")
     print()
     
     await demo_accuracy_improvement()
@@ -181,15 +183,15 @@ async def main():
     await demo_cost_efficiency()
     await demo_real_world_scenarios()
     
-    print("🎉 Summary of Benefits:")
-    print("=" * 30)
-    print("✅ Higher Accuracy: Consensus from multiple models")
-    print("✅ Better Reliability: Redundancy if one model fails")
-    print("✅ Specialized Expertise: Right model for each task")
-    print("✅ Cost Efficiency: Use cheaper models for simple tasks")
-    print("✅ Faster Processing: Parallel execution")
-    print("✅ Comprehensive Analysis: Multiple perspectives")
-    print("✅ Future-Proof: Easy to add new models")
+    logger.info("🎉 Summary of Benefits:")
+    logger.info("=")
+    logger.info("✅ Higher Accuracy: Consensus from multiple models")
+    logger.error("✅ Better Reliability: Redundancy if one model fails")
+    logger.info("✅ Specialized Expertise: Right model for each task")
+    logger.info("✅ Cost Efficiency: Use cheaper models for simple tasks")
+    logger.info("✅ Faster Processing: Parallel execution")
+    logger.info("✅ Comprehensive Analysis: Multiple perspectives")
+    logger.info("✅ Future-Proof: Easy to add new models")
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -10,7 +10,7 @@ from pathlib import Path
 
 def fix_black_formatting():
     """Fix Black formatting issues"""
-    print("🎨 Fixing Black formatting...")
+    logger.info("🎨 Fixing Black formatting...")
     
     # Apply Black formatting to key files
     files = [
@@ -40,11 +40,11 @@ def fix_black_formatting():
                     formatted_lines.append(line)
             
             path.write_text('\n'.join(formatted_lines))
-            print(f"  ✅ Fixed {file_path}")
+            logger.info(f"  ✅ Fixed {file_path}")
 
 def fix_type_checking():
     """Fix type checking issues"""
-    print("🔍 Fixing type checking...")
+    logger.info("🔍 Fixing type checking...")
     
     files = [
         "backend/src/vanta_ledger/routes/companies.py",
@@ -69,11 +69,11 @@ def fix_type_checking():
             content = content.replace("user_update: dict", "user_update: Dict[str, Any]")
             
             path.write_text(content)
-            print(f"  ✅ Fixed types in {file_path}")
+            logger.info(f"  ✅ Fixed types in {file_path}")
 
 def fix_documentation():
     """Fix documentation quality"""
-    print("📚 Fixing documentation...")
+    logger.info("📚 Fixing documentation...")
     
     files = [
         "backend/src/vanta_ledger/routes/companies.py",
@@ -99,11 +99,11 @@ Includes authentication, validation, and error handling.
 '''
                 content = docstring + content
                 path.write_text(content)
-                print(f"  ✅ Added docstring to {file_path}")
+                logger.info(f"  ✅ Added docstring to {file_path}")
 
 def fix_security():
     """Fix security issues"""
-    print("🔒 Fixing security issues...")
+    logger.info("🔒 Fixing security issues...")
     
     files = [
         "backend/src/vanta_ledger/services/local_llm_service.py",
@@ -122,11 +122,11 @@ def fix_security():
             )
             
             path.write_text(content)
-            print(f"  ✅ Fixed security in {file_path}")
+            logger.info(f"  ✅ Fixed security in {file_path}")
 
 def create_tests():
     """Create missing test files"""
-    print("🧪 Creating test files...")
+    logger.info("🧪 Creating test files...")
     
     test_files = [
         "tests/test_companies.py",
@@ -144,6 +144,8 @@ Tests for {module} functionality.
 
 import pytest
 from fastapi import status
+import logging
+logger = logging.getLogger(__name__)
 
 
 def test_{module}_endpoint(client):
@@ -158,11 +160,11 @@ def test_{module}_authentication(client):
     assert response.status_code in [status.HTTP_200_OK, status.HTTP_401_UNAUTHORIZED]
 '''
             path.write_text(content)
-            print(f"  ✅ Created {test_file}")
+            logger.info(f"  ✅ Created {test_file}")
 
 def fix_dependencies():
     """Fix dependency issues"""
-    print("📦 Fixing dependencies...")
+    logger.info("📦 Fixing dependencies...")
     
     req_file = Path("config/requirements.txt")
     if req_file.exists():
@@ -180,12 +182,12 @@ def fix_dependencies():
                 content = content.replace(dep, version)
         
         req_file.write_text(content)
-        print("  ✅ Updated dependencies")
+        logger.info("  ✅ Updated dependencies")
 
 def main():
     """Run all fixes"""
-    print("🔧 Fixing All Remaining PR Issues")
-    print("=" * 50)
+    logger.info("🔧 Fixing All Remaining PR Issues")
+    logger.info("=")
     
     fix_black_formatting()
     fix_type_checking()
@@ -194,9 +196,9 @@ def main():
     create_tests()
     fix_dependencies()
     
-    print("\n" + "=" * 50)
-    print("🎉 All fixes completed!")
-    print("✅ Ready to commit and push")
+    logger.info("\n")
+    logger.info("🎉 All fixes completed!")
+    logger.info("✅ Ready to commit and push")
     
     return 0
 

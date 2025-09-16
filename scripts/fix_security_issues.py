@@ -7,10 +7,12 @@ Addresses critical security issues from audit
 import os
 import re
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 def fix_hardcoded_credentials():
     """Fix hardcoded credentials in backend files"""
-    print("🔧 Fixing hardcoded credentials...")
+    logger.info("🔧 Fixing hardcoded credentials...")
     
     backend_path = Path("backend/src/vanta_ledger")
     
@@ -40,14 +42,14 @@ def fix_hardcoded_credentials():
             if content != original_content:
                 with open(py_file, 'w', encoding='utf-8') as f:
                     f.write(content)
-                print(f"✅ Fixed: {py_file}")
+                logger.info(f"✅ Fixed: {py_file}")
                 
         except Exception as e:
-            print(f"❌ Error fixing {py_file}: {e}")
+            logger.error(f"❌ Error fixing {py_file}: {e}")
 
 def create_secure_env_template():
     """Create secure environment template"""
-    print("📝 Creating secure environment template...")
+    logger.info("📝 Creating secure environment template...")
     
     template = '''# Vanta Ledger Environment Configuration
 # Copy to .env and fill in secure values
@@ -79,22 +81,22 @@ RATE_LIMIT_WINDOW=3600
     with open(".env.template", "w") as f:
         f.write(template)
     
-    print("✅ Created .env.template")
+    logger.info("✅ Created .env.template")
 
 def main():
     """Main security fix function"""
-    print("🔒 Vanta Ledger Security Fixes")
-    print("=" * 40)
+    logger.info("🔒 Vanta Ledger Security Fixes")
+    logger.info("=")
     
     fix_hardcoded_credentials()
     create_secure_env_template()
     
-    print("\n✅ Security fixes completed!")
-    print("📋 Next steps:")
-    print("   1. Copy .env.template to .env")
-    print("   2. Fill in secure environment variables")
-    print("   3. Test the application")
-    print("   4. Review security audit findings")
+    logger.info("\n✅ Security fixes completed!")
+    logger.info("📋 Next steps:")
+    logger.info("   1. Copy .env.template to .env")
+    logger.info("   2. Fill in secure environment variables")
+    logger.info("   3. Test the application")
+    logger.info("   4. Review security audit findings")
 
 if __name__ == "__main__":
     main()

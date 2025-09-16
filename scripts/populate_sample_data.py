@@ -13,11 +13,13 @@ from vanta_ledger.database_init import get_database_initializer
 from vanta_ledger.models import Company, Project, LedgerEntry
 from datetime import datetime, timedelta
 import random
+import logging
+logger = logging.getLogger(__name__)
 
 def populate_sample_data():
     """Populate database with sample data"""
     try:
-        print("🚀 Populating database with sample data...")
+        logger.info("🚀 Populating database with sample data...")
         db_init = get_database_initializer()
         session = db_init.SessionLocal()
         
@@ -25,10 +27,10 @@ def populate_sample_data():
             # Check if data already exists
             company_count = session.query(Company).count()
             if company_count > 0:
-                print(f"✅ Database already has {company_count} companies, skipping population")
+                logger.info(f"✅ Database already has {company_count} companies, skipping population")
                 return True
             
-            print("📊 Creating sample companies...")
+            logger.info("📊 Creating sample companies...")
             
             # Sample companies
             companies = [
@@ -77,9 +79,9 @@ def populate_sample_data():
             for company in companies:
                 session.add(company)
             session.commit()
-            print(f"✅ Created {len(companies)} sample companies")
+            logger.info(f"✅ Created {len(companies)} sample companies")
             
-            print("📋 Creating sample projects...")
+            logger.info("📋 Creating sample projects...")
             
             # Sample projects
             projects = [
@@ -120,9 +122,9 @@ def populate_sample_data():
             for project in projects:
                 session.add(project)
             session.commit()
-            print(f"✅ Created {len(projects)} sample projects")
+            logger.info(f"✅ Created {len(projects)} sample projects")
             
-            print("💰 Creating sample ledger entries...")
+            logger.info("💰 Creating sample ledger entries...")
             
             # Sample ledger entries
             ledger_entries = [
@@ -163,12 +165,12 @@ def populate_sample_data():
             for entry in ledger_entries:
                 session.add(entry)
             session.commit()
-            print(f"✅ Created {len(ledger_entries)} sample ledger entries")
+            logger.info(f"✅ Created {len(ledger_entries)} sample ledger entries")
             
-            print("🎉 Database population completed successfully!")
-            print(f"   Companies: {session.query(Company).count()}")
-            print(f"   Projects: {session.query(Project).count()}")
-            print(f"   Ledger Entries: {session.query(LedgerEntry).count()}")
+            logger.info("🎉 Database population completed successfully!")
+            logger.info(f"   Companies: {session.query(Company).count()}")
+            logger.info(f"   Projects: {session.query(Project).count()}")
+            logger.info(f"   Ledger Entries: {session.query(LedgerEntry).count()}")
             
             return True
             
@@ -176,7 +178,7 @@ def populate_sample_data():
             session.close()
             
     except Exception as e:
-        print(f"❌ Error populating database: {e}")
+        logger.error(f"❌ Error populating database: {e}")
         return False
 
 if __name__ == "__main__":

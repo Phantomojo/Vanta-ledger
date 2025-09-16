@@ -8,6 +8,8 @@ import os
 import sys
 import getpass
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 # Add src to path
 src_path = Path(__file__).parent / "src"
@@ -16,8 +18,8 @@ sys.path.insert(0, str(src_path))
 def create_secure_admin():
     """Create admin user using secure environment variables"""
     
-    print("🔐 Vanta Ledger - Secure Admin User Creation")
-    print("=" * 50)
+    logger.info("🔐 Vanta Ledger - Secure Admin User Creation")
+    logger.info("=")
     
     # Check if admin credentials are set in environment
     admin_username = os.getenv("ADMIN_USERNAME")
@@ -32,11 +34,11 @@ def create_secure_admin():
         admin_email = input("Enter admin email (default: admin@vantaledger.com): ").strip() or "admin@vantaledger.com"
     
     if not admin_password:
-        print("\n⚠️  Admin password not found in ADMIN_PASSWORD environment variable")
+        logger.info("\n⚠️  Admin password not found in ADMIN_PASSWORD environment variable")
         admin_password = getpass.getpass("Enter secure admin password (min 8 characters): ")
         
         if len(admin_password) < 8:
-            print("❌ Password must be at least 8 characters long")
+            logger.info("❌ Password must be at least 8 characters long")
             return False
     
     # Set environment variables for the initialization
@@ -50,29 +52,29 @@ def create_secure_admin():
         
         db_init = get_database_initializer()
         
-        print("\n📊 Creating database tables...")
+        logger.info("\n📊 Creating database tables...")
         if not db_init.create_tables():
-            print("❌ Failed to create database tables")
+            logger.error("❌ Failed to create database tables")
             return False
         
-        print("👤 Creating admin user...")
+        logger.info("👤 Creating admin user...")
         if not db_init.create_initial_admin():
-            print("❌ Failed to create admin user")
+            logger.error("❌ Failed to create admin user")
             return False
         
-        print("\n✅ Admin user created successfully!")
-        print(f"   Username: {admin_username}")
-        print(f"   Email: {admin_email}")
-        print("   Role: admin")
-        print("\n🔒 Security Notes:")
-        print("   - Password is securely hashed in database")
-        print("   - Change password after first login")
-        print("   - Clear ADMIN_PASSWORD environment variable")
+        logger.info("\n✅ Admin user created successfully!")
+        logger.info(f"   Username: {admin_username}")
+        logger.info(f"   Email: {admin_email}")
+        logger.info("   Role: admin")
+        logger.info("\n🔒 Security Notes:")
+        logger.info("   - Password is securely hashed in database")
+        logger.info("   - Change password after first login")
+        logger.info("   - Clear ADMIN_PASSWORD environment variable")
         
         return True
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        logger.error(f"❌ Error: {e}")
         import traceback
         traceback.print_exc()
         return False

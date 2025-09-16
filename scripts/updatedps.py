@@ -1,6 +1,8 @@
 import re
 import subprocess
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 # Define the unified dependency version baseline (from your analysis)
 dependencies = {
@@ -48,10 +50,10 @@ def update_dependency_lines(content, dep_map):
     return "\n".join(new_lines)
 
 def update_file(file_path, dep_map):
-    print(f"🛠 Updating: {file_path}")
+    logger.info(f"🛠 Updating: {file_path}")
     path = Path(file_path)
     if not path.exists():
-        print(f"⚠️  Skipping missing file: {file_path}")
+        logger.info(f"⚠️  Skipping missing file: {file_path}")
         return
 
     content = path.read_text()
@@ -59,15 +61,15 @@ def update_file(file_path, dep_map):
     path.write_text(updated_content)
 
 def warn_about_venv_cfg(cfg_path):
-    print(f"📘 Checking virtualenv: {cfg_path}")
+    logger.info(f"📘 Checking virtualenv: {cfg_path}")
     content = Path(cfg_path).read_text()
     for pkg, version in dependencies.items():
         if pkg.lower() in content.lower():
-            print(f"⚠️  Check manually: '{pkg}' in {cfg_path} may not match desired version {version}")
+            logger.info(f"⚠️  Check manually: ")
 
 def compile_requirements():
     if Path("requirements.in").exists():
-        print("📦 Recompiling requirements with pip-tools...")
+        logger.info("📦 Recompiling requirements with pip-tools...")
         subprocess.run(["pip-compile", "requirements.in", "--upgrade"], check=False)
 
 def main():
@@ -80,7 +82,7 @@ def main():
     # Recompile if using pip-tools
     compile_requirements()
 
-    print("✅ All dependencies updated!")
+    logger.info("✅ All dependencies updated!")
 
 if __name__ == "__main__":
     main()

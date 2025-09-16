@@ -28,7 +28,7 @@ class SecurityHardener:
         
     def scan_for_hardcoded_credentials(self) -> List[str]:
         """Scan for hardcoded credentials and secrets"""
-        print("🔍 Scanning for hardcoded credentials...")
+        logger.info("🔍 Scanning for hardcoded credentials...")
         
         patterns = [
             r'password\s*=\s*["\'][^"\']+["\']',
@@ -58,13 +58,13 @@ class SecurityHardener:
                                 'severity': 'CRITICAL'
                             })
             except Exception as e:
-                print(f"Error scanning {py_file}: {e}")
+                logger.error(f"Error scanning {py_file}: {e}")
         
         return issues
     
     def fix_hardcoded_credentials(self, issues: List[Dict[str, Any]]) -> None:
         """Fix hardcoded credentials by replacing with environment variables"""
-        print("🔧 Fixing hardcoded credentials...")
+        logger.info("🔧 Fixing hardcoded credentials...")
         
         for issue in issues:
             file_path = Path(issue['file'])
@@ -119,11 +119,11 @@ class SecurityHardener:
                     })
                     
             except Exception as e:
-                print(f"Error fixing {file_path}: {e}")
+                logger.error(f"Error fixing {file_path}: {e}")
     
     def enhance_jwt_security(self) -> None:
         """Enhance JWT security configuration"""
-        print("🔐 Enhancing JWT security...")
+        logger.info("🔐 Enhancing JWT security...")
         
         auth_file = self.backend_path / "auth.py"
         if auth_file.exists():
@@ -193,11 +193,11 @@ def verify_token(token: str) -> Optional[dict]:
                 })
                 
             except Exception as e:
-                print(f"Error enhancing JWT security: {e}")
+                logger.error(f"Error enhancing JWT security: {e}")
     
     def secure_file_uploads(self) -> None:
         """Secure file upload handling"""
-        print("📁 Securing file uploads...")
+        logger.info("📁 Securing file uploads...")
         
         # Find files with upload handling
         upload_files = [
@@ -273,11 +273,11 @@ def secure_filename(filename: str) -> str:
                     })
                     
                 except Exception as e:
-                    print(f"Error securing file uploads in {file_path}: {e}")
+                    logger.error(f"Error securing file uploads in {file_path}: {e}")
     
     def enhance_input_validation(self) -> None:
         """Enhance input validation across the application"""
-        print("✅ Enhancing input validation...")
+        logger.info("✅ Enhancing input validation...")
         
         # Create enhanced validation utilities
         validation_file = self.backend_path / "utils" / "validation.py"
@@ -415,7 +415,7 @@ def validate_file_path(path: str) -> bool:
     
     def fix_sql_injection_risks(self) -> None:
         """Fix potential SQL injection risks"""
-        print("🛡️ Fixing SQL injection risks...")
+        logger.info("🛡️ Fixing SQL injection risks...")
         
         # Find files with database queries
         db_files = [
@@ -455,11 +455,11 @@ def validate_file_path(path: str) -> bool:
                     })
                     
                 except Exception as e:
-                    print(f"Error fixing SQL injection in {file_path}: {e}")
+                    logger.error(f"Error fixing SQL injection in {file_path}: {e}")
     
     def create_secure_config(self) -> None:
         """Create secure configuration management"""
-        print("⚙️ Creating secure configuration...")
+        logger.info("⚙️ Creating secure configuration...")
         
         config_file = self.backend_path / "config.py"
         if config_file.exists():
@@ -529,11 +529,11 @@ def validate_security_config():
                 })
                 
             except Exception as e:
-                print(f"Error creating secure config: {e}")
+                logger.error(f"Error creating secure config: {e}")
     
     def create_security_middleware(self) -> None:
         """Create security middleware"""
-        print("🛡️ Creating security middleware...")
+        logger.info("🛡️ Creating security middleware...")
         
         middleware_file = self.backend_path / "middleware" / "security.py"
         middleware_file.parent.mkdir(exist_ok=True)
@@ -550,6 +550,8 @@ from typing import Dict, List
 from fastapi import Request, Response
 from fastapi.middleware.base import BaseHTTPMiddleware
 from starlette.middleware.base import RequestResponseEndpoint
+import logging
+logger = logging.getLogger(__name__)
 
 
 class SecurityMiddleware(BaseHTTPMiddleware):
@@ -664,7 +666,7 @@ def validate_csrf_token(token: str, session_token: str) -> bool:
     
     def create_environment_template(self) -> None:
         """Create secure environment template"""
-        print("📝 Creating secure environment template...")
+        logger.info("📝 Creating secure environment template...")
         
         env_template = '''# Vanta Ledger Environment Configuration
 # Copy this file to .env and fill in your values
@@ -732,7 +734,7 @@ SENTRY_DSN=your-sentry-dsn-here
     
     def run_security_scan(self) -> Dict[str, Any]:
         """Run comprehensive security scan"""
-        print("🔍 Running comprehensive security scan...")
+        logger.info("🔍 Running comprehensive security scan...")
         
         scan_results = {
             'hardcoded_credentials': self.scan_for_hardcoded_credentials(),
@@ -759,7 +761,7 @@ SENTRY_DSN=your-sentry-dsn-here
     
     def apply_all_fixes(self) -> None:
         """Apply all security fixes"""
-        print("🚀 Applying comprehensive security fixes...")
+        logger.info("🚀 Applying comprehensive security fixes...")
         
         # Run security scan
         scan_results = self.run_security_scan()
@@ -774,7 +776,7 @@ SENTRY_DSN=your-sentry-dsn-here
         self.create_security_middleware()
         self.create_environment_template()
         
-        print(f"✅ Applied {len(self.fixes_applied)} security fixes")
+        logger.info(f"✅ Applied {len(self.fixes_applied)} security fixes")
     
     def generate_security_report(self) -> str:
         """Generate comprehensive security report"""
@@ -866,8 +868,8 @@ SENTRY_DSN=your-sentry-dsn-here
 
 def main():
     """Main security hardening function"""
-    print("🔒 Vanta Ledger Security Hardening")
-    print("=" * 50)
+    logger.info("🔒 Vanta Ledger Security Hardening")
+    logger.info("=")
     
     hardener = SecurityHardener()
     
@@ -881,13 +883,13 @@ def main():
     with open("SECURITY_HARDENING_REPORT.md", "w") as f:
         f.write(report)
     
-    print("✅ Security hardening completed!")
-    print("📄 Report saved to: SECURITY_HARDENING_REPORT.md")
-    print("🔧 Next steps:")
-    print("   1. Review the security report")
-    print("   2. Update environment variables")
-    print("   3. Test security features")
-    print("   4. Deploy security middleware")
+    logger.info("✅ Security hardening completed!")
+    logger.info("📄 Report saved to: SECURITY_HARDENING_REPORT.md")
+    logger.info("🔧 Next steps:")
+    logger.info("   1. Review the security report")
+    logger.info("   2. Update environment variables")
+    logger.info("   3. Test security features")
+    logger.info("   4. Deploy security middleware")
 
 
 if __name__ == "__main__":

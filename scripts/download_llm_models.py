@@ -11,6 +11,8 @@ import json
 from pathlib import Path
 from tqdm import tqdm
 import hashlib
+import logging
+logger = logging.getLogger(__name__)
 
 def download_file(url: str, filepath: str, expected_sha256: str = None, headers: dict = None):
     """Download file with progress bar and SHA256 verification"""
@@ -39,15 +41,15 @@ def download_file(url: str, filepath: str, expected_sha256: str = None, headers:
             with open(filepath, 'rb') as f:
                 file_hash = hashlib.sha256(f.read()).hexdigest()
                 if file_hash != expected_sha256:
-                    print(f"Warning: SHA256 mismatch for {filepath}")
-                    print(f"Expected: {expected_sha256}")
-                    print(f"Got: {file_hash}")
+                    logger.warning(f"Warning: SHA256 mismatch for {filepath}")
+                    logger.info(f"Expected: {expected_sha256}")
+                    logger.info(f"Got: {file_hash}")
                     return False
         
         return True
         
     except Exception as e:
-        print(f"Error downloading {url}: {str(e)}")
+        logger.error(f"Error downloading {url}: {str(e)}")
         return False
 
 def get_rtx3050_models():
@@ -118,34 +120,34 @@ def detect_hardware():
 
 def main():
     """Main download function"""
-    print("🚀 Vanta Ledger Local LLM Model Downloader")
-    print("=" * 50)
+    logger.info("🚀 Vanta Ledger Local LLM Model Downloader")
+    logger.info("=")
     
     # Detect hardware
     hardware_type = detect_hardware()
-    print(f"Detected hardware: {hardware_type}")
+    logger.info(f"Detected hardware: {hardware_type}")
     
     # Select models based on hardware
     if hardware_type == "rtx3050":
         models = get_rtx3050_models()
-        print("📦 Downloading models optimized for RTX 3050")
+        logger.info("📦 Downloading models optimized for RTX 3050")
     elif hardware_type in ["rtx_other", "gpu_generic"]:
         models = get_rtx3050_models()  # Use same models for other GPUs
-        print("📦 Downloading models for GPU processing")
+        logger.info("📦 Downloading models for GPU processing")
     else:
         models = get_cpu_models()
-        print("📦 Downloading models optimized for CPU processing")
+        logger.info("📦 Downloading models optimized for CPU processing")
     
-    print(f"Total models to download: {len(models)}")
+    logger.info(f"Total models to download: {len(models)}")
     
     # Calculate total size
     total_size_gb = sum(model["size_gb"] for model in models.values())
-    print(f"Total download size: {total_size_gb:.1f} GB")
+    logger.info(f"Total download size: {total_size_gb:.1f} GB")
     
     # Ask for confirmation
     response = input("\nDo you want to proceed with the download? (y/N): ")
     if response.lower() != 'y':
-        print("Download cancelled.")
+        logger.info("Download cancelled.")
         return
     
     # Download models
@@ -153,38 +155,38 @@ def main():
     failed_downloads = 0
     
     for model_name, model_info in models.items():
-        print(f"\n📥 Downloading {model_name}...")
-        print(f"   Description: {model_info['description']}")
-        print(f"   Size: {model_info['size_gb']} GB")
+        logger.info(f"\n📥 Downloading {model_name}...")
+        logger.info(f"   Description: {model_info[")
+        logger.info(f"   Size: {model_info[")
         
         if os.path.exists(model_info["path"]):
-            print(f"   ⚠️  Model already exists, skipping...")
+            logger.info(f"   ⚠️  Model already exists, skipping...")
             successful_downloads += 1
             continue
         
         if download_file(model_info["url"], model_info["path"], model_info.get("sha256"), model_info.get("headers")):
-            print(f"   ✅ {model_name} downloaded successfully!")
+            logger.info(f"   ✅ {model_name} downloaded successfully!")
             successful_downloads += 1
         else:
-            print(f"   ❌ Failed to download {model_name}")
+            logger.error(f"   ❌ Failed to download {model_name}")
             failed_downloads += 1
     
     # Summary
-    print("\n" + "=" * 50)
-    print("📊 Download Summary:")
-    print(f"   Successful: {successful_downloads}")
-    print(f"   Failed: {failed_downloads}")
-    print(f"   Total: {len(models)}")
+    logger.info("\n")
+    logger.info("📊 Download Summary:")
+    logger.info(f"   Successful: {successful_downloads}")
+    logger.error(f"   Failed: {failed_downloads}")
+    logger.info(f"   Total: {len(models)}")
     
     if successful_downloads > 0:
-        print("\n🎉 Models downloaded successfully!")
-        print("Next steps:")
-        print("1. Install LLM dependencies: pip install -r backend/requirements-llm.txt")
-        print("2. Start the Vanta Ledger backend")
-        print("3. Check model status: GET /api/v2/llm/models/status")
+        logger.info("\n🎉 Models downloaded successfully!")
+        logger.info("Next steps:")
+        logger.info("1. Install LLM dependencies: pip install -r backend/requirements-llm.txt")
+        logger.info("2. Start the Vanta Ledger backend")
+        logger.info("3. Check model status: GET /api/v2/llm/models/status")
     else:
-        print("\n❌ No models were downloaded successfully.")
-        print("Please check your internet connection and try again.")
+        logger.info("\n❌ No models were downloaded successfully.")
+        logger.info("Please check your internet connection and try again.")
 
 if __name__ == "__main__":
     main() 

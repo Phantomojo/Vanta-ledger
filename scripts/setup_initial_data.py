@@ -19,6 +19,8 @@ from vanta_ledger.database import SessionLocal, create_tables
 from vanta_ledger.models.user_models import UserDB as User
 from vanta_ledger.models.company import Company
 from vanta_ledger.auth import get_password_hash
+import logging
+logger = logging.getLogger(__name__)
 
 
 def get_initial_passwords():
@@ -36,10 +38,10 @@ def setup_initial_data():
     """Setup initial data for the system"""
     
     admin_password, auntie_password = get_initial_passwords()
-    print("✅ Initial passwords loaded from environment.")
+    logger.info("✅ Initial passwords loaded from environment.")
     
     # Create database tables
-    print("📊 Creating database tables...")
+    logger.info("📊 Creating database tables...")
     create_tables()
     
     db = SessionLocal()
@@ -49,7 +51,7 @@ def setup_initial_data():
             # Check if admin user already exists
             admin_user = db.query(User).filter(User.username == "admin").first()
             if not admin_user:
-                print("👤 Creating admin user...")
+                logger.info("👤 Creating admin user...")
                 admin_user = User(
                     id=str(uuid.uuid4()),
                     username="admin",
@@ -58,12 +60,12 @@ def setup_initial_data():
                     role="admin"
                 )
                 db.add(admin_user)
-                print(f"✅ Admin user created (username: admin)")
+                logger.info(f"✅ Admin user created (username: admin)")
             
             # Check if Auntie Nyaruai user exists
             auntie_user = db.query(User).filter(User.username == "auntie_nyaruai").first()
             if not auntie_user:
-                print("👤 Creating Auntie Nyaruai user...")
+                logger.info("👤 Creating Auntie Nyaruai user...")
                 auntie_user = User(
                     id=str(uuid.uuid4()),
                     username="auntie_nyaruai",
@@ -72,7 +74,7 @@ def setup_initial_data():
                     role="admin"
                 )
                 db.add(auntie_user)
-                print(f"✅ Auntie Nyaruai user created (username: auntie_nyaruai)")
+                logger.info(f"✅ Auntie Nyaruai user created (username: auntie_nyaruai)")
             
             # Create default companies
             companies_data = [
@@ -105,21 +107,21 @@ def setup_initial_data():
             for company_data in companies_data:
                 existing_company = db.query(Company).filter(Company.name == company_data["name"]).first()
                 if not existing_company:
-                    print(f"🏢 Creating company: {company_data['name']}")
+                    logger.info(f"🏢 Creating company: {company_data[")
                     company = Company(**company_data)
                     db.add(company)
-                    print(f"✅ Company created: {company_data['name']}")
-        print("🎉 Initial data setup completed successfully!")
-        print("\n📋 Default Users:")
-        print(f"   - Admin: admin")
-        print(f"   - Auntie Nyaruai: auntie_nyaruai")
-        print("\n🏢 Default Companies:")
-        print("   - Solopride Contractors & General Supplies Ltd")
-        print("   - Company 2")
-        print("   - Company 3")
+                    logger.info(f"✅ Company created: {company_data[")
+        logger.info("🎉 Initial data setup completed successfully!")
+        logger.info("\n📋 Default Users:")
+        logger.info(f"   - Admin: admin")
+        logger.info(f"   - Auntie Nyaruai: auntie_nyaruai")
+        logger.info("\n🏢 Default Companies:")
+        logger.info("   - Solopride Contractors & General Supplies Ltd")
+        logger.info("   - Company 2")
+        logger.info("   - Company 3")
         
     except Exception as e:
-        print(f"❌ Error setting up initial data: {e}")
+        logger.error(f"❌ Error setting up initial data: {e}")
         raise
     finally:
         db.close()

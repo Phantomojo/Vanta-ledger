@@ -6,6 +6,8 @@ Comprehensive overview of limits for different cloud AI models and how Vanta Led
 import sys
 import asyncio
 from pathlib import Path
+import logging
+logger = logging.getLogger(__name__)
 
 # Add backend to path
 backend_path = Path("backend/src")
@@ -14,8 +16,8 @@ if backend_path.exists():
 
 def analyze_rate_limits():
     """Analyze rate limits for different models"""
-    print("🚦 Rate Limits Analysis")
-    print("=" * 50)
+    logger.info("🚦 Rate Limits Analysis")
+    logger.info("=")
     
     rate_limits = {
         "GPT-4o-mini": {
@@ -56,13 +58,13 @@ def analyze_rate_limits():
         }
     }
     
-    print("📊 Rate Limits by Model:")
+    logger.info("📊 Rate Limits by Model:")
     for model, limits in rate_limits.items():
-        print(f"   {model}:")
-        print(f"     Requests/min: {limits['requests_per_minute']}")
-        print(f"     Tokens/min: {limits['tokens_per_minute']:,}")
-        print(f"     Concurrent: {limits['concurrent_requests']}")
-        print(f"     Cost: ${limits['cost_per_1k_tokens']:.6f}/1K tokens")
+        logger.info(f"   {model}:")
+        logger.info(f"     Requests/min: {limits[")
+        logger.info(f"     Tokens/min: {limits[")
+        logger.info(f"     Concurrent: {limits[")
+        logger.info(f"     Cost: ${limits[")
         print()
     
     # Calculate total capacity
@@ -70,16 +72,16 @@ def analyze_rate_limits():
     total_tokens_per_minute = sum(limits['tokens_per_minute'] for limits in rate_limits.values())
     total_concurrent = sum(limits['concurrent_requests'] for limits in rate_limits.values())
     
-    print("🤝 Combined Capacity (All Models):")
-    print(f"   Total Requests/min: {total_requests_per_minute:,}")
-    print(f"   Total Tokens/min: {total_tokens_per_minute:,}")
-    print(f"   Total Concurrent: {total_concurrent}")
+    logger.info("🤝 Combined Capacity (All Models):")
+    logger.info(f"   Total Requests/min: {total_requests_per_minute:,}")
+    logger.info(f"   Total Tokens/min: {total_tokens_per_minute:,}")
+    logger.info(f"   Total Concurrent: {total_concurrent}")
     print()
 
 def analyze_token_limits():
     """Analyze token limits for different models"""
-    print("📝 Token Limits Analysis")
-    print("=" * 50)
+    logger.info("📝 Token Limits Analysis")
+    logger.info("=")
     
     token_limits = {
         "GPT-4o-mini": {
@@ -120,27 +122,27 @@ def analyze_token_limits():
         }
     }
     
-    print("📊 Token Limits by Model:")
+    logger.info("📊 Token Limits by Model:")
     for model, limits in token_limits.items():
-        print(f"   {model}:")
-        print(f"     Input: {limits['max_input_tokens']:,} tokens")
-        print(f"     Output: {limits['max_output_tokens']:,} tokens")
-        print(f"     Total: {limits['total_tokens']:,} tokens")
-        print(f"     Context: {limits['context_window']}")
+        logger.info(f"   {model}:")
+        logger.info(f"     Input: {limits[")
+        logger.info(f"     Output: {limits[")
+        logger.info(f"     Total: {limits[")
+        logger.info(f"     Context: {limits[")
         print()
     
     # Document size examples
-    print("📄 Document Size Examples:")
-    print("   1,000 tokens ≈ 750 words (1-2 pages)")
-    print("   10,000 tokens ≈ 7,500 words (15-20 pages)")
-    print("   100,000 tokens ≈ 75,000 words (150-200 pages)")
-    print("   1,000,000 tokens ≈ 750,000 words (1,500-2,000 pages)")
+    logger.info("📄 Document Size Examples:")
+    logger.info("   1,000 tokens ≈ 750 words (1-2 pages)")
+    logger.info("   10,000 tokens ≈ 7,500 words (15-20 pages)")
+    logger.info("   100,000 tokens ≈ 75,000 words (150-200 pages)")
+    logger.info("   1,000,000 tokens ≈ 750,000 words (1,500-2,000 pages)")
     print()
 
 def analyze_cost_limits():
     """Analyze cost limits and optimization"""
-    print("💰 Cost Limits & Optimization")
-    print("=" * 50)
+    logger.info("💰 Cost Limits & Optimization")
+    logger.info("=")
     
     cost_scenarios = {
         "Small Document (1K tokens)": {
@@ -166,24 +168,24 @@ def analyze_cost_limits():
         }
     }
     
-    print("📊 Cost Comparison by Document Size:")
+    logger.info("📊 Cost Comparison by Document Size:")
     for scenario, costs in cost_scenarios.items():
-        print(f"   {scenario}:")
+        logger.info(f"   {scenario}:")
         for model, cost in costs.items():
-            print(f"     {model}: ${cost:.4f}")
+            logger.info(f"     {model}: ${cost:.4f}")
         print()
     
-    print("🎯 Cost Optimization Strategy:")
-    print("   Simple tasks → Use cheap models (gemini-1.5-flash, gpt-4o-mini)")
-    print("   Complex tasks → Use expensive models (gpt-4o, claude-3-5-sonnet)")
-    print("   Large documents → Use models with large context windows")
-    print("   Batch processing → Use rate-limited models efficiently")
+    logger.info("🎯 Cost Optimization Strategy:")
+    logger.info("   Simple tasks → Use cheap models (gemini-1.5-flash, gpt-4o-mini)")
+    logger.info("   Complex tasks → Use expensive models (gpt-4o, claude-3-5-sonnet)")
+    logger.info("   Large documents → Use models with large context windows")
+    logger.info("   Batch processing → Use rate-limited models efficiently")
     print()
 
 def analyze_availability_limits():
     """Analyze availability and reliability limits"""
-    print("🌐 Availability & Reliability Limits")
-    print("=" * 50)
+    logger.info("🌐 Availability & Reliability Limits")
+    logger.info("=")
     
     availability_data = {
         "Service Level": {
@@ -206,24 +208,24 @@ def analyze_availability_limits():
         }
     }
     
-    print("📊 Availability by Provider:")
+    logger.info("📊 Availability by Provider:")
     for metric, providers in availability_data.items():
-        print(f"   {metric}:")
+        logger.info(f"   {metric}:")
         for provider, value in providers.items():
-            print(f"     {provider}: {value}")
+            logger.info(f"     {provider}: {value}")
         print()
     
-    print("⚠️ Potential Issues:")
-    print("   • Service outages (rare but possible)")
-    print("   • Geographic restrictions")
-    print("   • Network connectivity issues")
-    print("   • API changes and deprecations")
+    logger.info("⚠️ Potential Issues:")
+    logger.info("   • Service outages (rare but possible)")
+    logger.info("   • Geographic restrictions")
+    logger.info("   • Network connectivity issues")
+    logger.info("   • API changes and deprecations")
     print()
 
 def analyze_vanta_ledger_handling():
     """Show how Vanta Ledger handles these limits"""
-    print("🛡️ How Vanta Ledger Handles Limits")
-    print("=" * 50)
+    logger.info("🛡️ How Vanta Ledger Handles Limits")
+    logger.info("=")
     
     handling_strategies = {
         "Rate Limiting": {
@@ -253,26 +255,26 @@ def analyze_vanta_ledger_handling():
         }
     }
     
-    print("🔧 Limit Handling Strategies:")
+    logger.info("🔧 Limit Handling Strategies:")
     for limit, strategy in handling_strategies.items():
-        print(f"   {limit}:")
-        print(f"     Strategy: {strategy['strategy']}")
-        print(f"     Implementation: {strategy['implementation']}")
-        print(f"     Benefit: {strategy['benefit']}")
+        logger.info(f"   {limit}:")
+        logger.info(f"     Strategy: {strategy[")
+        logger.info(f"     Implementation: {strategy[")
+        logger.info(f"     Benefit: {strategy[")
         print()
     
-    print("🎯 Real-World Benefits:")
-    print("   ✅ Never hit rate limits (load balancing)")
-    print("   ✅ Process any document size (chunking)")
-    print("   ✅ Optimize costs (smart routing)")
-    print("   ✅ High availability (redundancy)")
-    print("   ✅ Fast processing (parallel execution)")
+    logger.info("🎯 Real-World Benefits:")
+    logger.info("   ✅ Never hit rate limits (load balancing)")
+    logger.info("   ✅ Process any document size (chunking)")
+    logger.info("   ✅ Optimize costs (smart routing)")
+    logger.info("   ✅ High availability (redundancy)")
+    logger.info("   ✅ Fast processing (parallel execution)")
     print()
 
 def analyze_practical_limits():
     """Show practical limits in real scenarios"""
-    print("📋 Practical Limits in Real Scenarios")
-    print("=" * 50)
+    logger.info("📋 Practical Limits in Real Scenarios")
+    logger.info("=")
     
     scenarios = [
         {
@@ -313,20 +315,20 @@ def analyze_practical_limits():
         }
     ]
     
-    print("📊 Real-World Scenarios:")
+    logger.info("📊 Real-World Scenarios:")
     for scenario in scenarios:
-        print(f"   {scenario['scenario']}:")
-        print(f"     Tokens: {scenario['total_tokens']:,}")
-        print(f"     Models: {', '.join(scenario['models_needed'])}")
-        print(f"     Cost: ${scenario['cost']:.4f}")
-        print(f"     Time: {scenario['time']}")
-        print(f"     Handling: {scenario['limit_handling']}")
+        logger.info(f"   {scenario[")
+        logger.info(f"     Tokens: {scenario[")
+        logger.info(f"     Models: {")
+        logger.info(f"     Cost: ${scenario[")
+        logger.info(f"     Time: {scenario[")
+        logger.info(f"     Handling: {scenario[")
         print()
 
 async def main():
     """Main analysis function"""
-    print("🚀 Cloud Model Limits Analysis for Vanta Ledger")
-    print("=" * 60)
+    logger.info("🚀 Cloud Model Limits Analysis for Vanta Ledger")
+    logger.info("=")
     print()
     
     analyze_rate_limits()
@@ -336,20 +338,20 @@ async def main():
     analyze_vanta_ledger_handling()
     analyze_practical_limits()
     
-    print("🎉 Summary: Cloud Model Limits")
-    print("=" * 40)
-    print("✅ Rate Limits: Handled by load balancing across models")
-    print("✅ Token Limits: Handled by smart chunking and large context models")
-    print("✅ Cost Limits: Handled by task-specific model selection")
-    print("✅ Availability Limits: Handled by multi-provider redundancy")
-    print("✅ Concurrent Limits: Handled by parallel processing")
+    logger.info("🎉 Summary: Cloud Model Limits")
+    logger.info("=")
+    logger.info("✅ Rate Limits: Handled by load balancing across models")
+    logger.info("✅ Token Limits: Handled by smart chunking and large context models")
+    logger.info("✅ Cost Limits: Handled by task-specific model selection")
+    logger.info("✅ Availability Limits: Handled by multi-provider redundancy")
+    logger.info("✅ Concurrent Limits: Handled by parallel processing")
     print()
-    print("🛡️ Vanta Ledger provides unlimited scalability through:")
-    print("   • Intelligent model routing")
-    print("   • Parallel processing")
-    print("   • Cost optimization")
-    print("   • High availability")
-    print("   • Future-proof architecture")
+    logger.info("🛡️ Vanta Ledger provides unlimited scalability through:")
+    logger.info("   • Intelligent model routing")
+    logger.info("   • Parallel processing")
+    logger.info("   • Cost optimization")
+    logger.info("   • High availability")
+    logger.info("   • Future-proof architecture")
 
 if __name__ == "__main__":
     asyncio.run(main())
