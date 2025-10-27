@@ -105,7 +105,7 @@ jobs:
         pytest tests/ -m integration -v --tb=short
         
     - name: 📊 Upload integration test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: integration-test-results
         path: |
@@ -139,7 +139,7 @@ jobs:
         pytest tests/ -m performance -v --benchmark-only
         
     - name: 📊 Upload performance results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: performance-test-results
         path: |
@@ -181,7 +181,7 @@ jobs:
         detect-secrets scan --baseline .secrets.baseline || true
         
     - name: 📊 Upload security test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: security-test-results
         path: |
@@ -233,7 +233,7 @@ jobs:
         fi
         
     - name: 📤 Upload test summary
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: test-summary
         path: test-summary.md
