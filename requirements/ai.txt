@@ -1,0 +1,37 @@
+# =============================================================================
+# Vanta Ledger - AI/ML Requirements
+# =============================================================================
+# AI and Machine Learning dependencies (OPTIONAL)
+# These are large packages - only install if you need AI features
+# Install with: pip install -r requirements/ai.txt
+# =============================================================================
+
+# Include base requirements
+-r base.txt
+
+# AI/ML Frameworks
+torch>=2.0.0
+transformers>=4.30.0
+sentence-transformers>=2.2.0
+
+# NLP
+spacy>=3.8.7
+spacy-legacy>=3.0.12
+spacy-loggers>=1.0.5
+
+# OpenAI Integration
+openai==1.98.0
+
+# Local LLM Support
+llama-cpp-python>=0.2.0
+
+# Text Processing
+fuzzywuzzy>=0.18.0
+python-Levenshtein>=0.12.0
+regex>=2021.0.0
+
+# Data Science
+numpy>=2.3.2
+pandas>=2.3.1
+scikit-learn>=1.7.1
+scipy>=1.16.1

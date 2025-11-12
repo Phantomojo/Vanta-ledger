@@ -1,0 +1,43 @@
+# =============================================================================
+# Vanta Ledger - Base Requirements
+# =============================================================================
+# Core dependencies required for all installations
+# =============================================================================
+
+# Core Framework & API
+fastapi>=0.116.1
+uvicorn[standard]>=0.35.0
+pydantic>=2.11.7
+pydantic-settings>=2.10.1
+starlette>=0.47.2
+
+# Database & Storage
+sqlalchemy>=2.0.42
+alembic>=1.16.4
+psycopg2-binary>=2.9.10
+pymongo>=4.14.0
+redis>=5.0.1
+
+# Authentication & Security
+python-jose[cryptography]>=3.5.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.20
+PyJWT>=2.10.1
+cryptography>=45.0.6
+bcrypt>=4.3.0
+
+# HTTP & Networking
+requests>=2.32.4
+aiohttp>=3.12.15
+httpx>=0.28.1
+aiofiles>=24.1.0
+
+# Configuration & Utilities
+python-dotenv>=1.1.1
+PyYAML>=6.0.2
+click>=8.2.1
+typing-extensions>=4.14.1
+
+# Logging & Monitoring
+structlog>=21.1.0
+psutil>=7.0.0
