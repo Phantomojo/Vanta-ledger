@@ -91,7 +91,7 @@ jobs:
         safety check --json --output safety-results.json || true
         
     - name: 📤 Upload security results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: security-results
         path: |
@@ -124,7 +124,7 @@ jobs:
         python -m build
         
     - name: 📤 Upload build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: build-artifacts
         path: dist/
