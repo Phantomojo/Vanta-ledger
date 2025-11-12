@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
-    directory: "/backend"
+    directory: "/"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
@@ -10,6 +10,27 @@ updates:
     labels:
       - "dependencies"
       - "security"
+    groups:
+      security-updates:
+        patterns: ["*"]
+        update-types: ["security-update"]
+  
+  - package-ecosystem: "npm"
+    directory: "/frontend/frontend-web"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    assignees:
+      - "Phantomojo"
+    labels:
+      - "dependencies"
+      - "security"
+      - "frontend"
+    groups:
+      security-updates:
+        patterns: ["*"]
+        update-types: ["security-update"]
+  
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

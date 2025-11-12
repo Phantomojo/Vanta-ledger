@@ -38,7 +38,7 @@ jobs:
     - name: 🧪 Run unit tests
       run: |
         echo "🧪 Running unit tests..."
-        pytest tests/ -v --cov=backend/src --cov-report=xml --cov-report=html --cov-report=term-missing
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=html --cov-report=term-missing
         
     - name: 📊 Upload coverage reports
       uses: codecov/codecov-action@v5
