@@ -1,7 +1,37 @@
 #!/usr/bin/env python3
 """
-Vanta Ledger - Simplified Main FastAPI Application
-Production-ready single-database version for immediate deployment
+Vanta Ledger - Single-Database Production Application
+======================================================
+
+ALTERNATIVE PRODUCTION VERSION - FastAPI application with single database.
+
+Purpose:
+- Simplified production deployment
+- Single PostgreSQL database only (no MongoDB/Redis)
+- Reduced infrastructure complexity
+- Faster startup time
+
+Features:
+- All core functionality
+- Authentication and authorization
+- Basic monitoring
+- Production-grade security
+
+Trade-offs vs main.py:
+- No MongoDB document storage
+- No Redis caching
+- No local LLM support
+- Simpler monitoring
+
+Use When:
+- Limited infrastructure resources
+- Simpler deployment requirements
+- Don't need advanced AI features
+
+For full features, use main.py instead.
+
+Usage:
+    uvicorn src.vanta_ledger.simple_main:app --host 0.0.0.0 --port 8500
 """
 
 import logging
