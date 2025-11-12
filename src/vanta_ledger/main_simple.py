@@ -1,7 +1,26 @@
 #!/usr/bin/env python3
 """
-Vanta Ledger - Simplified Main FastAPI Application
-For testing and systems verification
+Vanta Ledger - Minimal Testing Application
+===========================================
+
+TESTING ONLY - Minimal FastAPI application for development and testing.
+
+Purpose:
+- Quick testing of basic functionality
+- Development environment verification
+- CI/CD smoke tests
+- Minimal dependencies
+
+This version:
+- No database connections required
+- Basic CORS only
+- Simple auth routes for testing
+- Minimal middleware
+
+DO NOT USE IN PRODUCTION - Use main.py instead.
+
+Usage:
+    uvicorn src.vanta_ledger.main_simple:app --reload
 """
 
 import os

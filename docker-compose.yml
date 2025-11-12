@@ -50,7 +50,7 @@ services:
   # Vanta Ledger Backend API
   backend:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     container_name: vanta_ledger_backend
     environment:

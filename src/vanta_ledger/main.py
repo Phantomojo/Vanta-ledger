@@ -1,7 +1,38 @@
 #!/usr/bin/env python3
 """
-Vanta Ledger - Main FastAPI Application
-Advanced document processing and financial data management system
+Vanta Ledger - Main FastAPI Application (Production)
+============================================
+
+This is the PRIMARY entry point for the Vanta Ledger application.
+
+Features:
+- Full-featured FastAPI application with all routes
+- Multi-database support (PostgreSQL, MongoDB, Redis)
+- AI-powered document processing
+- Comprehensive security and monitoring
+- Local LLM integration
+- Advanced analytics and reporting
+
+Usage:
+    # Via uvicorn
+    uvicorn src.vanta_ledger.main:app --host 0.0.0.0 --port 8500
+    
+    # Via Docker
+    docker run -p 8500:8500 vanta-ledger
+    
+    # Via launcher script
+    python scripts/deployment/launch_vanta_ledger.py
+
+Environment Variables Required:
+- POSTGRES_URI: PostgreSQL database connection
+- MONGO_URI: MongoDB connection
+- REDIS_URI: Redis connection
+- SECRET_KEY: Application secret key
+- OPENAI_API_KEY (optional): For AI features
+
+For simplified/testing versions, see:
+- main_simple.py: Minimal testing version
+- simple_main.py: Single-database production version
 """
 
 import logging

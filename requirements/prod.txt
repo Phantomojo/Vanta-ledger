@@ -1,0 +1,30 @@
+# =============================================================================
+# Vanta Ledger - Production Requirements
+# =============================================================================
+# Additional dependencies for production deployments
+# Install with: pip install -r requirements/prod.txt
+# =============================================================================
+
+# Include base requirements
+-r base.txt
+
+# Production Server
+gunicorn>=22.0.0
+
+# Monitoring & Metrics
+prometheus-client>=0.20.0
+
+# System Monitoring
+GPUtil>=1.4.0
+
+# Data Processing for Production
+numpy>=2.3.2
+pandas>=2.3.1
+
+# Document Processing
+PyMuPDF>=1.23.0
+python-docx>=1.2.0
+Pillow>=11.3.0
+pytesseract>=0.3.13
+pdf2image>=1.17.0
+lxml>=6.0.0
