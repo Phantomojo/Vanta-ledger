@@ -54,7 +54,7 @@ jobs:
         
     - name: Upload Bandit Results
       if: matrix.tool == 'bandit'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: bandit-security-results
         path: |
@@ -64,7 +64,7 @@ jobs:
         
     - name: Upload Semgrep Results
       if: matrix.tool == 'semgrep'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: semgrep-security-results
         path: |
@@ -97,7 +97,7 @@ jobs:
         safety check --output safety-summary.txt || true
         
     - name: Upload Safety Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: dependency-security-results
         path: |
@@ -171,7 +171,7 @@ jobs:
         fi
         
     - name: Upload Security Report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: security-analysis-report
         path: security-report.md
