@@ -135,7 +135,7 @@ class HybridDatabaseManager:
     # PostgreSQL Operations (Structured Financial Data)
 
     def get_companies(self) -> List[Dict[str, Any]]:
-        """Get all companies from PostgreSQL"""
+        """Get all companies from PostgreSQL (optimized JSON parsing)"""
         try:
             with self.postgres_engine.connect() as conn:
                 result = conn.execute(
@@ -154,13 +154,16 @@ class HybridDatabaseManager:
                 companies = []
                 for row in result:
                     company = dict(row)
-                    # Parse JSON fields
-                    if company.get("address"):
-                        company["address"] = json.loads(company["address"])
-                    if company.get("contact_info"):
-                        company["contact_info"] = json.loads(company["contact_info"])
-                    if company.get("tax_info"):
-                        company["tax_info"] = json.loads(company["tax_info"])
+                    # Parse JSON fields only if they exist and aren't already parsed
+                    # Use try/except for efficiency when fields might already be dicts
+                    for field in ('address', 'contact_info', 'tax_info'):
+                        value = company.get(field)
+                        if value and isinstance(value, str):
+                            try:
+                                company[field] = json.loads(value)
+                            except (json.JSONDecodeError, TypeError):
+                                # Keep original value if parsing fails
+                                pass
 
                     companies.append(company)
 

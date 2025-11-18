@@ -173,34 +173,8 @@ REQUEST_COUNT = Counter(
 REQUEST_LATENCY = Histogram("http_request_duration_seconds", "HTTP request latency")
 
 
-# Database connections
-def get_mongo_client():
-    """
-    Create and return a MongoDB client with a 5-second server selection and connection timeout.
-
-    Returns:
-        MongoClient: A configured MongoDB client instance.
-    """
-    return pymongo.MongoClient(
-        settings.MONGO_URI, serverSelectionTimeoutMS=5000, connectTimeoutMS=5000
-    )
-
-
-def get_postgres_connection():
-    """
-    Establish and return a new PostgreSQL database connection with a 5-second timeout.
-
-    Returns:
-        connection: A psycopg2 connection object to the PostgreSQL database.
-    """
-    return psycopg2.connect(settings.POSTGRES_URI, connect_timeout=5)
-
-
-def get_redis_client():
-    """
-    Create and return a Redis client instance configured with response decoding enabled.
-    """
-    return redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
+# Database connections - use optimized pooled connections
+from .database import get_mongo_client, get_postgres_connection, get_redis_client, release_postgres_connection
 
 
 # Authentication - using the new AuthService
@@ -304,17 +278,20 @@ async def test_postgres():
     Raises:
         HTTPException: If the connection or query fails, returns a 500 error with details.
     """
+    conn = None
     try:
         conn = get_postgres_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT version();")
         version = cursor.fetchone()
         cursor.close()
-        conn.close()
         return {"status": "PostgreSQL connection successful", "version": version[0]}
     except Exception as e:
         logger.error("PostgreSQL connection failed: Connection error")
         raise HTTPException(status_code=500, detail="Database connection failed")
+    finally:
+        if conn:
+            release_postgres_connection(conn)
 
 
 @app.get("/test-redis")
