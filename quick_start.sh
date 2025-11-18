@@ -51,7 +51,7 @@ fi
 
 # Setup database and initial data
 echo "🗄️ Setting up database..."
-python setup_initial_data.py
+python backend/setup_initial_data.py
 
 echo ""
 echo "🎉 Setup completed successfully!"

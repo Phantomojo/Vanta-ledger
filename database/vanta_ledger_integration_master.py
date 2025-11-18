@@ -21,7 +21,7 @@ from typing import Dict, List, Any
 import logging
 
 # Import our custom modules
-from enhanced_hybrid_database_setup import EnhancedHybridDatabaseManager
+from hybrid_database_setup import EnhancedHybridDatabaseManager
 from network_analysis_engine import NetworkAnalysisEngine
 from document_processing_pipeline import DocumentProcessingPipeline
 from analytics_dashboard_engine import AnalyticsDashboardEngine
