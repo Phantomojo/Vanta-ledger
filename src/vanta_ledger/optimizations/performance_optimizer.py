@@ -78,13 +78,21 @@ class PerformanceOptimizer:
         self, func: Callable, args: tuple, kwargs: dict, prefix: str
     ) -> str:
         """Generate a unique cache key for function call"""
-        # Create a hash of function name, args, and kwargs
-        key_data = {"func": func.__name__, "args": args, "kwargs": kwargs}
-
-        key_string = json.dumps(key_data, sort_keys=True, default=str)
-        key_hash = hashlib.sha256(key_string.encode()).hexdigest()[
-            :16
-        ]  # Use first 16 chars for compatibility
+        # Create a simpler, faster hash using function name and string representation
+        # This is much faster than SHA256 for cache keys
+        key_parts = [func.__name__]
+        
+        # Add args
+        for arg in args:
+            key_parts.append(str(arg))
+        
+        # Add kwargs
+        for k, v in sorted(kwargs.items()):
+            key_parts.append(f"{k}:{v}")
+        
+        # Use simpler hash function for better performance
+        key_string = "|".join(key_parts)
+        key_hash = str(hash(key_string))[:16]  # Python's built-in hash is faster
 
         return f"{prefix}:{key_hash}" if prefix else f"cache:{key_hash}"
 

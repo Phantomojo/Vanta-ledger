@@ -33,16 +33,25 @@ except ImportError:
 import re
 from collections import defaultdict
 
-import spacy
+# Lazy loading for spaCy to improve startup time
+nlp = None
+NLP_AVAILABLE = False
 
-try:
-    nlp = spacy.load("en_core_web_sm")
-    NLP_AVAILABLE = True
-except OSError:
-    NLP_AVAILABLE = False
-    logging.warning(
-        "spaCy model not available. Install: python -m spacy download en_core_web_sm"
-    )
+
+def _get_nlp_model():
+    """Lazy load spaCy model only when needed"""
+    global nlp, NLP_AVAILABLE
+    if nlp is None:
+        try:
+            import spacy
+            nlp = spacy.load("en_core_web_sm")
+            NLP_AVAILABLE = True
+        except (OSError, ImportError) as e:
+            NLP_AVAILABLE = False
+            logging.warning(
+                f"spaCy model not available. Install: python -m spacy download en_core_web_sm. Error: {e}"
+            )
+    return nlp if NLP_AVAILABLE else None
 
 
 class DocumentProcessor:
@@ -304,7 +313,9 @@ class DocumentProcessor:
 
     def _extract_keywords(self, text: str) -> List[str]:
         """Extract important keywords from text"""
-        if not NLP_AVAILABLE:
+        nlp_model = _get_nlp_model()
+        
+        if not nlp_model:
             # Fallback to simple keyword extraction
             words = re.findall(r"\b\w+\b", text.lower())
             word_freq = defaultdict(int)
@@ -321,7 +332,7 @@ class DocumentProcessor:
             return sorted(word_freq, key=word_freq.get, reverse=True)[:10]
 
         # Use spaCy for better keyword extraction
-        doc = nlp(text)
+        doc = nlp_model(text)
         keywords = []
 
         # Extract noun phrases and named entities
@@ -353,7 +364,9 @@ class DocumentProcessor:
 
     def _extract_companies(self, text: str) -> List[str]:
         """Extract company names from text"""
-        if not NLP_AVAILABLE:
+        nlp_model = _get_nlp_model()
+        
+        if not nlp_model:
             # Simple pattern matching
             company_patterns = [
                 r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+(?:Inc|Corp|LLC|Ltd|Company|Co|Corporation)\b",
@@ -366,7 +379,7 @@ class DocumentProcessor:
             return list(set(companies))
 
         # Use spaCy for better entity recognition
-        doc = nlp(text)
+        doc = nlp_model(text)
         companies = []
 
         for ent in doc.ents:
@@ -420,10 +433,12 @@ class DocumentProcessor:
 
     def _extract_entities(self, text: str) -> Dict[str, List[str]]:
         """Extract named entities using spaCy"""
-        if not NLP_AVAILABLE:
+        nlp_model = _get_nlp_model()
+        
+        if not nlp_model:
             return {}
 
-        doc = nlp(text)
+        doc = nlp_model(text)
         entities = defaultdict(list)
 
         for ent in doc.ents:
