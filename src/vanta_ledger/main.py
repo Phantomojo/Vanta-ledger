@@ -52,7 +52,7 @@ from jose import jwt
 from prometheus_client import Counter, Histogram
 
 # Import authentication
-from .auth import AuthService
+from .auth import AuthService, verify_token
 
 # Import settings and middleware
 from .config import settings
@@ -201,20 +201,6 @@ def get_redis_client():
     Create and return a Redis client instance configured with response decoding enabled.
     """
     return redis.Redis.from_url(settings.REDIS_URI, decode_responses=True)
-
-
-# Authentication - using the new AuthService
-def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    """
-    Verifies the provided HTTP Bearer token and returns the associated user or authentication context.
-
-    Parameters:
-        credentials (HTTPAuthorizationCredentials): The HTTP Bearer credentials extracted from the request.
-
-    Returns:
-        The result of token verification, typically user information or authentication context.
-    """
-    return AuthService.verify_token(credentials.credentials)
 
 
 # Health check
