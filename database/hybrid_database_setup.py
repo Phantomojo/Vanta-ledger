@@ -24,6 +24,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
+from database_utils import connect_databases as db_connect
 
 # Configure logging
 logging.basicConfig(
@@ -423,15 +424,8 @@ class EnhancedHybridDatabaseManager:
     def connect_databases(self):
         """Connect to both databases"""
         try:
-            # Connect to PostgreSQL
-            self.postgres_engine = create_engine(POSTGRES_URI)
-            logger.info("✅ Connected to PostgreSQL")
-            
-            # Connect to MongoDB
-            self.mongo_client = MongoClient(MONGO_URI)
-            self.mongo_db = self.mongo_client.vanta_ledger
-            logger.info("✅ Connected to MongoDB")
-            
+            # Use shared database connection utility
+            self.postgres_engine, self.mongo_client, self.mongo_db = db_connect()
         except Exception as e:
             logger.error(f"❌ Database connection failed: {e}")
             raise
