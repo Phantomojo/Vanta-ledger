@@ -13,6 +13,8 @@ from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field, root_validator, validator
 
+from vanta_ledger.utils.financial_utils import calculate_financial_totals
+
 
 class AccountType(str, Enum):
     """Chart of accounts types"""
@@ -218,18 +220,7 @@ class Invoice(BaseModel):
     @root_validator(skip_on_failure=True)
     def calculate_totals(cls, values):
         """Calculate total and balance due"""
-        subtotal = values.get("subtotal", Decimal("0"))
-        tax = values.get("tax_amount", Decimal("0"))
-        discount = values.get("discount_amount", Decimal("0"))
-        paid = values.get("paid_amount", Decimal("0"))
-
-        total = subtotal + tax - discount
-        balance = total - paid
-
-        values["total_amount"] = total
-        values["balance_due"] = balance
-
-        return values
+        return calculate_financial_totals(values)
 
 
 class InvoiceLine(BaseModel):
@@ -292,18 +283,7 @@ class Bill(BaseModel):
     @root_validator(skip_on_failure=True)
     def calculate_totals(cls, values):
         """Calculate total and balance due"""
-        subtotal = values.get("subtotal", Decimal("0"))
-        tax = values.get("tax_amount", Decimal("0"))
-        discount = values.get("discount_amount", Decimal("0"))
-        paid = values.get("paid_amount", Decimal("0"))
-
-        total = subtotal + tax - discount
-        balance = total - paid
-
-        values["total_amount"] = total
-        values["balance_due"] = balance
-
-        return values
+        return calculate_financial_totals(values)
 
 
 class Payment(BaseModel):
