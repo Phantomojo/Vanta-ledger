@@ -26,12 +26,15 @@ logger = logging.getLogger(__name__)
 
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
-    """Rate limiting middleware"""
+    """Rate limiting middleware with memory-efficient tracking"""
 
     def __init__(self, app):
         super().__init__(app)
         self.requests_per_minute: Dict[str, list] = defaultdict(list)
         self.requests_per_hour: Dict[str, list] = defaultdict(list)
+        self.last_cleanup = time.time()
+        self.cleanup_interval = 300  # Clean up every 5 minutes
+        self.max_ips = 10000  # Limit number of tracked IPs
 
     async def dispatch(self, request: Request, call_next):
         # Determine client IP (basic proxy-aware)
@@ -41,7 +44,12 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         # Check rate limits
         current_time = time.time()
 
-        # Clean old requests
+        # Periodic cleanup of old IPs and expired entries
+        if current_time - self.last_cleanup > self.cleanup_interval:
+            self._cleanup_old_entries(current_time)
+            self.last_cleanup = current_time
+
+        # Clean old requests for this IP
         self.requests_per_minute[client_ip] = [
             req_time
             for req_time in self.requests_per_minute[client_ip]
@@ -83,6 +91,48 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         )
 
         return response
+
+    def _cleanup_old_entries(self, current_time: float):
+        """Remove expired entries and limit memory usage"""
+        # Clean up minute tracking
+        ips_to_remove = []
+        for ip, times in list(self.requests_per_minute.items()):
+            # Remove expired times
+            self.requests_per_minute[ip] = [
+                t for t in times if current_time - t < 60
+            ]
+            # Remove IPs with no recent requests
+            if not self.requests_per_minute[ip]:
+                ips_to_remove.append(ip)
+        
+        for ip in ips_to_remove:
+            del self.requests_per_minute[ip]
+
+        # Clean up hour tracking
+        ips_to_remove = []
+        for ip, times in list(self.requests_per_hour.items()):
+            # Remove expired times
+            self.requests_per_hour[ip] = [
+                t for t in times if current_time - t < 3600
+            ]
+            # Remove IPs with no recent requests
+            if not self.requests_per_hour[ip]:
+                ips_to_remove.append(ip)
+        
+        for ip in ips_to_remove:
+            del self.requests_per_hour[ip]
+
+        # If still too many IPs, remove oldest ones
+        if len(self.requests_per_minute) > self.max_ips:
+            sorted_ips = sorted(
+                self.requests_per_minute.items(),
+                key=lambda x: max(x[1]) if x[1] else 0
+            )
+            for ip, _ in sorted_ips[:-self.max_ips]:
+                if ip in self.requests_per_minute:
+                    del self.requests_per_minute[ip]
+                if ip in self.requests_per_hour:
+                    del self.requests_per_hour[ip]
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):

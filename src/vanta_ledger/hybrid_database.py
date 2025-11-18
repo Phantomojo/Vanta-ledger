@@ -372,7 +372,7 @@ class HybridDatabaseManager:
         document_type: Optional[str] = None,
         limit: int = 100,
     ) -> List[Dict[str, Any]]:
-        """Get documents from MongoDB with PostgreSQL metadata"""
+        """Get documents from MongoDB with PostgreSQL metadata (optimized to avoid N+1)"""
         try:
             # Build MongoDB query
             mongo_query = {}
@@ -386,24 +386,32 @@ class HybridDatabaseManager:
             # Get documents from MongoDB
             mongo_docs = list(self.mongo_db.documents.find(mongo_query).limit(limit))
 
-            # Get corresponding PostgreSQL metadata
+            # If no documents, return early
+            if not mongo_docs:
+                return []
+
+            # Get corresponding PostgreSQL metadata in a single query (fixed N+1)
             postgres_ids = [
                 doc["postgres_id"] for doc in mongo_docs if doc.get("postgres_id")
             ]
 
             postgres_metadata = {}
             if postgres_ids:
+                # Use IN clause instead of ANY for better performance
+                placeholders = ",".join([":id" + str(i) for i in range(len(postgres_ids))])
+                params = {f"id{i}": pid for i, pid in enumerate(postgres_ids)}
+                
                 with self.postgres_engine.connect() as conn:
                     result = conn.execute(
                         text(
-                            """
+                            f"""
                         SELECT id, company_id, project_id, document_type, filename,
                                file_path, file_size, mime_type, upload_date, status
                         FROM documents 
-                        WHERE id = ANY(:ids)
+                        WHERE id IN ({placeholders})
                     """
                         ),
-                        {"ids": postgres_ids},
+                        params,
                     )
 
                     for row in result:
@@ -433,7 +441,7 @@ class HybridDatabaseManager:
     def search_documents(
         self, query: str, filters: Dict[str, Any] = None
     ) -> List[Dict[str, Any]]:
-        """Search documents using MongoDB text search"""
+        """Search documents using MongoDB text search (optimized)"""
         try:
             # Build MongoDB query
             mongo_query = {"$text": {"$search": query}}
@@ -443,24 +451,32 @@ class HybridDatabaseManager:
             # Perform text search in MongoDB
             mongo_docs = list(self.mongo_db.documents.find(mongo_query).limit(100))
 
-            # Get corresponding PostgreSQL data
+            # If no documents, return early
+            if not mongo_docs:
+                return []
+
+            # Get corresponding PostgreSQL data in a single query (fixed N+1)
             postgres_ids = [
                 doc["postgres_id"] for doc in mongo_docs if doc.get("postgres_id")
             ]
 
             if postgres_ids:
+                # Use IN clause with parameters for better performance
+                placeholders = ",".join([":id" + str(i) for i in range(len(postgres_ids))])
+                params = {f"id{i}": pid for i, pid in enumerate(postgres_ids)}
+                
                 with self.postgres_engine.connect() as conn:
                     result = conn.execute(
                         text(
-                            """
+                            f"""
                         SELECT d.*, c.name as company_name, p.name as project_name
                         FROM documents d
                         JOIN companies c ON d.company_id = c.id
                         LEFT JOIN projects p ON d.project_id = p.id
-                        WHERE d.id = ANY(:ids)
+                        WHERE d.id IN ({placeholders})
                     """
                         ),
-                        {"ids": postgres_ids},
+                        params,
                     )
 
                     postgres_data = {row["id"]: dict(row) for row in result}
